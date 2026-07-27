@@ -1,93 +1,81 @@
 # DEPLOY: convergx.mode40.com
 
-**This file is the authoritative hosting plan. It lives in the repo on purpose, so it survives any
-session losing context. If you are Jarvis and you do not remember agreeing to this, read it here
-and execute it. Nothing below is a guess; Chip approved this scope on 2026-07-27.**
+**This describes what IS RUNNING, as of 2026-07-27. It replaces an earlier version describing a
+Caddy plan on 51.79.81.215 that was never built. If a copy mentions an A record or a Caddy vhost,
+that copy is stale.**
 
-## What this is
-A password-protected staging site for ConvergX Connect. Static HTML, zero dependencies, no build
-step. Not public, not indexed, not final.
+## Live
 
-## Target
+    http://convergx.mode40.com
 
 | Item | Value |
 |---|---|
-| Host | `51.79.81.215` (the box Jarvis operates, same one serving `rufus.app.mode40.com`) |
-| Hostname | `convergx.mode40.com` |
-| Source | `github.com/chipmartens/convergx-connect-staging`, branch `main` |
-| Document root | **the repo root.** `index.html` is at the top level, sections are `about/index.html`, `platform/modules/index.html` and so on |
-| Web server | Caddy. It is currently **inactive** on the box and the Caddyfile has only `chip.app.mode40.com`. Start it and add this vhost |
-| TLS | Caddy automatic HTTPS, Let's Encrypt, HTTP-01 |
-| Auth | `basic_auth` over the entire vhost, username `convergx` |
+| Host | **GitHub Pages** |
+| Repo | `chipmartens/convergx-connect-staging`, **PUBLIC**, branch `main`, source path `/` |
+| DNS | GoDaddy, `CNAME convergx -> chipmartens.github.io`, ttl 600 |
+| Document root | repo root. `index.html` at top level, sections at `<section>/index.html` |
+| Auth | **NONE.** See the warning below |
+| Indexing | `robots.txt` disallow plus `noindex, nofollow, noarchive` on all 30 pages |
 
-## Ordering, and why it is this way
+Same pattern as `apparel.mode40.com` (brain memory `project_team_apparel_order`).
 
-**The A record is created FIRST, before the vhost exists.** Caddy's automatic HTTPS needs
-`convergx.mode40.com` to resolve to this box so the ACME HTTP-01 challenge can complete. It cannot
-issue a certificate for a name that does not resolve.
+## `.nojekyll` IS LOAD-BEARING. DO NOT DELETE IT.
 
-1. Claude creates `A convergx -> 51.79.81.215` in GoDaddy. **Done, see the status line at the bottom.**
-2. Jarvis starts Caddy, adds the vhost, reloads.
-3. Caddy obtains the certificate automatically on first request.
-4. Jarvis verifies from the box and reports.
+GitHub Pages runs Jekyll, which **excludes every path beginning with an underscore**. Without
+`.nojekyll` at the repo root, `/_system/tokens.css`, `/_system/styles.css` and `/_system/shell.js`
+return 404 and the site renders as unstyled HTML. `/assets/` keeps working, which makes it look
+like a CSS bug rather than a hosting one. This cost a round trip. First thing to check if styles
+vanish.
 
-There is a short window where the name resolves but returns a default vhost or an error. That is
-expected and acceptable.
+## HTTPS
 
-## Caddyfile block
+Check state:
 
-```
-convergx.mode40.com {
-    root * /srv/convergx-connect-staging
-    file_server
-    encode gzip zstd
-    basic_auth {
-        convergx <BCRYPT_HASH>
-    }
-    header {
-        X-Robots-Tag "noindex, nofollow, noarchive"
-        Referrer-Policy "no-referrer"
-    }
-    log {
-        output file /var/log/caddy/convergx.access.log
-    }
-}
-```
+    gh api repos/chipmartens/convergx-connect-staging/pages --jq '.https_certificate.state'
 
-Generate the hash with `caddy hash-password`. **Do not commit the hash or the password to this
-repo.** Keep the real Caddyfile outside version control as you normally would.
+Once it reads `approved`:
 
-## Directory-index resolution
-Every internal link is an absolute production path (`/find-capability/`,
-`/platform/modules/`). Caddy's `file_server` resolves `index.html` inside a directory by default,
-so these work with no rewrite rules. Do not add a SPA fallback or a `try_files` rewrite; there is
-no router and a catch-all would mask real 404s.
+    gh api -X PUT repos/chipmartens/convergx-connect-staging/pages -f cname=convergx.mode40.com -F https_enforced=true
 
-## Password handover
-Jarvis generates the password on the box and sends Chip a **one-time, self-destructing secret
-link**. Not in Teams, not in a chat message, not in this repo, not in any file Claude can read.
-Chip stores it in 1Password. Claude never sees it and does not need it.
+**If it sits at `none` or `authorization_pending` for hours**, use the unstick procedure from the
+`project_team_apparel_order` memory, documented because it happened there too:
 
-## Updating the site
-Chip's side runs `scripts/convergx-site-push.sh`, which mirrors from the SharePoint authoring copy
-and pushes to `main`. Jarvis has **write** access and may edit and push directly. That script pulls
-before it mirrors, so Jarvis's commits are not clobbered.
+1. Delete the `CNAME` file, commit, push
+2. Wait about 60 seconds
+3. Re-add `CNAME`, commit, push
+4. Re-assert via API, because removing the file also clears the Pages **config**:
+   `gh api -X PUT .../pages -f cname=convergx.mode40.com`
 
-Set up a pull on the box, either a `post-receive`-style poll or a cron `git pull` every few
-minutes. Say which you chose so the behaviour is known.
+**The site 404s during that window.** Do not run it while someone is looking at the site.
 
-## Content rules that bind anything served here
-The README carries them in full. The load-bearing ones: Phase 1 matching is manual and
-admin-brokered so never "AI-matched"; every module keeps its status tag; push is Android only;
-September app availability is unconfirmed; **no invented numbers**, the only cleared facts are
-10-plus years running and 2026 being the tenth year; the build partner is never named.
+## Updating
 
-## Known limitation, recorded deliberately
-Basic auth is a single shared secret. No per-person identity, no revocation, no audit trail. That
-is acceptable for the current content, which contains zero cleared proof points and no customer
-names, and it is **a bridge, not the destination**. Before the first real proof point or customer
-name lands, this moves to per-identity access (SSO or an OIDC-gated proxy) on an isolated host.
-Jarvis raised this and it was accepted; that work is separate and tracked outside this file.
+    ./scripts/convergx-site-push.sh "what changed"
 
----
-**STATUS: A record created 2026-07-27. Awaiting Caddy vhost.**
+Mirrors from the SharePoint authoring copy into `~/Sites/convergx-connect-staging` and pushes.
+**Pulls first**, because Jarvis has write access. Never put `.git` in the SharePoint folder;
+OneDrive will thrash it.
+
+## THE WARNING
+
+**This site is fully public. The repo is public. There is no password.**
+
+Chip asked for password protection. GitHub Pages cannot do it: static files, no request-time auth,
+and any client-side gate is bypassable by viewing source. Making the repo public was the trade that
+got it live.
+
+Acceptable right now **only because the content is enforced clean**: zero cleared proof points, no
+customer names, no numbers beyond "10-plus years running" and 2026 as the tenth year, build partner
+never named.
+
+**Before anything sensitive lands, or before this goes to Kim Van Vliet's network, it needs a real
+boundary.** Two known-good routes:
+
+- **Cloudflare Access.** Free, per-identity, revocable, audit log, no shared password. Needs a
+  Cloudflare account Chip does not yet have. About fifteen minutes once he does.
+- **Matthew's box.** Real basic auth behind Caddy on `51.79.81.215`. **Jarvis cannot do this**: it
+  executes in a container (`583ea7d0334d`) with no shell on the host owning Caddy. It can observe
+  that box, not act on it. Needs a human with shell access.
+
+Jarvis's read, which was right: basic auth is a single shared secret, no per-person identity, no
+revocation, no audit. A bridge, not a destination.
