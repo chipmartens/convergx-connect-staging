@@ -105,9 +105,79 @@
       '<use href="#cx-logo"></use></svg>';
   }
 
+  /* One list of industries, rendered identically on both breakpoints:
+   * link plus a descriptor sibling, the same shape as the .link-index
+   * already on /industries/. */
+  function industryLinks(current) {
+    return INDUSTRIES.map(function (i) {
+      var cur = current === i.href ? ' aria-current="page"' : "";
+      return "<li><a href=\"" + i.href + "\"" + cur + ">" + i.label + "</a>" +
+        "<span class=\"descriptor\">" + i.note + "</span></li>";
+    }).join("");
+  }
+
+  function sideLinks() {
+    return SIDES.map(function (s) {
+      return "<a href=\"" + s.href + "\">" +
+        "<span class=\"label\">" + s.label + "</span>" +
+        "<span class=\"link-more\">" + s.cta + "</span></a>";
+    }).join("");
+  }
+
+  /* Desktop panel. Starts hidden in the markup, so it is closed before
+   * a single line of behaviour runs. */
+  function megaPanel(current) {
+    return (
+      '<div class="mega" id="mega-industries" hidden>' +
+        '<div class="mega-inner">' +
+          '<div class="mega-col">' +
+            '<p class="label label--lo" id="mega-industries-h">Four industries</p>' +
+            '<ul class="link-index" aria-labelledby="mega-industries-h">' +
+              industryLinks(current) +
+            "</ul>" +
+            '<p class="mega-all"><a class="link-more" href="/industries/">All four industries</a></p>' +
+          "</div>" +
+          '<div class="mega-col mega-col--sides">' +
+            '<p class="label label--lo" id="mega-sides-h">Two paths</p>' +
+            '<div class="two-path two-path--stack" role="group" aria-labelledby="mega-sides-h">' +
+              sideLinks() +
+            "</div>" +
+          "</div>" +
+        "</div>" +
+      "</div>"
+    );
+  }
+
+  /* Mobile. A mega panel is wrong on a phone, so the same content
+   * becomes a native details disclosure nested inside the existing
+   * menu. No script, no motion, no overlay. */
+  function megaMobile(current) {
+    return (
+      '<li><details class="nav-sub"><summary>Industries</summary>' +
+        '<ul class="link-index" aria-label="Four industries">' + industryLinks(current) + "</ul>" +
+        '<div class="two-path two-path--stack" role="group" aria-label="Two paths">' +
+          sideLinks() +
+        "</div>" +
+        '<p class="nav-sub-all"><a class="link-more" href="/industries/">All four industries</a></p>' +
+      "</details></li>"
+    );
+  }
+
   function navList(current, mobile) {
     var items = NAV.map(function (item) {
       var cur = current === item.href ? ' aria-current="page"' : "";
+      if (item.mega) {
+        /* Any page under /industries/ marks the trigger, not just the
+         * overview: the trigger stands for the whole branch. */
+        var inBranch = current.indexOf(item.href) === 0 ? ' aria-current="page"' : "";
+        if (mobile) return megaMobile(current);
+        return '<li class="nav-mega">' +
+          '<button type="button" class="nav-mega-btn" id="mega-industries-btn"' +
+          ' aria-expanded="false" aria-controls="mega-industries"' + inBranch + ">" +
+          item.label + "</button>" +
+          megaPanel(current) +
+        "</li>";
+      }
       return "<li><a href=\"" + item.href + "\"" + cur + ">" + item.label + "</a></li>";
     });
     if (mobile) {
@@ -161,6 +231,47 @@
     );
   }
 
+  /* The only interactive behaviour in the shell, and it is a DISCLOSURE,
+   * not a menubar: one button, one region, no roving tabindex, no focus
+   * trap. Tab walks into the panel and straight out the far side, which
+   * is the escape route. A real trap inside a nav bar is a trap.
+   *
+   * Open on hover AND on focus. Close on Escape (from anywhere, so a
+   * pointer user who never focused anything can still dismiss it), on
+   * focus leaving the item, and on the pointer leaving unless focus is
+   * still inside.
+   *
+   * Motion budget spent: zero. The panel appears. */
+  function wireMega(root) {
+    var item = root.querySelector(".nav-mega");
+    if (!item) return;
+    var btn = item.querySelector(".nav-mega-btn");
+    var panel = item.querySelector(".mega");
+    if (!btn || !panel) return;
+
+    function set(open) {
+      panel.hidden = !open;
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    btn.addEventListener("click", function () { set(panel.hidden); });
+    item.addEventListener("mouseenter", function () { set(true); });
+    item.addEventListener("mouseleave", function () {
+      if (!item.contains(document.activeElement)) set(false);
+    });
+    item.addEventListener("focusin", function () { set(true); });
+    item.addEventListener("focusout", function (e) {
+      if (!item.contains(e.relatedTarget)) set(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape" && e.key !== "Esc") return;
+      if (panel.hidden) return;
+      var hadFocus = item.contains(document.activeElement);
+      set(false);
+      if (hadFocus) btn.focus();
+    });
+  }
+
   function currentPath() {
     var p = window.location.pathname;
     /* Normalise staging filenames back to site routes where possible. */
@@ -185,6 +296,7 @@
     if (header) {
       header.classList.add("shell-header");
       header.innerHTML = buildHeader(current);
+      wireMega(header);
     }
     var footer = document.querySelector('[data-shell="footer"]');
     if (footer) {
