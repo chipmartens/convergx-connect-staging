@@ -2,9 +2,9 @@
 <html lang="en-CA">
 <head>
 <meta charset="utf-8">
-  <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vetting and introductions | ConvergX Connect</title>
+<meta name="description" content="How an introduction gets decided and what the record of it holds. ConvergX reviews the company, decides the match by hand, and stays attached to the decision.">
 <link rel="stylesheet" href="/_system/tokens.css">
 <link rel="stylesheet" href="/_system/styles.css">
 </head>
@@ -13,12 +13,23 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <header data-shell="header">
+  <!-- shell.js injects the nav and the footer. Never hand-write either.
+       The block below is the no-JS fallback ONLY. It is generated from the
+       same six nav items, four verticals and CTA that shell.js carries, so
+       if you change one, change both. -->
   <noscript>
     <nav aria-label="Primary">
       <ul>
         <li><a href="/find-capability/">Find capability</a></li>
         <li><a href="/get-discovered/">Get discovered</a></li>
-        <li><a href="/industries/">Industries</a></li>
+        <li><a href="/industries/">Industries</a>
+          <ul>
+            <li><a href="/industries/aerospace-defence/">Aerospace and defence</a></li>
+            <li><a href="/industries/energy/">Energy</a></li>
+            <li><a href="/industries/mining-natural-resources/">Mining and natural resources</a></li>
+            <li><a href="/industries/agriculture/">Agriculture</a></li>
+          </ul>
+        </li>
         <li><a href="/platform/">Platform</a></li>
         <li><a href="/congress/">The Congress</a></li>
         <li><a href="/about/">About</a></li>
@@ -30,14 +41,15 @@
 
 <main id="main">
 
-  <!-- S1. BLUF. The mechanism half of Support 3: a human decides, the
-       software keeps it. The page's one --step-6. The two tenses are
-       named in the opener so nothing later has to be untangled. -->
+  <!-- S1. BLUF. The mechanism half of Support 3. The page's one --step-6.
+       The sequence below is the verified one: a post is live on submission,
+       it carries no author to any attendee, and the gate sits on the
+       introduction rather than on the post. -->
   <section class="section--open">
     <div class="wrap">
       <div class="editorial">
-        <h1 class="display--hero">A person decides. The software keeps the decision.</h1>
-        <p class="lede-text">Recorded today: the requirement, the consent of each side, and the introduction between them. The written reason behind the decision is in build.</p>
+        <h1 class="display--hero">The gate is on the introduction.</h1>
+        <p class="lede-text">A requirement reaches the board the moment it is submitted. Nothing becomes a meeting until a person at ConvergX makes it one.</p>
       </div>
     </div>
   </section>
@@ -45,39 +57,62 @@
   <hr class="rule-double">
 
   <!-- S2. Present tense. Permitted here because every item is Phase 1
-       behaviour. Nothing in this section may describe build work. -->
+       behaviour verified against the build. Nothing in this section may
+       describe build work. -->
   <section>
     <div class="wrap">
       <div class="sec-head">
-        <h2>On the record today</h2>
+        <h2>What the software actually does</h2>
         <span class="label label--lo label--edge">01 / Today</span>
       </div>
       <div class="editorial">
         <div class="lede">
-          <p>No software picks the counterparty. A person at ConvergX does, and the platform holds what came of it.</p>
+          <p>No attendee ever sees an author. Not on a post marked anonymous, and not on any of the others either.</p>
         </div>
         <div class="body">
           <div class="claim">
-            <p>The requirement is held against the party who posted it.</p>
+            <p>A submitted requirement goes up straight away. What other attendees are served has no author field in it at all.</p>
           </div>
           <div class="claim">
-            <p>Each side consents before any identity moves, and the consent is recorded.</p>
+            <p>ConvergX sees the name and the email behind every post, and can decline one, which takes it off the board.</p>
           </div>
           <div class="claim">
-            <p>The introduction is recorded, and it stays recorded after the two parties have met.</p>
+            <p>A match exists when a person at ConvergX picks the counterparty off a list. Nothing generates it.</p>
+          </div>
+          <div class="claim">
+            <p>Neither side learns who the other is until ConvergX releases it, and the consent of each sits on the record.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- S3. Build work. Pattern B from 1.12, once. No present-tense verb
+  <!-- S3. The record. This page owns what the record contains;
+       /platform/trust-and-security/ refers to it and does not describe it. -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>What the record holds</h2>
+        <span class="label label--lo label--edge">02 / The record</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <p>The requirement, the consent of each side, and the introduction between them.</p>
+        </div>
+        <div class="body">
+          <p>It stays after the two parties have met, so who put them together does not depend on anyone remembering.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4. Build work. Pattern B from 1.12, once. No present-tense verb
        describes this capability anywhere on the page. -->
   <section>
     <div class="wrap">
       <div class="sec-head">
         <h2>In build</h2>
-        <span class="label label--lo label--edge">02 / Not September</span>
+        <span class="label label--lo label--edge">03 / Not September</span>
       </div>
       <div class="editorial">
         <div class="lede">
@@ -100,8 +135,10 @@
         <h2>The two tenses, side by side</h2>
         <span class="label label--lo label--edge">Fig. 3</span>
       </div>
-      <figure class="fig fig--placeholder bleed" data-spec="Fig. 3. Hairline two-column diagram, SVG, 1600x700, no fill, no icons, no colour coding, one stroke tone, sentence-case mono labels. Left column headed 'On the record today' holds three entries: the posted requirement against the party who posted it, the consent of each side, the introduction between them. Right column headed 'In build' holds one entry: the written reason a candidate was ruled in or out, kept rather than dropped. A single hairline divides the two columns and neither column crosses it. No arrows between columns, because the right column is not a continuation of the left.">
-        <figcaption>What the platform holds today, and what is in build, with nothing crossing between them.</figcaption>
+      <figure class="bleed" data-spec="Fig. 3. Hairline two-column diagram, SVG, 1600x700, no fill, no icons, no colour coding, one stroke tone, sentence-case mono labels. Left column headed 'On the record today' holds three entries: the requirement and the party who submitted it, the consent of each side, the introduction between them. Right column headed 'In build' holds one entry: the written reason a candidate was ruled in or out, kept rather than dropped. A single hairline divides the two columns and neither column crosses it. No arrows between columns, because the right column is not a continuation of the left. The diagram must not show any state in which a post is withheld from the board pending review, because no such state exists.">
+        <p><span class="ph">[[PLACEHOLDER: Fig. 3 diagram, what the platform holds today beside what is in build, with nothing crossing between them, commissioned, cleared by Kim Van Vliet]]</span></p>
+        <div class="dots dots--fine dots--fade-down" aria-hidden="true" style="min-height: var(--space-3xl)"></div>
+        <figcaption>Diagram slot, 1600x700. Blocked pending commission. Both columns are listed in full in the section above, and nothing goes in this space until the diagram is drawn.</figcaption>
       </figure>
     </div>
   </section>
@@ -114,7 +151,7 @@
       <div class="claim">
         <p>ConvergX puts its name on the introduction. The record is what the name is attached to.</p>
       </div>
-      <p>What the platform does not claim about that record has its own page.</p>
+      <p>What the platform does not claim about that record, and what a reviewer can ask to be shown, has its own page.</p>
       <p><a class="link-more" href="/platform/trust-and-security/">Trust and security</a></p>
     </div>
   </section>
@@ -126,11 +163,23 @@
     <nav aria-label="Footer">
       <ul>
         <li><a href="/find-capability/">Find capability</a></li>
+        <li><a href="/find-capability/how-it-works/">How it works</a></li>
+        <li><a href="/find-capability/what-vetting-means/">What vetting means</a></li>
+        <li><a href="/find-capability/confidentiality/">Confidentiality</a></li>
         <li><a href="/get-discovered/">Get discovered</a></li>
-        <li><a href="/industries/">Industries</a></li>
+        <li><a href="/get-discovered/how-it-works/">How it works</a></li>
+        <li><a href="/get-discovered/how-vetting-works/">How vetting works</a></li>
+        <li><a href="/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
         <li><a href="/platform/">Platform</a></li>
+        <li><a href="/platform/modules/">Modules</a></li>
+        <li><a href="/platform/vetting-and-introductions/">Vetting and introductions</a></li>
+        <li><a href="/platform/trust-and-security/">Trust and security</a></li>
         <li><a href="/congress/">The Congress</a></li>
+        <li><a href="/congress/agenda/">Agenda</a></li>
+        <li><a href="/congress/the-app/">The app</a></li>
         <li><a href="/about/">About</a></li>
+        <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/industries/">Industries</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>
       </ul>

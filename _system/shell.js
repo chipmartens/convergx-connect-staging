@@ -40,7 +40,7 @@
       note:  "Qualification takes quarters. The obligation has a date." },
     { label: "Energy",
       href:  "/industries/energy/",
-      note:  "Long-lead packages committed during engineering, to whoever supplied the last project." },
+      note:  "Long-lead packages committed during engineering, off a vendor list built from the last project." },
     { label: "Mining and natural resources",
       href:  "/industries/mining-natural-resources/",
       note:  "Finding the part is not the hard problem. Qualifying the second source is." },
@@ -116,10 +116,20 @@
     }).join("");
   }
 
+  /* The overview page is reachable from inside the panel, which is why
+   * the trigger can be a button instead of a link. */
+  function allIndustriesLink(current) {
+    var cur = current === "/industries/" ? ' aria-current="page"' : "";
+    return '<a class="link-more" href="/industries/"' + cur + ">All four industries</a>";
+  }
+
   function sideLinks() {
     return SIDES.map(function (s) {
+      /* The whitespace between the spans is deliberate: it is what keeps
+       * the accessible name from running the two halves together. The
+       * hand-written .two-path blocks on the pages have it too. */
       return "<a href=\"" + s.href + "\">" +
-        "<span class=\"label\">" + s.label + "</span>" +
+        "<span class=\"label\">" + s.label + "</span>\n" +
         "<span class=\"link-more\">" + s.cta + "</span></a>";
     }).join("");
   }
@@ -135,7 +145,7 @@
             '<ul class="link-index" aria-labelledby="mega-industries-h">' +
               industryLinks(current) +
             "</ul>" +
-            '<p class="mega-all"><a class="link-more" href="/industries/">All four industries</a></p>' +
+            '<p class="mega-all">' + allIndustriesLink(current) + "</p>" +
           "</div>" +
           '<div class="mega-col mega-col--sides">' +
             '<p class="label label--lo" id="mega-sides-h">Two paths</p>' +
@@ -153,12 +163,13 @@
    * menu. No script, no motion, no overlay. */
   function megaMobile(current) {
     return (
-      '<li><details class="nav-sub"><summary>Industries</summary>' +
+      '<li><details class="nav-sub"><summary>Industries' +
+        ' <span class="nav-mega-caret" aria-hidden="true">↓</span></summary>' +
         '<ul class="link-index" aria-label="Four industries">' + industryLinks(current) + "</ul>" +
         '<div class="two-path two-path--stack" role="group" aria-label="Two paths">' +
           sideLinks() +
         "</div>" +
-        '<p class="nav-sub-all"><a class="link-more" href="/industries/">All four industries</a></p>' +
+        '<p class="nav-sub-all">' + allIndustriesLink(current) + "</p>" +
       "</details></li>"
     );
   }
@@ -168,13 +179,26 @@
       var cur = current === item.href ? ' aria-current="page"' : "";
       if (item.mega) {
         /* Any page under /industries/ marks the trigger, not just the
-         * overview: the trigger stands for the whole branch. */
-        var inBranch = current.indexOf(item.href) === 0 ? ' aria-current="page"' : "";
+         * overview: the trigger stands for the whole branch. It is
+         * aria-current="true", not "page", because the real page link
+         * inside the panel is the one that owns "page". */
+        var inBranch = current.indexOf(item.href) === 0 ? ' aria-current="true"' : "";
         if (mobile) return megaMobile(current);
         return '<li class="nav-mega">' +
           '<button type="button" class="nav-mega-btn" id="mega-industries-btn"' +
           ' aria-expanded="false" aria-controls="mega-industries"' + inBranch + ">" +
-          item.label + "</button>" +
+          /* The label is wrapped so the current-branch rule can hug the
+           * WORD. On the plain nav links the device is drawn on an inline
+           * <a>, so it ends where the text ends. On this button it was
+           * drawn on the inline-block, so it ran the full control width
+           * and swallowed the caret, which read as a focus ring on a
+           * fresh page load rather than as the current-page marker. */
+          '<span class="nav-mega-label">' + item.label + "</span>" +
+          /* The affordance is a text character, not an icon, and it does
+           * not rotate: ::after is already spoken for by the current-page
+           * inline device, and rotation would spend the motion budget. */
+          ' <span class="nav-mega-caret" aria-hidden="true">↓</span>' +
+          "</button>" +
           megaPanel(current) +
         "</li>";
       }
@@ -236,10 +260,16 @@
    * trap. Tab walks into the panel and straight out the far side, which
    * is the escape route. A real trap inside a nav bar is a trap.
    *
-   * Open on hover AND on focus. Close on Escape (from anywhere, so a
-   * pointer user who never focused anything can still dismiss it), on
-   * focus leaving the item, and on the pointer leaving unless focus is
-   * still inside.
+   * Open on hover, and on the BUTTON, never on focus arriving. Opening
+   * on focusin broke the keyboard entirely: tabbing to the trigger
+   * opened the panel by itself, so the Enter that followed saw an open
+   * panel and closed it. A screen reader also heard aria-expanded go
+   * false-then-true with the user never having acted. The button owns
+   * the state now, which is what a disclosure is supposed to do.
+   *
+   * Close on Escape (from anywhere, so a pointer user who never focused
+   * anything can still dismiss it), on focus leaving the item, and on
+   * the pointer leaving unless focus is still inside.
    *
    * Motion budget spent: zero. The panel appears. */
   function wireMega(root) {
@@ -259,16 +289,18 @@
     item.addEventListener("mouseleave", function () {
       if (!item.contains(document.activeElement)) set(false);
     });
-    item.addEventListener("focusin", function () { set(true); });
     item.addEventListener("focusout", function (e) {
       if (!item.contains(e.relatedTarget)) set(false);
     });
     document.addEventListener("keydown", function (e) {
       if (e.key !== "Escape" && e.key !== "Esc") return;
       if (panel.hidden) return;
-      var hadFocus = item.contains(document.activeElement);
+      /* Focus goes back to the trigger, not nowhere, so Escape from
+       * inside the panel does not dump the user at the top of the
+       * document. Order no longer matters now that focusin does not
+       * open the panel, but returning focus first still reads better. */
+      if (item.contains(document.activeElement)) btn.focus();
       set(false);
-      if (hadFocus) btn.focus();
     });
   }
 

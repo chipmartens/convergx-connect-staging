@@ -2,9 +2,8 @@
 <html lang="en-CA">
 <head>
 <meta charset="utf-8">
-  <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>All modules · ConvergX Connect</title>
+<title>All modules | ConvergX Connect</title>
 <meta name="description" content="Fifteen modules, each with a build state on it. Three run the Congress. Matching at the Congress is done by ConvergX, by hand, on purpose.">
 <link rel="stylesheet" href="/_system/tokens.css">
 <link rel="stylesheet" href="/_system/styles.css">
@@ -14,12 +13,23 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <header data-shell="header">
+  <!-- shell.js injects the nav and the footer. Never hand-write either.
+       The block below is the no-JS fallback ONLY. It is generated from the
+       same six nav items, four verticals and CTA that shell.js carries, so
+       if you change one, change both. -->
   <noscript>
     <nav aria-label="Primary">
       <ul>
         <li><a href="/find-capability/">Find capability</a></li>
         <li><a href="/get-discovered/">Get discovered</a></li>
-        <li><a href="/industries/">Industries</a></li>
+        <li><a href="/industries/">Industries</a>
+          <ul>
+            <li><a href="/industries/aerospace-defence/">Aerospace and defence</a></li>
+            <li><a href="/industries/energy/">Energy</a></li>
+            <li><a href="/industries/mining-natural-resources/">Mining and natural resources</a></li>
+            <li><a href="/industries/agriculture/">Agriculture</a></li>
+          </ul>
+        </li>
         <li><a href="/platform/">Platform</a></li>
         <li><a href="/congress/">The Congress</a></li>
         <li><a href="/about/">About</a></li>
@@ -52,27 +62,26 @@
   <section>
     <div class="wrap">
       <div class="sec-head">
-        <h2>Four tags, and no other way to describe a module</h2>
-        <span class="label label--lo label--edge">01 / Tag key</span>
+        <h2>The tag key</h2>
+        <span class="label label--lo label--edge">01 / Key</span>
       </div>
       <div class="editorial">
         <div class="lede">
-          <p>A module without a tag is a present-tense claim. Every module below has one.</p>
+          <p>Read the tag first. It is the only thing on a row that tells you whether the module exists.</p>
         </div>
         <div class="body">
           <table>
-            <caption class="label">Status tags, the only four permitted</caption>
+            <caption class="label">Status tags, the only four in use</caption>
             <thead>
               <tr><th scope="col">Tag</th><th scope="col">What it states</th></tr>
             </thead>
             <tbody>
-              <tr><td>Live at the Congress</td><td>In the Congress build, and part of what runs the event.</td></tr>
-              <tr><td>In development</td><td>Real code exists, confirmed by source audit, outside the Congress scope.</td></tr>
-              <tr><td>In development, unverified</td><td>Code exists. The source audit did not confirm it this pass.</td></tr>
-              <tr><td>Planned</td><td>Named intent. No build behind it.</td></tr>
+              <tr><td>Live at the Congress</td><td>Running the event in September.</td></tr>
+              <tr><td>In development</td><td>Code exists and was confirmed against source. No part of September.</td></tr>
+              <tr><td>In development, unverified</td><td>Code exists. This pass did not confirm it against source.</td></tr>
+              <tr><td>Planned</td><td>A name and an intent. Nothing is built.</td></tr>
             </tbody>
           </table>
-          <p class="meta">All four tags are used in the index below.</p>
         </div>
       </div>
     </div>
@@ -95,12 +104,12 @@
         </article>
         <article class="module">
           <h3>Event Management</h3>
-          <p>Registration, sessions and logistics for the event itself.</p>
+          <p>Registration, session scheduling and delegate logistics for the event itself.</p>
           <span class="tag" aria-label="Status: live at the Congress">Live at the Congress</span>
         </article>
         <article class="module">
           <h3>Opportunity Board</h3>
-          <p>Posted requirements, visible to vetted members after ConvergX approves each post.</p>
+          <p>Posted requirements, carrying no author to anyone who reads them. ConvergX can decline a post and take it off the board.</p>
           <span class="tag" aria-label="Status: live at the Congress">Live at the Congress</span>
         </article>
       </div>
@@ -117,26 +126,26 @@
         <h2>In development, and not part of the Congress</h2>
         <span class="label label--lo label--edge">03 / In build</span>
       </div>
-      <p style="margin-block-end: var(--space-l)">Everything below is in build. It is demonstrable today and it is not production-hardened.</p>
+      <p style="margin-block-end: var(--space-l)">Everything below is in build and not production-hardened.</p>
       <div class="modules">
         <article class="module">
           <h3>RFP Intake and Analysis</h3>
-          <p>Structured intake for requirements documents.</p>
+          <p>A requirements document taken in as structured fields rather than an attachment.</p>
           <span class="tag" aria-label="Status: in development">In development</span>
         </article>
         <article class="module">
           <h3>Supplier Scoring</h3>
-          <p>Capability records scored against a stated requirement.</p>
+          <p>Capability records scored against the requirement they are being considered for.</p>
           <span class="tag" aria-label="Status: in development">In development</span>
         </article>
         <article class="module">
           <h3>Trade Agreements Library</h3>
-          <p>Reference library of the agreements governing cross-border work.</p>
+          <p>Reference material on the agreements that govern cross-border work.</p>
           <span class="tag" aria-label="Status: in development">In development</span>
         </article>
         <article class="module">
           <h3>Procurement Workflow Engine</h3>
-          <p>Configurable steps from a posted requirement to an introduction.</p>
+          <p>Configurable steps between a posted requirement and an introduction.</p>
           <span class="tag" aria-label="Status: in development">In development</span>
         </article>
         <article class="module">
@@ -151,7 +160,7 @@
         </article>
         <article class="module">
           <h3>Matching Engine</h3>
-          <p>Candidate shortlists for the person who decides. No part of it runs the Congress.</p>
+          <p>Candidate shortlists put in front of the person who decides. No part of it runs the Congress.</p>
           <span class="tag" aria-label="Status: in development">In development</span>
         </article>
         <!-- NEEDS: source-audit confirmation for Tender Scraping and Document
@@ -159,12 +168,12 @@
              hold the unverified tag. -->
         <article class="module">
           <h3>Tender Scraping</h3>
-          <p>Collection of public tender notices for review.</p>
+          <p>Public tender notices collected for review.</p>
           <span class="tag" aria-label="Status: in development, unverified">In development, unverified</span>
         </article>
         <article class="module">
           <h3>Document Request Workflow</h3>
-          <p>Requesting and tracking documents between two parties.</p>
+          <p>Documents requested and tracked between two parties.</p>
           <span class="tag" aria-label="Status: in development, unverified">In development, unverified</span>
         </article>
       </div>
@@ -216,15 +225,23 @@
     <nav aria-label="Footer">
       <ul>
         <li><a href="/find-capability/">Find capability</a></li>
+        <li><a href="/find-capability/how-it-works/">How it works</a></li>
+        <li><a href="/find-capability/what-vetting-means/">What vetting means</a></li>
+        <li><a href="/find-capability/confidentiality/">Confidentiality</a></li>
         <li><a href="/get-discovered/">Get discovered</a></li>
-        <li><a href="/industries/">Industries</a></li>
+        <li><a href="/get-discovered/how-it-works/">How it works</a></li>
+        <li><a href="/get-discovered/how-vetting-works/">How vetting works</a></li>
+        <li><a href="/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
         <li><a href="/platform/">Platform</a></li>
-        <li><a href="/platform/modules/">All modules</a></li>
+        <li><a href="/platform/modules/">Modules</a></li>
         <li><a href="/platform/vetting-and-introductions/">Vetting and introductions</a></li>
         <li><a href="/platform/trust-and-security/">Trust and security</a></li>
-        <li><a href="/platform/whats-next/">What is next</a></li>
         <li><a href="/congress/">The Congress</a></li>
+        <li><a href="/congress/agenda/">Agenda</a></li>
+        <li><a href="/congress/the-app/">The app</a></li>
         <li><a href="/about/">About</a></li>
+        <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/industries/">Industries</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>
       </ul>

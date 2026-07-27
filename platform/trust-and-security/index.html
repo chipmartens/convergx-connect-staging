@@ -2,9 +2,8 @@
 <html lang="en-CA">
 <head>
 <meta charset="utf-8">
-  <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trust and security · ConvergX Connect</title>
+<title>Trust and security | ConvergX Connect</title>
 <meta name="description" content="ConvergX Connect holds no security certification. What this page describes is how the system behaves, and none of it is a warranty.">
 <link rel="stylesheet" href="/_system/tokens.css">
 <link rel="stylesheet" href="/_system/styles.css">
@@ -13,8 +12,32 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<!-- shell.js injects the nav and the footer. Never hand-write either. -->
-<header data-shell="header"></header>
+<header data-shell="header">
+  <!-- shell.js injects the nav and the footer. Never hand-write either.
+       The block below is the no-JS fallback ONLY. It is generated from the
+       same six nav items, four verticals and CTA that shell.js carries, so
+       if you change one, change both. -->
+  <noscript>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="/find-capability/">Find capability</a></li>
+        <li><a href="/get-discovered/">Get discovered</a></li>
+        <li><a href="/industries/">Industries</a>
+          <ul>
+            <li><a href="/industries/aerospace-defence/">Aerospace and defence</a></li>
+            <li><a href="/industries/energy/">Energy</a></li>
+            <li><a href="/industries/mining-natural-resources/">Mining and natural resources</a></li>
+            <li><a href="/industries/agriculture/">Agriculture</a></li>
+          </ul>
+        </li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/congress/">The Congress</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/access/request/">Request access</a></li>
+      </ul>
+    </nav>
+  </noscript>
+</header>
 
 <main id="main">
 
@@ -46,7 +69,7 @@
           <p>No third-party security audit is on record for this platform.</p>
         </div>
         <div class="body">
-          <p>Everything below describes how the system behaves today. None of it is a warranty. Where a behaviour is load-bearing for your review, ask ConvergX to demonstrate it before you rely on it.</p>
+          <p>Everything below describes how the system behaves today. None of it is a warranty. Where a behaviour is load-bearing for your review, ask ConvergX to demonstrate it in the running system before you rely on it.</p>
         </div>
       </div>
     </div>
@@ -65,10 +88,17 @@
           <p>Identity moves on consent. Nothing that identifies one party reaches the other until both have agreed to the introduction.</p>
         </div>
         <div class="claim">
-          <p>There is no self-signup. An account exists because ConvergX created it after reviewing an application.</p>
+          <p>The attendee view of the opportunity board carries no author field. Not a masked one, not a hidden one. ConvergX staff see the submitter and nobody else does.</p>
         </div>
         <div class="claim">
           <p>What a role can see is enforced by the application itself, not asserted by the identity provider that signed the user in.</p>
+          <!-- HONESTY: the "no self-signup" claim is UNVERIFIED and this page does
+               not own it. Per the ownership map, /get-discovered/who-is-in-the-room/
+               is its one owner if engineering confirms it. Held as a visible marker
+               here rather than stated as fact, because this is the page a security
+               reviewer reads most closely. Do not restore the sentence without the
+               confirmation. -->
+          <p><span class="ph">[[NEEDS: confirmation that every account is created by ConvergX and no self-signup path exists, from Tracy Gromniski]]</span></p>
         </div>
         <div class="claim">
           <p>Deleting a record removes it from view. The record itself stays.</p>
@@ -93,13 +123,13 @@
       </div>
       <div class="editorial">
         <div class="lede">
-          <p>What a reviewer can ask for is the record of an introduction: who asked, who agreed, and when.</p>
+          <p>You can ask for the record of an introduction and be shown it.</p>
         </div>
         <div class="body">
-          <p>It stays after the introduction is made, so it can be produced later and not only at the time.</p>
+          <p>What it holds is set out on <a href="/platform/vetting-and-introductions/">Vetting and introductions</a>. What matters to a reviewer is that it persists, so it can be produced months afterwards and not only on the day.</p>
         </div>
         <div class="claim">
-          <p>Audit history on every entity is in build. It is demonstrable today and it is not production-hardened.</p>
+          <p>Audit history on every entity is in build and not production-hardened.</p>
         </div>
       </div>
     </div>
@@ -124,7 +154,34 @@
 
 </main>
 
-<footer data-shell="footer"></footer>
+<footer data-shell="footer">
+  <noscript>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="/find-capability/">Find capability</a></li>
+        <li><a href="/find-capability/how-it-works/">How it works</a></li>
+        <li><a href="/find-capability/what-vetting-means/">What vetting means</a></li>
+        <li><a href="/find-capability/confidentiality/">Confidentiality</a></li>
+        <li><a href="/get-discovered/">Get discovered</a></li>
+        <li><a href="/get-discovered/how-it-works/">How it works</a></li>
+        <li><a href="/get-discovered/how-vetting-works/">How vetting works</a></li>
+        <li><a href="/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/platform/modules/">Modules</a></li>
+        <li><a href="/platform/vetting-and-introductions/">Vetting and introductions</a></li>
+        <li><a href="/platform/trust-and-security/">Trust and security</a></li>
+        <li><a href="/congress/">The Congress</a></li>
+        <li><a href="/congress/agenda/">Agenda</a></li>
+        <li><a href="/congress/the-app/">The app</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/industries/">Industries</a></li>
+        <li><a href="/access/request/">Request access</a></li>
+        <li><a href="/access/apply/">Apply to join</a></li>
+      </ul>
+    </nav>
+  </noscript>
+</footer>
 
 <script src="/_system/shell.js" defer></script>
 </body>

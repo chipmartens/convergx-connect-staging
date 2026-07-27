@@ -2,7 +2,6 @@
 <html lang="en-CA">
 <head>
 <meta charset="utf-8">
-  <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Who we convene | ConvergX Connect</title>
 <meta name="description" content="Every company here is here because ConvergX decided it should be. How the room is composed across industries, and who is deliberately left out of it.">
@@ -13,8 +12,32 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<!-- shell.js injects the nav and the footer. Never hand-write either. -->
-<header data-shell="header"></header>
+<header data-shell="header">
+  <!-- shell.js injects the nav and the footer. Never hand-write either.
+       The block below is the no-JS fallback ONLY. It is generated from the
+       same six nav items, four verticals and CTA that shell.js carries, so
+       if you change one, change both. -->
+  <noscript>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="/find-capability/">Find capability</a></li>
+        <li><a href="/get-discovered/">Get discovered</a></li>
+        <li><a href="/industries/">Industries</a>
+          <ul>
+            <li><a href="/industries/aerospace-defence/">Aerospace and defence</a></li>
+            <li><a href="/industries/energy/">Energy</a></li>
+            <li><a href="/industries/mining-natural-resources/">Mining and natural resources</a></li>
+            <li><a href="/industries/agriculture/">Agriculture</a></li>
+          </ul>
+        </li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/congress/">The Congress</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/access/request/">Request access</a></li>
+      </ul>
+    </nav>
+  </noscript>
+</header>
 
 <!-- Path unchanged. Every rendered label on this page, and every label
      pointing at it, reads "Who we convene".
@@ -34,7 +57,7 @@
         </div>
         <div class="body">
           <p>A room that fills itself holds whoever turned up, and it can only answer with what those companies already sell.</p>
-          <p>ConvergX composes across industries rather than inside one, which is the reason a requirement in one sector can be answered from another.</p>
+          <p>ConvergX composes across industries rather than inside one. Composing inside one would have been faster, and it would have produced a room where everyone already knows everyone.</p>
         </div>
       </div>
     </div>
@@ -57,6 +80,7 @@
         </div>
         <div class="body">
           <p>ConvergX decides in both directions. Whether a capability is worth putting in front of the people who carry requirements, and whether a requirement is worth putting in front of the companies that could answer it.</p>
+          <p>Composing is slower than admitting. The difference shows up when a requirement goes in, and the companies that could answer it are already known to ConvergX.</p>
           <p>Neither decision runs automatically, and neither one is delegated. <a class="link-more" href="/about/how-we-vet/">How we vet</a></p>
         </div>
       </div>
@@ -81,7 +105,7 @@
             <p>Companies still proving a technology. ConvergX runs a separate arm for early-stage and research work, and that is where it goes. Different job, different room.</p>
           </div>
           <div class="claim">
-            <p>Anyone who has not been through the review. There is no side door and no observer status.</p>
+            <p>Anyone who has not been through the review. That is the only way in, and it runs in both directions.</p>
           </div>
         </div>
       </div>
@@ -94,7 +118,7 @@
       <div class="editorial">
         <div class="body">
           <div class="claim">
-            <p>The exclusions are what make an invitation mean anything. If everyone were here, being here would carry no information at all.</p>
+            <p>The exclusions are what make an invitation mean anything.</p>
           </div>
         </div>
       </div>
@@ -126,7 +150,34 @@
 
 </main>
 
-<footer data-shell="footer"></footer>
+<footer data-shell="footer">
+  <noscript>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="/find-capability/">Find capability</a></li>
+        <li><a href="/find-capability/how-it-works/">How it works</a></li>
+        <li><a href="/find-capability/what-vetting-means/">What vetting means</a></li>
+        <li><a href="/find-capability/confidentiality/">Confidentiality</a></li>
+        <li><a href="/get-discovered/">Get discovered</a></li>
+        <li><a href="/get-discovered/how-it-works/">How it works</a></li>
+        <li><a href="/get-discovered/how-vetting-works/">How vetting works</a></li>
+        <li><a href="/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/platform/modules/">Modules</a></li>
+        <li><a href="/platform/vetting-and-introductions/">Vetting and introductions</a></li>
+        <li><a href="/platform/trust-and-security/">Trust and security</a></li>
+        <li><a href="/congress/">The Congress</a></li>
+        <li><a href="/congress/agenda/">Agenda</a></li>
+        <li><a href="/congress/the-app/">The app</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/industries/">Industries</a></li>
+        <li><a href="/access/request/">Request access</a></li>
+        <li><a href="/access/apply/">Apply to join</a></li>
+      </ul>
+    </nav>
+  </noscript>
+</footer>
 
 <script src="/_system/shell.js" defer></script>
 </body>

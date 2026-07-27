@@ -14,8 +14,11 @@ needs a server with directory-index resolution, not `file://`.
    `_system/tokens.css`. That file is the swap point for when ConvergX's real brand lands, so one
    file changes and the whole site re-skins.
 3. **Nav and footer are injected by `_system/shell.js`** into `[data-shell]` containers. The
-   `<noscript>` nav inside them is the no-JS fallback and is intentional. Do not hand-edit nav
-   markup in a page.
+   `<noscript>` nav inside them is the no-JS fallback and is intentional: `shell.js` cannot emit
+   it, because `<noscript>` exists precisely for the run where `shell.js` never executes. So it
+   is duplicated in all 30 pages BY GENERATION, from one block, never by hand. If the nav changes,
+   change `shell.js` AND regenerate every `<noscript>` block in one sweep. Never hand-edit nav
+   markup in a single page: that is how the two definitions drifted the first time.
 4. **Honesty gates.** Phase 1 matching is manual and admin-brokered, never "AI-matched". Every
    module carries its status tag. Push is Android only. App availability in September is
    unconfirmed. **No invented numbers**: the only cleared facts are 10-plus years running and 2026

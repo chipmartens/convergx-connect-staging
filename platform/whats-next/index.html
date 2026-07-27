@@ -2,7 +2,6 @@
 <html lang="en-CA">
 <head>
 <meta charset="utf-8">
-  <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>What is next | ConvergX Connect</title>
 <meta name="description" content="Everything on this page is future tense. None of it is part of September, and none of it carries a date.">
@@ -13,8 +12,32 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<!-- shell.js injects the nav and the footer. Never hand-write either. -->
-<header data-shell="header"></header>
+<header data-shell="header">
+  <!-- shell.js injects the nav and the footer. Never hand-write either.
+       The block below is the no-JS fallback ONLY. It is generated from the
+       same six nav items, four verticals and CTA that shell.js carries, so
+       if you change one, change both. -->
+  <noscript>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="/find-capability/">Find capability</a></li>
+        <li><a href="/get-discovered/">Get discovered</a></li>
+        <li><a href="/industries/">Industries</a>
+          <ul>
+            <li><a href="/industries/aerospace-defence/">Aerospace and defence</a></li>
+            <li><a href="/industries/energy/">Energy</a></li>
+            <li><a href="/industries/mining-natural-resources/">Mining and natural resources</a></li>
+            <li><a href="/industries/agriculture/">Agriculture</a></li>
+          </ul>
+        </li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/congress/">The Congress</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/access/request/">Request access</a></li>
+      </ul>
+    </nav>
+  </noscript>
+</header>
 
 <main id="main">
 
@@ -29,7 +52,7 @@
         <p class="lede-text">What is next is one job: the same decision, reaching more requirements than three days in one building can hold.</p>
       </div>
       <div class="body">
-        <p>Every sentence on this page is future tense. None of it is part of September and none of it carries a date.</p>
+        <p>None of it is part of September, and none of it carries a date.</p>
         <p>What exists today, and the build state each piece is actually in, is listed on <a class="link-more" href="/platform/modules/">All modules</a></p>
       </div>
     </div>
@@ -50,8 +73,8 @@
           <p class="lede-text">The intent is that a requirement raised in a week with no Congress in it reaches the same decision. It is not built.</p>
         </div>
         <div class="body">
-          <p>The Congress runs three days. The requirements it surfaces outlast the room, and carrying them between one Congress and the next is currently a person's week.</p>
-          <p>So the work ahead is a volume problem, not a judgement problem. Hold the same standard when there are more requirements than one room can hold. Software that speeds up a decision nobody is answerable for is not the thing being built.</p>
+          <p>The Congress runs three days. The requirements raised in it outlast the room, and carrying them from one Congress to the next is currently somebody's week.</p>
+          <p>So the work ahead is throughput at the same standard: more requirements reaching the same decision, made by the same accountable party.</p>
         </div>
       </div>
     </div>
@@ -71,7 +94,7 @@
           <p class="lede-text">A person decides who meets, in every version of this.</p>
         </div>
         <div class="body">
-          <p>Nothing planned decides on its own, and nothing planned makes an introduction without ConvergX approving it first.</p>
+          <p>Nothing planned decides on its own, and nothing planned releases one party's identity to the other without a person at ConvergX doing it.</p>
           <p>If a shortlist is ever generated, it is a shortlist somebody then has to defend. ConvergX stays the party answerable for the introduction, and that is the constraint every planned capability is designed around.</p>
         </div>
       </div>
@@ -92,11 +115,11 @@
         </div>
       </div>
       <div class="lede">
-        <p class="lede-text">Scoring weights are not configurable, and the standard a candidate is scored against exists in a person's head rather than in a document.</p>
+        <p class="lede-text">Scoring weights are not configurable, and what makes a good match has never been written down. That standard sits in a person's head. It is a different thing from the vetting standard, which is written out in full on <a href="/about/how-we-vet/">How we vet</a>.</p>
       </div>
       <div class="body">
         <p>That is the design problem we are working on. There is no shipped mechanism for it today.</p>
-        <p>Saying so here is cheaper than you finding it in a pilot, and a roadmap that names nothing it cannot do yet is a roadmap somebody wrote for the wrong reader.</p>
+        <p>Saying so here is cheaper than you finding it in a pilot.</p>
       </div>
     </div>
   </section>
@@ -113,7 +136,34 @@
 
 </main>
 
-<footer data-shell="footer"></footer>
+<footer data-shell="footer">
+  <noscript>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="/find-capability/">Find capability</a></li>
+        <li><a href="/find-capability/how-it-works/">How it works</a></li>
+        <li><a href="/find-capability/what-vetting-means/">What vetting means</a></li>
+        <li><a href="/find-capability/confidentiality/">Confidentiality</a></li>
+        <li><a href="/get-discovered/">Get discovered</a></li>
+        <li><a href="/get-discovered/how-it-works/">How it works</a></li>
+        <li><a href="/get-discovered/how-vetting-works/">How vetting works</a></li>
+        <li><a href="/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/platform/modules/">Modules</a></li>
+        <li><a href="/platform/vetting-and-introductions/">Vetting and introductions</a></li>
+        <li><a href="/platform/trust-and-security/">Trust and security</a></li>
+        <li><a href="/congress/">The Congress</a></li>
+        <li><a href="/congress/agenda/">Agenda</a></li>
+        <li><a href="/congress/the-app/">The app</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/industries/">Industries</a></li>
+        <li><a href="/access/request/">Request access</a></li>
+        <li><a href="/access/apply/">Apply to join</a></li>
+      </ul>
+    </nav>
+  </noscript>
+</footer>
 
 <script src="/_system/shell.js" defer></script>
 </body>

@@ -311,7 +311,15 @@ section { padding-block: var(--space-3xl); }
   list-style: none;
   padding: 0;
 }
-.nav-links a {
+/* Direct children only. The Industries panel hangs inside this list, so
+ * a descendant selector here reaches into the panel and, for instance,
+ * puts the current-page inline device under a link that is not the nav
+ * item. The bar styles nav items; nav items are `.nav-links > li > *`.
+ *
+ * The mega trigger is a button, not a link, so every nav-bar rule that
+ * governs a nav item names it too. Same item, same look. */
+.nav-links > li > a,
+.nav-links > li > .nav-mega-btn {
   font-family: var(--font-body);
   font-weight: 500;
   font-size: var(--step--1);
@@ -320,25 +328,35 @@ section { padding-block: var(--space-3xl); }
   padding-block: var(--space-2xs);
   white-space: nowrap;   /* the bar is one line at desktop, so are its labels */
 }
-.nav-links a:hover { color: var(--fg-hi); }
+.nav-links > li > a:hover,
+.nav-links > li > .nav-mega-btn:hover { color: var(--fg-hi); }
+.nav-links > li > .nav-mega-btn[aria-current] { color: var(--fg-hi); }
 /* Current page: the inline device, not a colour change. */
-.nav-links a[aria-current="page"] {
+.nav-links > li > a[aria-current="page"],
+.nav-links > li > .nav-mega-btn[aria-current] .nav-mega-label {
   color: var(--fg-hi);
   border-bottom: var(--rule-hair) solid var(--fg-hi);
   padding-bottom: calc(var(--space-2xs) - var(--rule-gap));
   box-decoration-break: clone;
   position: relative;
 }
-.nav-links a[aria-current="page"]::after {
+.nav-links > li > a[aria-current="page"]::after,
+.nav-links > li > .nav-mega-btn[aria-current] .nav-mega-label::after {
   content: "";
   display: block;
   margin-top: calc(var(--rule-gap) - var(--rule-hair));
   border-bottom: var(--rule-hair) solid var(--fg-hi);
 }
 
-/* Mobile nav: native details/summary disclosure. No JS menu behaviour. */
+/* Mobile nav: native details/summary disclosure. No JS menu behaviour.
+ *
+ * Direct children throughout. The Industries disclosure nests a second
+ * details, a second list and a second set of links inside this one, and
+ * a descendant selector here reaches all of them: the menu bar's mono
+ * uppercase caps and its inverted open state would land on a nested
+ * summary that is a nav row, not a menu bar. */
 .nav-mobile { display: none; }
-.nav-mobile summary {
+.nav-mobile > summary {
   list-style: none;
   cursor: pointer;
   font-family: var(--font-mono);
@@ -349,27 +367,132 @@ section { padding-block: var(--space-3xl); }
   padding: var(--space-2xs) var(--space-s);
   border: var(--rule-hair) solid var(--rule-ink-load);
 }
-.nav-mobile summary::-webkit-details-marker { display: none; }
-.nav-mobile[open] summary { background: var(--fg); color: var(--bg); }
-.nav-mobile ul {
+.nav-mobile > summary::-webkit-details-marker { display: none; }
+.nav-mobile[open] > summary { background: var(--fg); color: var(--bg); }
+.nav-mobile > ul {
   list-style: none;
   padding: var(--space-s) 0 0;
 }
-.nav-mobile li { border-top: var(--rule-hair) solid var(--rule-ink); }
-.nav-mobile a {
+.nav-mobile > ul > li { border-top: var(--rule-hair) solid var(--rule-ink); }
+.nav-mobile > ul > li > a {
   display: block;
   padding: var(--space-s) var(--space-2xs);
   color: var(--fg);
   text-decoration: none;
   font-weight: 500;
 }
-.nav-mobile a[aria-current="page"] { color: var(--fg-hi); }
+.nav-mobile > ul > li > a[aria-current="page"] { color: var(--fg-hi); }
+
+/* ---- 7b. THE INDUSTRIES PANEL ----
+ * A disclosure, not a menubar. Hairlines and surface tokens only: no
+ * new colour, no shadow, no radius, no card. It is the nav bar's own
+ * ground extended downwards and stopped with a rule.
+ *
+ * MOTION: none. The panel appears. `hidden` is the whole mechanism, so
+ * it is also correct with CSS disabled and correct for reduced motion
+ * without a query. */
+
+.shell-header { position: relative; }   /* the panel's containing block */
+
+.nav-mega-btn {
+  background: none;
+  border: 0;
+  padding-inline: 0;
+  cursor: pointer;
+  /* inline-flex, so the current-branch rule can live on .nav-mega-label
+   * and hug the WORD instead of running the whole control width and
+   * swallowing the caret. The rule is drawn as a border plus a block
+   * ::after, and a block inside an inline span pushes the next sibling
+   * onto a new line, which dropped the caret. As flex items the two
+   * cannot do that to each other. Baseline alignment keeps the caret
+   * sitting on the word's baseline, not on the rule below it. */
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45ch;
+}
+/* De-emphasis token on a decorative marker, never on the label itself. */
+.nav-mega-caret {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--fg-lo);
+}
+
+.mega {
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  z-index: 9;                  /* over the page, under .skip at 10 */
+  background: var(--bg);
+  border-bottom: var(--rule-hair) solid var(--rule-ink-load);
+}
+.mega[hidden] { display: none; }   /* beats the grid below, which would revive it */
+
+.mega-inner {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding: var(--space-l) var(--gutter);
+  display: grid;
+  grid-template-columns: 2fr 1fr;   /* the verticals lead; the split is the aside */
+  gap: var(--space-l) var(--space-2xl);
+}
+.mega-col > .label { display: block; margin-block-end: var(--space-s); }
+.mega-col--sides {
+  border-inline-start: var(--rule-hair) solid var(--rule-ink);
+  padding-inline-start: var(--space-l);
+}
+/* One step down from the page-level .link-index: this is chrome sitting
+ * over content, not the page's own index, and at --step-1 the four rows
+ * ran most of a laptop screen. */
+.mega .link-index a { font-size: var(--step-0); }
+.mega .link-index li { padding-block: var(--space-xs); }
+.mega .link-index li:first-child { border-top: 0; }   /* the label is the boundary */
+.mega .link-index .descriptor { max-width: 52ch; }
+.mega-all { margin-block-start: var(--space-m); }
+
+/* Stacked two-path. The component, its labels and its hover ground are
+ * unchanged: only the axis the dividing hairline sits on moves.
+ * Doubled class: .two-path is declared further down the file and would
+ * otherwise win the tie on source order. */
+.two-path.two-path--stack { grid-template-columns: 1fr; }
+.two-path.two-path--stack > a {
+  border-inline-end: 0;
+  border-block-end: var(--rule-hair) solid var(--rule-ink-load);
+}
+.two-path.two-path--stack > a:last-child { border-block-end: 0; }
+
+/* ---- 7c. THE PHONE VERSION ----
+ * A mega panel is wrong on a phone, so below the breakpoint the same
+ * content is a native details disclosure nested in the existing menu.
+ * Zero script, zero motion, and the four industries plus both paths are
+ * one tap from the menu rather than two screens away. */
+
+.nav-sub summary {
+  display: block;                 /* also removes the marker in Firefox */
+  list-style: none;
+  cursor: pointer;
+  padding: var(--space-s) var(--space-2xs);
+  color: var(--fg);
+  font-weight: 500;
+}
+.nav-sub summary::-webkit-details-marker { display: none; }
+.nav-sub[open] summary { color: var(--fg-hi); }
+/* The indent is what says "inside". */
+.nav-sub > :not(summary) { padding-inline-start: var(--space-s); }
+.nav-sub .link-index li { padding-block: 0 var(--space-xs); }
+.nav-sub .link-index a {
+  display: block;                                   /* the row is the target */
+  font-size: var(--step-0);
+  padding-block: var(--space-s) var(--space-3xs);   /* holds the 44px target */
+}
+.nav-sub .two-path { border-top: 0; margin-block-start: var(--space-s); }
+.nav-sub .two-path > a { padding: var(--space-s) var(--space-2xs); }
+.nav-sub .nav-sub-all { padding-block: var(--space-s); }
 
 @media (max-width: 60rem) {
-  .nav-links { display: none; }
+  .nav-links { display: none; }     /* takes .nav-mega and its panel with it */
   .nav-mobile { display: block; margin-inline-start: auto; }
   .shell-header .nav-bar { flex-wrap: wrap; align-items: center; }
-  .nav-mobile ul { width: 100%; }
+  .nav-mobile > ul { width: 100%; }
 }
 @media (max-width: 40rem) {
   .logo--lockup { display: none; }       /* tagline falls under 10px: drop to the wordmark */
@@ -789,7 +912,7 @@ section:has(.hero) { padding-block: 0; }
 /* ================= 19. MOTION ================= */
 /* The entire budget: three properties, one duration, one easing. */
 
-.btn, a, .tag, input, select, textarea, summary {
+.btn, a, .tag, input, select, textarea, summary, .nav-mega-btn {
   transition: border-color var(--t) linear, background-color var(--t) linear, color var(--t) linear;
 }
 
