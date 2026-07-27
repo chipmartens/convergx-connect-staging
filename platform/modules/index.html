@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <title>All modules | ConvergX Connect</title>
-<meta name="description" content="Fifteen modules, each with a build state on it. Three run the Congress. Matching at the Congress is done by ConvergX, by hand, on purpose.">
+<meta name="description" content="Fifteen modules grouped by what they are for, each with a build state on it. Three run the Congress. Matching at the Congress is done by ConvergX, by hand, on purpose.">
 <link rel="stylesheet" href="/_system/tokens.css">
 <link rel="stylesheet" href="/_system/styles.css">
 </head>
@@ -50,7 +50,7 @@
     <div class="wrap">
       <div class="editorial">
         <h1>Fifteen modules, and three of them run the Congress.</h1>
-        <p class="lede-text">Every module here carries a build state. Matching at the Congress is done by ConvergX, by hand, on purpose.</p>
+        <p class="lede-text">They are grouped by what they are for. Every row carries the build state it is actually in, and a module without a tag is a present-tense claim. Matching at the Congress is done by ConvergX, by hand, on purpose.</p>
       </div>
     </div>
   </section>
@@ -88,62 +88,96 @@
     </div>
   </section>
 
-  <!-- S3. The three that ship. Separated structurally: their own block,
-       one accent edge, and the same tag treatment as every other module.
-       Push is qualified in the row copy, never in a footnote. -->
+  <!-- S3 to S7. Five functional groups, in argument order: a requirement is
+       stated, a person decides, an introduction happens and leaves a record,
+       the Congress is where it physically happens, reference sits underneath.
+       Grouping is by FUNCTION, so status is carried on the row and nowhere
+       else. There is no status-based block and no accent edge on any group:
+       any status-based visual treatment would put the old organising
+       principle back. Live modules sit in their functional homes and are
+       identified by their tag.
+
+       The framing lines on groups 1 and 2 are honesty gates, not captions,
+       and neither may be trimmed. Group 2: "Nothing in this group decides
+       anything" is what keeps a heading called "Deciding who should meet"
+       from reading as a claim that software decides, and "nothing in it is
+       live" is what keeps the decision layer from reading as operating.
+       Zero of its three modules exist. Group 1 has the same shape, milder:
+       one live module of four, named so the group does not read as four
+       working intake routes.
+
+       Group names and framing lines are locked strings, character-identical
+       to the architecture overview on /platform/. Count is fifteen, tags are
+       3 / 7 / 2 / 3. Check the arithmetic before committing. -->
   <section class="section--dense">
     <div class="wrap">
       <div class="sec-head">
-        <h2>In the Congress build</h2>
-        <span class="label label--lo label--edge">02 / Live</span>
+        <h2>Stating the requirement</h2>
+        <span class="label label--lo label--edge">02 / Requirement</span>
       </div>
-      <div class="modules modules--live">
-        <article class="module">
-          <h3>Congress App</h3>
-          <p>Agenda, sessions and the board on a delegate's phone. Push notifications reach Android only.</p>
-          <span class="tag" aria-label="Status: live at the Congress">Live at the Congress</span>
-        </article>
-        <article class="module">
-          <h3>Event Management</h3>
-          <p>Registration, session scheduling and delegate logistics for the event itself.</p>
-          <span class="tag" aria-label="Status: live at the Congress">Live at the Congress</span>
-        </article>
+      <p style="margin-block-end: var(--space-l)">Getting a requirement into the system with no name on it, and getting requirements in from outside. The board is the part that runs at the Congress.</p>
+      <div class="modules">
         <article class="module">
           <h3>Opportunity Board</h3>
           <p>Posted requirements, carrying no author to anyone who reads them. ConvergX can decline a post and take it off the board.</p>
           <span class="tag" aria-label="Status: live at the Congress">Live at the Congress</span>
         </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- S4. The nine in build. Pattern A framing above the index, then
-       description-only rows: noun phrases, no finite verbs, so no row
-       reads as a present-tense Phase 2 claim. Order follows the sitemap,
-       never impressiveness. -->
-  <section class="section--dense">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>In development, and not part of the Congress</h2>
-        <span class="label label--lo label--edge">03 / In build</span>
-      </div>
-      <p style="margin-block-end: var(--space-l)">Everything below is in build and not production-hardened.</p>
-      <div class="modules">
         <article class="module">
           <h3>RFP Intake and Analysis</h3>
           <p>A requirements document taken in as structured fields rather than an attachment.</p>
           <span class="tag" aria-label="Status: in development">In development</span>
         </article>
+        <!-- NEEDS: source-audit confirmation for Tender Scraping, from Tracy
+             Gromniski. Until it clears, the row holds the unverified tag. -->
+        <article class="module">
+          <h3>Tender Scraping</h3>
+          <p>Public tender notices collected for review.</p>
+          <span class="tag" aria-label="Status: in development, unverified">In development, unverified</span>
+        </article>
+        <article class="module">
+          <h3>RFP Authoring</h3>
+          <p>Drafting a requirements document inside the platform. Named intent. No build exists.</p>
+          <span class="tag" aria-label="Status: planned">Planned</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--dense">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Deciding who should meet</h2>
+        <span class="label label--lo label--edge">03 / Decision</span>
+      </div>
+      <p style="margin-block-end: var(--space-l)">Material a person at ConvergX reads before deciding. Nothing in this group decides anything, and nothing in it is live.</p>
+      <div class="modules">
         <article class="module">
           <h3>Supplier Scoring</h3>
           <p>Capability records scored against the requirement they are being considered for.</p>
           <span class="tag" aria-label="Status: in development">In development</span>
         </article>
         <article class="module">
-          <h3>Trade Agreements Library</h3>
-          <p>Reference material on the agreements that govern cross-border work.</p>
+          <h3>Matching Engine</h3>
+          <p>Candidate shortlists put in front of the person who decides. No part of it runs the Congress.</p>
           <span class="tag" aria-label="Status: in development">In development</span>
         </article>
+        <article class="module">
+          <h3>Configurable Scoring</h3>
+          <p>Weights a ConvergX administrator could set. Named intent. No build exists.</p>
+          <span class="tag" aria-label="Status: planned">Planned</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--dense">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>The introduction and its record</h2>
+        <span class="label label--lo label--edge">04 / Introduction</span>
+      </div>
+      <p style="margin-block-end: var(--space-l)">Moving an introduction through its steps, and keeping what came of it.</p>
+      <div class="modules">
         <article class="module">
           <h3>Procurement Workflow Engine</h3>
           <p>Configurable steps between a posted requirement and an introduction.</p>
@@ -154,57 +188,65 @@
           <p>Separate views for problem holders, solution providers and ConvergX staff.</p>
           <span class="tag" aria-label="Status: in development">In development</span>
         </article>
+        <!-- NEEDS: source-audit confirmation for Document Request Workflow,
+             from Tracy Gromniski. Until it clears, the row holds the
+             unverified tag. -->
+        <article class="module">
+          <h3>Document Request Workflow</h3>
+          <p>Documents requested and tracked between two parties.</p>
+          <span class="tag" aria-label="Status: in development, unverified">In development, unverified</span>
+        </article>
+        <!-- The attribution argument is made to ConvergX and its board, never
+             printed for delegates. The row exists because the count is
+             fifteen. Do not describe it. -->
+        <article class="module">
+          <h3>Attribution Mechanism</h3>
+          <p>Named intent. No build exists.</p>
+          <span class="tag" aria-label="Status: planned">Planned</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--dense">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>The Congress</h2>
+        <span class="label label--lo label--edge">05 / Congress</span>
+      </div>
+      <p style="margin-block-end: var(--space-l)">The three days themselves, and the phone in the room.</p>
+      <div class="modules">
+        <article class="module">
+          <h3>Congress App</h3>
+          <p>Agenda, sessions and the board on a delegate's phone. Push notifications reach Android only.</p>
+          <span class="tag" aria-label="Status: live at the Congress">Live at the Congress</span>
+        </article>
+        <article class="module">
+          <h3>Event Management</h3>
+          <p>Registration, session scheduling and delegate logistics for the event itself.</p>
+          <span class="tag" aria-label="Status: live at the Congress">Live at the Congress</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--dense">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Reference</h2>
+        <span class="label label--lo label--edge">06 / Reference</span>
+      </div>
+      <p style="margin-block-end: var(--space-l)">Material the platform can be asked about.</p>
+      <div class="modules">
         <article class="module">
           <h3>Knowledge-Base Chat</h3>
           <p>Questions answered from ConvergX reference material.</p>
           <span class="tag" aria-label="Status: in development">In development</span>
         </article>
         <article class="module">
-          <h3>Matching Engine</h3>
-          <p>Candidate shortlists put in front of the person who decides. No part of it runs the Congress.</p>
+          <h3>Trade Agreements Library</h3>
+          <p>Reference material on the agreements that govern cross-border work.</p>
           <span class="tag" aria-label="Status: in development">In development</span>
-        </article>
-        <!-- NEEDS: source-audit confirmation for Tender Scraping and Document
-             Request Workflow, from Tracy Gromniski. Until it clears, both rows
-             hold the unverified tag. -->
-        <article class="module">
-          <h3>Tender Scraping</h3>
-          <p>Public tender notices collected for review.</p>
-          <span class="tag" aria-label="Status: in development, unverified">In development, unverified</span>
-        </article>
-        <article class="module">
-          <h3>Document Request Workflow</h3>
-          <p>Documents requested and tracked between two parties.</p>
-          <span class="tag" aria-label="Status: in development, unverified">In development, unverified</span>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- S5. The three with no build behind them. Their own block so the
-       in-build framing above cannot reach them. Description is the tag
-       definition verbatim: named intent, nothing more. -->
-  <section class="section--dense">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Named, with no build behind them</h2>
-        <span class="label label--lo label--edge">04 / Planned</span>
-      </div>
-      <div class="modules">
-        <article class="module">
-          <h3>RFP Authoring</h3>
-          <p>Named intent. No build exists.</p>
-          <span class="tag" aria-label="Status: planned">Planned</span>
-        </article>
-        <article class="module">
-          <h3>Configurable Scoring</h3>
-          <p>Named intent. No build exists.</p>
-          <span class="tag" aria-label="Status: planned">Planned</span>
-        </article>
-        <article class="module">
-          <h3>Attribution Mechanism</h3>
-          <p>Named intent. No build exists.</p>
-          <span class="tag" aria-label="Status: planned">Planned</span>
         </article>
       </div>
     </div>
