@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apply to join | ConvergX Connect</title>
+<meta name="description" content="The solution-provider door. ConvergX reads every application and declines some. Seven questions about what you have built and where it already runs.">
+<link rel="stylesheet" href="/_system/tokens.css">
+<link rel="stylesheet" href="/_system/styles.css">
+</head>
+<body data-surface="muted">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header data-shell="header">
+  <noscript>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="/find-capability/">Find capability</a></li>
+        <li><a href="/get-discovered/">Get discovered</a></li>
+        <li><a href="/industries/">Industries</a></li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/congress/">The Congress</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/access/request/">Request access</a></li>
+      </ul>
+    </nav>
+  </noscript>
+</header>
+
+<main id="main">
+
+  <!-- OWNS: the application flow, and a tone deliberately warmer and more
+       direct about the filter than /access/request/. One CTA and it is the
+       submit control. No promise of a match, a meeting, a buyer or a
+       timeline. No fee and no fee-free statement, because no commercial
+       model exists. No proof, no numbers: TRL 8 to 9 is a qualification
+       scale, not a proof point. The promise ceiling belongs to
+       /get-discovered/how-it-works/ and the vetting explanation to
+       /get-discovered/how-vetting-works/; neither is restated here. -->
+  <section class="section--open">
+    <div class="wrap">
+      <div class="editorial">
+        <h1 class="display">Some applications are declined.</h1>
+        <p class="lede-text">ConvergX reads every one and decides. A room that admits everyone is not worth being admitted to.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule-double">
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>What ConvergX is reading for</h2>
+        <span class="label label--lo label--edge">Apply / 01</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <p>Capability that already carries a load somewhere. Built, deployed, in service, and answerable today if it fails.</p>
+        </div>
+        <div class="body">
+          <p>This is an application, not a registration. Write it in your own words and keep it short.</p>
+          <p>The industry you built it for is not the filter. Whether it runs, and where, is.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>The application</h2>
+        <span class="label label--lo label--edge">Apply / 02</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <p>Seven questions. Plain answers beat polished ones, and a short answer is not a weak one.</p>
+        </div>
+
+        <!-- Staged markup. The form submits nowhere and stores nothing. -->
+        <form class="body" method="post" action="#" aria-describedby="staged-note">
+          <p class="ph" id="staged-note">[[PLACEHOLDER: staged form, submits nowhere. Endpoint and handling to be wired before Sep 22]]</p>
+
+          <div class="field">
+            <label for="company">Company</label>
+            <p class="helper" id="company-help">The legal entity applying, not a product or brand name.</p>
+            <input type="text" id="company" name="company" aria-describedby="company-help" autocomplete="organization" required>
+          </div>
+
+          <!-- An application with no return address cannot be answered, so
+               this field is here although the brief lists six. Flagged in
+               the handoff rather than added silently. Same call as
+               /access/request/. -->
+          <div class="field">
+            <label for="email">Work email</label>
+            <p class="helper" id="email-help">An address at your company's own domain.</p>
+            <input type="email" id="email" name="email" aria-describedby="email-help" autocomplete="email" required>
+          </div>
+
+          <div class="field">
+            <label for="built">What you have built</label>
+            <p class="helper" id="built-help">What it does, in the words you would use with an engineer. Not what it enables.</p>
+            <textarea id="built" name="built" rows="3" aria-describedby="built-help" required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="deployed">Where it is already deployed</label>
+            <p class="helper" id="deployed-help">Sites, programmes or operations running it today. A description works where a name cannot be given.</p>
+            <textarea id="deployed" name="deployed" rows="3" aria-describedby="deployed-help" required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="trl">Is it commercialised at TRL 8 to 9</label>
+            <p class="helper" id="trl-help">Complete and running in its real environment, in service rather than in trial.</p>
+            <select id="trl" name="trl" aria-describedby="trl-help" required>
+              <option value="">Select one</option>
+              <option value="yes">Yes, it is in service with customers</option>
+              <option value="no">No, it is not there yet</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="sectors">The industries you already serve</label>
+            <p class="helper" id="sectors-help">Plain sector names. This is how ConvergX works out which industries have never seen it.</p>
+            <input type="text" id="sectors" name="sectors" aria-describedby="sectors-help">
+          </div>
+
+          <div class="field">
+            <label for="certs">Certifications or accreditations held</label>
+            <p class="helper" id="certs-help">List them in your own words. They are recorded as you state them, and nothing on this form is validated.</p>
+            <textarea id="certs" name="certs" rows="2" aria-describedby="certs-help"></textarea>
+          </div>
+
+          <!-- NEEDS: locked submit-button label for the apply path, from Chip.
+               Rendered as the recommended string, "Send application". -->
+          <button class="btn" type="submit">Send application</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- The success state, present in markup and hidden until it is wired.
+       It claims nothing was received, because nothing is. -->
+  <section class="section--dense" id="application-sent" hidden aria-live="polite">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Nothing was sent</h2>
+        <span class="label label--lo label--edge">Apply / state</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <p>This form is staged. It records nothing and delivers nothing, and this state exists so it can be reviewed before the site is frozen.</p>
+        </div>
+        <div class="body">
+          <p class="ph">[[NEEDS: the wording ConvergX puts on an acknowledged application, and where a submitted application lands, from Kim Van Vliet]]</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer data-shell="footer">
+  <noscript>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="/find-capability/">Find capability</a></li>
+        <li><a href="/get-discovered/">Get discovered</a></li>
+        <li><a href="/industries/">Industries</a></li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/congress/">The Congress</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/access/request/">Request access</a></li>
+        <li><a href="/access/apply/">Apply to join</a></li>
+      </ul>
+    </nav>
+  </noscript>
+</footer>
+
+<script src="/_system/shell.js" defer></script>
+</body>
+</html>

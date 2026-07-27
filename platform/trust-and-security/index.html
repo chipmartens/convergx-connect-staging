@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trust and security · ConvergX Connect</title>
+<meta name="description" content="ConvergX Connect holds no security certification. What this page describes is how the system behaves, and none of it is a warranty.">
+<link rel="stylesheet" href="/_system/tokens.css">
+<link rel="stylesheet" href="/_system/styles.css">
+</head>
+<body data-surface="light">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- shell.js injects the nav and the footer. Never hand-write either. -->
+<header data-shell="header"></header>
+
+<main id="main">
+
+  <!-- S1. The inversion: open with what is not claimed. The page's one
+       --step-6. No diagram anywhere on this page: a security
+       architecture diagram implies an audited architecture. -->
+  <section class="section--open">
+    <div class="wrap">
+      <div class="editorial">
+        <h1 class="display--hero">ConvergX Connect holds no security certification.</h1>
+        <p class="lede-text">No SOC 2 report, no ISO certificate, no FedRAMP authorisation, no CMMC or CPCSC level, no authority to operate.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule-double">
+
+  <!-- S2. Sets the register for everything below it. Nothing on this
+       page may be phrased as an assurance, because the backend has
+       never been audited. -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Read this page as description, not as assurance</h2>
+        <span class="label label--lo label--edge">01 / Not claimed</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <p>No third-party security audit is on record for this platform.</p>
+        </div>
+        <div class="body">
+          <p>Everything below describes how the system behaves today. None of it is a warranty. Where a behaviour is load-bearing for your review, ask ConvergX to demonstrate it before you rely on it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S3. Behaviours, one plain sentence per hairline row. Not a
+       bulleted list, and no bolded-phrase labels. -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>How the system behaves</h2>
+        <span class="label label--lo label--edge">02 / Behaviour</span>
+      </div>
+      <div class="editorial">
+        <div class="claim">
+          <p>Identity moves on consent. Nothing that identifies one party reaches the other until both have agreed to the introduction.</p>
+        </div>
+        <div class="claim">
+          <p>There is no self-signup. An account exists because ConvergX created it after reviewing an application.</p>
+        </div>
+        <div class="claim">
+          <p>What a role can see is enforced by the application itself, not asserted by the identity provider that signed the user in.</p>
+        </div>
+        <div class="claim">
+          <p>Deleting a record removes it from view. The record itself stays.</p>
+        </div>
+        <!-- VERIFY: is the unencrypted-email data-scoping standard ConvergX
+             policy for this platform, and who confirms it. Tracy Gromniski.
+             Nothing about email handling appears on the page until it clears. -->
+      </div>
+    </div>
+  </section>
+
+  <!-- S4. The page's owned idea: the record as an artefact a reviewer
+       can ask for. The decision mechanism belongs to
+       /platform/vetting-and-introductions/ and is not restated here.
+       The Phase 2 half takes pattern A and does not bleed into the
+       present-tense half. -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>The record is the artefact</h2>
+        <span class="label label--lo label--edge">03 / The record</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <p>What a reviewer can ask for is the record of an introduction: who asked, who agreed, and when.</p>
+        </div>
+        <div class="body">
+          <p>It stays after the introduction is made, so it can be produced later and not only at the time.</p>
+        </div>
+        <div class="claim">
+          <p>Audit history on every entity is in build. It is demonstrable today and it is not production-hardened.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S5. The single CTA. This reader is a gate, not a lead, so the
+       action is a conversation rather than a download. -->
+  <section class="section--dense">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Send your control set</h2>
+        <span class="label label--lo label--edge">04 / What happens next</span>
+      </div>
+      <div class="editorial">
+        <div class="body">
+          <p>Anything not described on this page has not been reviewed. Send the questionnaire or the control set you work from, and ConvergX will answer against it.</p>
+        </div>
+        <p><a class="btn btn--solid" href="/access/request/">Request access</a></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer data-shell="footer"></footer>
+
+<script src="/_system/shell.js" defer></script>
+</body>
+</html>

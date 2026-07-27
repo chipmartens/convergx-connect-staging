@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ConvergX Connect design reference</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="/_system/tokens.css">
+<link rel="stylesheet" href="/_system/styles.css">
+<script src="/_system/shell.js" defer></script>
+<style>
+/* Specimen scaffolding only. Everything reusable lives in styles.css.
+ * Tokens only: no raw values in this file. */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--space-l);
+}
+.dot-demo { height: 11rem; border-bottom: var(--rule-hair) solid var(--rule-ink-load); }
+.type-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-l);
+  border-top: var(--rule-hair) solid var(--rule-ink);
+  padding-block: var(--space-s);
+}
+.type-row .sample { color: var(--fg-hi); font-family: var(--font-display); letter-spacing: var(--track-display); line-height: 1.1; }
+.spec-note {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--fg);
+  max-width: 34ch;
+}
+.parity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-l);
+  border: var(--rule-hair) solid var(--rule-ink-load);
+  padding: var(--space-m) var(--space-l);
+}
+.parity .dots { width: 6rem; height: 3rem; border-inline-end: var(--rule-hair) solid var(--rule-ink-load); }
+.sw { height: 3.5rem; border: var(--rule-hair) solid var(--rule-ink-load); }
+.sw-ground  { background: var(--ground); }
+.sw-panel   { background: var(--panel); }
+.sw-ink     { background: var(--ink); }
+.sw-inkhi   { background: var(--ink-hi); }
+.sw-accent  { background: var(--accent); }
+.sw-w100    { background: var(--warm-100); }
+.sw-w600    { background: var(--warm-600); }
+.sw-paper   { background: var(--paper); }
+.logo-floor { border: var(--rule-hair) solid var(--rule-ink); padding: var(--space-l); }
+.logo-floor .logo { color: var(--logo-ink); }
+.stack > * + * { margin-block-start: var(--space-m); }
+</style>
+</head>
+<body data-surface="dark">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header data-shell="header">
+  <noscript>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="/find-capability/">Find capability</a></li>
+        <li><a href="/get-discovered/">Get discovered</a></li>
+        <li><a href="/industries/">Industries</a></li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/congress/">The Congress</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/access/request/">Request access</a></li>
+      </ul>
+    </nav>
+  </noscript>
+</header>
+
+<main id="main">
+
+  <!-- 01. The Home hero mechanism. 8/4 demand hero, exactly as Home
+       will carry it. The one --step-6 on the page, the one solid
+       orange fill on the page, and orange rule one of two. -->
+  <section class="section--open">
+    <div class="editorial hero">
+      <header class="hero-head">
+        <span class="label label--edge">Vetted capability matching</span>
+      </header>
+      <h1 class="display--hero hero-title">Somebody is accountable for who you meet.</h1>
+      <p class="hero-sub lede-text">Post the requirement. ConvergX vets the counterparty, makes the introduction, and puts its name on it.</p>
+      <p class="hero-cta"><a class="btn btn--solid" href="/access/request/">Request access</a></p>
+      <aside class="hero-aside" aria-label="Category definition">
+        <!-- TODO: hero photograph, 1600x1000, dark high-contrast
+             single-subject, warm orange rim light, non-militaristic.
+             Until it arrives the dot field carries this panel. -->
+        <div class="dots dots--mid dots--fade-right" aria-hidden="true"></div>
+        <p class="hero-category spec-note">The category: finding and qualifying a counterparty the buyer has never heard of.</p>
+      </aside>
+    </div>
+  </section>
+
+  <hr class="rule-double">
+
+  <!-- 02. The supply band. Full bleed, after the hero, never inside
+       it. The one deliberate surface change a launch page gets.
+       Outlined CTA: the fill was spent on the demand side. -->
+  <div data-surface="muted">
+    <section class="supply-band">
+      <div class="band-inner">
+        <div>
+          <p class="label">Have a capability</p>
+          <p class="display" style="font-size: var(--step-3); margin-block-start: var(--space-xs)">The answer can come from an industry nobody recruits from.</p>
+        </div>
+        <a class="btn" href="/access/apply/">Apply to join</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- What this page is -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>What this page is</h2>
+        <span class="label label--lo label--edge">Ref / Rev A / 2026-07-27</span>
+      </div>
+      <div class="editorial">
+        <p class="lede">The full ConvergX Connect design system on one page: every component, every state, all three surfaces. Approve or redirect against this page, not against fifteen built ones.</p>
+        <div class="body stack">
+          <p>Everything above this line is the Home mechanism rendered exactly: the 8/4 demand hero, the one solid fill, the muted supply band. Everything below is the system it is built from.</p>
+          <p>All colour and type is <span class="ph">[[PLACEHOLDER: ConvergX brand assets, Lindsay Robertson]]</span> and resolves through one token file. When the real brand lands, the swap happens there and this page re-skins itself.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03. The mark -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>The mark, and its floors</h2>
+        <span class="label label--lo label--edge">03 / Logo</span>
+      </div>
+      <div class="spec-grid">
+        <figure class="logo-floor">
+          <span class="logo" style="width: var(--logo-min-lockup); display: inline-block">
+            <svg class="logo-art" viewBox="0 0 286.7 86.45" role="img" aria-label="ConvergX, where industry lines disappear"><use href="#cx-logo"></use></svg>
+          </span>
+          <figcaption>Lockup at its 200px minimum. Below this the tagline stops being type.</figcaption>
+        </figure>
+        <figure class="logo-floor">
+          <span class="logo" style="width: var(--logo-min-mark); display: inline-block">
+            <svg class="logo-art" viewBox="14 13 268 43" role="img" aria-label="ConvergX"><use href="#cx-logo"></use></svg>
+          </span>
+          <figcaption>Wordmark at its 150px minimum. Below this the inline strokes close up.</figcaption>
+        </figure>
+        <div class="stack">
+          <p>One SVG, no fill attributes, recoloured by the surface it sits on. The hairline mark renders one tone brighter than body text: the eye resolves the gap between two thin strokes, not a solid shape.</p>
+          <p class="spec-note">Clear space: 12.5% of rendered width on every side. Mobile nav drops the tagline and carries the wordmark alone.</p>
+          <p>No icon-only mark exists in the supplied file. The favicon and app icon are <span class="ph">[[PLACEHOLDER: icon-only mark decision, Kim]]</span>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04. Type -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Three voices, three jobs</h2>
+        <span class="label label--lo label--edge">04 / Type</span>
+      </div>
+      <div class="editorial">
+        <div class="lede stack">
+          <p><strong>Display</strong> is the brand face at its heavier weights, tracked tight, sentence case. Semi-geometric, so it echoes the logo's circular letterforms without repeating its inline device. The logo owns caps; headlines never compete with it.</p>
+          <p><strong>Body</strong> is the same face at its regular weight, plain and legible. One family, two registers, chosen from a six-way bakeoff.</p>
+          <p><strong>Spec voice</strong> is the system monospace at small size with wide tracking: labels, status tags, figures, metadata. Zero download, and it is what makes annotations read as engineering rather than marketing.</p>
+        </div>
+        <div class="body">
+          <div class="type-row"><span class="sample" style="font-size: var(--step-5)">Display</span><span class="spec-note">step-5 / 39.8 to 75.8</span></div>
+          <div class="type-row"><span class="sample" style="font-size: var(--step-4)">Heading one</span><span class="spec-note">step-4 / 33.2 to 56.8</span></div>
+          <div class="type-row"><span class="sample" style="font-size: var(--step-3)">Heading two</span><span class="spec-note">step-3 / 27.6 to 42.6</span></div>
+          <div class="type-row"><span class="sample" style="font-size: var(--step-2)">Heading three</span><span class="spec-note">step-2 / 23 to 32</span></div>
+          <div class="type-row"><span style="font-size: var(--step-1)">Lede paragraph</span><span class="spec-note">step-1 / 19.2 to 24</span></div>
+          <div class="type-row"><span style="font-size: var(--step-0)">Body copy</span><span class="spec-note">step-0 / 16 to 18</span></div>
+          <div class="type-row"><span class="meta">Caption and metadata</span><span class="spec-note">step--1 / 13.3 to 13.5</span></div>
+          <div class="type-row"><span class="label">Micro-label</span><span class="spec-note">step--2 / 11 fixed</span></div>
+          <p class="spec-note" style="margin-block-start: var(--space-m)">The hero step above this scale appears once per page, and on this page it is the headline in section 01.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05. Lines and labels -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Lines carry the structure</h2>
+        <span class="label label--lo label--edge">05 / Rules</span>
+      </div>
+      <div class="editorial">
+        <div class="lede stack">
+          <p>The line system is taken from the logo's own construction: hairline strokes and the inline gap. Rules divide. Buttons, blocks, tags and inputs are outlined by default. Almost nothing on the site is solid, which is why a solid panel means something.</p>
+          <p class="spec-note">One more line exists: a rule that fades out at its end, for the tagline moment. It appears once on the whole site, on the About page, and nowhere else. It is deliberately not rendered here.</p>
+        </div>
+        <div class="body stack">
+          <div>
+            <hr class="rule">
+            <p class="spec-note" style="padding-block: var(--space-2xs)">Hairline, decorative. Divides content.</p>
+          </div>
+          <div>
+            <hr class="rule rule--load">
+            <p class="spec-note" style="padding-block: var(--space-2xs)">Hairline, load-bearing. Any UI boundary. Holds 3:1 on every surface.</p>
+          </div>
+          <div>
+            <hr class="rule-double">
+            <p class="spec-note" style="padding-block: var(--space-2xs)">The inline device. Major section breaks and the status-tag underline only.</p>
+          </div>
+          <div style="border: var(--rule-hair) solid var(--rule-ink-load); padding: var(--space-m); display: flex; justify-content: space-between; gap: var(--space-l); flex-wrap: wrap">
+            <span class="label">Reference page</span>
+            <span class="label label--lo label--edge">Rev A / 2026-07-27</span>
+          </div>
+          <p class="spec-note">Micro-labels sit at layout edges and carry real data. An edge-pushed label cancels its own final letter-space so it aligns with the rule it belongs to. No label ever floats centred above a heading.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06. Dots -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Dots carry the atmosphere</h2>
+        <span class="label label--lo label--edge">06 / Texture</span>
+      </div>
+      <div class="editorial">
+        <p class="lede">The dot matrix is the primary texture, always with a density decision, an edge to terminate against, and a fade. It never sits behind body copy and it never moves.</p>
+        <div class="bleed" style="padding-inline: var(--gutter)">
+          <div class="spec-grid">
+            <figure>
+              <div class="dot-demo dots dots--fine dots--fade-down" aria-hidden="true"></div>
+              <figcaption>Fine / 7px tile / fade down</figcaption>
+            </figure>
+            <figure>
+              <div class="dot-demo dots dots--mid dots--fade-right" aria-hidden="true"></div>
+              <figcaption>Mid / 13px tile / fade right</figcaption>
+            </figure>
+            <figure>
+              <div class="dot-demo dots dots--open dots--fade-corner" aria-hidden="true"></div>
+              <figcaption>Open / 29px tile / radial fade</figcaption>
+            </figure>
+            <figure>
+              <div class="dot-demo dots dots--stagger dots--fade-up" aria-hidden="true"></div>
+              <figcaption>Staggered / 17px lattice / fade up</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07. Actions and states -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Actions, and every state</h2>
+        <span class="label label--lo label--edge">07 / Controls</span>
+      </div>
+      <div class="editorial">
+        <div class="lede stack">
+          <p>Outlined is the default. State change happens through rule tone and fill inversion: nothing lifts, glows, or fades. Focus is yellow with a near-black bar, deliberately not the brand colour, so brand, status and focus never share a channel.</p>
+          <p class="spec-note">The solid variant appears on this page once, in the hero. One solid fill per page: a filled panel or a filled button, never both.</p>
+          <p>Three CTA labels exist on the whole site and no synonyms: Request access, Apply to join, and the two hub doors in the nav. Tab through this page to see focus on every surface.</p>
+        </div>
+        <div class="body stack">
+          <p style="display: flex; flex-wrap: wrap; gap: var(--space-m); max-width: none">
+            <a class="btn" href="/access/apply/">Apply to join</a>
+            <button class="btn" type="button" disabled>Request access</button>
+            <a class="link-more" href="/platform/">Read how the platform works</a>
+          </p>
+          <div class="claim">
+            <p><strong>ConvergX puts its name on every introduction.</strong></p>
+            <p class="claim-proof">Proof: <span class="ph">[[NEEDS: published vetting policy reference, Kim]]</span></p>
+          </div>
+          <div class="parity">
+            <span class="label label--edge">Dark surface</span>
+            <a class="btn" href="#main">Outlined</a>
+            <span class="tag">In development</span>
+            <span class="dots dots--fine" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08. Long-form on the dark ground -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Long-form holds on the dark ground</h2>
+        <span class="label label--lo label--edge">08 / Reading</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <div class="pull" style="padding-block: 0">
+            <p>The answer can come from an industry you do not recruit from.</p>
+            <p class="attribution">- Get discovered, the supply-side hook</p>
+          </div>
+        </div>
+        <div class="body stack">
+          <p>ConvergX has matched defence and aerospace primes with suppliers for years, by hand, from a working knowledge of who can deliver. ConvergX Connect carries that work onto a platform without removing the part that matters: a person decides, and the decision is on the record.</p>
+          <p>Vetting means a named review before any introduction. ConvergX checks who a company is, what it has delivered, and whether the capability claimed is the capability held. When the introduction happens, ConvergX puts its name on it. If the counterparty is wrong, you know who to call.</p>
+          <p>Vetting is not purchasable. A solution provider cannot pay to pass, and a problem holder is never shown a company that failed review. The record of who was introduced, and on what basis, stays with ConvergX and is available to both sides of the introduction.</p>
+          <p class="spec-note">Warm greige on near-black, 7.32:1, clears AAA for body text. The measure caps at 68 characters.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09. LIGHT SURFACE: module index, table, link index.
+       Reference-page exception: launch pages make at most one surface
+       change; this specimen must prove all three surfaces. -->
+  <div data-surface="light">
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>The module index, status-tagged</h2>
+        <span class="label label--lo label--edge">09 / Light surface</span>
+      </div>
+      <div class="editorial">
+        <div class="lede stack">
+          <p>All twelve modules are listed and every one carries a build state, set as a spec annotation: same tone, no fill, no colour coding, no dates. A module without a tag would be a present-tense claim.</p>
+          <p>The three that ship in September hold their own block with the page's one emphasis edge. The tags themselves never change.</p>
+        </div>
+        <div class="body"></div>
+
+        <div class="modules modules--live" style="grid-column: main">
+          <article class="module">
+            <h3>Congress App</h3>
+            <p>Agenda, check-in, and introductions for delegates at the Congress.</p>
+            <span class="tag" aria-label="Status: live at the Congress">Live at the Congress</span>
+          </article>
+          <article class="module">
+            <h3>Event Management</h3>
+            <p>Registration, sessions, and logistics for ConvergX events.</p>
+            <span class="tag" aria-label="Status: live at the Congress">Live at the Congress</span>
+          </article>
+          <article class="module">
+            <h3>Opportunity Board</h3>
+            <p>Posted requirements, visible to vetted members.</p>
+            <span class="tag" aria-label="Status: live at the Congress">Live at the Congress</span>
+          </article>
+        </div>
+
+        <hr class="rule-double" style="grid-column: main">
+
+        <div class="modules" style="grid-column: main">
+          <article class="module">
+            <h3>RFP Intake and Analysis</h3>
+            <p>Structured intake for requirements documents.</p>
+            <span class="tag" aria-label="Status: in development">In development</span>
+          </article>
+          <article class="module">
+            <h3>Supplier Scoring</h3>
+            <p>Structured capability records that support the vetting decision.</p>
+            <span class="tag" aria-label="Status: in development">In development</span>
+          </article>
+          <article class="module">
+            <h3>Trade Agreements Library</h3>
+            <p>Reference library of the agreements that govern cross-border work.</p>
+            <span class="tag" aria-label="Status: in development">In development</span>
+          </article>
+          <article class="module">
+            <h3>Procurement Workflow Engine</h3>
+            <p>Configurable steps from posted requirement to introduction.</p>
+            <span class="tag" aria-label="Status: in development">In development</span>
+          </article>
+          <article class="module">
+            <h3>Role-Gated Portals</h3>
+            <p>Separate views for problem holders, solution providers, and staff.</p>
+            <span class="tag" aria-label="Status: in development">In development</span>
+          </article>
+          <article class="module">
+            <h3>Knowledge-Base Chat</h3>
+            <p>Questions answered from ConvergX reference material.</p>
+            <span class="tag" aria-label="Status: in development">In development</span>
+          </article>
+          <article class="module">
+            <h3>Matching Engine</h3>
+            <p>Candidate shortlists that support the human introduction decision.</p>
+            <span class="tag" aria-label="Status: in development">In development</span>
+          </article>
+          <article class="module">
+            <h3>Tender Scraping</h3>
+            <p>Collection of public tender notices for review.</p>
+            <span class="tag" aria-label="Status: in development, unverified">In development, unverified</span>
+          </article>
+          <article class="module">
+            <h3>Document Request Workflow</h3>
+            <p>Requesting and tracking documents between parties.</p>
+            <span class="tag" aria-label="Status: in development, unverified">In development, unverified</span>
+          </article>
+          <article class="module">
+            <h3>RFP Authoring</h3>
+            <p>Named intent. No build exists.</p>
+            <span class="tag" aria-label="Status: planned">Planned</span>
+          </article>
+          <article class="module">
+            <h3>Configurable Scoring</h3>
+            <p>Named intent. No build exists.</p>
+            <span class="tag" aria-label="Status: planned">Planned</span>
+          </article>
+          <article class="module">
+            <h3>Attribution Mechanism</h3>
+            <p>Named intent. No build exists.</p>
+            <span class="tag" aria-label="Status: planned">Planned</span>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--dense">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Data holds a hairline</h2>
+        <span class="label label--lo label--edge">10 / Tables</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <p>Hairline row separation, mono tabular figures, no zebra fill. The values below are this system's own verified contrast ratios, which makes the table its own receipt.</p>
+        </div>
+        <div class="body">
+          <table>
+            <caption class="label">Contrast, WCAG 2.1, verified 2026-07-27</caption>
+            <thead>
+              <tr><th scope="col">Pair</th><th scope="col" class="num">Ratio</th><th scope="col">Verdict</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Body on dark ground</td><td class="num">7.32:1</td><td>Clears AAA</td></tr>
+              <tr><td>Body on dark panel</td><td class="num">6.91:1</td><td>Passes AA</td></tr>
+              <tr><td>Emphasis on dark ground</td><td class="num">17.23:1</td><td>Clears AAA</td></tr>
+              <tr><td>Accent on dark ground</td><td class="num">5.76:1</td><td>AA, large use only</td></tr>
+              <tr><td>Body ink on paper</td><td class="num">18.69:1</td><td>Clears AAA</td></tr>
+              <tr><td>Body ink on muted</td><td class="num">15.07:1</td><td>Clears AAA</td></tr>
+              <tr><td>Accent text on paper</td><td class="num">5.72:1</td><td>Passes AA</td></tr>
+              <tr><td>Accent text on muted</td><td class="num">4.61:1</td><td>Passes AA</td></tr>
+              <tr><td>Focus on dark ground</td><td class="num">14.70:1</td><td>Clears AAA</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--dense">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>The hub link index</h2>
+        <span class="label label--lo label--edge">11 / Wayfinding</span>
+      </div>
+      <div class="editorial">
+        <div class="lede stack">
+          <p>Hub pages navigate with a link index: the name, then one plain-English line, so nothing proprietary ever stands alone. No dropdown menus exist anywhere on the site.</p>
+          <div class="parity">
+            <span class="label label--edge">Light surface</span>
+            <a class="btn" href="#main">Outlined</a>
+            <span class="tag">In development</span>
+            <span class="dots dots--fine" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="body">
+          <ul class="link-index">
+            <li>
+              <a href="/find-capability/how-it-works/">How it works</a>
+              <span class="descriptor">Post it, we vet it, we introduce you.</span>
+            </li>
+            <li>
+              <a href="/find-capability/what-vetting-means/">What vetting means</a>
+              <span class="descriptor">What gets checked before ConvergX puts its name on an introduction.</span>
+            </li>
+            <li>
+              <a href="/find-capability/confidentiality/">Confidentiality</a>
+              <span class="descriptor">Ask without disclosing that you have the question.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- 12. MUTED SURFACE: forms and the two-path chooser -->
+  <div data-surface="muted">
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Forms sit on the muted ground</h2>
+        <span class="label label--lo label--edge">12 / Muted surface</span>
+      </div>
+      <div class="editorial">
+        <div class="lede stack">
+          <p>Label above the input, always. Helper text lives in the markup, errors are worded and sit below the field, and nothing uses a placeholder as a label.</p>
+          <div class="parity">
+            <span class="label label--edge">Muted surface</span>
+            <a class="btn" href="#main">Outlined</a>
+            <span class="tag">In development</span>
+            <span class="dots dots--fine" aria-hidden="true"></span>
+          </div>
+          <p class="spec-note">White dots on the greige ground: the muted surface's own texture, used deliberately.</p>
+        </div>
+        <form class="body" action="#" method="post">
+          <div class="field">
+            <label for="org">Organisation</label>
+            <p class="helper" id="org-help">The legal entity requesting access, not a division name.</p>
+            <input type="text" id="org" name="org" aria-describedby="org-help" autocomplete="organization">
+          </div>
+          <div class="field field--error">
+            <label for="email">Work email</label>
+            <input type="email" id="email" name="email" aria-describedby="email-err" aria-invalid="true" autocomplete="email">
+            <p class="error" id="email-err">Error: enter an email address at your organisation's own domain.</p>
+          </div>
+          <div class="field">
+            <label for="req">The requirement, in one paragraph</label>
+            <p class="helper" id="req-help">Enough to route it. Nothing here is visible outside ConvergX review.</p>
+            <textarea id="req" name="req" rows="4" aria-describedby="req-help"></textarea>
+          </div>
+          <button class="btn" type="submit">Request access</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--dense">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>The foot-of-page chooser</h2>
+        <span class="label label--lo label--edge">13 / Two paths</span>
+      </div>
+      <p style="margin-block-end: var(--space-l)">The only place both sides appear at equal weight, and it is never a hero. Every industry page ends with it.</p>
+      <div class="two-path">
+        <a href="/find-capability/">
+          <span class="label">I need a capability</span>
+          <span class="link-more">Find capability</span>
+        </a>
+        <a href="/get-discovered/">
+          <span class="label">I have a capability</span>
+          <span class="link-more">Get discovered</span>
+        </a>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- 14. Palette strip, back on dark -->
+  <section class="section--dense">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>The palette is four decisions</h2>
+        <span class="label label--lo label--edge">14 / Colour</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <p>Near-black ground, a warm greige ramp that never goes cool, one orange used at full strength and rationed, and an off-white paper. Token names below; the values live in one file and are placeholders until the real brand arrives.</p>
+        </div>
+        <div class="body spec-grid" style="grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); gap: var(--space-s)">
+          <figure><div class="sw sw-ground"></div><figcaption>ground</figcaption></figure>
+          <figure><div class="sw sw-panel"></div><figcaption>panel</figcaption></figure>
+          <figure><div class="sw sw-ink"></div><figcaption>ink</figcaption></figure>
+          <figure><div class="sw sw-inkhi"></div><figcaption>ink-hi</figcaption></figure>
+          <figure><div class="sw sw-w600"></div><figcaption>warm-600</figcaption></figure>
+          <figure><div class="sw sw-w100"></div><figcaption>warm-100</figcaption></figure>
+          <figure><div class="sw sw-paper"></div><figcaption>paper</figcaption></figure>
+          <figure><div class="sw sw-accent"></div><figcaption>accent</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer data-shell="footer">
+  <noscript>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="/find-capability/">Find capability</a></li>
+        <li><a href="/get-discovered/">Get discovered</a></li>
+        <li><a href="/industries/">Industries</a></li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/congress/">The Congress</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/access/request/">Request access</a></li>
+        <li><a href="/access/apply/">Apply to join</a></li>
+      </ul>
+    </nav>
+  </noscript>
+</footer>
+
+</body>
+</html>

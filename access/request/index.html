@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request access | ConvergX Connect</title>
+<meta name="description" content="The problem-holder door. ConvergX reads every request and decides. Six questions, no timeline promised, and nothing here asks for controlled technical data.">
+<link rel="stylesheet" href="/_system/tokens.css">
+<link rel="stylesheet" href="/_system/styles.css">
+</head>
+<body data-surface="muted">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header data-shell="header">
+  <noscript>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="/find-capability/">Find capability</a></li>
+        <li><a href="/get-discovered/">Get discovered</a></li>
+        <li><a href="/industries/">Industries</a></li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/congress/">The Congress</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/access/request/">Request access</a></li>
+      </ul>
+    </nav>
+  </noscript>
+</header>
+
+<main id="main">
+
+  <!-- OWNS: the qualification-led request flow. One CTA on this page and
+       it is the submit control. No proof, no numbers, no price, no
+       response-time promise, no two-path chooser: the reader has already
+       chosen a side to be standing on. The boundary statement belongs to
+       /platform/ and /access/ and is not restated here. -->
+  <section class="section--open">
+    <div class="wrap">
+      <div class="editorial">
+        <h1 class="display">ConvergX reads every request and decides.</h1>
+        <p class="lede-text">This is the door for a requirement your own supply base cannot fill. No timeline is promised here, because none can be given honestly.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule-double">
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Six questions</h2>
+        <span class="label label--lo label--edge">Request / 01</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <p>They are the questions that decide where a requirement goes and who at ConvergX picks it up. Nothing here is visible outside ConvergX review.</p>
+        </div>
+
+        <!-- Staged markup. The form submits nowhere and stores nothing. -->
+        <form class="body" method="post" action="#" aria-describedby="staged-note">
+          <p class="ph" id="staged-note">[[PLACEHOLDER: staged form, submits nowhere. Endpoint and handling to be wired before Sep 22]]</p>
+
+          <div class="field">
+            <label for="org">Organisation</label>
+            <p class="helper" id="org-help">The legal entity making the request, not a division or programme name.</p>
+            <input type="text" id="org" name="org" aria-describedby="org-help" autocomplete="organization" required>
+          </div>
+
+          <div class="field">
+            <label for="role">Your role</label>
+            <p class="helper" id="role-help">What you are accountable for on this requirement.</p>
+            <input type="text" id="role" name="role" aria-describedby="role-help" autocomplete="organization-title" required>
+          </div>
+
+          <!-- A request with no return address cannot be answered, so this
+               field is here although the brief lists five. Flagged in the
+               handoff rather than added silently. -->
+          <div class="field">
+            <label for="email">Work email</label>
+            <p class="helper" id="email-help">An address at your organisation's own domain.</p>
+            <input type="email" id="email" name="email" aria-describedby="email-help" autocomplete="email" required>
+          </div>
+
+          <div class="field">
+            <label for="requirement">The requirement, in one sentence</label>
+            <p class="helper" id="req-help">Do not include controlled, export-restricted or classified technical data. One sentence is enough.</p>
+            <textarea id="requirement" name="requirement" rows="3" aria-describedby="req-help" required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="sourcing">The industries you already source from</label>
+            <p class="helper" id="sourcing-help">Plain sector names. This is how ConvergX works out which industries have not been looked at.</p>
+            <input type="text" id="sourcing" name="sourcing" aria-describedby="sourcing-help">
+          </div>
+
+          <div class="field">
+            <label for="programme-date">Is it tied to a programme date</label>
+            <p class="helper" id="date-help">A date changes how a requirement is routed. It does not change whether it is read.</p>
+            <select id="programme-date" name="programme-date" aria-describedby="date-help">
+              <option value="">Select one</option>
+              <option value="date">Yes, a programme date depends on it</option>
+              <option value="no-date">No date attached yet</option>
+              <option value="unknown">Not established yet</option>
+            </select>
+          </div>
+
+          <!-- NEEDS: locked submit-button label for the request path, from Chip.
+               Rendered as the recommended string, "Send request". -->
+          <button class="btn" type="submit">Send request</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- The success state, present in markup and hidden until it is wired.
+       It claims nothing was received, because nothing is. -->
+  <section class="section--dense" id="request-sent" hidden aria-live="polite">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Nothing was sent</h2>
+        <span class="label label--lo label--edge">Request / state</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <p>This form is staged. It records nothing and delivers nothing, and this state exists so it can be reviewed before the site is frozen.</p>
+        </div>
+        <div class="body">
+          <p class="ph">[[NEEDS: the wording ConvergX puts on an acknowledged request, and where a submitted request lands, from Kim Van Vliet]]</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer data-shell="footer">
+  <noscript>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="/find-capability/">Find capability</a></li>
+        <li><a href="/get-discovered/">Get discovered</a></li>
+        <li><a href="/industries/">Industries</a></li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/congress/">The Congress</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/access/request/">Request access</a></li>
+        <li><a href="/access/apply/">Apply to join</a></li>
+      </ul>
+    </nav>
+  </noscript>
+</footer>
+
+<script src="/_system/shell.js" defer></script>
+</body>
+</html>

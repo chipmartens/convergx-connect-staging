@@ -1,0 +1,803 @@
+/* ConvergX Connect. SYSTEM STYLES.
+ *
+ * Every value resolves through tokens.css. No raw hex, no font name,
+ * no framework, no dependency in this file. Load order per page:
+ *   <link rel="stylesheet" href="../_system/tokens.css">
+ *   <link rel="stylesheet" href="../_system/styles.css">
+ *   <script src="../_system/shell.js" defer></script>
+ *
+ * The system in one line: dots carry the atmosphere, lines carry the
+ * structure. Outlined is the default state for everything; a fill is
+ * the exception, which is what makes a fill mean something.
+ */
+
+/* ================= 1. RESET ================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+
+  /* Height of the fixed shell chrome: the nav bar plus its rule. Declared
+   * once because two places need to agree: the bar sets it, the hero
+   * subtracts it to work out how much screen is actually left. */
+  --shell-h: 69px;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-weight: 400;
+  line-height: 1.55;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+img, svg, video { display: block; max-width: 100%; }
+
+input, button, select, textarea { font: inherit; color: inherit; }
+
+/* Default document surface if a page forgets to declare one: dark. */
+body:not([data-surface]) {
+  --bg:            var(--ground);
+  --fg:            var(--ink);
+  --fg-hi:         var(--ink-hi);
+  --fg-lo:         var(--ink-lo);
+  --block:         var(--panel);
+  --rule-ink:      var(--warm-700);
+  --rule-ink-load: var(--warm-600);
+  --link:          var(--accent);
+  --logo-ink:      var(--ink-hi);
+  --dot-ink:       var(--warm-700);
+}
+
+/* A surface band paints its own ground. Bodies and full-bleed bands
+ * both declare data-surface; everything inside inherits. */
+[data-surface] { background: var(--bg); color: var(--fg); }
+
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+/* ================= 2. TYPE ================= */
+
+h1, h2, h3, h4, .display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: var(--track-display);
+  line-height: 1.08;
+  color: var(--fg-hi);
+}
+
+/* Sentence case throughout. The logo is caps; caps headlines compete with it. */
+h1 { font-size: var(--step-4); }
+h2 { font-size: var(--step-3); }
+h3 { font-size: var(--step-2); }
+h4 { font-size: var(--step-1); }
+
+h1, h2 { text-wrap: balance; }
+
+.display   { font-size: var(--step-5); max-width: 22ch; }
+.display--hero {
+  font-size: var(--step-6);          /* exactly once per page */
+  font-weight: 700;
+  max-width: 20ch;                   /* three balanced lines for the core message.
+                                        General display type holds --measure-display */
+  line-height: 1.02;
+}
+
+p, li { max-width: var(--measure); }
+
+.lede-text {
+  font-size: var(--step-1);
+  line-height: 1.4;
+  max-width: 44ch;
+}
+
+small, .meta { font-size: var(--step--1); }
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: var(--rule-hair);
+}
+a:hover { color: var(--fg-hi); }
+
+strong { font-weight: 500; color: var(--fg-hi); }
+
+/* Tertiary action: a text link with a text-character arrow. Not an icon. */
+.link-more {
+  font-family: var(--font-body);
+  font-weight: 500;
+  text-decoration: none;
+}
+.link-more::after { content: " \2192"; }
+.link-more:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+
+/* Figures and technical data always in mono with lining tabular figures */
+.figure, td.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ================= 3. MICRO-LABELS ================= */
+/* The spec-sheet voice. Sentence case in the DOM, uppercase via CSS,
+ * always: screen readers spell DOM capitals letter by letter.
+ * Never an eyebrow: a .label is never the immediate previous sibling
+ * of an h1, h2 or h3. It sits at a layout edge and carries real data. */
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);        /* 11px fixed. Never fluid, never smaller */
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  line-height: 1;
+  color: var(--fg);
+}
+.label--hi { color: var(--fg-hi); }
+.label--lo { color: var(--fg-lo); }   /* de-emphasis only */
+
+/* Mandatory on any label pushed to a right or bottom edge:
+ * letter-spacing adds space after the final character, and the
+ * negative margin cancels it so the label lines up with the rule. */
+.label--edge { display: inline-block; margin-inline-end: calc(var(--track-label) * -1); }
+
+.label--13 {
+  font-size: var(--step--1);
+  letter-spacing: var(--track-label-13);
+}
+.label--13.label--edge { margin-inline-end: calc(var(--track-label-13) * -1); }
+
+/* ================= 4. THE LINE SYSTEM ================= */
+/* Structure. Derived from the logo's own hairline-and-inline
+ * construction. Decorative rules divide content and may be dim.
+ * Load-bearing rules are UI component boundaries (WCAG 1.4.11, 3:1)
+ * and use --rule-ink-load. When in doubt, load-bearing. */
+
+.rule       { border: 0; border-top: var(--rule-hair) solid var(--rule-ink); }
+.rule--load { border-top-color: var(--rule-ink-load); }
+
+/* The inline device, from the logo. Major section breaks and the
+ * status-tag underline only. Nothing else. */
+.rule-double {
+  border: 0;
+  height: var(--rule-gap);
+  border-top: var(--rule-hair) solid var(--rule-ink);
+  border-bottom: var(--rule-hair) solid var(--rule-ink);
+}
+
+/* "Where industry lines disappear." Appears EXACTLY ONCE on the whole
+ * site, on /about/, beside the tagline. A second instance is a defect. */
+.rule-vanish {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, var(--rule-ink) 0%, var(--rule-ink) 55%, transparent 100%);
+}
+
+/* ================= 5. THE DOT MATRIX ================= */
+/* Atmosphere. Primary texture, per Chip's correction 2026-07-27.
+ * Every field needs all three: an edge it terminates against, a named
+ * density (and a second field at another density somewhere on the
+ * page), and a relationship to the grid or a content boundary.
+ * Never scaled, never rotated, never animated, never fixed-attachment.
+ * Own element always, so text repaints do not invalidate it. */
+
+.dots {
+  background-image: radial-gradient(circle at center, var(--dot-ink) var(--dot-r), transparent 0);
+  background-size: var(--tile, var(--dot-mid)) var(--tile, var(--dot-mid));
+}
+.dots--fine { --tile: var(--dot-fine); }              /* reads as tone */
+.dots--mid  { --tile: var(--dot-mid); }               /* default */
+.dots--open { --tile: var(--dot-open); --dot-r: 2px; }/* sparse, large empty areas */
+
+/* Staggered lattice: reads angled without a transform (transforms on
+ * dot fields produce moire and are banned). */
+.dots--stagger {
+  background-image:
+    radial-gradient(circle at center, var(--dot-ink) 1px, transparent 0),
+    radial-gradient(circle at center, var(--dot-ink) 1px, transparent 0);
+  background-size: 17px 17px;
+  background-position: 0 0, 9px 9px;
+}
+
+/* The gradient fade is mandatory on large fields, not optional.
+ * Alpha stops written as rgb() so no stray hex keywords enter the file. */
+.dots--fade-down {
+  -webkit-mask-image: linear-gradient(to bottom, rgb(0 0 0 / 1) 0%, transparent 100%);
+          mask-image: linear-gradient(to bottom, rgb(0 0 0 / 1) 0%, transparent 100%);
+}
+.dots--fade-up {
+  -webkit-mask-image: linear-gradient(to top, rgb(0 0 0 / 1) 0%, transparent 100%);
+          mask-image: linear-gradient(to top, rgb(0 0 0 / 1) 0%, transparent 100%);
+}
+.dots--fade-right {
+  -webkit-mask-image: linear-gradient(to right, rgb(0 0 0 / 1) 0%, transparent 100%);
+          mask-image: linear-gradient(to right, rgb(0 0 0 / 1) 0%, transparent 100%);
+}
+.dots--fade-left {
+  -webkit-mask-image: linear-gradient(to left, rgb(0 0 0 / 1) 0%, transparent 100%);
+          mask-image: linear-gradient(to left, rgb(0 0 0 / 1) 0%, transparent 100%);
+}
+.dots--fade-corner {
+  -webkit-mask-image: radial-gradient(circle at 20% 0%, rgb(0 0 0 / 1), transparent 70%);
+          mask-image: radial-gradient(circle at 20% 0%, rgb(0 0 0 / 1), transparent 70%);
+}
+
+/* ================= 6. LAYOUT ================= */
+
+.wrap {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* The editorial grid. 12 columns inside full-bleed rails.
+ * minmax(0, 5rem) inner tracks: the 0 minimum stops a long unbroken
+ * string (a part number, a URL) blowing out a spec-sheet grid. */
+.editorial {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(var(--gutter), 1fr)
+    [main-start] repeat(12, [col-start] minmax(0, 5rem)) [main-end]
+    minmax(var(--gutter), 1fr) [full-end];
+  column-gap: var(--space-m);
+  row-gap: var(--space-2xl);
+}
+.editorial > * { grid-column: main; }
+.lede  { grid-column: col-start 1 / span 5; }   /* 5-col lede against the 12-col measure */
+.body  { grid-column: col-start 8 / main-end; }
+.bleed { grid-column: full; }
+
+/* All asymmetry collapses to a single column below 60rem. */
+@media (max-width: 60rem) {
+  .editorial {
+    grid-template-columns:
+      [full-start] var(--gutter) [main-start] 1fr [main-end] var(--gutter) [full-end];
+  }
+  .lede, .body { grid-column: main; }
+}
+
+section { padding-block: var(--space-3xl); }
+.section--open  { padding-block: var(--space-4xl); }  /* density-3 zones */
+.section--dense { padding-block: var(--space-xl); }   /* density-8 zones */
+
+/* ================= 7. SHELL: SKIP LINK, NAV, FOOTER ================= */
+
+/* Visually parked off-canvas until focused. position:absolute is
+ * justified here: overlay chrome, not content layout. */
+.skip {
+  position: absolute;
+  left: var(--space-s);
+  top: -100%;
+  z-index: 10;
+  padding: var(--space-2xs) var(--space-s);
+  background: var(--focus);
+  color: var(--focus-bar);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-decoration: none;
+}
+.skip:focus { top: var(--space-s); }
+
+.shell-header {
+  border-bottom: var(--rule-hair) solid var(--rule-ink);
+}
+.shell-header .nav-bar {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  min-height: calc(var(--shell-h) - 1px);   /* the 1px is the rule below */
+  display: flex;
+  align-items: center;
+  gap: var(--space-l);
+}
+
+.logo { color: var(--logo-ink); display: block; }
+.logo svg { fill: currentColor; width: 100%; height: auto; }
+.logo--lockup { width: clamp(200px, 22vw, 320px); }  /* floor 200px: below it the tagline stops being type */
+.logo--mark   { width: clamp(150px, 18vw, 240px); }  /* floor 150px: below it the inline strokes close up */
+/* Clear space: 12.5% of rendered width on every side (the cap height). */
+.logo-clear { padding: 12.5%; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+  margin-inline-start: auto;
+  list-style: none;
+  padding: 0;
+}
+.nav-links a {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--step--1);
+  color: var(--fg);
+  text-decoration: none;
+  padding-block: var(--space-2xs);
+  white-space: nowrap;   /* the bar is one line at desktop, so are its labels */
+}
+.nav-links a:hover { color: var(--fg-hi); }
+/* Current page: the inline device, not a colour change. */
+.nav-links a[aria-current="page"] {
+  color: var(--fg-hi);
+  border-bottom: var(--rule-hair) solid var(--fg-hi);
+  padding-bottom: calc(var(--space-2xs) - var(--rule-gap));
+  box-decoration-break: clone;
+  position: relative;
+}
+.nav-links a[aria-current="page"]::after {
+  content: "";
+  display: block;
+  margin-top: calc(var(--rule-gap) - var(--rule-hair));
+  border-bottom: var(--rule-hair) solid var(--fg-hi);
+}
+
+/* Mobile nav: native details/summary disclosure. No JS menu behaviour. */
+.nav-mobile { display: none; }
+.nav-mobile summary {
+  list-style: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  color: var(--fg);
+  padding: var(--space-2xs) var(--space-s);
+  border: var(--rule-hair) solid var(--rule-ink-load);
+}
+.nav-mobile summary::-webkit-details-marker { display: none; }
+.nav-mobile[open] summary { background: var(--fg); color: var(--bg); }
+.nav-mobile ul {
+  list-style: none;
+  padding: var(--space-s) 0 0;
+}
+.nav-mobile li { border-top: var(--rule-hair) solid var(--rule-ink); }
+.nav-mobile a {
+  display: block;
+  padding: var(--space-s) var(--space-2xs);
+  color: var(--fg);
+  text-decoration: none;
+  font-weight: 500;
+}
+.nav-mobile a[aria-current="page"] { color: var(--fg-hi); }
+
+@media (max-width: 60rem) {
+  .nav-links { display: none; }
+  .nav-mobile { display: block; margin-inline-start: auto; }
+  .shell-header .nav-bar { flex-wrap: wrap; align-items: center; }
+  .nav-mobile ul { width: 100%; }
+}
+@media (max-width: 40rem) {
+  .logo--lockup { display: none; }       /* tagline falls under 10px: drop to the wordmark */
+  .logo--mark   { display: block; }
+}
+@media (min-width: 40.01rem) {
+  .shell-header .logo--mark { display: none; }
+}
+
+.shell-footer { margin-top: var(--space-4xl); }
+.shell-footer .footer-inner {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding: var(--space-2xl) var(--gutter) var(--space-xl);
+}
+.footer-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--space-l);
+  margin-block-start: var(--space-xl);
+}
+.footer-cols ul { list-style: none; padding: 0; }
+.footer-cols li { padding-block: var(--space-3xs); }
+.footer-cols a {
+  color: var(--fg);
+  text-decoration: none;
+  font-size: var(--step--1);
+}
+.footer-cols a:hover { color: var(--fg-hi); text-decoration: underline; }
+.footer-meta {
+  margin-block-start: var(--space-xl);
+  padding-block-start: var(--space-s);
+  border-top: var(--rule-hair) solid var(--rule-ink);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s) var(--space-l);
+  justify-content: space-between;
+}
+
+/* ================= 8. BUTTONS ================= */
+/* Outlined is the default. At most ONE solid orange fill per page
+ * (one filled panel or one filled button, not both). */
+
+.btn {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-l);
+  border: var(--rule-hair) solid var(--rule-ink-load);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--fg-hi);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--step--1);
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover  { border-color: var(--fg-hi); }
+.btn:active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+.btn--solid {
+  background: var(--accent);
+  color: var(--accent-ink);     /* near-black on orange. Never light type on orange */
+  border-color: var(--accent);
+  font-weight: 700;
+}
+.btn--solid:hover  { background: var(--accent-text); border-color: var(--accent-text); }
+.btn--solid:active { background: var(--fg-hi); border-color: var(--fg-hi); color: var(--accent-ink); }
+
+.btn:disabled, .btn[aria-disabled="true"] {
+  color: var(--fg-lo);
+  border-color: var(--rule-ink);
+  background: transparent;
+  cursor: not-allowed;
+}
+
+/* ================= 9. BLOCKS ================= */
+/* Not "cards": no shadow, no radius, no colour strip. An outlined
+ * block by default; a panel block when it needs a ground of its own. */
+
+.block {
+  border: var(--rule-hair) solid var(--rule-ink-load);
+  padding: var(--space-l);
+}
+.block--panel {
+  border: 0;
+  background: var(--block);
+  padding: var(--space-l);
+}
+
+/* The one sanctioned solid-orange panel form. Counts as the page's
+ * single orange fill. Type on it is near-black, always. */
+.block--accent {
+  border: 0;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: var(--space-l);
+}
+.block--accent h2, .block--accent h3, .block--accent .label { color: var(--accent-ink); }
+
+/* ================= 10. STATUS TAGS ================= */
+/* Spec annotations, not warnings. All four tags are the SAME tone:
+ * no colour coding, no fill, no pill, no icon, no date, ever. */
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);          /* 11px, fixed */
+  font-weight: 400;
+  text-transform: uppercase;          /* sentence case in the DOM, always */
+  letter-spacing: var(--track-label);
+  line-height: 1;
+  color: var(--fg);
+  display: inline-block;
+  padding-block-end: var(--rule-gap); /* the gap before the rule */
+  border-block-end: var(--rule-hair) solid var(--rule-ink-load);
+  background: none;
+  border-radius: var(--radius);
+}
+.tag--edge { margin-inline-end: calc(var(--track-label) * -1); }
+
+/* ================= 11. MODULE INDEX ================= */
+/* Subgrid so title, description and tag align across every module
+ * regardless of description length. Density-8 zone: no card
+ * containers, hairlines separate data. */
+
+.modules {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 0 var(--space-l);
+}
+.module {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  row-gap: var(--space-xs);
+  container-type: inline-size;
+  padding-block: var(--space-m);
+  border-top: var(--rule-hair) solid var(--rule-ink);
+}
+.module h3 {
+  font-size: var(--step-1);
+  font-weight: 500;
+}
+.module p { font-size: var(--step--1); color: var(--fg); }
+.module .tag { align-self: end; justify-self: start; }
+
+/* The three that ship in September sit in their own block with a 2px
+ * accent left edge: one of the page's two permitted orange rules.
+ * The tags themselves stay identical across all twelve. */
+.modules--live {
+  border-left: 2px solid var(--accent);
+  padding-inline-start: var(--space-l);
+}
+
+/* ================= 12. CLAIM BLOCK AND PULL STATEMENT ================= */
+
+.claim { border-top: var(--rule-hair) solid var(--rule-ink-load); padding-block-start: var(--space-m); }
+.claim .claim-proof {
+  font-size: var(--step--1);
+  color: var(--fg-lo);
+  margin-block-start: var(--space-xs);
+}
+
+/* Pull statement: display type, no quotation-mark ornament,
+ * attribution on its own line with a plain hyphen. */
+.pull { padding-block: var(--space-2xl); }
+.pull p:first-child {
+  font-family: var(--font-display);
+  font-size: var(--step-5);
+  font-weight: 500;
+  letter-spacing: var(--track-display);
+  line-height: 1.08;
+  color: var(--fg-hi);
+  max-width: 22ch;
+}
+.pull .attribution {
+  margin-block-start: var(--space-m);
+  font-size: var(--step--1);
+  color: var(--fg-lo);
+}
+
+/* Inline placeholder marker. Visually loud in staging, greppable,
+ * and never shipped: the literal string is the point. */
+.ph {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--link);
+  border: var(--rule-hair) dashed var(--link);
+  padding: 0 var(--space-2xs);
+  word-break: break-word;
+}
+
+/* ================= 13. LINK INDEX AND TWO-PATH CHOOSER ================= */
+
+.link-index { list-style: none; padding: 0; }
+.link-index li {
+  border-top: var(--rule-hair) solid var(--rule-ink);
+  padding-block: var(--space-s);
+}
+.link-index a {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 500;
+  letter-spacing: var(--track-display);
+  color: var(--fg-hi);
+  text-decoration: none;
+}
+.link-index a:hover { color: var(--link); }
+.link-index .descriptor {
+  display: block;
+  font-size: var(--step--1);
+  color: var(--fg);
+  max-width: var(--measure);
+}
+
+/* Foot-of-page chooser: the only place both sides appear at equal
+ * weight, and never a hero. */
+.two-path {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: var(--rule-hair) solid var(--rule-ink-load);
+}
+.two-path > a {
+  padding: var(--space-l);
+  text-decoration: none;
+  color: var(--fg-hi);
+  border-inline-end: var(--rule-hair) solid var(--rule-ink-load);
+}
+.two-path > a:last-child { border-inline-end: 0; }
+.two-path > a:hover { background: var(--block); }
+.two-path .label { display: block; margin-block-end: var(--space-xs); }
+@media (max-width: 60rem) {
+  .two-path { grid-template-columns: 1fr; }
+  .two-path > a { border-inline-end: 0; border-block-end: var(--rule-hair) solid var(--rule-ink-load); }
+  .two-path > a:last-child { border-block-end: 0; }
+}
+
+/* ================= 14. DATA TABLE ================= */
+/* Hairline row separation only. No zebra fill, no double borders. */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step--1);
+}
+caption {
+  text-align: left;
+  padding-block-end: var(--space-s);
+}
+th {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  text-align: left;
+  color: var(--fg-lo);
+  padding: var(--space-xs) var(--space-s) var(--space-xs) 0;
+  border-bottom: var(--rule-hair) solid var(--rule-ink-load);
+}
+td {
+  padding: var(--space-xs) var(--space-s) var(--space-xs) 0;
+  border-bottom: var(--rule-hair) solid var(--rule-ink);
+  vertical-align: top;
+}
+td.num { text-align: right; }
+th.num { text-align: right; }
+
+/* ================= 15. FORMS ================= */
+/* Label above input, always. Never placeholder-as-label. Helper text
+ * present in markup. Error below the input, associated, and worded:
+ * colour is never the only channel. */
+
+.field { margin-block-end: var(--space-l); }
+.field label {
+  display: block;
+  font-weight: 500;
+  color: var(--fg-hi);
+  margin-block-end: var(--space-2xs);
+}
+.field .helper {
+  font-size: var(--step--1);
+  color: var(--fg-lo);
+  margin-block-end: var(--space-2xs);
+  max-width: var(--measure);
+}
+input[type="text"], input[type="email"], input[type="tel"], input[type="url"],
+select, textarea {
+  width: 100%;
+  max-width: 34rem;
+  padding: var(--space-xs) var(--space-s);
+  border: var(--rule-hair) solid var(--rule-ink-load);
+  border-radius: var(--radius);
+  background: var(--block);   /* white panel on muted, one lightness step on dark */
+  color: var(--fg-hi);
+}
+input:hover, select:hover, textarea:hover { border-color: var(--fg-hi); }
+input::placeholder, textarea::placeholder { color: var(--fg-lo); opacity: 1; }
+
+.field .error {
+  font-size: var(--step--1);
+  color: var(--link);
+  margin-block-start: var(--space-2xs);
+}
+/* Error state: doubled border weight plus the worded message. The
+ * border stays in the neutral family so the page's orange-rule
+ * ration is not spent on form states; colour is never the only
+ * channel here because the message carries the word "Error". */
+.field--error input, .field--error select, .field--error textarea {
+  border-color: var(--fg-hi);
+  border-width: 2px;
+}
+
+fieldset { border: var(--rule-hair) solid var(--rule-ink); padding: var(--space-l); }
+legend { padding-inline: var(--space-2xs); font-weight: 500; color: var(--fg-hi); }
+
+/* ================= 16. FIGURES ================= */
+
+figure { margin: 0; }
+/* Sentence case: captions can run to sentences, and multi-sentence
+ * caps are banned. The mono face alone carries the spec voice. */
+figcaption {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--fg-lo);
+  padding-block-start: var(--space-xs);
+  border-top: var(--rule-hair) solid var(--rule-ink);
+  margin-block-start: var(--space-s);
+}
+
+/* ================= 17. DEMAND HERO ================= */
+/* The Home mechanism. 8/4, never 6/6. The 4-column side carries
+ * texture and the category definition, never a second audience.
+ * Maximum four text elements: category label, headline, subtext, CTA. */
+
+/* The hero owns the first screen, so it owns the whole first screen's
+ * rhythm: a wrapping section never adds to it. Section padding (--space-4xl)
+ * stacked on hero padding (--space-2xl) put ~216px of dead air above the
+ * kicker at 1440x900 and pushed the CTA off the fold. */
+section:has(.hero) { padding-block: 0; }
+
+.hero {
+  /* 85vh of the screen, but never more than the screen minus the nav.
+   * The second term is what keeps the CTA above the fold on a laptop:
+   * 85vh + the nav + the padding cannot fit in 900px, and the CTA is
+   * what falls off. */
+  min-height: min(85vh, calc(100vh - var(--shell-h)));
+  /* The negative space is not deleted, it is distributed: align-content
+   * splits the slack above AND below the hero instead of banking it all
+   * on top. */
+  align-content: center;
+  row-gap: var(--space-l);
+  padding-block: var(--space-xl);
+}
+.hero-head  { grid-column: col-start 1 / span 8; align-self: end; }
+.hero-title { grid-column: col-start 1 / span 8; }
+.hero-sub   { grid-column: col-start 1 / span 5; }   /* the 5-col lede against the 12-col measure */
+.hero-cta   { grid-column: col-start 1 / span 8; }
+.hero-aside {
+  grid-column: col-start 9 / main-end;
+  grid-row: 1 / 5;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  border-left: 2px solid var(--accent);   /* the edge the dot field terminates against */
+  padding-inline-start: var(--space-m);
+}
+.hero-aside .dots { min-height: 44vh; }
+.hero-category {
+  padding-block-start: var(--space-l);
+  text-align: right;
+  max-width: none;
+  line-height: 1.7;
+}
+@media (max-width: 60rem) {
+  .hero { min-height: 0; }
+  .hero-head, .hero-title, .hero-sub, .hero-cta { grid-column: main; }
+  .hero-aside { grid-column: main; grid-row: auto; }
+  .hero-aside .dots { min-height: 22vh; }
+}
+
+/* Supply band: full bleed, after the hero, never inside it, kept
+ * under 22vh, outlined CTA only. The fill is spent on the demand CTA. */
+.supply-band { padding-block: var(--space-xl); }
+.supply-band .band-inner {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-l);
+  justify-content: space-between;
+}
+
+/* Section header: heading first in the DOM, the reference label at
+ * the right edge. A .label is never the previous sibling of a heading. */
+.sec-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-l);
+  border-top: var(--rule-hair) solid var(--rule-ink);
+  padding-block-start: var(--space-s);
+  margin-block-end: var(--space-xl);
+}
+
+/* ================= 18. FOCUS ================= */
+/* Deliberately not the brand colour (GOV.UK pattern). The bar is the
+ * only permitted box-shadow in the project: it carries the indicator
+ * on light surfaces where the yellow fails alone. */
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 0;
+  box-shadow: 0 3px 0 var(--focus-bar);
+}
+
+/* ================= 19. MOTION ================= */
+/* The entire budget: three properties, one duration, one easing. */
+
+.btn, a, .tag, input, select, textarea, summary {
+  transition: border-color var(--t) linear, background-color var(--t) linear, color var(--t) linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
