@@ -298,7 +298,9 @@ section { padding-block: var(--space-3xl); }
 
 .logo { color: var(--logo-ink); display: block; }
 .logo svg { fill: currentColor; width: 100%; height: auto; }
-.logo--lockup { width: clamp(200px, 22vw, 320px); }  /* floor 200px: below it the tagline stops being type */
+/* The mark alone, header and footer, every width. The tagline lockup was
+ * retired from the header: see the note in shell.js buildHeader. The
+ * artboard for it is 286.7 x 86.45 if it is ever wanted back. */
 .logo--mark   { width: clamp(150px, 18vw, 240px); }  /* floor 150px: below it the inline strokes close up */
 /* Clear space: 12.5% of rendered width on every side (the cap height). */
 .logo-clear { padding: 12.5%; }
@@ -493,13 +495,6 @@ section { padding-block: var(--space-3xl); }
   .nav-mobile { display: block; margin-inline-start: auto; }
   .shell-header .nav-bar { flex-wrap: wrap; align-items: center; }
   .nav-mobile > ul { width: 100%; }
-}
-@media (max-width: 40rem) {
-  .logo--lockup { display: none; }       /* tagline falls under 10px: drop to the wordmark */
-  .logo--mark   { display: block; }
-}
-@media (min-width: 40.01rem) {
-  .shell-header .logo--mark { display: none; }
 }
 
 .shell-footer { margin-top: var(--space-4xl); }
