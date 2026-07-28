@@ -21,7 +21,8 @@
   <!-- the broker. A person, at the node where both reaches end. -->
   <circle class="fig-dot" cx="800" cy="360" r="6"/>
 
-  <text class="fig-label" text-anchor="middle" x="800" y="300">A person at ConvergX</text>
+  <!-- y 240, not 300: at 300 the label sat on the connecting line and crowded it. -->
+  <text class="fig-label" text-anchor="middle" x="800" y="240">A person at ConvergX</text>
   <text class="fig-label" text-anchor="start" x="280" y="640">The side asking</text>
   <text class="fig-label" text-anchor="start" x="1080" y="640">The side answering</text>
 </svg>

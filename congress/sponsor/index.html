@@ -55,7 +55,10 @@
     <div class="wrap">
       <div class="editorial">
         <h1 class="display">Sponsorship buys visibility. It never buys a match.</h1>
-        <p class="lede-text">Your name goes in front of the room. Who is introduced to whom is decided by a person at ConvergX, against the requirement on the table, and no tier reaches that decision.</p>
+        <!-- RHYTHM 4.48: split at the sentence, zero words changed. Both keep
+             class="lede-text". -->
+        <p class="lede-text">Your name goes in front of the room.</p>
+        <p class="lede-text">Who is introduced to whom is decided by a person at ConvergX, against the requirement on the table, and no tier reaches that decision.</p>
       </div>
     </div>
   </section>
@@ -66,14 +69,14 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>The nine tiers</h2>
-        <span class="label label--lo label--edge">Sponsor / 01</span>
+        <span class="label label--lo label--edge">01 / The tiers</span>
       </div>
       <div class="editorial">
         <div class="lede">
           <p>Nine tiers for Sep 22 to 24, 2026 in Calgary, named and priced as ConvergX sells them.</p>
         </div>
         <div class="body">
-          <table>
+          <table class="edge-accent">
             <caption class="label">Congress sponsorship, Sep 22 to 24, 2026</caption>
             <thead>
               <tr>
@@ -133,7 +136,16 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>What a cheque does not move</h2>
-        <span class="label label--lo label--edge">Sponsor / 02</span>
+        <!-- OPEN, for whoever owns the site-wide label sweep. This is the
+             literal RHYTHM-SPEC 6.2 value, and 6.2 itself flags it as one of
+             the three at the ceiling to render-check. Two problems: six words
+             breaches that same rule's two-to-four ceiling, and it repeats the
+             h2 beside it word for word, which is the redundancy grammar A
+             exists to remove. 6.2 authorises shortening the noun half, never
+             the number. Recommended replacement: "02 / The boundary", the
+             site's existing term for this move (energy 02, access 02,
+             whats-next 02). Left as spec'd so one owner decides for all 77. -->
+        <span class="label label--lo label--edge">02 / What a cheque does not move</span>
       </div>
       <div class="editorial">
         <div class="lede">
@@ -141,7 +153,11 @@
         </div>
         <div class="body">
           <p>Vetting. No tier moves a company through it faster, and no tier stands in for it.</p>
-          <p>Introductions. ConvergX decides who should meet, and both sides consent before anyone is put in front of anyone. A sponsor is on the same footing there as a delegate who paid for one seat.</p>
+          <!-- RHYTHM 4.49: split before "A sponsor". Item 2 of this three-item list ran
+               twice the length of items 1 and 3; the split evens them and lets the
+               sponsor comparison stand as the section's landing. -->
+          <p>Introductions. ConvergX decides who should meet, and both sides consent before anyone is put in front of anyone.</p>
+          <p>A sponsor is on the same footing there as a delegate who paid for one seat.</p>
           <p>The opportunity board. A post gets onto it because ConvergX decided it belongs there, not because of what the poster spent.</p>
           <p>That is the whole trade, stated up front. What sponsorship buys is the room knowing your name before you say it.</p>
         </div>
@@ -150,8 +166,15 @@
   </section>
 
   <!-- THE ONE CTA, and the one external link permitted on this page. The
-       page's single solid orange fill is spent here, so no orange rule is
-       drawn anywhere else, including around the table. -->
+       page's single solid orange fill is spent here, and FIGURE-SYSTEM 5.2
+       sanctions it in that spot. The orange never enters the table.
+       PENDING, and it is a styles.css change, not a page change: the second
+       sanctioned orange mark is a 2px --accent inline-start edge on the block
+       holding the price table (FIGURE-SYSTEM 5.2, POLISH-SPEC 6.2). No class
+       for it exists yet. It was NOT built here by borrowing .modules--live,
+       which means the live module group and would be a lie in the DOM. The
+       styles.css owner adds .block--price, then the table above gets wrapped
+       in it. Until then this page carries one orange mark, not two. -->
   <section class="section--dense">
     <div class="wrap">
       <div class="editorial">

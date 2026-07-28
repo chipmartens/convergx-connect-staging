@@ -44,8 +44,11 @@
 
   <!-- 01. The ceiling, first. The page's one --step-6 and its one solid
        orange fill. The 4-column side carries texture and the boundary,
-       never a second audience. -->
-  <section>
+       never a second audience.
+       POLISH-SPEC 2.2: this was the only hero section on the site carrying no
+       density class, so it rendered tighter than every other hero. Restored to
+       section--open. -->
+  <section class="section--open">
     <div class="editorial hero">
       <header class="hero-head">
         <span class="label label--edge">Get discovered / How it works</span>
@@ -67,7 +70,7 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>How a company gets in</h2>
-        <span class="label label--lo label--edge">The sequence</span>
+        <span class="label label--lo label--edge">01 / The sequence</span>
       </div>
       <table>
         <caption class="label">Where you stand at each point, from the application forward</caption>
@@ -101,7 +104,11 @@
           </tr>
         </tbody>
       </table>
-      <p style="margin-block-start: var(--space-l)">Requirements sit on a board inside the platform, and a posted requirement carries no author. Nobody can see who put one there, and nobody can answer one directly. That is why being put forward is a decision somebody makes, and not a race you can win by watching.</p>
+      <!-- RHYTHM-SPEC 4.12. A 48-word block split after the first sentence:
+           opens on the mechanism, lands on the consequence. Zero words
+           changed. The inline spacer stays on the first half only. -->
+      <p style="margin-block-start: var(--space-l)">Requirements sit on a board inside the platform, and a posted requirement carries no author.</p>
+      <p>Nobody can see who put one there, and nobody can answer one directly. That is why being put forward is a decision somebody makes, and not a race you can win by watching.</p>
     </div>
   </section>
 
@@ -113,7 +120,12 @@
         <p>ConvergX matches capability that already works somewhere else.</p>
       </div>
       <div class="body">
-        <p>Commercialised, TRL 8 to 9, in service with a customer, and being redeployed into a context it was not built for. If it is a prototype, a pilot or a grant deliverable, it goes to a separate ConvergX arm and not here. That is a fit decision, and ConvergX makes it first.</p>
+        <!-- RHYTHM-SPEC 4.13. 52 words, three sentences doing three separate
+             jobs: the standard, the exclusion, the owner of the decision. One
+             paragraph each. Zero words changed. -->
+        <p>Commercialised, TRL 8 to 9, in service with a customer, and being redeployed into a context it was not built for.</p>
+        <p>If it is a prototype, a pilot or a grant deliverable, it goes to a separate ConvergX arm and not here.</p>
+        <p>That is a fit decision, and ConvergX makes it first.</p>
       </div>
     </div>
   </section>

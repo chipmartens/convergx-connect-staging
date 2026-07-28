@@ -1,9 +1,9 @@
-# fig-6-three-days.svg
+# fig-9-three-days.svg
 
 Built to `_reference/FIGURE-SYSTEM.md` section 2, the figure the spec calls **Fig. 9. Three days**.
-Filename follows the six-agent build order (fig-6); the site-wide figure number is 9 and the
-caption carries it. Same convention as the existing `fig-1-unnamed-requirement.svg`, which is the
-spec's Fig. 4.
+Filename and caption now agree: **Fig. 9** on disk and on the page. (Renamed 2026-07-28 from
+`fig-6-three-days` per POLISH-SPEC section 7.4; the old name carried the build-batch index and
+clashed with the real Fig. 6.)
 
 ## The one sentence the reader must be able to say
 
@@ -34,7 +34,7 @@ spec's Fig. 4.
 
 ```html
 <figure class="fig" data-fig>
-  <!-- contents of fig-6-three-days.svg, inlined -->
+  <!-- contents of fig-9-three-days.svg, inlined -->
   <figcaption>Fig. 9. Many paths, one window. Three days in Calgary where the right people are put in the same room.</figcaption>
 </figure>
 ```

@@ -50,7 +50,11 @@
     <div class="wrap">
       <div class="editorial">
         <h1>Fifteen modules, and three of them run the Congress.</h1>
-        <p class="lede-text">They are grouped by what they are for. Every row carries the build state it is actually in, and a module without a tag is a present-tense claim. Matching at the Congress is done by ConvergX, by hand, on purpose.</p>
+        <p class="lede-text">They are grouped by what they are for. Every row carries the build state it is actually in, and a module without a tag is a present-tense claim.</p>
+        <!-- The line below is the page's beat and the one sentence that satisfies
+             the matching gate in full. It is never shortened, reworded or moved
+             back into the paragraph above it. RHYTHM-SPEC 4.35. -->
+        <p class="lede-text">Matching at the Congress is done by ConvergX, by hand, on purpose.</p>
       </div>
     </div>
   </section>
@@ -59,8 +63,10 @@
 
   <!-- S2. The tag system. This page owns phase honesty as a system, so
        the key is stated before the index rather than assumed from it.
-       Four tags, four exact strings, no dates in any definition. -->
-  <section>
+       Four tags, four exact strings, no dates in any definition.
+       Density: open, per POLISH-SPEC 2.2. The key is how the rest of the
+       page is read, so it gets air the five group sections do not. -->
+  <section class="section--open">
     <div class="wrap">
       <div class="sec-head">
         <h2>The tag key</h2>
@@ -207,6 +213,18 @@
       </div>
     </div>
   </section>
+
+  <!-- The one emphasis mark that breaks the flat run of group sections, and
+       the page's only structural turn: everything above is the platform,
+       what follows is the event and then the reference shelf underneath it.
+       POLISH-SPEC 2.2 asked for that mark as an accent edge on a "Live at
+       the Congress" block. No such block exists and none may be built: the
+       ruling above is that grouping is by FUNCTION and status is carried on
+       the row and nowhere else, so a status-based block would reinstate the
+       retired organising principle. The rule does the same job without it.
+       The .modules--live class in styles.css is the dead remnant of that
+       retired principle and should be removed by whoever owns that file. -->
+  <hr class="rule-double">
 
   <section class="section--dense">
     <div class="wrap">

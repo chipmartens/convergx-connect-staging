@@ -1,8 +1,8 @@
-# fig-5-record-persists
+# fig-8-record-persists
 
 Built from `_reference/FIGURE-SYSTEM.md` section 2, the figure titled **The record persists**.
-File is named `fig-5` because it is the fifth of the six figures in that section. **In the site-wide
-append-only numbering it is Fig. 8.** The caption ships as "Fig. 8." Do not renumber it to 5.
+Filename and caption now agree: **Fig. 8** on disk and on the page. (Renamed 2026-07-28 from
+`fig-5-record-persists` per POLISH-SPEC section 7.4; the old name carried the build-batch index.)
 
 ## The one sentence the reader must be able to say
 
@@ -24,6 +24,23 @@ Diagram: two dashed paths meet at a dot, separate again, and end a short way lat
 
 **Inner labels:** `The introduction`, `The parties`, `The record`. Sentence case in the DOM, CSS
 uppercases. No fourth label.
+
+## Reworked 2026-07-28, per POLISH-SPEC section 4
+
+The shipped plate read as four faint scratches and one horizontal line, and "The introduction"
+collided with the upper entering path. Geometry only; every string is untouched.
+
+- Entering dashed paths now start at `(0, 80)` and `(0, 640)`, the frame's corners, and turn up
+  late: `C 340 100, 560 140` and `C 340 620, 560 580`. The late turn does two jobs. It puts real
+  angle at the convergence, and it keeps the lower path UNDER the moved label instead of crossing
+  it. A smooth sweep through the same endpoints (control points near `460, 430`) runs a hairline
+  straight through the word "introduction" between x 460 and x 500. Checked before changing it.
+- Departing dashed paths extend to `(1150, 140)` and `(1150, 560)`, so parting reads as travel
+  rather than a stub.
+- `The introduction` moves below-left of the dot, anchored end at `(560, 430)`.
+- `The parties` anchors start at `(1190, 120)`.
+- The solid record line `M 600 350 L 1600 350` and its label at `(1560, 320)` are exactly as
+  built. The dot is exactly as built.
 
 ## Facts
 
@@ -71,9 +88,8 @@ uppercases. No fourth label.
    them for its zero-layout-shift guarantee. I followed the spec, which the brief itself declares
    law, and set `preserveAspectRatio` deliberately as the brief asked. If the brief is meant to
    win, the two attributes come off and the CLS line in section 3.2 needs a different answer.
-2. **The figure number.** The deliverable filename says 5, the spec's append-only site numbering
-   says 8. I used 5 in the filename and 8 in the caption. Flagging in case the other five agents
-   resolved it the other way, because the six captions must agree with each other.
+2. **The figure number.** Closed 2026-07-28: all six files were renamed to their public numbers,
+   so filename and caption now agree on every figure.
 
 ## Honesty check on this figure
 

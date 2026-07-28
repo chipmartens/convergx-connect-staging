@@ -1,8 +1,9 @@
-# fig-1-unnamed-requirement
+# fig-4-unnamed-requirement
 
 Spec source: `_reference/FIGURE-SYSTEM.md` section 2, **Fig. 4. The unnamed requirement**.
-File is named `fig-1-` per the build brief; the caption number stays **Fig. 4**. Site-wide figure
-numbering is append-only and nothing renumbers.
+Filename and caption now agree: this is **Fig. 4** on disk and on the page. (Renamed 2026-07-28
+from `fig-1-unnamed-requirement` per POLISH-SPEC section 7.4; the old name carried the build-batch
+index and had already caused mis-edits.) Site-wide figure numbering is append-only.
 
 ## The one sentence
 
@@ -48,7 +49,7 @@ Diagram: a dashed path enters from the left and meets a pair of concentric circl
 
 ```html
 <figure class="fig" data-fig>
-  <!-- svg from /assets/fig/fig-1-unnamed-requirement.svg -->
+  <!-- svg from /assets/fig/fig-4-unnamed-requirement.svg -->
   <figcaption>Fig. 4. The requirement travels without an author. The labels here belong to the structure. None belongs to you.</figcaption>
 </figure>
 ```

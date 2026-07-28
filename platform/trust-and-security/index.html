@@ -70,7 +70,8 @@
           <p>No third-party security audit is on record for this platform.</p>
         </div>
         <div class="body">
-          <p>Everything below describes how the system behaves today. None of it is a warranty. Where a behaviour is load-bearing for your review, ask ConvergX to demonstrate it in the running system before you rely on it.</p>
+          <p>Everything below describes how the system behaves today. None of it is a warranty.</p>
+          <p>Where a behaviour is load-bearing for your review, ask ConvergX to demonstrate it in the running system before you rely on it.</p>
         </div>
       </div>
     </div>
@@ -138,29 +139,39 @@
           preserveAspectRatio="xMidYMid meet" role="img"
           aria-label="Diagram: two dashed paths meet at a dot, separate again, and end a short way later. From the meeting point a single solid line continues to the edge of the frame, labelled the record.">
           <!-- Fig. 8 in the site-wide append-only numbering. File named fig-5 because it is
-          the fifth of the six figures in _reference/FIGURE-SYSTEM.md section 2. Geometry,
-          labels, caption and aria-label are that file's, character for character.
+          the fifth of the six figures in _reference/FIGURE-SYSTEM.md section 2. Labels and
+          aria-label are that file's, character for character.
+          GEOMETRY AMENDED per POLISH-SPEC section 4, which supersedes FIGURE-SYSTEM section 2
+          for this plate only: the entering paths now start at y 80 and y 640 so the
+          convergence has real angle at rendered size, the departing paths run out to x 1150
+          so parting reads as travel rather than a stub, and "The introduction" sits
+          below-left of the dot instead of colliding with the upper entering path. The solid
+          record line and its label are unchanged. Nothing about the argument moved.
           Solid first, then dashed, then dots, then labels. -->
           <!-- The record. The only solid element: it outlasts every dashed path on the plate. -->
           <line class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke"
           x1="600" y1="350" x2="1600" y2="350"/>
-          <!-- The two parties arriving, both cropped by the left frame edge. -->
+          <!-- The two parties arriving, both cropped by the left frame edge. They run long
+          and turn up late, so the pinch at the node is the figure's loudest moment and so
+          the lower path passes UNDER "The introduction" instead of through it. With the
+          earlier control points (460, 270 / 460, 430) the lower hairline crossed the label
+          between x 460 and x 500. -->
           <path class="fig-dash" vector-effect="non-scaling-stroke"
-          d="M 0 160 C 260 200, 460 280, 600 350"/>
+          d="M 0 80 C 340 100, 560 140, 600 350"/>
           <path class="fig-dash" vector-effect="non-scaling-stroke"
-          d="M 0 560 C 260 520, 460 440, 600 350"/>
+          d="M 0 640 C 340 620, 560 580, 600 350"/>
           <!-- The two parties leaving. They end plainly. No terminal mark. -->
           <path class="fig-dash" vector-effect="non-scaling-stroke"
-          d="M 600 350 C 760 300, 880 250, 960 210"/>
+          d="M 600 350 C 780 290, 960 220, 1150 140"/>
           <path class="fig-dash" vector-effect="non-scaling-stroke"
-          d="M 600 350 C 760 400, 880 450, 960 490"/>
+          d="M 600 350 C 780 410, 960 480, 1150 560"/>
           <!-- The introduction. The one node where the four paths and the record share a point. -->
           <circle class="fig-dot" cx="600" cy="350" r="6"/>
-          <text class="fig-label" x="600" y="295" text-anchor="middle">The introduction</text>
-          <text class="fig-label" x="1000" y="180" text-anchor="start">The parties</text>
+          <text class="fig-label" x="560" y="430" text-anchor="end">The introduction</text>
+          <text class="fig-label" x="1190" y="120" text-anchor="start">The parties</text>
           <text class="fig-label" x="1560" y="320" text-anchor="end">The record</text>
           </svg>
-          <figcaption>Fig. 8. The record persists.</figcaption>
+          <figcaption>Fig. 8. The parties part ways. The record of the introduction stays, and it is yours.</figcaption>
         </figure>
       </div>
     </div>

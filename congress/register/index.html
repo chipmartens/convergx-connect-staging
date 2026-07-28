@@ -55,7 +55,10 @@
     <div class="wrap">
       <div class="editorial">
         <h1 class="display">A registration buys a seat in the building.</h1>
-        <p class="lede-text">It does not buy vetted standing, an introduction, or a place on the opportunity board. ConvergX decides those, one request at a time, and it decides them separately.</p>
+        <!-- RHYTHM-SPEC 4.46: split at the sentence, zero words changed. Every
+             word of the boundary list is cleared and none may be cut. -->
+        <p class="lede-text">It does not buy vetted standing, an introduction, or a place on the opportunity board.</p>
+        <p class="lede-text">ConvergX decides those, one request at a time, and it decides them separately.</p>
       </div>
     </div>
   </section>
@@ -66,7 +69,7 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>What three days cost</h2>
-        <span class="label label--lo label--edge">Register / 01</span>
+        <span class="label label--lo label--edge">01 / What it costs</span>
       </div>
       <div class="editorial">
         <div class="lede">
@@ -76,7 +79,7 @@
           <!-- Tiers are rows, prices in the last cell, currency named once
                in the header and never repeated per cell. No orange inside
                the table. -->
-          <table>
+          <table class="edge-accent">
             <caption class="label">Congress registration, Sep 22 to 24, 2026</caption>
             <thead>
               <tr>
@@ -100,7 +103,13 @@
             </tbody>
           </table>
           <p>A registration is admission for the three days. It puts you in the same building as everyone else who is there, which is the part every conference sells.</p>
-          <p>The part ConvergX runs the Congress for is the other one. Who you are put in front of, and whether ConvergX puts its name on the introduction, is decided by a person at ConvergX against the room being composed for September.</p>
+          <!-- RHYTHM-SPEC 4.47: split at the sentence. The second paragraph
+               carries "ConvergX puts its name on the introduction", at 3 of 3
+               permitted uses in the verbatim ledger. It stays inside its
+               sentence, character identical, and is never promoted to a
+               standalone line. -->
+          <p>The part ConvergX runs the Congress for is the other one.</p>
+          <p>Who you are put in front of, and whether ConvergX puts its name on the introduction, is decided by a person at ConvergX against the room being composed for September.</p>
         </div>
       </div>
     </div>
@@ -113,7 +122,10 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>Where the decision happens instead</h2>
-        <span class="label label--lo label--edge">Register / 02</span>
+        <!-- OPEN, for the site-wide label sweep. RHYTHM 6.2 literal, but 5 words breaches that rule's own 2-to-4 ceiling and it
+             leaves ~64px for the h2 at 375px under the shipped nowrap. One owner decides
+             all three flagged labels together; see the note on congress/sponsor 02. -->
+        <span class="label label--lo label--edge">02 / What it does not buy</span>
       </div>
       <ul class="link-index">
         <li>
@@ -133,10 +145,15 @@
   </section>
 
   <!-- THE ONE CTA, and the one external link permitted on this page. The
-       page's single solid orange fill is spent here. No accent left edge on
-       the table block: the only existing class carrying that device is
-       .modules--live, which is the module index's, so the ration goes to
-       the button instead of borrowing a class that means something else. -->
+       page's single solid orange fill is spent here, and FIGURE-SYSTEM 5.2
+       sanctions it in that spot.
+       PENDING, and it is a styles.css change, not a page change: the second
+       sanctioned orange mark is a 2px --accent inline-start edge on the block
+       holding the price table (FIGURE-SYSTEM 5.2, POLISH-SPEC 6.2). No class
+       for it exists yet. It was NOT built here by borrowing .modules--live,
+       which means the live module group and would be a lie in the DOM. The
+       styles.css owner adds .block--price, then the table above gets wrapped
+       in it. Until then this page carries one orange mark, not two. -->
   <section class="section--dense">
     <div class="wrap">
       <div class="editorial">

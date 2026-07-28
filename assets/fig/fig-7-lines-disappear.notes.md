@@ -1,12 +1,13 @@
-# fig-4-lines-disappear
+# fig-7-lines-disappear
 
 Spec source: `_reference/FIGURE-SYSTEM.md` section 2, **Fig. 7. Where the lines meet**.
-Filename carries the batch index (4 of 6); the caption carries the site-wide number, **Fig. 7**.
-Site numbering is append-only and nothing renumbers.
+Filename and caption now agree: **Fig. 7** on disk and on the page. (Renamed 2026-07-28 from
+`fig-4-lines-disappear` per POLISH-SPEC section 7.4; the old name carried the build-batch index
+and clashed with the real Fig. 4.) Site numbering is append-only.
 
 ## REBUILT 2026-07-27, and why
 
-The original batch-slot-4 agent shipped a byte-near duplicate of `fig-1-unnamed-requirement.svg`
+The original batch-slot-4 agent shipped a byte-near duplicate of `fig-4-unnamed-requirement.svg`
 into this filename: the spec's **Fig. 4**, not **Fig. 7**. It appears to have read the site-wide
 figure number as its own batch index. Fig. 7 was therefore never drawn, and
 `industries/index.html` had no asset to receive.
@@ -79,7 +80,7 @@ integration report.
 
 ```html
 <figure class="fig" data-fig>
-  <!-- svg from /assets/fig/fig-4-lines-disappear.svg -->
+  <!-- svg from /assets/fig/fig-7-lines-disappear.svg -->
   <figcaption>Fig. 7. Four industries, one shared point. A requirement raised in one can be answered from any of the others.</figcaption>
 </figure>
 ```

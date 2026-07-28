@@ -83,7 +83,7 @@
       </div>
       <div class="editorial">
         <div class="lede">
-          <p>These four are answered before a company is put in front of anyone. An unanswered one stops the introduction. They are also the part any competent process would run, and ConvergX claims nothing unusual for them.</p>
+          <p>These four are answered before a company is put in front of anyone. An unanswered one stops the introduction.</p>
         </div>
         <div class="body">
           <div class="claim">
@@ -98,6 +98,10 @@
           <div class="claim">
             <p><strong>Should this introduction happen at all.</strong> Ownership, control and influence, and any conflict sitting on either side of it.</p>
           </div>
+          <!-- Moved here from the lede per RHYTHM-SPEC 4.51. It is a modesty note
+               about the four rows above and cannot do its job before the reader has
+               seen them. Cleared honesty statement: no word of it may change. -->
+          <p>They are also the part any competent process would run, and ConvergX claims nothing unusual for them.</p>
           <!-- NEEDS: confirmation of what the review asks about ownership, control and
                conflicts, and who at ConvergX answers it, from Kim Van Vliet -->
         </div>
@@ -170,7 +174,7 @@
           <p>What changes is who you are running them on. The wrong company is cheapest to find out about now, and most expensive to find out about at first article.</p>
         </div>
 
-        <!-- Fig. 6, inlined from /assets/fig/fig-3-vetting-aperture.svg.
+        <!-- Fig. 6, inlined from /assets/fig/fig-6-vetting-aperture.svg.
              Inlined rather than referenced: the ink is currentColor taken
              from the surface, so an <img> would never reach the .fig-*
              rules or the reveal.
@@ -181,20 +185,23 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700"
                preserveAspectRatio="xMidYMid meet" role="img"
                aria-label="Diagram: a dashed path passes through a narrow gate between two vertical lines, with a dot at the point where the questions are asked. Past the gate the path either continues as a solid line off the edge of the frame, labelled introduced, or ends a short way in, labelled not taken forward.">
-            <!-- The gate. Two vertical segments, the aperture between them at y 300 to 420. -->
-            <line class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" x1="820" y1="80" x2="820" y2="300"/>
-            <line class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" x1="820" y1="420" x2="820" y2="640"/>
-            <!-- Continuing branch. Solid because the meeting happened. Cropped by the right frame edge. -->
-            <path class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" d="M 828 360 C 1050 350, 1300 330, 1600 320"/>
-            <!-- Entering path. Dashed: a proposal. Cropped by the left frame edge. -->
-            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 0 380 C 300 380, 560 368, 812 360"/>
+            <!-- Reworked 2026-07-28 per POLISH-SPEC section 4. Geometry only: gate from
+                 x 820 to x 700, entering path starts in frame at x 260, ending branch
+                 travels to (1120, 540) before it stops. Nothing it says changed. -->
+            <!-- The gate. Two vertical segments, the aperture between them at y 300 to 420, unchanged. -->
+            <line class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" x1="700" y1="80" x2="700" y2="300"/>
+            <line class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" x1="700" y1="420" x2="700" y2="640"/>
+            <!-- Continuing branch. Solid because the meeting happened. Cropped by the right frame edge at y 320. -->
+            <path class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" d="M 708 360 C 950 350, 1250 330, 1600 320"/>
+            <!-- Entering path. Dashed: a proposal. Begins in frame at x 260. -->
+            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 260 380 C 400 380, 545 370, 692 360"/>
             <!-- Ending branch. Ends plainly. No terminal mark: a decision not to introduce, not a defect found. -->
-            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 828 368 C 950 400, 1030 450, 1080 500"/>
+            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 708 368 C 850 412, 1000 470, 1120 540"/>
             <!-- The asking happens here. -->
-            <circle class="fig-dot" cx="820" cy="360" r="6"/>
-            <text class="fig-label" text-anchor="start" x="860" y="120">The questions are asked here</text>
+            <circle class="fig-dot" cx="700" cy="360" r="6"/>
+            <text class="fig-label" text-anchor="start" x="740" y="120">The questions are asked here</text>
             <text class="fig-label" text-anchor="start" x="1330" y="280">Introduced</text>
-            <text class="fig-label" text-anchor="start" x="960" y="560">Not taken forward</text>
+            <text class="fig-label" text-anchor="start" x="1000" y="600">Not taken forward</text>
           </svg>
           <figcaption>Fig. 6. The review ends in a decision, one way or the other. It does not end in a score.</figcaption>
         </figure>
@@ -230,8 +237,15 @@
         <div class="body">
           <p>The vetting standard belongs to ConvergX, is applied by ConvergX, and is recorded by ConvergX. People move. What the review has to answer does not.</p>
           <p>The answers are a different matter. What a review turns up about a company sits with the people who asked, and moving more of that into the organisation is what ConvergX is building.</p>
-          <p>ConvergX puts its name on the introduction. The name belongs to the organisation, so it is still there to be asked about the decision after the people who made it have gone.</p>
-          <p>That is the part you need years after the introduction. A qualified alternate source sitting in your file then was reviewed against the same questions as the company you approve this week.</p>
+          <!-- The section turns here, from what does not leave to what stays
+               attached. RHYTHM-SPEC 4.52 flags this as the R6 break point if an
+               art director ever splits the section; the paragraph breaks below
+               land the same turn without one. The ledger string is at 3 of 3 uses
+               and standing alone does not add an instance: same instance, alone. -->
+          <p>ConvergX puts its name on the introduction.</p>
+          <p>The name belongs to the organisation, so it is still there to be asked about the decision after the people who made it have gone.</p>
+          <p>That is the part you need years after the introduction.</p>
+          <p>A qualified alternate source sitting in your file then was reviewed against the same questions as the company you approve this week.</p>
         </div>
         <p style="margin-block-start: var(--space-xl)"><a class="btn btn--solid" href="/access/request/">Request access</a></p>
       </div>

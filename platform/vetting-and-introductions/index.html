@@ -85,12 +85,15 @@
           </div>
         </div>
 
-        <!-- Fig. 5, inlined from /assets/fig/fig-2-two-sides-one-broker.svg.
+        <!-- Fig. 5, inlined from /assets/fig/fig-5-two-sides-one-broker.svg.
              Inlined rather than referenced: the ink is currentColor taken
              from the surface, so an <img> would never pick up the .fig-*
              rules or the reveal.
              grid-column: main by inheritance from .editorial > *, never
-             bleed: this page's one grid break is spent on Fig. 3 below. -->
+             bleed. The page's one grid break is unspent since Fig. 3 was
+             collapsed below, but this figure does not take it: the spec's
+             ruling on Fig. 5 is "keep, one label move, nothing else moves",
+             and the break is held for Fig. 3 when it is commissioned. -->
         <figure class="fig" data-fig>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700"
                preserveAspectRatio="xMidYMid meet" role="img"
@@ -111,7 +114,8 @@
             <!-- the broker. A person, at the node where both reaches end. -->
             <circle class="fig-dot" cx="800" cy="360" r="6"/>
 
-            <text class="fig-label" text-anchor="middle" x="800" y="300">A person at ConvergX</text>
+            <!-- y 240, not 300: at 300 the label sat on the connecting line and crowded it. -->
+            <text class="fig-label" text-anchor="middle" x="800" y="240">A person at ConvergX</text>
             <text class="fig-label" text-anchor="start" x="280" y="640">The side asking</text>
             <text class="fig-label" text-anchor="start" x="1080" y="640">The side answering</text>
           </svg>
@@ -155,29 +159,46 @@
           <p>The written reason a candidate was ruled in or out, kept instead of dropped when the shortlist narrows.</p>
         </div>
         <div class="body">
-          <p>In build, demonstrable, not hardened. Not in the September scope.</p>
-          <p>Today that reasoning sits outside the platform.</p>
+          <p>In build, demonstrable, not hardened. Not in the September scope. Today that reasoning sits outside the platform.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- S4. The page's one grid break. Fig. 3 is the status system used
-       outside the module index: two tenses, side by side, hairlines
-       only. Commissioned, never fabricated. -->
-  <section>
-    <div class="editorial">
-      <div class="sec-head">
-        <h2>The two tenses, side by side</h2>
-        <span class="label label--lo label--edge">Fig. 3</span>
-      </div>
-      <figure class="bleed" data-spec="Fig. 3. Hairline two-column diagram, SVG, 1600x700, no fill, no icons, no colour coding, one stroke tone, sentence-case mono labels. Left column headed 'On the record today' holds three entries: the requirement and the party who submitted it, the consent of each side, the introduction between them. Right column headed 'In build' holds one entry: the written reason a candidate was ruled in or out, kept rather than dropped. A single hairline divides the two columns and neither column crosses it. No arrows between columns, because the right column is not a continuation of the left. The diagram must not show any state in which a post is withheld from the board pending review, because no such state exists.">
-        <p><span class="ph">[[PLACEHOLDER: Fig. 3 diagram, what the platform holds today beside what is in build, with nothing crossing between them, commissioned, cleared by Kim Van Vliet]]</span></p>
-        <div class="dots dots--fine dots--fade-down" aria-hidden="true" style="min-height: var(--space-3xl)"></div>
-        <figcaption>Both columns are listed in full in the section above.</figcaption>
-      </figure>
-    </div>
-  </section>
+  <!-- S4, COLLAPSED 2026-07-28 per POLISH-SPEC section 4 (Fig. 3 ruling).
+       Fig. 3 has not been commissioned yet, and the scaffolding box was
+       rendering mid-page at bleed width, which is the loudest slop signal on
+       a client-facing preview. The whole section is commented out rather than
+       the figure alone, because the section held nothing else: an h2 with no
+       body under it is worse than what it replaced. Nothing is lost. Both
+       columns are stated in full in S3 and S4 above, which is exactly what
+       the figcaption said.
+       Nothing replaces the space. The page now runs S3 (what the record
+       holds) into S4 (in build) into the close, which is one fewer stop
+       before the CTA, and the argument arrives in the same order.
+
+       RESTORE THIS SECTION when the asset exists. Everything needed is here.
+
+       Section head:  h2 "The two tenses, side by side"
+                      label "Fig. 3"
+       figcaption:    Both columns are listed in full in the section above.
+
+       PLACEHOLDER: Fig. 3 diagram, what the platform holds today beside what
+       is in build, with nothing crossing between them, commissioned, cleared
+       by Kim Van Vliet
+
+       data-spec, verbatim, for whoever draws it:
+       Fig. 3. Hairline two-column diagram, SVG, 1600x700, no fill, no icons,
+       no colour coding, one stroke tone, sentence-case mono labels. Left
+       column headed 'On the record today' holds three entries: the
+       requirement and the party who submitted it, the consent of each side,
+       the introduction between them. Right column headed 'In build' holds one
+       entry: the written reason a candidate was ruled in or out, kept rather
+       than dropped. A single hairline divides the two columns and neither
+       column crosses it. No arrows between columns, because the right column
+       is not a continuation of the left. The diagram must not show any state
+       in which a post is withheld from the board pending review, because no
+       such state exists. -->
 
   <!-- S5. Close. Second of three permitted instances of "ConvergX puts
        its name on the introduction" site-wide (3.2 ledger). CTA is the

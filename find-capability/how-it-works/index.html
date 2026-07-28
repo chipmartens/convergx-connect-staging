@@ -51,7 +51,9 @@
         <p class="lede-text">Your post goes up with no name on it. Nothing becomes a meeting until ConvergX makes it one.</p>
       </div>
       <div class="body">
-        <p>Both gates sit after the post, not in front of it. What you write is one sentence about a gap, read by ConvergX and nobody else. The gate that matters is on who ends up in a room with whom.</p>
+        <!-- RHYTHM-SPEC 4.3. Split at the first sentence boundary. Zero words changed. -->
+        <p>Both gates sit after the post, not in front of it.</p>
+        <p>What you write is one sentence about a gap, read by ConvergX and nobody else. The gate that matters is on who ends up in a room with whom.</p>
         <p>A person reads the requirement, and the decision goes on the record. ConvergX promises no timing and no match.</p>
       </div>
     </div>
@@ -63,7 +65,7 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>What happens, in order</h2>
-        <span class="label label--lo label--edge">Find capability / demand side</span>
+        <span class="label label--lo label--edge">01 / The sequence</span>
       </div>
       <table>
         <caption class="label">The demand-side sequence</caption>
@@ -85,19 +87,11 @@
 
   <!-- The one grid break on this page: grid-column: full, via .bleed.
        Diagram is commissioned, not fabricated. -->
-  <section>
-    <div class="editorial">
-      <div class="sec-head">
-        <h2>Where the gates sit</h2>
-        <span class="label label--lo label--edge">Fig. 1</span>
-      </div>
-      <figure class="bleed" data-spec="Fig. 1. Hairline line diagram, SVG, 1600x700, no fill, no icons, no numbered stepper, one stroke tone, sentence-case mono labels. A posted requirement enters the board at the left with no author label on it, and every other post on the board carries no author label either. Both gates sit to the right of the board, never to the left of it. Gate one: a named ConvergX person picks the counterparty by hand. Gate two: ConvergX releases each identity, once both sides consent. The acting party is named at each gate. After the introduction, one line continues past the last gate and stays open, labelled as the record ConvergX keeps.">
-        <p><span class="ph">[[PLACEHOLDER: Fig. 1 diagram, an authorless board and the two gates that sit after it, with a named party acting at each and a record continuing past the introduction, commissioned, cleared by Kim Van Vliet]]</span></p>
-        <div class="dots dots--fine dots--fade-down" aria-hidden="true" style="min-height: var(--space-3xl)"></div>
-        <figcaption>The steps above describe the board and the two gates that follow it.</figcaption>
-      </figure>
-    </div>
-  </section>
+    <!-- Fig. 1 section collapsed 2026-07-28 per POLISH-SPEC section 4. The diagram is not
+         commissioned and the scaffolding box was rendering as a full section. The markup
+         and its full art direction are parked verbatim in
+         _dev/COLLAPSED-fig1-how-it-works.html. Paste it back when the diagram lands. -->
+
 
   <!-- The manual-matching statement. Stated, not apologised for. -->
   <section>
@@ -105,7 +99,10 @@
       <div class="pull">
         <p>ConvergX does the matching by hand, on purpose.</p>
       </div>
-      <p>A person reads the requirement and decides who should see it. That decision is the product. A decision nobody made is a decision nobody is answerable for, and somebody being answerable is the whole reason to come here.</p>
+      <!-- RHYTHM-SPEC 4.4. Split after the page thesis so it stops sitting
+           mid-block. Zero words changed. -->
+      <p>A person reads the requirement and decides who should see it. That decision is the product.</p>
+      <p>A decision nobody made is a decision nobody is answerable for, and somebody being answerable is the whole reason to come here.</p>
     </div>
   </section>
 

@@ -1,9 +1,9 @@
-# fig-2-two-sides-one-broker
+# fig-5-two-sides-one-broker
 
-Batch figure 2 of 6. This is **Fig. 5, "Two sides, one broker"** in
-`_reference/FIGURE-SYSTEM.md` section 2. The filename carries the batch index, the caption carries
-the site-wide figure number. They are different numbers on purpose (site numbering is append-only,
-Fig. 1 to Fig. 3 are already placed).
+This is **Fig. 5, "Two sides, one broker"** in `_reference/FIGURE-SYSTEM.md` section 2.
+Filename and caption now agree. (Renamed 2026-07-28 from `fig-2-two-sides-one-broker` per
+POLISH-SPEC section 7.4; the old name carried the build-batch index.) Site numbering is
+append-only, and Fig. 1 to Fig. 3 are already placed.
 
 ## The one sentence a reader must be able to say
 
@@ -50,11 +50,12 @@ Everything else resolves through `--fg-hi`, `--rule-hair` and `--font-mono`, whi
 6. Element order in the file is solid, dashed, dot, labels. Keep it: the four-step reveal reads
    correctly in DOM order and the dot must sit above the lines it terminates.
 
-## Two collisions reported, not resolved (spec rule 14)
+## One collision reported, not resolved (spec rule 14)
 
-1. **Caption number vs filename.** File says `fig-2`, caption says `Fig. 5`. Resolution above:
-   filename is the batch index, caption is the site number. Flagging so nobody "fixes" the caption.
-2. **`width`/`height` attributes.** The build brief for this figure said no `width`/`height`
+*(The caption-versus-filename collision is closed: the file was renamed to `fig-5` on 2026-07-28
+so the two numbers agree.)*
+
+1. **`width`/`height` attributes.** The build brief for this figure said no `width`/`height`
    attributes; FIGURE-SYSTEM section 1.4 and rule 7 require them and hang the zero-layout-shift
    guarantee on them. Built to FIGURE-SYSTEM, since that file is law for figures.
    `preserveAspectRatio` is set deliberately either way.

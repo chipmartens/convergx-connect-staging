@@ -90,6 +90,16 @@ h1, h2 { text-wrap: balance; }
 
 p, li { max-width: var(--measure); }
 
+/* The reset zeroes every margin, and nothing restored the space between
+ * paragraphs, so every multi-paragraph column rendered as one fused slab.
+ * This single rule is the largest visual fix in the polish pass. Adjacent
+ * siblings only: a lone paragraph in a component keeps its zero margin. */
+p + p { margin-block-start: var(--space-s); }
+/* A claim-row group followed by a plain paragraph rendered fused: `p + p`
+ * cannot reach across the .claim wrapper. Same spacing, stated once. */
+.claim + p, .claim + .claim, p + .claim { margin-block-start: var(--space-s); }
+
+
 .lede-text {
   font-size: var(--step-1);
   line-height: 1.4;
@@ -257,6 +267,13 @@ strong { font-weight: 500; color: var(--fg-hi); }
   .editorial {
     grid-template-columns:
       [full-start] var(--gutter) [main-start] 1fr [main-end] var(--gutter) [full-end];
+    /* The column gap has nothing left to sit between once the grid is one
+     * content column, and it was still being added to the two rail tracks.
+     * Any .editorial NOT wrapped in a .wrap (the heroes, the full-bleed
+     * figure sections) therefore ran about 42px wider than the viewport
+     * and the whole document scrolled sideways. Verified on the homepage
+     * at 375px: scrollWidth 433 against a 375 body. */
+    column-gap: 0;
   }
   .lede, .body { grid-column: main; }
 }
@@ -636,10 +653,6 @@ section { padding-block: var(--space-3xl); }
 /* The three that ship in September sit in their own block with a 2px
  * accent left edge: one of the page's two permitted orange rules.
  * The tags themselves stay identical across all twelve. */
-.modules--live {
-  border-left: 2px solid var(--accent);
-  padding-inline-start: var(--space-l);
-}
 
 /* ================= 12. CLAIM BLOCK AND PULL STATEMENT ================= */
 
@@ -651,8 +664,16 @@ section { padding-block: var(--space-3xl); }
 }
 
 /* Pull statement: display type, no quotation-mark ornament,
- * attribution on its own line with a plain hyphen. */
-.pull { padding-block: var(--space-2xl); }
+ * attribution on its own line with a plain hyphen.
+ *
+ * grid-column: main is load-bearing, not cosmetic. A step-5 line dropped
+ * into a 5-column track broke to one and two words a line, eight lines
+ * deep. A pull owns the full measure wherever it lands. */
+.pull { padding-block: var(--space-2xl); grid-column: main; }
+/* The pull's own padding separates it from what sits above. When nothing
+ * does, the section's padding is already the separation and stacking both
+ * produces the dead vertical run this pass exists to remove. */
+.pull:first-child { padding-block-start: 0; }
 .pull p:first-child {
   font-family: var(--font-display);
   font-size: var(--step-5);
@@ -667,6 +688,10 @@ section { padding-block: var(--space-3xl); }
   font-size: var(--step--1);
   color: var(--fg-lo);
 }
+
+/* A caption under a display line needs more air than the paragraph
+ * default gives it. Same family as .pull .attribution, same reasoning. */
+.display + .meta { margin-block-start: var(--space-m); }
 
 /* Inline placeholder marker. Visually loud in staging, greppable,
  * and never shipped: the literal string is the point. */
@@ -754,6 +779,21 @@ td {
 }
 td.num { text-align: right; }
 th.num { text-align: right; }
+
+/* A row header is a NAME, not a column heading. Taking the th treatment
+ * gave every price and spec row a mono grey underlined label that read as
+ * a link or a tag, and a heavier bottom rule than the cell beside it, so
+ * each row's hairline visibly stepped in tone and position. Column headers
+ * keep the mono caps; row headers read as body. */
+tbody th[scope="row"] {
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--fg);
+  border-bottom-color: var(--rule-ink);
+}
 
 /* ================= 15. FORMS ================= */
 /* Label above input, always. Never placeholder-as-label. Helper text
@@ -892,6 +932,10 @@ section:has(.hero) { padding-block: 0; }
   padding-block-start: var(--space-s);
   margin-block-end: var(--space-xl);
 }
+/* The reference label is one token of data and never wraps. As a flex
+ * item it was shrinking and breaking "01 / THE POSITION" across two
+ * ragged lines at desktop. The h2 side already flexes. */
+.sec-head .label { white-space: nowrap; flex-shrink: 0; }
 
 /* ================= 18. FOCUS ================= */
 /* Deliberately not the brand colour (GOV.UK pattern). The bar is the
@@ -926,7 +970,12 @@ section:has(.hero) { padding-block: 0; }
 
 .fig svg   { display: block; width: 100%; height: auto; color: var(--fg-hi); }
 .fig-solid { fill: none; stroke: currentColor; stroke-width: calc(var(--rule-hair) * 2); }
-.fig-dash  { fill: none; stroke: currentColor; stroke-width: var(--rule-hair);
+/* 1.5x the hairline on every surface: at --rule-hair the dashes render
+ * sub-perceptual on light grounds at 2dppx. Still two weights, still tied
+ * to the token, and the solid weight is unchanged so the hierarchy holds.
+ * Amends FIGURE-SYSTEM section 1.2. */
+.fig-dash  { fill: none; stroke: currentColor;
+             stroke-width: calc(var(--rule-hair) * 1.5);
              stroke-dasharray: var(--fig-dash); }
 .fig-dot   { fill: currentColor; stroke: none; }
 .fig-label {
@@ -952,3 +1001,130 @@ section:has(.hero) { padding-block: 0; }
   transition: opacity var(--fig-t-fade) linear calc(var(--fig-t) + 200ms); }
 .fig-played .fig-dot   { opacity: 1;
   transition: opacity var(--fig-t-fade) linear calc(var(--fig-t) + 400ms); }
+
+/* ================= 21. THE INDUSTRY HEADER ================= */
+/* The four industry verticals ONLY. They were the site's one major
+ * family opening on an unauthored wall of type while their photograph
+ * sat buried mid-page, so the photograph moves up and becomes the
+ * opening. Type left, photograph right, one accent rule between them.
+ *
+ * The band is simultaneously the page's ONE grid break and its ONE
+ * surface change, which is why the mid-page photo section is removed
+ * from those four pages: the image moves, nothing is duplicated.
+ *
+ * Nobody else takes this. The hub and home pages have the dot-field
+ * hero and it works. Two authored hero patterns is a system; three is
+ * a collection. See POLISH-SPEC section 3. */
+
+.hero-vert { padding-block: 0; }   /* the band's edges are the photograph's edges */
+.hero-vert .editorial {
+  /* 72vh, never 100: the band has to visibly END above the fold or the
+   * reader has no reason to believe the page continues. */
+  min-height: 72vh;
+  row-gap: 0;
+}
+
+.hero-vert-copy {
+  grid-column: main-start / span 7;
+  grid-row: 1;
+  align-self: center;
+  /* Not --space-3xl. A step-6 headline in a 7-column track runs to four
+   * lines, and 3xl on top of that pushed the band past the full viewport,
+   * which is the one thing min-height: 72vh exists to prevent. */
+  padding-block: var(--space-xl);
+  display: grid;
+  justify-items: start;
+  row-gap: var(--space-m);
+}
+
+/* Bleeds to the right viewport edge and to the band's top and bottom.
+ * No caption, no pill, no text on it, ever. */
+.hero-vert-media {
+  grid-column: col-start 8 / full-end;
+  grid-row: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* One of the page's two permitted orange rules, and the same device as
+ * the home hero's terminator: an edge the composition stops against. */
+.hero-vert-rule { border-inline-start: 2px solid var(--accent); }
+
+/* Focal points, POLISH-SPEC section 5. A header image is cropped tall at
+ * desktop, so each frame names the subject that must survive the crop. */
+.focal--machinist { object-position: 65% 45%; }
+.focal--long-lead { object-position: 30% 50%; }  /* the small figure at far left IS the scale argument */
+.focal--gear-face { object-position: 40% 50%; }
+.focal--rotor     { object-position: 50% 35%; }  /* crops the tool-strewn floor out */
+
+/* ================= 22. SPACING UTILITIES ================= */
+/* The only sanctioned replacement for a style attribute on a page.
+ * Every value is a token; the names map one to one onto the space scale
+ * so promoting an inline style is a swap, never a judgement call.
+ * These exist because inline styles are where the next drift starts. */
+
+.push-s     { margin-block-start: var(--space-s); }
+.push-m     { margin-block-start: var(--space-m); }
+.push-l     { margin-block-start: var(--space-l); }
+.push-xl    { margin-block-start: var(--space-xl); }
+.push-end-l { margin-block-end: var(--space-l); }
+
+/* A dot field used as a spacer band between sections needs a height,
+ * and the two heights already in use are the whole requirement. */
+.dots--band      { min-height: var(--space-2xl); }
+.dots--band-tall { min-height: var(--space-3xl); }
+
+
+/* Module rows carry their own top hairline, which breaks into fragments
+ * with gutter gaps across a multi-column grid and is most of why that page
+ * reads as a card grid it is not. Opt out here and run one full-width
+ * .rule above the row-group instead. */
+.modules--flush > .module { border-top: 0; }
+
+/* ================= 23. NARROW WIDTHS ================= */
+/* Everything above reads as generous at desktop and as abandoned at
+ * 375px: open padding plus row-gap plus section padding stacked to
+ * roughly 500px of unbroken empty ground between a caption and the next
+ * heading. This query is the whole fix, and it is the LAST query in the
+ * file on purpose, so it wins against the declarations it narrows. */
+
+@media (max-width: 60rem) {
+  .section--open { padding-block: var(--space-2xl); }
+  .editorial     { row-gap: var(--space-l); }
+  .shell-footer  { margin-top: var(--space-2xl); }
+
+  /* The desktop fix for ragged section labels (nowrap + no shrink) pushed
+   * the longer ones past the right edge here and scrolled the document
+   * sideways. On a narrow screen the label takes its own row instead,
+   * where it has the full measure and almost never needs to wrap at all. */
+  .sec-head { flex-wrap: wrap; }
+  .sec-head .label { white-space: normal; }
+
+  /* The band goes single column: label, headline, lede, then the image
+   * full width at its native 16:10 with the accent rule above it. */
+  .hero-vert .editorial { min-height: 0; row-gap: var(--space-l); }
+  .hero-vert-copy {
+    grid-column: main;
+    grid-row: auto;
+    padding-block: var(--space-2xl) 0;
+  }
+  .hero-vert-media {
+    grid-column: full;
+    grid-row: auto;
+    height: auto;
+    min-height: 200px;     /* below this the subject stops reading at all */
+    aspect-ratio: 16 / 10;
+  }
+  .hero-vert-rule {
+    border-inline-start: 0;
+    border-block-start: 2px solid var(--accent);
+  }
+}
+
+/* The shop pages' sanctioned accent edge (POLISH-SPEC section 6.2, FIGURE-SYSTEM
+ * section 5.2). One of the two orange rules those pages are permitted, and the mark
+ * that makes the price table read as the page's centre of gravity. Structural, not
+ * decorative: it is an edge the table stops against, the same device as the home
+ * hero terminator and the industry header rule. */
+.edge-accent { border-inline-start: 2px solid var(--accent); padding-inline-start: var(--space-m); }

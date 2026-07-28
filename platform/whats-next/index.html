@@ -77,7 +77,8 @@
         </div>
         <div class="body">
           <p>The Congress runs three days. The requirements raised in it outlast the room, and carrying them from one Congress to the next is somebody's week.</p>
-          <p>An answer goes stale on its own. A company that could take the work when it was asked may be carrying two other programmes by the time you need it, and nothing tells anyone that until somebody asks.</p>
+          <p>An answer goes stale on its own.</p>
+          <p>A company that could take the work when it was asked may be carrying two other programmes by the time you need it, and nothing tells anyone that until somebody asks.</p>
           <p>ConvergX asks on a cadence a person's calendar does not reach. Same questions, same accountable party.</p>
         </div>
       </div>
@@ -99,7 +100,8 @@
         </div>
         <div class="body">
           <p>Nothing planned decides on its own, and nothing planned releases one party's identity to the other without a person at ConvergX doing it.</p>
-          <p>If a shortlist is ever generated, it is a shortlist somebody then has to defend. ConvergX stays the party answerable for the introduction, and that is the constraint every planned capability is designed around.</p>
+          <p>If a shortlist is ever generated, it is a shortlist somebody then has to defend.</p>
+          <p>ConvergX stays the party answerable for the introduction, and that is the constraint every planned capability is designed around.</p>
         </div>
       </div>
     </div>
@@ -110,8 +112,19 @@
        NEEDS: how much of the Phase 2 gap gets named publicly is Chip and
        Cam's call, not a writer's. COPY-DIRECTION open decision 3. Scope as
        rendered is page-level, meaning scoring weights and the absence of a
-       written match standard, with no repository-level detail. -->
-  <section>
+       written match standard, with no repository-level detail.
+       Density: open, per POLISH-SPEC 2.2, which gives this page one middle
+       section the air, chosen where the copy makes its turn. This is that
+       turn: the page stops describing the roadmap and names the gap.
+       RHYTHM-SPEC 6.2 asks this section to gain the edge label
+       "03 / The open problem". NOT BUILT, deliberately: the section carries
+       no h2, and .sec-head is a two-item flex with space-between, so a
+       label-only head renders flush left while all 76 other edge labels on
+       the site sit right. Adding an h2 would be new copy, which this pass
+       does not write. It needs one rule from whoever owns styles.css
+       (a .sec-head--label-only, or margin-inline-start: auto on a lone
+       label) before the label can go in. Until then the pull is the head. -->
+  <section class="section--open">
     <div class="editorial">
       <div class="bleed wrap">
         <div class="pull">
@@ -119,9 +132,11 @@
         </div>
       </div>
       <div class="lede">
-        <p class="lede-text">The match standard sits in a person's head. It has never been written down, and scoring weights are not configurable. It is a different thing from the vetting standard, which is written out in full on <a href="/about/how-we-vet/">How we vet</a>.</p>
+        <!-- Every word of this is a cleared admission. None of it may be tightened. -->
+        <p class="lede-text">The match standard sits in a person's head. It has never been written down, and scoring weights are not configurable.</p>
       </div>
       <div class="body">
+        <p>It is a different thing from the vetting standard, which is written out in full on <a href="/about/how-we-vet/">How we vet</a>.</p>
         <p>Writing it down is the open design problem. No shipped mechanism exists for it today.</p>
         <p>Saying so here is cheaper than you finding it in a pilot.</p>
       </div>
