@@ -24,7 +24,8 @@ html {
   /* Height of the fixed shell chrome: the nav bar plus its rule. Declared
    * once because two places need to agree: the bar sets it, the hero
    * subtracts it to work out how much screen is actually left. */
-  --shell-h: 69px;
+  --shell-h: 96px;            /* resting header. Was 69, which crowded the mark */
+  --shell-h-condensed: 68px;  /* after the first scroll */
 }
 
 body {
@@ -461,13 +462,21 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
 .skip:focus { top: var(--space-s); }
 
 .shell-header {
-  border-bottom: var(--rule-hair) solid var(--rule-ink);
+  /* No bottom rule. It read as an underline drawn across the page rather than
+   * as a boundary, and the header already separates itself: the nav sits on the
+   * page ground and the mega panel carries its own edge when it opens. */
+  border-bottom: 0;
 }
 .shell-header .nav-bar {
   max-width: var(--page-max);
   margin-inline: auto;
   padding-inline: var(--gutter);
-  min-height: calc(var(--shell-h) - 1px);   /* the 1px is the rule below */
+  min-height: var(--shell-h);
+  /* The condense is the header's only motion. It fires once past the fold and
+   * reverses at the top, so the bar is generous on arrival and out of the way
+   * while reading. Height only: nothing reflows around it because the header is
+   * not in the page flow of the content below it. */
+  transition: min-height var(--t) linear;
   display: flex;
   align-items: center;
   gap: var(--space-l);
@@ -512,21 +521,37 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
 }
 .nav-links > li > a:hover,
 .nav-links > li > .nav-mega-btn:hover { color: var(--fg-hi); }
+
+/* The header CTA is a BUTTON that happens to be an <a>, so the nav-link rule
+ * above must not claim it. `.nav-links > li > a` outranks `.btn--solid` on
+ * specificity and was repainting the label --fg on the orange fill: measured
+ * 1.27:1, a hard contrast failure that looked merely "a bit washed out".
+ * Restated here at matching specificity. Near-black on orange, never light
+ * type on orange, per the contrast note in tokens.css. */
+.nav-links > li > a.btn--solid {
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+.nav-links > li > a.btn--solid:hover { color: var(--accent-ink); }
 .nav-links > li > .nav-mega-btn[aria-current] { color: var(--fg-hi); }
 /* Current page: the inline device, not a colour change. */
 .nav-links > li > a[aria-current="page"],
 .nav-links > li > .nav-mega-btn[aria-current] .nav-mega-label {
   color: var(--fg-hi);
-  border-bottom: var(--rule-hair) solid var(--fg-hi);
-  padding-bottom: calc(var(--space-2xs) - var(--rule-gap));
-  box-decoration-break: clone;
+  /* ONE hairline, not two, and drawn as an absolutely positioned pseudo so the
+   * active item occupies exactly the same box as an inactive one. The previous
+   * version used a border plus a block ::after and added padding-bottom to make
+   * room, which nudged the item down the moment it became current. Nothing here
+   * is in the flow, so nothing shifts. */
   position: relative;
 }
 .nav-links > li > a[aria-current="page"]::after,
 .nav-links > li > .nav-mega-btn[aria-current] .nav-mega-label::after {
   content: "";
-  display: block;
-  margin-top: calc(var(--rule-gap) - var(--rule-hair));
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--rule-gap) * -1);
   border-bottom: var(--rule-hair) solid var(--fg-hi);
 }
 
@@ -575,6 +600,24 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
  * without a query. */
 
 .shell-header { position: relative; }   /* the panel's containing block */
+.shell-header--condensed .nav-bar { min-height: var(--shell-h-condensed); }
+
+/* THE HOVER BRIDGE. .mega is positioned against .shell-header, not against the
+ * item, so a strip of dead ground sits between the button and the panel. The
+ * pointer crossing it left the <li>, mouseleave fired, and the menu shut before
+ * anyone reached a link. This pseudo spans that strip so the pointer never
+ * leaves the item. It is hit-testable but invisible, and only exists while the
+ * panel is open, so it can never swallow a click on the bar. */
+.nav-mega { position: relative; }
+.nav-mega:has(.mega:not([hidden]))::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: var(--shell-h);
+}
+
 
 .nav-mega-btn {
   background: none;

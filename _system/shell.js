@@ -288,7 +288,7 @@
       items.push("<li><a href=\"" + CTA.href + "\">" + CTA.label + "</a></li>");
       return '<ul>' + items.join("") + "</ul>";
     }
-    items.push("<li><a class=\"btn\" href=\"" + CTA.href + "\">" + CTA.label + "</a></li>");
+    items.push("<li><a class=\"btn btn--solid\" href=\"" + CTA.href + "\">" + CTA.label + "</a></li>");
     return '<ul class="nav-links">' + items.join("") + "</ul>";
   }
 
@@ -375,13 +375,27 @@
       btn.setAttribute("aria-expanded", open ? "true" : "false");
     }
 
-    btn.addEventListener("click", function () { set(panel.hidden); });
-    item.addEventListener("mouseenter", function () { set(true); });
-    item.addEventListener("mouseleave", function () {
-      if (!item.contains(document.activeElement)) set(false);
-    });
+    /* Closing is DELAYED and cancellable. The panel is positioned against the
+     * header, not the item, so travelling from the button to a link crosses
+     * ground that belongs to neither. The CSS bridge covers the vertical strip;
+     * this covers the diagonal, where the pointer clips a neighbouring item on
+     * the way down. Re-entering cancels the pending close, so the menu only
+     * shuts once the pointer has genuinely settled somewhere else. */
+    var closeTimer = null;
+    function cancelClose() { if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } }
+    function closeSoon() {
+      cancelClose();
+      closeTimer = setTimeout(function () {
+        if (!item.contains(document.activeElement)) set(false);
+      }, 220);
+    }
+
+    btn.addEventListener("click", function () { cancelClose(); set(panel.hidden); });
+    item.addEventListener("mouseenter", function () { cancelClose(); set(true); });
+    item.addEventListener("mouseleave", closeSoon);
+    panel.addEventListener("mouseenter", cancelClose);
     item.addEventListener("focusout", function (e) {
-      if (!item.contains(e.relatedTarget)) set(false);
+      if (!item.contains(e.relatedTarget)) { cancelClose(); set(false); }
     });
     document.addEventListener("keydown", function (e) {
       if (e.key !== "Escape" && e.key !== "Esc") return;
@@ -393,6 +407,27 @@
       if (item.contains(document.activeElement)) btn.focus();
       set(false);
     });
+  }
+
+
+  /* The header condenses once past the first screenful and expands again at the
+   * top. Height only, one class, no scroll listener doing layout work: an
+   * IntersectionObserver on a zero-height sentinel does the sensing, so nothing
+   * runs on every scroll frame. Honours reduced motion by skipping the
+   * transition, not the state, because a cramped header is not a motion effect
+   * and the condensed state is still the correct one while reading. */
+  function wireCondense(header) {
+    if (!("IntersectionObserver" in window)) return;
+    var sentinel = document.createElement("div");
+    sentinel.setAttribute("aria-hidden", "true");
+    sentinel.style.cssText = "position:absolute;top:0;left:0;width:1px;height:var(--shell-h);pointer-events:none";
+    document.body.insertBefore(sentinel, document.body.firstChild);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      header.style.transition = "none";
+    }
+    new IntersectionObserver(function (entries) {
+      header.classList.toggle("shell-header--condensed", !entries[0].isIntersecting);
+    }, { threshold: 0 }).observe(sentinel);
   }
 
   function currentPath() {
@@ -420,6 +455,7 @@
       header.classList.add("shell-header");
       header.innerHTML = buildHeader(current);
       wireMega(header);
+      wireCondense(header);
     }
     var footer = document.querySelector('[data-shell="footer"]');
     if (footer) {
