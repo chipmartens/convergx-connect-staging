@@ -21,8 +21,8 @@
   var NAV = [
     { label: "Find capability", href: "/find-capability/" },
     { label: "Get discovered",  href: "/get-discovered/" },
-    { label: "Industries",      href: "/industries/", mega: true },
-    { label: "Platform",        href: "/platform/" },
+    { label: "Industries",      href: "/industries/", mega: "industries" },
+    { label: "Platform",        href: "/platform/", mega: "platform" },
     { label: "The Congress",    href: "/congress/" },
     { label: "About",           href: "/about/" }
   ];
@@ -47,6 +47,36 @@
     { label: "Agriculture",
       href:  "/industries/agriculture/",
       note:  "A harvest window with no second chance, and the engineering that came out of it." }
+  ];
+
+  /* The Platform panel. Two columns: the pages, and the fifteen modules
+   * grouped by what they are FOR rather than by build state.
+   *
+   * HONESTY GATE, and it is why the panel says what it says. Twelve of the
+   * fifteen modules are not live. A menu cannot carry fifteen status tags
+   * without becoming a table, so the panel never names an individual
+   * module: it names the five groups and states the live count once, in
+   * the standfirst, where nobody can miss it. Naming a module here without
+   * its tag would be a present-tense claim, which is the one thing the
+   * modules page exists to prevent. If you ever list modules in this
+   * panel, each one carries its tag or it does not go in. */
+  var PLATFORM_STANDFIRST = "Fifteen modules. Three run the Congress. Every one carries its build state.";
+  var PLATFORM_PAGES = [
+    { label: "All modules",              href: "/platform/modules/",
+      note:  "Every module, grouped by what it is for, each with its build state." },
+    { label: "Vetting and introductions", href: "/platform/vetting-and-introductions/",
+      note:  "How the decision gets made, and what the record of it holds." },
+    { label: "Trust and security",        href: "/platform/trust-and-security/",
+      note:  "What is enforced, what is not claimed, and what no audit has covered." },
+    { label: "What is next",              href: "/platform/whats-next/",
+      note:  "Future tense only. Nothing here is part of September." }
+  ];
+  var PLATFORM_GROUPS = [
+    { label: "Stating the requirement",     note: "Getting a requirement in with no name on it." },
+    { label: "Deciding who should meet",    note: "What a person reads before deciding. Nothing here decides." },
+    { label: "The introduction and its record", note: "Moving it through its steps, and keeping what came of it." },
+    { label: "The Congress",                note: "The three days, and the phone in the room." },
+    { label: "Reference",                   note: "Material the platform can be asked about." }
   ];
 
   /* The two-sided split, carried inside the panel. The site's whole
@@ -139,22 +169,63 @@
     }).join("");
   }
 
-  /* Desktop panel. Starts hidden in the markup, so it is closed before
-   * a single line of behaviour runs. */
-  function megaPanel(current) {
+  function platformPageLinks(current) {
+    return PLATFORM_PAGES.map(function (i) {
+      var cur = current === i.href ? ' aria-current="page"' : "";
+      return "<li><a href=\"" + i.href + "\"" + cur + ">" + i.label + "</a>" +
+        "<span class=\"descriptor\">" + i.note + "</span></li>";
+    }).join("");
+  }
+
+  /* Groups are NOT links. There is no per-group page, and inventing an
+   * anchor to a section people cannot see from here would be worse than
+   * plain text. They are wayfinding for the modules page. */
+  function platformGroupList() {
+    return PLATFORM_GROUPS.map(function (g) {
+      return "<li><span class=\"label\">" + g.label + "</span>" +
+        "<span class=\"descriptor\">" + g.note + "</span></li>";
+    }).join("");
+  }
+
+  function allLink(href, label, current) {
+    var cur = current === href ? ' aria-current="page"' : "";
+    return '<a class="link-more" href="' + href + '"' + cur + ">" + label + "</a>";
+  }
+
+  /* Desktop panel. Starts hidden in the markup, so it is closed before a
+   * single line of behaviour runs. One builder, two panels: the shape is
+   * identical, only the contents differ. */
+  function megaPanel(key, current) {
+    var id = "mega-" + key;
+    if (key === "platform") {
+      return (
+        '<div class="mega" id="' + id + '" hidden>' +
+          '<div class="mega-inner">' +
+            '<div class="mega-col">' +
+              '<p class="label label--lo" id="' + id + '-h">The platform</p>' +
+              '<ul class="link-index" aria-labelledby="' + id + '-h">' + platformPageLinks(current) + "</ul>" +
+              '<p class="mega-all">' + allLink("/platform/", "Platform overview", current) + "</p>" +
+            "</div>" +
+            '<div class="mega-col">' +
+              '<p class="label label--lo" id="' + id + '-g">' + PLATFORM_STANDFIRST + "</p>" +
+              '<ul class="link-index" aria-labelledby="' + id + '-g">' + platformGroupList() + "</ul>" +
+              '<p class="mega-all">' + allLink("/platform/modules/", "All fifteen modules", current) + "</p>" +
+            "</div>" +
+          "</div>" +
+        "</div>"
+      );
+    }
     return (
-      '<div class="mega" id="mega-industries" hidden>' +
+      '<div class="mega" id="' + id + '" hidden>' +
         '<div class="mega-inner">' +
           '<div class="mega-col">' +
-            '<p class="label label--lo" id="mega-industries-h">Four industries</p>' +
-            '<ul class="link-index" aria-labelledby="mega-industries-h">' +
-              industryLinks(current) +
-            "</ul>" +
-            '<p class="mega-all">' + allIndustriesLink(current) + "</p>" +
+            '<p class="label label--lo" id="' + id + '-h">Four industries</p>' +
+            '<ul class="link-index" aria-labelledby="' + id + '-h">' + industryLinks(current) + "</ul>" +
+            '<p class="mega-all">' + allLink("/industries/", "All four industries", current) + "</p>" +
           "</div>" +
           '<div class="mega-col mega-col--sides">' +
-            '<p class="label label--lo" id="mega-sides-h">Two paths</p>' +
-            '<div class="two-path two-path--stack" role="group" aria-labelledby="mega-sides-h">' +
+            '<p class="label label--lo" id="' + id + '-sides">Two paths</p>' +
+            '<div class="two-path two-path--stack" role="group" aria-labelledby="' + id + '-sides">' +
               sideLinks() +
             "</div>" +
           "</div>" +
@@ -163,18 +234,22 @@
     );
   }
 
-  /* Mobile. A mega panel is wrong on a phone, so the same content
-   * becomes a native details disclosure nested inside the existing
-   * menu. No script, no motion, no overlay. */
-  function megaMobile(current) {
+  /* Mobile. A mega panel is wrong on a phone, so the same content becomes
+   * a native details disclosure nested inside the existing menu. No
+   * script, no motion, no overlay. */
+  function megaMobile(key, label, current) {
+    var body = key === "platform"
+      ? '<p class="label label--lo">' + PLATFORM_STANDFIRST + "</p>" +
+        '<ul class="link-index" aria-label="The platform">' + platformPageLinks(current) + "</ul>" +
+        '<ul class="link-index" aria-label="Fifteen modules by what they are for">' + platformGroupList() + "</ul>" +
+        '<p class="nav-sub-all">' + allLink("/platform/modules/", "All fifteen modules", current) + "</p>"
+      : '<ul class="link-index" aria-label="Four industries">' + industryLinks(current) + "</ul>" +
+        '<div class="two-path two-path--stack" role="group" aria-label="Two paths">' + sideLinks() + "</div>" +
+        '<p class="nav-sub-all">' + allLink("/industries/", "All four industries", current) + "</p>";
     return (
-      '<li><details class="nav-sub"><summary>Industries' +
-        ' <span class="nav-mega-caret" aria-hidden="true">↓</span></summary>' +
-        '<ul class="link-index" aria-label="Four industries">' + industryLinks(current) + "</ul>" +
-        '<div class="two-path two-path--stack" role="group" aria-label="Two paths">' +
-          sideLinks() +
-        "</div>" +
-        '<p class="nav-sub-all">' + allIndustriesLink(current) + "</p>" +
+      '<li><details class="nav-sub"><summary>' + label +
+        ' <span class="nav-mega-caret" aria-hidden="true">\u2193</span></summary>' +
+        body +
       "</details></li>"
     );
   }
@@ -188,10 +263,10 @@
          * aria-current="true", not "page", because the real page link
          * inside the panel is the one that owns "page". */
         var inBranch = current.indexOf(item.href) === 0 ? ' aria-current="true"' : "";
-        if (mobile) return megaMobile(current);
+        if (mobile) return megaMobile(item.mega, item.label, current);
         return '<li class="nav-mega">' +
-          '<button type="button" class="nav-mega-btn" id="mega-industries-btn"' +
-          ' aria-expanded="false" aria-controls="mega-industries"' + inBranch + ">" +
+          '<button type="button" class="nav-mega-btn" id="mega-' + item.mega + '-btn"' +
+          ' aria-expanded="false" aria-controls="mega-' + item.mega + '"' + inBranch + ">" +
           /* The label is wrapped so the current-branch rule can hug the
            * WORD. On the plain nav links the device is drawn on an inline
            * <a>, so it ends where the text ends. On this button it was
@@ -204,7 +279,7 @@
            * inline device, and rotation would spend the motion budget. */
           ' <span class="nav-mega-caret" aria-hidden="true">↓</span>' +
           "</button>" +
-          megaPanel(current) +
+          megaPanel(item.mega, current) +
         "</li>";
       }
       return "<li><a href=\"" + item.href + "\"" + cur + ">" + item.label + "</a></li>";
@@ -283,7 +358,13 @@
    *
    * Motion budget spent: zero. The panel appears. */
   function wireMega(root) {
-    var item = root.querySelector(".nav-mega");
+    /* Two panels now, Industries and Platform, so this wires ALL of them.
+     * Each closes independently; opening one does not close the other,
+     * because focusout and mouseleave already handle that per item. */
+    root.querySelectorAll(".nav-mega").forEach(wireOneMega);
+  }
+
+  function wireOneMega(item) {
     if (!item) return;
     var btn = item.querySelector(".nav-mega-btn");
     var panel = item.querySelector(".mega");
