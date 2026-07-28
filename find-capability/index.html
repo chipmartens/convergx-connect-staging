@@ -18,7 +18,7 @@
   <!-- shell.js injects the nav and the footer. Never hand-write either.
        The block below is the no-JS fallback ONLY. It is generated from the
        same six nav items, four verticals and CTA that shell.js carries, so
-       if you change one, change both. -->
+       if you change one, regenerate the other. Never hand-edit one page. -->
   <noscript>
     <nav aria-label="Primary">
       <ul>
@@ -44,7 +44,7 @@
 <main id="main">
 
   <!-- Demand hero, 8/4. The 4-column side carries the dot field and the
-       category definition as spec metadata. No photograph on this page. -->
+       category definition as spec metadata. Photograph added 2026-07-27 per _reference/FIGURE-SYSTEM.md section 4.3, which supersedes the no-image note this comment used to carry. -->
   <section class="section--open">
     <div class="editorial hero">
       <header class="hero-head">
@@ -101,6 +101,17 @@
           </table>
         </div>
         <p class="body">At their best the first three return a company that looks right on paper. None of them tells you whether it can take your work this quarter. The fourth is why the requirement never reaches any of them. The fifth answers the question you actually have, and it stops at the edge of the industries you already buy from.</p>
+
+        <!-- Photograph slot, directly under the paragraph about what a file
+             cannot answer: the image is the work itself, waiting on a
+             judgement nobody has made yet. NOT bleed. This page's one grid
+             break is already spent on the routes table above, so the figure
+             sits at grid-column main as a plain child of .editorial.
+             Commissioned, never stock, never fabricated. -->
+        <figure data-spec="Photograph, 1600x1000, 16:10. One large fabricated assembly awaiting inspection, some joints tagged and some untagged. Dark surround, warm orange rim light. No people, nothing tubular or barrel-like, no militarism, no branding, no readable logos, no part marks, no stock gloss. Source: commissioned.">
+          <img src="/assets/img/fabricated-assembly-awaiting-inspection.jpg" width="1600" height="1000" alt="A large welded steel assembly resting on trestles in a dark bay, some of its joints carrying small paper tags tied on with wire and others carrying none.">
+          <!-- TODO: replace with the commissioned 1600x1000 photograph once cleared by Kim Van Vliet. Working image in place; do NOT render that note as copy, a reader should never be told the asset is provisional. -->
+        </figure>
       </div>
     </div>
   </section>
@@ -167,12 +178,19 @@
         <li><a href="/platform/modules/">Modules</a></li>
         <li><a href="/platform/vetting-and-introductions/">Vetting and introductions</a></li>
         <li><a href="/platform/trust-and-security/">Trust and security</a></li>
+        <li><a href="/platform/whats-next/">What is next</a></li>
         <li><a href="/congress/">The Congress</a></li>
         <li><a href="/congress/agenda/">Agenda</a></li>
+        <li><a href="/congress/attend/">Attend</a></li>
         <li><a href="/congress/the-app/">The app</a></li>
+        <li><a href="/congress/register/">Register</a></li>
+        <li><a href="/congress/sponsor/">Sponsor</a></li>
         <li><a href="/about/">About</a></li>
         <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/about/leadership/">Leadership</a></li>
+        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/industries/">Industries</a></li>
+        <li><a href="/access/">Access</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>
       </ul>

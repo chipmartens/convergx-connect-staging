@@ -17,7 +17,7 @@
   <!-- shell.js injects the nav and the footer. Never hand-write either.
        The block below is the no-JS fallback ONLY. It is generated from the
        same six nav items, four verticals and CTA that shell.js carries, so
-       if you change one, change both. -->
+       if you change one, regenerate the other. Never hand-edit one page. -->
   <noscript>
     <nav aria-label="Primary">
       <ul>
@@ -169,6 +169,35 @@
           <p>It is not a supplier qualification and does not stand in for one. First-article inspection, special-process approval and export classification are your gates, run by your people, on your programme.</p>
           <p>What changes is who you are running them on. The wrong company is cheapest to find out about now, and most expensive to find out about at first article.</p>
         </div>
+
+        <!-- Fig. 6, inlined from /assets/fig/fig-3-vetting-aperture.svg.
+             Inlined rather than referenced: the ink is currentColor taken
+             from the surface, so an <img> would never reach the .fig-*
+             rules or the reveal.
+             grid-column: main by inheritance from .editorial > *, never
+             bleed: the spec permits bleed here only if the page has no
+             other grid break, and this page has two .bleed pulls already. -->
+        <figure class="fig" data-fig>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700"
+               preserveAspectRatio="xMidYMid meet" role="img"
+               aria-label="Diagram: a dashed path passes through a narrow gate between two vertical lines, with a dot at the point where the questions are asked. Past the gate the path either continues as a solid line off the edge of the frame, labelled introduced, or ends a short way in, labelled not taken forward.">
+            <!-- The gate. Two vertical segments, the aperture between them at y 300 to 420. -->
+            <line class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" x1="820" y1="80" x2="820" y2="300"/>
+            <line class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" x1="820" y1="420" x2="820" y2="640"/>
+            <!-- Continuing branch. Solid because the meeting happened. Cropped by the right frame edge. -->
+            <path class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" d="M 828 360 C 1050 350, 1300 330, 1600 320"/>
+            <!-- Entering path. Dashed: a proposal. Cropped by the left frame edge. -->
+            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 0 380 C 300 380, 560 368, 812 360"/>
+            <!-- Ending branch. Ends plainly. No terminal mark: a decision not to introduce, not a defect found. -->
+            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 828 368 C 950 400, 1030 450, 1080 500"/>
+            <!-- The asking happens here. -->
+            <circle class="fig-dot" cx="820" cy="360" r="6"/>
+            <text class="fig-label" text-anchor="start" x="860" y="120">The questions are asked here</text>
+            <text class="fig-label" text-anchor="start" x="1330" y="280">Introduced</text>
+            <text class="fig-label" text-anchor="start" x="960" y="560">Not taken forward</text>
+          </svg>
+          <figcaption>Fig. 6. The review ends in a decision, one way or the other. It does not end in a score.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -227,12 +256,19 @@
         <li><a href="/platform/modules/">Modules</a></li>
         <li><a href="/platform/vetting-and-introductions/">Vetting and introductions</a></li>
         <li><a href="/platform/trust-and-security/">Trust and security</a></li>
+        <li><a href="/platform/whats-next/">What is next</a></li>
         <li><a href="/congress/">The Congress</a></li>
         <li><a href="/congress/agenda/">Agenda</a></li>
+        <li><a href="/congress/attend/">Attend</a></li>
         <li><a href="/congress/the-app/">The app</a></li>
+        <li><a href="/congress/register/">Register</a></li>
+        <li><a href="/congress/sponsor/">Sponsor</a></li>
         <li><a href="/about/">About</a></li>
         <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/about/leadership/">Leadership</a></li>
+        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/industries/">Industries</a></li>
+        <li><a href="/access/">Access</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>
       </ul>
@@ -241,5 +277,6 @@
 </footer>
 
 <script src="/_system/shell.js" defer></script>
+<script src="/_system/figures.js" defer></script>
 </body>
 </html>

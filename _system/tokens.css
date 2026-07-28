@@ -128,6 +128,11 @@
 
   /* ---- motion. The entire budget. ---- */
   --t: 120ms;
+
+  /* ---- figures. See _reference/FIGURE-SYSTEM.md ---- */
+  --fig-dash:   4 9;      /* dash pattern, viewBox units */
+  --fig-t:      800ms;    /* draw-on duration */
+  --fig-t-fade: 300ms;    /* path, label and dot fade duration */
 }
 
 /* ---- the surface system. Three grounds, one family. ----

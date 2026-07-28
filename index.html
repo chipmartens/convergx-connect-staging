@@ -17,7 +17,7 @@
   <!-- shell.js injects the nav and the footer. Never hand-write either.
        The block below is the no-JS fallback ONLY. It is generated from the
        same six nav items, four verticals and CTA that shell.js carries, so
-       if you change one, change both. -->
+       if you change one, regenerate the other. Never hand-edit one page. -->
   <noscript>
     <nav aria-label="Primary">
       <ul>
@@ -110,6 +110,34 @@
       <div class="editorial">
         <p class="lede lede-text">You post the requirement with no name on it. ConvergX picks the company that can answer it, asks whether it can actually take the work, and brokers the introduction between you.</p>
         <p class="body">Nothing anyone else sees carries an author. If the counterparty turns out to be wrong, you know who to call.</p>
+
+        <!-- Fig. 4, inlined from /assets/fig/fig-1-unnamed-requirement.svg.
+             Inlined rather than referenced: the ink is currentColor taken
+             from the surface, so an <img> would paint it black on black
+             and could never reach the .fig-* rules.
+             grid-column: main by inheritance from .editorial > *, never
+             bleed: this page's one grid break is spent on the photograph. -->
+        <figure class="fig" data-fig>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Diagram: a dashed path enters from the left and meets a pair of concentric circles at a single point marked by a small unlabelled dot. The path is labelled posted with no name on it. The circles are labelled read by a person at ConvergX.">
+            <!-- The concentric pair: the logo's double rule, drawn in two dimensions. -->
+            <circle class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" cx="1120" cy="360" r="250"/>
+            <circle class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" cx="1120" cy="360" r="170"/>
+
+            <!-- Outer orbit. -->
+            <circle class="fig-dash" vector-effect="non-scaling-stroke" cx="1120" cy="360" r="330"/>
+
+            <!-- The requirement's route in, cropped by the left frame edge, terminating
+                 exactly on the outer solid circle's leftmost point (870, 360). -->
+            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 0 480 C 320 480, 620 430, 870 360"/>
+
+            <!-- The pinch node. This dot carries no label, and that is the figure. -->
+            <circle class="fig-dot" cx="870" cy="360" r="6"/>
+
+            <text class="fig-label" x="40" y="445">Posted with no name on it</text>
+            <text class="fig-label" text-anchor="end" x="1560" y="655">Read by a person at ConvergX</text>
+          </svg>
+          <figcaption>Fig. 4. The requirement travels without an author. The labels here belong to the structure. None belongs to you.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -146,12 +174,19 @@
         <li><a href="/platform/modules/">Modules</a></li>
         <li><a href="/platform/vetting-and-introductions/">Vetting and introductions</a></li>
         <li><a href="/platform/trust-and-security/">Trust and security</a></li>
+        <li><a href="/platform/whats-next/">What is next</a></li>
         <li><a href="/congress/">The Congress</a></li>
         <li><a href="/congress/agenda/">Agenda</a></li>
+        <li><a href="/congress/attend/">Attend</a></li>
         <li><a href="/congress/the-app/">The app</a></li>
+        <li><a href="/congress/register/">Register</a></li>
+        <li><a href="/congress/sponsor/">Sponsor</a></li>
         <li><a href="/about/">About</a></li>
         <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/about/leadership/">Leadership</a></li>
+        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/industries/">Industries</a></li>
+        <li><a href="/access/">Access</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>
       </ul>
@@ -160,6 +195,7 @@
 </footer>
 
 <script src="/_system/shell.js" defer></script>
+<script src="/_system/figures.js" defer></script>
 
 </body>
 </html>

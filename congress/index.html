@@ -17,7 +17,7 @@
   <!-- shell.js injects the nav and the footer. Never hand-write either.
        The block below is the no-JS fallback ONLY. It is generated from the
        same six nav items, four verticals and CTA that shell.js carries, so
-       if you change one, change both. -->
+       if you change one, regenerate the other. Never hand-edit one page. -->
   <noscript>
     <nav aria-label="Primary">
       <ul>
@@ -91,6 +91,47 @@
           <p>Doing that year after year is how ConvergX ends up in the room while the work is happening, rather than reading about it afterwards.</p>
           <p>A delegate leaves with meetings that were decided rather than bumped into, and a name attached to every one.</p>
         </div>
+
+        <!-- Fig. 9, inlined from /assets/fig/fig-6-three-days.svg.
+             Inlined rather than referenced: the ink is currentColor taken
+             from the surface, so an <img> would never reach the .fig-*
+             rules or the reveal.
+             grid-column: main by inheritance from .editorial > *, never
+             bleed: this page's one grid break is spent on the photograph.
+             The seven paths, three dots and three columns are structure,
+             never a count. The dates are the only permitted figure here. -->
+        <figure class="fig" data-fig>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Diagram: seven dashed paths converge from the left into a rectangular frame divided into three columns, one for each day of the Congress, September 22 to 24. Three dots inside the frame mark meetings.">
+            <!-- The window and its two dividers are drawn as path rather than rect
+                 and line: identical geometry, and pathLength is honoured on a path
+                 in every browser, which the draw-on depends on. On basic shapes it
+                 is not, and where it is ignored the window would render as a
+                 1-unit dotted outline instead of a solid one. -->
+
+            <!-- The window: three columns, three days. -->
+            <path class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" d="M 980 110 H 1440 V 590 H 980 Z"/>
+            <path class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" d="M 1133 110 V 590"/>
+            <path class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" d="M 1287 110 V 590"/>
+
+            <!-- Seven routes in, each cropped by the frame edge it enters from, every
+                 one terminating on the window's left edge at x 980. -->
+            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 0 60 C 400 100, 700 180, 980 240"/>
+            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 0 200 C 350 230, 680 260, 980 290"/>
+            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 0 340 C 350 345, 680 348, 980 340"/>
+            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 0 480 C 350 460, 680 420, 980 390"/>
+            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 0 620 C 400 580, 700 500, 980 440"/>
+            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 240 0 C 500 160, 760 220, 980 265"/>
+            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 240 700 C 500 560, 760 470, 980 415"/>
+
+            <!-- One meeting in each column. -->
+            <circle class="fig-dot" cx="1057" cy="300" r="6"/>
+            <circle class="fig-dot" cx="1210" cy="350" r="6"/>
+            <circle class="fig-dot" cx="1363" cy="400" r="6"/>
+
+            <text class="fig-label" x="980" y="80">Sep 22 to 24, Calgary</text>
+          </svg>
+          <figcaption>Fig. 9. Many paths, one window. Three days in Calgary where the right people are put in the same room.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -160,12 +201,19 @@
         <li><a href="/platform/modules/">Modules</a></li>
         <li><a href="/platform/vetting-and-introductions/">Vetting and introductions</a></li>
         <li><a href="/platform/trust-and-security/">Trust and security</a></li>
+        <li><a href="/platform/whats-next/">What is next</a></li>
         <li><a href="/congress/">The Congress</a></li>
         <li><a href="/congress/agenda/">Agenda</a></li>
+        <li><a href="/congress/attend/">Attend</a></li>
         <li><a href="/congress/the-app/">The app</a></li>
+        <li><a href="/congress/register/">Register</a></li>
+        <li><a href="/congress/sponsor/">Sponsor</a></li>
         <li><a href="/about/">About</a></li>
         <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/about/leadership/">Leadership</a></li>
+        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/industries/">Industries</a></li>
+        <li><a href="/access/">Access</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>
       </ul>
@@ -174,5 +222,6 @@
 </footer>
 
 <script src="/_system/shell.js" defer></script>
+<script src="/_system/figures.js" defer></script>
 </body>
 </html>

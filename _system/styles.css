@@ -37,7 +37,7 @@ body {
   color: var(--fg);
 }
 
-img, svg, video { display: block; max-width: 100%; }
+img, svg, video { display: block; max-width: 100%; height: auto; }
 
 input, button, select, textarea { font: inherit; color: inherit; }
 
@@ -919,3 +919,36 @@ section:has(.hero) { padding-block: 0; }
     scroll-behavior: auto !important;
   }
 }
+
+/* ================= 20. FIGURES: THE LINE SYSTEM ================= */
+/* See _reference/FIGURE-SYSTEM.md. Monochrome line art, one ink from
+ * the surface, exactly as the logo inherits. Fills exist only on dots. */
+
+.fig svg   { display: block; width: 100%; height: auto; color: var(--fg-hi); }
+.fig-solid { fill: none; stroke: currentColor; stroke-width: calc(var(--rule-hair) * 2); }
+.fig-dash  { fill: none; stroke: currentColor; stroke-width: var(--rule-hair);
+             stroke-dasharray: var(--fig-dash); }
+.fig-dot   { fill: currentColor; stroke: none; }
+.fig-label {
+  fill: currentColor;
+  font-family: var(--font-mono);
+  font-size: 22px;                 /* viewBox units: tracks the plate, small by design */
+  letter-spacing: 0.18em;
+  text-transform: uppercase;       /* sentence case in the DOM, always */
+}
+
+/* Reveal. JS arms, the observer plays, CSS defaults to the finished
+ * plate. With JS off no class is ever added and the figure is simply
+ * complete. See §3 of the figure spec for the amended motion budget. */
+.fig-armed .fig-solid { stroke-dasharray: 1; stroke-dashoffset: 1; }   /* pathLength="1" */
+.fig-armed .fig-dash,
+.fig-armed .fig-dot,
+.fig-armed .fig-label { opacity: 0; }
+.fig-played .fig-solid { stroke-dashoffset: 0;
+  transition: stroke-dashoffset var(--fig-t) linear; }
+.fig-played .fig-dash  { opacity: 1;
+  transition: opacity var(--fig-t-fade) linear var(--fig-t); }
+.fig-played .fig-label { opacity: 1;
+  transition: opacity var(--fig-t-fade) linear calc(var(--fig-t) + 200ms); }
+.fig-played .fig-dot   { opacity: 1;
+  transition: opacity var(--fig-t-fade) linear calc(var(--fig-t) + 400ms); }

@@ -17,7 +17,7 @@
   <!-- shell.js injects the nav and the footer. Never hand-write either.
        The block below is the no-JS fallback ONLY. It is generated from the
        same six nav items, four verticals and CTA that shell.js carries, so
-       if you change one, change both. -->
+       if you change one, regenerate the other. Never hand-edit one page. -->
   <noscript>
     <nav aria-label="Primary">
       <ul>
@@ -84,6 +84,39 @@
             <p>Neither side learns who the other is until ConvergX releases it, and the consent of each sits on the record.</p>
           </div>
         </div>
+
+        <!-- Fig. 5, inlined from /assets/fig/fig-2-two-sides-one-broker.svg.
+             Inlined rather than referenced: the ink is currentColor taken
+             from the surface, so an <img> would never pick up the .fig-*
+             rules or the reveal.
+             grid-column: main by inheritance from .editorial > *, never
+             bleed: this page's one grid break is spent on Fig. 3 below. -->
+        <figure class="fig" data-fig>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700"
+               preserveAspectRatio="xMidYMid meet" role="img"
+               aria-label="Diagram: two separate systems of circles that do not touch. A single dot between them, labelled a person at ConvergX, is joined to each side by a short solid line. Nothing else crosses the gap.">
+            <!-- the two systems. Solid body, one per side. They never touch. -->
+            <circle class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" cx="400" cy="360" r="190"/>
+            <circle class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" cx="1200" cy="360" r="190"/>
+
+            <!-- the only two things crossing the gap. A person, drawn as two short
+                 reaches. No arrowhead: direction and force are not claimed. -->
+            <line class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" x1="590" y1="360" x2="794" y2="360"/>
+            <line class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" x1="806" y1="360" x2="1010" y2="360"/>
+
+            <!-- orbits. Dashed, no pathLength: it would destroy the dash pattern. -->
+            <circle class="fig-dash" vector-effect="non-scaling-stroke" cx="400" cy="360" r="250"/>
+            <circle class="fig-dash" vector-effect="non-scaling-stroke" cx="1200" cy="360" r="250"/>
+
+            <!-- the broker. A person, at the node where both reaches end. -->
+            <circle class="fig-dot" cx="800" cy="360" r="6"/>
+
+            <text class="fig-label" text-anchor="middle" x="800" y="300">A person at ConvergX</text>
+            <text class="fig-label" text-anchor="start" x="280" y="640">The side asking</text>
+            <text class="fig-label" text-anchor="start" x="1080" y="640">The side answering</text>
+          </svg>
+          <figcaption>Fig. 5. The two sides never meet on their own. A person carries the introduction across the gap.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -107,8 +140,10 @@
     </div>
   </section>
 
-  <!-- S4. Build work. Pattern B from 1.12, once. No present-tense verb
-       describes this capability anywhere on the page. -->
+  <!-- S4. Build work. Pattern B from 1.12, once, split so the capability
+       leads and the build state tags it. Still no present-tense verb
+       describing this capability anywhere on the page: the lede is a noun
+       phrase on purpose. Do not give it a verb. -->
   <section>
     <div class="wrap">
       <div class="sec-head">
@@ -117,11 +152,11 @@
       </div>
       <div class="editorial">
         <div class="lede">
-          <p>The reasoning behind a decision sits outside the platform today.</p>
+          <p>The written reason a candidate was ruled in or out, kept instead of dropped when the shortlist narrows.</p>
         </div>
         <div class="body">
-          <p>In build, demonstrable, not hardened: the written reason a candidate was ruled in or out, kept instead of dropped when the shortlist narrows.</p>
-          <p>It is not in the September scope.</p>
+          <p>In build, demonstrable, not hardened. Not in the September scope.</p>
+          <p>Today that reasoning sits outside the platform.</p>
         </div>
       </div>
     </div>
@@ -175,12 +210,19 @@
         <li><a href="/platform/modules/">Modules</a></li>
         <li><a href="/platform/vetting-and-introductions/">Vetting and introductions</a></li>
         <li><a href="/platform/trust-and-security/">Trust and security</a></li>
+        <li><a href="/platform/whats-next/">What is next</a></li>
         <li><a href="/congress/">The Congress</a></li>
         <li><a href="/congress/agenda/">Agenda</a></li>
+        <li><a href="/congress/attend/">Attend</a></li>
         <li><a href="/congress/the-app/">The app</a></li>
+        <li><a href="/congress/register/">Register</a></li>
+        <li><a href="/congress/sponsor/">Sponsor</a></li>
         <li><a href="/about/">About</a></li>
         <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/about/leadership/">Leadership</a></li>
+        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/industries/">Industries</a></li>
+        <li><a href="/access/">Access</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>
       </ul>
@@ -189,5 +231,6 @@
 </footer>
 
 <script src="/_system/shell.js" defer></script>
+<script src="/_system/figures.js" defer></script>
 </body>
 </html>

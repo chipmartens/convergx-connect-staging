@@ -79,12 +79,15 @@
     { title: "The Congress", links: [
       { label: "Overview", href: "/congress/" },
       { label: "Agenda",   href: "/congress/agenda/" },
-      { label: "The app",  href: "/congress/the-app/" }
+      { label: "The app",  href: "/congress/the-app/" },
+      { label: "Register", href: "/congress/register/" },
+      { label: "Sponsor",  href: "/congress/sponsor/" }
     ]},
     { title: "ConvergX", links: [
       { label: "About",          href: "/about/" },
       { label: "How we vet",     href: "/about/how-we-vet/" },
       { label: "Industries",     href: "/industries/" },
+      { label: "Access",         href: "/access/" },
       { label: "Request access", href: "/access/request/" },
       { label: "Apply to join",  href: "/access/apply/" }
     ]}

@@ -17,7 +17,7 @@
   <!-- shell.js injects the nav and the footer. Never hand-write either.
        The block below is the no-JS fallback ONLY. It is generated from the
        same six nav items, four verticals and CTA that shell.js carries, so
-       if you change one, change both. -->
+       if you change one, regenerate the other. Never hand-edit one page. -->
   <noscript>
     <nav aria-label="Primary">
       <ul>
@@ -61,6 +61,43 @@
         <p>That is a fact about the supply base, not about the capability. A pump seal, an autonomy stack or a cold chain does not know which sector bought it first.</p>
         <p>ConvergX convenes all four, which is the only position from which one can be asked about another. A person reads the requirement and goes looking where your own people have no reason to know anyone.</p>
       </div>
+
+      <!-- Fig. 7, inlined from /assets/fig/fig-4-lines-disappear.svg.
+           Sits between the lede and the four-industry link index below,
+           because it draws the shape the link index then instantiates.
+           Inlined rather than referenced: the ink is currentColor taken
+           from the surface, so an <img> would never reach the .fig-*
+           rules or the reveal.
+           grid-column: main by inheritance from .editorial > *.
+           The tagline belongs to /about/ and appears once site-wide, so
+           neither the caption nor any label here quotes its words. -->
+      <figure class="fig" data-fig>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700"
+             preserveAspectRatio="xMidYMid meet" role="img"
+             aria-label="Diagram: four circles, one for each industry, all touching at a single shared point marked by a dot. The labels read aerospace and defence, energy, mining and natural resources, and agriculture.">
+          <!-- Four circles, every one tangent to the same node at (800, 390).
+               Two solid, two dashed, so the plate keeps the two-weight grammar.
+               The top and bottom circles are cropped by the frame on purpose:
+               the system is larger than the frame. -->
+
+          <!-- solid: tangent from the left and from the right -->
+          <circle class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" cx="540" cy="390" r="260"/>
+          <circle class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" cx="1060" cy="390" r="260"/>
+
+          <!-- dashed: tangent from above and from below, both cropped by the frame -->
+          <circle class="fig-dash" vector-effect="non-scaling-stroke" cx="800" cy="170" r="220"/>
+          <circle class="fig-dash" vector-effect="non-scaling-stroke" cx="800" cy="650" r="260"/>
+
+          <!-- the shared node. The only dot on the plate. -->
+          <circle class="fig-dot" cx="800" cy="390" r="6"/>
+
+          <text class="fig-label" text-anchor="start"  x="70"   y="380">Aerospace and defence</text>
+          <text class="fig-label" text-anchor="end"    x="1530" y="380">Energy</text>
+          <text class="fig-label" text-anchor="middle" x="800"  y="40">Mining and natural resources</text>
+          <text class="fig-label" text-anchor="middle" x="800"  y="685">Agriculture</text>
+        </svg>
+        <figcaption>Fig. 7. Four industries, one shared point. A requirement raised in one can be answered from any of the others.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -140,12 +177,19 @@
         <li><a href="/platform/modules/">Modules</a></li>
         <li><a href="/platform/vetting-and-introductions/">Vetting and introductions</a></li>
         <li><a href="/platform/trust-and-security/">Trust and security</a></li>
+        <li><a href="/platform/whats-next/">What is next</a></li>
         <li><a href="/congress/">The Congress</a></li>
         <li><a href="/congress/agenda/">Agenda</a></li>
+        <li><a href="/congress/attend/">Attend</a></li>
         <li><a href="/congress/the-app/">The app</a></li>
+        <li><a href="/congress/register/">Register</a></li>
+        <li><a href="/congress/sponsor/">Sponsor</a></li>
         <li><a href="/about/">About</a></li>
         <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/about/leadership/">Leadership</a></li>
+        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/industries/">Industries</a></li>
+        <li><a href="/access/">Access</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>
       </ul>
@@ -154,5 +198,6 @@
 </footer>
 
 <script src="/_system/shell.js" defer></script>
+<script src="/_system/figures.js" defer></script>
 </body>
 </html>
