@@ -23,18 +23,24 @@
    TYPEFACE: Manrope. Chosen by Chip 2026-07-27 from a six-way bakeoff
    (_reference/font-bakeoff.html). Semi-geometric, which echoes the
    logo's circular C and O rather than sitting neutral against them.
-   OFL, self-hosted, 96KB for four weights. NEVER load from a CDN:
-   external dependency, privacy exposure, and it fails offline at the
-   Congress. Micro-labels use the SYSTEM mono stack, zero download.
+   OFL, self-hosted, ONE 24KB variable file covering 400 to 700.
+   NEVER load from a CDN: external dependency, privacy exposure, and
+   it fails offline at the Congress. Micro-labels use the SYSTEM mono
+   stack, zero download.
+
+   The four Manrope-*.woff2 files are byte-identical (md5
+   101877a7a906c31436104fe33740ae44, 24,576 bytes each): one variable
+   font shipped four times. Four declarations meant four downloads of
+   the same bytes. Verified live before collapsing them: rendered
+   advances for "Handgloves 0123" at 100px are 774.10 / 788.60 /
+   803.10 / 817.60 at 400 / 500 / 600 / 700, a clean monotone ladder,
+   so the wght axis is real and the range declaration is honest.
+   If a browser ever refuses the range the fallback is four
+   declarations all pointing at this one file.
+   The other three files are now unreferenced and can be deleted.
    --------------------------------------------------------------- */
-@font-face{font-family:Manrope;font-style:normal;font-weight:400;font-display:swap;
+@font-face{font-family:Manrope;font-style:normal;font-weight:400 700;font-display:swap;
   src:url("../assets/fonts/Manrope-400.woff2") format("woff2")}
-@font-face{font-family:Manrope;font-style:normal;font-weight:500;font-display:swap;
-  src:url("../assets/fonts/Manrope-500.woff2") format("woff2")}
-@font-face{font-family:Manrope;font-style:normal;font-weight:600;font-display:swap;
-  src:url("../assets/fonts/Manrope-600.woff2") format("woff2")}
-@font-face{font-family:Manrope;font-style:normal;font-weight:700;font-display:swap;
-  src:url("../assets/fonts/Manrope-700.woff2") format("woff2")}
 
 :root {
   /* ---- ground and ink. PLACEHOLDER. ---- */
@@ -83,9 +89,34 @@
   --font-display: Manrope, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-body:    Manrope, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono:    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-  --track-display: -0.018em;  /* display only. Never on body */
+
+  /* ---- tracking ladder. One value per step, tightening as the type
+   * grows, because optical letter-space is a function of size and a
+   * single --track-display could only be right at one size. Floor is
+   * -0.032em, inside the -0.04em craft limit. Body and lede take zero:
+   * negative tracking on running copy costs legibility for nothing. ---- */
+  --track-6: -0.032em;   /* hero, 101px */
+  --track-5: -0.028em;   /* h1, 76px */
+  --track-4: -0.024em;   /* pull and display statement, 57px */
+  --track-3: -0.018em;   /* h2, 43px */
+  --track-2: -0.012em;   /* the emphatic sentence, h3, index rows, 32px */
+  --track-1: -0.008em;   /* module title, 24px */
   --track-label:    0.18em;   /* micro-labels at 11px */
   --track-label-13: 0.15em;   /* labels at 13px */
+  /* DEPRECATED. Superseded by the ladder above. Retained only because
+   * _dev/_reference.html:28 still names it and this pass does not edit
+   * pages. Remap that line to --track-3 and delete this. */
+  --track-display: var(--track-3);
+
+  /* ---- leading. Stated as tokens because leading is a per-role
+   * decision, not a global ratio. --lh-heading puts a fixed 4px on the
+   * em box: more air at small sizes, less at large, which is what
+   * Manrope's 0.54em x-height wants across a 32-to-101px range. ---- */
+  --lh-heading: calc(1em + 0.25rem);
+  --lh-hero:    calc(1em + 0.1rem);
+  --lh-body:    1.55;    /* THE line unit. Never forked by surface */
+  --lh-label:   1.25;    /* was 1.0, which collides the moment a label wraps */
+  --lh-lede:    1.34;    /* light grounds. Dark overrides below */
 
   /* ---- type scale. 1.2 at 320px to 1.333 at 1440px, base 16 to 18.
    * Every preferred term carries a rem component (WCAG 1.4.4).
@@ -115,9 +146,17 @@
   /* ---- layout ---- */
   --page-max: 1180px;
   --gutter:   var(--space-l);
-  --measure:  68ch;           /* body prose cap */
-  --measure-display: 16ch;    /* forces display headlines to break and dominate */
   --radius: 0;                /* structural. Do not change */
+
+  /* ---- measure. Stated in ch, READ in characters.
+   * Measured live in Manrope: the `0` is 8.235px where the average
+   * letter is 6.219px, so 1ch = 1.324 rendered characters. Every value
+   * below is the character count divided by 1.324. The old 68ch was
+   * ~90 characters, which is why the columns read as slabs. ---- */
+  --measure:         50ch;    /* body prose. ~66 characters */
+  --measure-lede:    34ch;    /* the lede. ~45 characters */
+  --measure-display: 22ch;    /* h1, pull, display statement. ~29 characters */
+  --measure-hero:    12ch;    /* hero headline only. ~16 characters */
 
   /* ---- logo. Measured floors, enforced in styles.css. ----
    * Below 200px the tagline stops being type; below 150px the inline
@@ -151,6 +190,10 @@
   --link:          var(--accent);
   --logo-ink:      var(--ink-hi);      /* hairline mark needs MORE contrast than body */
   --dot-ink:       var(--warm-700);
+  /* Light type on a dark ground needs a touch more leading to hold its
+   * lines apart. The body line unit never forks (1.55 everywhere); the
+   * lede is where the compensation is affordable and visible. */
+  --lh-lede:       1.40;
 }
 [data-surface="light"] {
   --bg:            var(--paper);

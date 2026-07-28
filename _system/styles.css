@@ -53,6 +53,7 @@ body:not([data-surface]) {
   --link:          var(--accent);
   --logo-ink:      var(--ink-hi);
   --dot-ink:       var(--warm-700);
+  --lh-lede:       1.40;
 }
 
 /* A surface band paints its own ground. Bodies and full-bleed bands
@@ -61,31 +62,59 @@ body:not([data-surface]) {
 
 ::selection { background: var(--accent); color: var(--accent-ink); }
 
-/* ================= 2. TYPE ================= */
+/* ================= 2. TYPE: THE ROLE SCALE ================= */
+/* Nine steps, every step with a job, no dead steps. The token clamp
+ * values are UNCHANGED; what is authored here is the ASSIGNMENT.
+ *
+ * The story, loudest to quietest, and each register has one voice:
+ *   step-6  hero h1        101px   only inside an authored hero
+ *   step-5  default h1      76px   every page that is not a hero
+ *   step-4  .display/.pull  57px   the mid-page voice, under h1, over h2
+ *   step-3  h2              43px   section head, the workhorse
+ *   step-2  .say/h3/index   32px   the emphatic sentence and the sub-head
+ *   step-1  lede            24px
+ *   step-0  body            18px
+ *   step--1 caption/meta    13.5px
+ *   step--2 label/tag/th    11px
+ *
+ * Before this pass step-2 through step-6 carried one element each and
+ * the site spoke in two registers: micro-label and giant hero. The
+ * middle three gears are where a page argues; they are now occupied.
+ *
+ * Weight ladder: 400 body, 500 UI and emphasis, 600 headings, 700 hero.
+ * Headings are 600 on EVERY ground: a heading must not change weight
+ * when the surface changes mid-scroll, and 600 is also the correct
+ * light-on-dark compensation, so one value serves both. */
 
-h1, h2, h3, h4, .display {
+h1, h2, h3, .display {
   font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: var(--track-display);
-  line-height: 1.08;
+  font-weight: 600;
+  line-height: var(--lh-heading);
   color: var(--fg-hi);
 }
 
 /* Sentence case throughout. The logo is caps; caps headlines compete with it. */
-h1 { font-size: var(--step-4); }
-h2 { font-size: var(--step-3); }
-h3 { font-size: var(--step-2); }
-h4 { font-size: var(--step-1); }
+h1 { font-size: var(--step-5); letter-spacing: var(--track-5); max-width: var(--measure-display); }
+h2 { font-size: var(--step-3); letter-spacing: var(--track-3); }
+h3 { font-size: var(--step-2); letter-spacing: var(--track-2); }
 
 h1, h2 { text-wrap: balance; }
 
-.display   { font-size: var(--step-5); max-width: 22ch; }
+/* The mid-page voice. Below the h1, above the h2, always. */
+.display { font-size: var(--step-4); letter-spacing: var(--track-4); max-width: var(--measure-display); }
+
+/* An h1 still carrying class="display" from before the ladder existed
+ * would render BELOW its own page's h2 rank. It stays at the h1 step
+ * until the class is stripped from the nine pages that still have it,
+ * and this rule is still correct after they are. */
+h1.display { font-size: var(--step-5); letter-spacing: var(--track-5); }
+
 .display--hero {
   font-size: var(--step-6);          /* exactly once per page */
   font-weight: 700;
-  max-width: 20ch;                   /* three balanced lines for the core message.
-                                        General display type holds --measure-display */
-  line-height: 1.02;
+  letter-spacing: var(--track-6);
+  line-height: var(--lh-hero);
+  max-width: var(--measure-hero);    /* ~16 characters: it has to break to dominate */
 }
 
 p, li { max-width: var(--measure); }
@@ -102,9 +131,26 @@ p + p { margin-block-start: var(--space-s); }
 
 .lede-text {
   font-size: var(--step-1);
-  line-height: 1.4;
-  max-width: 44ch;
+  line-height: var(--lh-lede);   /* 1.34 on paper, 1.40 on dark */
+  max-width: var(--measure-lede);
 }
+
+/* ---- THE EMPHATIC SENTENCE ----
+ * The sentence-level peak, and the answer to "the words should be
+ * telling a story through the font sizes". At most ONE per page: it is
+ * the single line in the running copy that carries the page's argument.
+ * No label, no rule, no number, never in the document outline. A second
+ * .say on a page cancels the first, which is why it is greppable. */
+.say {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 500;               /* not 600: it is a sentence, not a heading */
+  letter-spacing: var(--track-2);
+  line-height: 1.22;              /* read as a sentence, so not the heading mechanism */
+  color: var(--fg-hi);
+  max-width: var(--measure-lede);
+}
+p + .say, .say + p, .claim + .say, .say + .claim { margin-block-start: var(--space-m); }
 
 small, .meta { font-size: var(--step--1); }
 
@@ -145,11 +191,14 @@ strong { font-weight: 500; color: var(--fg-hi); }
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: var(--track-label);
-  line-height: 1;
+  line-height: var(--lh-label);     /* was 1, which collides the moment a label wraps */
   color: var(--fg);
 }
 .label--hi { color: var(--fg-hi); }
-.label--lo { color: var(--fg-lo); }   /* de-emphasis only */
+/* 500, not 400: the mono advance is identical at both weights so this
+ * costs zero reflow, and a de-emphasised label on a dark ground needs
+ * the weight step back. */
+.label--lo { color: var(--fg-lo); font-weight: 500; }
 
 /* Mandatory on any label pushed to a right or bottom edge:
  * letter-spacing adds space after the final character, and the
@@ -238,6 +287,9 @@ strong { font-weight: 500; color: var(--fg-hi); }
 }
 
 /* ================= 6. LAYOUT ================= */
+/* ONE page container, ONE left edge. --page-max is the container and
+ * the nav's content edge is the site's single x-position for content,
+ * headings, figures and captions. */
 
 .wrap {
   max-width: var(--page-max);
@@ -245,42 +297,150 @@ strong { font-weight: 500; color: var(--fg-hi); }
   padding-inline: var(--gutter);
 }
 
-/* The editorial grid. 12 columns inside full-bleed rails.
- * minmax(0, 5rem) inner tracks: the 0 minimum stops a long unbroken
- * string (a part number, a URL) blowing out a spec-sheet grid. */
+/* THE UNWRAP.
+ * 92 of the 116 .editorial grids sit as a direct child of a .wrap. The
+ * wrap already spends the gutter, then the grid's own rail spends it
+ * again, so those grids started 62px inside the nav's edge while the 24
+ * bare grids started 23px OUTSIDE it. Measured at 1280 before this pass:
+ * THREE left edges on the homepage, 62.05 / 85.47 / 147.52. That is the
+ * structural half of "things aren't aligned perfectly", and no amount of
+ * per-page tuning could have fixed it.
+ *
+ * A wrap that holds a grid becomes a pass-through, so the grid measures
+ * itself against the page and lands on the one edge. The wrap's other
+ * children (67 .sec-head blocks) take the same content box by arithmetic
+ * rather than by padding, so their rule still spans exactly the grid's
+ * 12 columns and stops where the h2 starts.
+ *
+ * This is the CSS equivalent of moving the .sec-head inside the grid in
+ * markup. It is done here because this pass owns no page file. 100% and
+ * min(), never 100vw: vw includes the scrollbar and scrolls the page
+ * sideways on classic-scrollbar platforms. */
+.wrap:has(> .editorial) { max-width: none; padding-inline: 0; }
+.wrap:has(> .editorial) > :not(.editorial) {
+  width: calc(min(100%, var(--page-max)) - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+/* The editorial grid. 12 columns inside rails that resolve to the page
+ * edge exactly. --edge is the distance from the viewport to the content;
+ * the rail carries it minus the column gap, because the gap sits between
+ * the rail and column one and is part of the same distance.
+ * minmax(0, ...) throughout: the 0 minimum stops a long unbroken string
+ * (a part number, a URL) blowing out a spec-sheet grid. */
 .editorial {
+  --col-gap: var(--space-m);
+  --edge: max(var(--gutter), calc((100% - var(--page-max)) / 2 + var(--gutter)));
   display: grid;
   grid-template-columns:
-    [full-start] minmax(var(--gutter), 1fr)
-    [main-start] repeat(12, [col-start] minmax(0, 5rem)) [main-end]
-    minmax(var(--gutter), 1fr) [full-end];
-  column-gap: var(--space-m);
-  row-gap: var(--space-2xl);
+    [full-start] minmax(0, calc(var(--edge) - var(--col-gap)))
+    [main-start] repeat(12, [col-start] minmax(0, 1fr)) [main-end]
+    minmax(0, calc(var(--edge) - var(--col-gap))) [full-end];
+  column-gap: var(--col-gap);
+  row-gap: var(--editorial-row-gap);
 }
 .editorial > * { grid-column: main; }
 .lede  { grid-column: col-start 1 / span 5; }   /* 5-col lede against the 12-col measure */
 .body  { grid-column: col-start 8 / main-end; }
 .bleed { grid-column: full; }
 
+/* Adjacent columns align on their first baseline, not on their boxes.
+ * A 24px lede and an 18px body starting at the same box top start their
+ * type 3px apart, which is exactly the "not aligned" the eye catches and
+ * the ruler does not. Load-bearing companion: the margin-zeroing in the
+ * rhythm section, so the two columns are spaced by row-gap alone. */
+.editorial > .lede,
+.editorial > .body { align-self: baseline; }
+
+/* A full-bleed child that still needs its content on the page edge. */
+.bleed--inset { padding-inline: var(--edge); }
+
 /* All asymmetry collapses to a single column below 60rem. */
 @media (max-width: 60rem) {
   .editorial {
-    grid-template-columns:
-      [full-start] var(--gutter) [main-start] 1fr [main-end] var(--gutter) [full-end];
     /* The column gap has nothing left to sit between once the grid is one
      * content column, and it was still being added to the two rail tracks.
      * Any .editorial NOT wrapped in a .wrap (the heroes, the full-bleed
      * figure sections) therefore ran about 42px wider than the viewport
-     * and the whole document scrolled sideways. Verified on the homepage
-     * at 375px: scrollWidth 433 against a 375 body. */
+     * and the whole document scrolled sideways. */
+    --col-gap: 0px;
+    /* minmax(0, 1fr), not 1fr: a bare 1fr is minmax(auto, 1fr) and a
+     * content-sized track cannot shrink, which is how /congress/ pushed
+     * a 307px hero-head row through a 256px box and overflowed by 19px
+     * at 320. */
+    grid-template-columns:
+      [full-start] var(--gutter) [main-start] minmax(0, 1fr) [main-end] var(--gutter) [full-end];
     column-gap: 0;
   }
   .lede, .body { grid-column: main; }
 }
 
-section { padding-block: var(--space-3xl); }
-.section--open  { padding-block: var(--space-4xl); }  /* density-3 zones */
-.section--dense { padding-block: var(--space-xl); }   /* density-8 zones */
+/* ---- 6b. VERTICAL RHYTHM ----
+ * The unit is the body line: --space-m equals --step-0 x 1.55 within
+ * 3.2% at every viewport width, because the type and space scales share
+ * one clamp range. Vertical intervals use only line-commensurate steps:
+ * --space-m (1 line), --space-xl (2), --space-3xl (4), --space-4xl (5).
+ * --space-s stays the paragraph gap. --space-l and --space-2xl are
+ * reserved for horizontal use.
+ *
+ * THE LAW. A heading belongs to the content below it, so there is more
+ * space above a heading than below it, at every level. A boundary is ONE
+ * authored interval, never a sum. Space between grid children comes from
+ * row-gap alone, never from a margin. */
+
+:root {
+  --gap-under-heading:  var(--space-m);    /* 1 line */
+  --gap-under-display:  var(--space-xl);   /* 2 lines */
+  --editorial-row-gap:  var(--space-xl);   /* 2 lines. Was 2.58, the least
+                                            * commensurate step carrying the
+                                            * most structural interval */
+}
+
+/* The heading rule. 108px of section padding above, 27px below. */
+.sec-head { margin-block-end: var(--gap-under-heading); }
+/* The one .sec-head that is itself a grid child cannot opt out of
+ * row-gap, so it corrects to the same single interval as the other 88.
+ * Stated against the gap token so the two can never drift. */
+.editorial > .sec-head { margin-block-end: calc(var(--gap-under-heading) - var(--editorial-row-gap)); }
+
+/* A margin on a grid child ADDS to row-gap, it never collapses into it.
+ * That is where the emergent 90px and 126px runs came from. */
+.editorial > p + p,
+.editorial > .claim + p,
+.editorial > .claim + .claim,
+.editorial > p + .claim,
+.editorial > .body { margin-block-start: 0; }
+
+/* Boundaries: asymmetric padding. A section owns the air ABOVE its own
+ * content and nothing below, so the interval between two sections is one
+ * authored number instead of the sum of two. Twelve accidental boundary
+ * values become three: 54 / 108 / 144, which is 2 : 4 : 5 body lines. */
+section          { padding-block: var(--space-3xl) 0; }
+.section--open   { padding-block: var(--space-4xl) 0; }  /* density-3 zones */
+.section--dense  { padding-block: var(--space-xl)  0; }  /* density-8 zones */
+
+/* The double rule is the boundary device itself, so it carries the
+ * boundary interval above it and the next section's padding below.
+ * All 26 instances are direct children of main, always between two
+ * sections, and with sections now top-padded only they would otherwise
+ * sit flush against the line of text above. */
+main > .rule-double { margin-block-start: var(--space-3xl); }
+
+/* A band paints its own ground, so the ground has to close below its
+ * last line. Six pages end in one. Everywhere else the footer's own
+ * margin is the closing interval and nothing is stacked on it. */
+main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
+
+/* Mobile: collapse the whole ladder in proportion so the ORDER survives.
+ * Before this only --open collapsed, which inverted the ladder and made
+ * the site's most open sections its tightest ones. */
+@media (max-width: 60rem) {
+  section         { padding-block: var(--space-2xl) 0; }
+  .section--open  { padding-block: var(--space-3xl) 0; }
+  .section--dense { padding-block: var(--space-l)   0; }
+  main > .rule-double { margin-block-start: var(--space-2xl); }
+  main > [data-surface]:last-child { padding-block-end: var(--space-2xl); }
+}
 
 /* ================= 7. SHELL: SKIP LINK, NAV, FOOTER ================= */
 
@@ -314,6 +474,9 @@ section { padding-block: var(--space-3xl); }
 }
 
 .logo { color: var(--logo-ink); display: block; }
+/* The mark is a flex item in the nav bar, so it was shrinking below the
+ * 150px floor its own clamp declares the moment the links needed room. */
+.shell-header .logo { flex: none; }
 .logo svg { fill: currentColor; width: 100%; height: auto; }
 /* The mark alone, header and footer, every width. The tagline lockup was
  * retired from the header: see the note in shell.js buildHeader. The
@@ -465,7 +628,8 @@ section { padding-block: var(--space-3xl); }
 .mega .link-index a { font-size: var(--step-0); }
 .mega .link-index li { padding-block: var(--space-xs); }
 .mega .link-index li:first-child { border-top: 0; }   /* the label is the boundary */
-.mega .link-index .descriptor { max-width: 52ch; }
+/* Was a hand-tuned 52ch. Same intent as the body cap, so one source. */
+.mega .link-index .descriptor { max-width: var(--measure); }
 .mega-all { margin-block-start: var(--space-m); }
 
 /* Stacked two-path. The component, its labels and its hover ground are
@@ -634,6 +798,13 @@ section { padding-block: var(--space-3xl); }
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   gap: 0 var(--space-l);
 }
+/* auto-fit resolved to four columns at desktop, which put the module
+ * rows on a rhythm the page grid does not have and left fifteen modules
+ * in three-and-three-quarter rows. Three columns snap to the twelve and
+ * give five clean rows. Same column gap as the grid it now sits on. */
+@media (min-width: 60.0625rem) {
+  .modules { grid-template-columns: repeat(3, 1fr); column-gap: var(--space-m); }
+}
 .module {
   display: grid;
   grid-row: span 3;
@@ -645,7 +816,8 @@ section { padding-block: var(--space-3xl); }
 }
 .module h3 {
   font-size: var(--step-1);
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: var(--track-1);
 }
 .module p { font-size: var(--step--1); color: var(--fg); }
 .module .tag { align-self: end; justify-self: start; }
@@ -674,14 +846,18 @@ section { padding-block: var(--space-3xl); }
  * does, the section's padding is already the separation and stacking both
  * produces the dead vertical run this pass exists to remove. */
 .pull:first-child { padding-block-start: 0; }
+/* step-4, not step-5. A pull is the mid-page or closing statement and it
+ * sits between the h1 and the h2, exactly the rank it holds. At step-5 it
+ * tied or beat the page title on two pages: a borrowed quote outranking
+ * the page's own subject. It cannot rival a title again by construction. */
 .pull p:first-child {
   font-family: var(--font-display);
-  font-size: var(--step-5);
-  font-weight: 500;
-  letter-spacing: var(--track-display);
-  line-height: 1.08;
+  font-size: var(--step-4);
+  font-weight: 600;
+  letter-spacing: var(--track-4);
+  line-height: var(--lh-heading);
   color: var(--fg-hi);
-  max-width: 22ch;
+  max-width: var(--measure-display);
 }
 .pull .attribution {
   margin-block-start: var(--space-m);
@@ -698,6 +874,7 @@ section { padding-block: var(--space-3xl); }
 .ph {
   font-family: var(--font-mono);
   font-size: var(--step--1);
+  letter-spacing: 0;              /* stops label tracking leaking in from a parent */
   color: var(--link);
   border: var(--rule-hair) dashed var(--link);
   padding: 0 var(--space-2xs);
@@ -711,11 +888,16 @@ section { padding-block: var(--space-3xl); }
   border-top: var(--rule-hair) solid var(--rule-ink);
   padding-block: var(--space-s);
 }
+/* step-2, not step-1. On the router pages the destinations ARE the
+ * payload, and at lede size they read as a list of links under the
+ * heading rather than as the thing the page is for. Display tracking on
+ * body-size link text was also the one place --track-display violated
+ * its own "never on body" comment. */
 .link-index a {
   font-family: var(--font-display);
-  font-size: var(--step-1);
+  font-size: var(--step-2);
   font-weight: 500;
-  letter-spacing: var(--track-display);
+  letter-spacing: var(--track-2);
   color: var(--fg-hi);
   text-decoration: none;
 }
@@ -767,6 +949,7 @@ th {
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: var(--track-label);
+  line-height: var(--lh-label);   /* was inheriting the 1.55 body line unit */
   text-align: left;
   color: var(--fg-lo);
   padding: var(--space-xs) var(--space-s) var(--space-xs) 0;
@@ -791,6 +974,7 @@ tbody th[scope="row"] {
   font-weight: 400;
   text-transform: none;
   letter-spacing: 0;
+  line-height: var(--lh-body);   /* a row header is body text, not a label */
   color: var(--fg);
   border-bottom-color: var(--rule-ink);
 }
@@ -852,6 +1036,12 @@ figcaption {
   font-family: var(--font-mono);
   font-size: var(--step--1);
   color: var(--fg-lo);
+  /* Captions were uncapped and ran past 110 characters. The rule above
+   * them is structural though: it is the edge the plate and its dot
+   * field terminate against, so the BOX keeps the figure's width and
+   * only the text is held to the measure. Padding does that without a
+   * wrapper element, and clamps itself to 0 on a narrow figure. */
+  padding-inline-end: max(0px, calc(100% - var(--measure)));
   padding-block-start: var(--space-xs);
   border-top: var(--rule-hair) solid var(--rule-ink);
   margin-block-start: var(--space-s);
@@ -878,9 +1068,14 @@ section:has(.hero) { padding-block: 0; }
    * splits the slack above AND below the hero instead of banking it all
    * on top. */
   align-content: center;
-  row-gap: var(--space-l);
+  /* The h1 owns its subline; the kicker above it is a separate idea.
+   * Before this the loudest element on the site had equal clearance on
+   * both sides, which is what made every hero read as a stack of four
+   * unrelated lines instead of one statement with a part number over it. */
+  row-gap: var(--gap-under-display);
   padding-block: var(--space-xl);
 }
+.hero .hero-title { margin-block-start: var(--space-2xl); }
 .hero-head  { grid-column: col-start 1 / span 8; align-self: end; }
 .hero-title { grid-column: col-start 1 / span 8; }
 .hero-sub   { grid-column: col-start 1 / span 5; }   /* the 5-col lede against the 12-col measure */
@@ -903,8 +1098,19 @@ section:has(.hero) { padding-block: 0; }
 @media (max-width: 60rem) {
   .hero { min-height: 0; }
   .hero-head, .hero-title, .hero-sub, .hero-cta { grid-column: main; }
-  .hero-aside { grid-column: main; grid-row: auto; }
+  /* The accent edge flips axis when the aside stacks, matching the
+   * industry band's existing precedent. A left border on a full-width
+   * stacked block is an orphan rule against nothing. */
+  .hero-aside {
+    grid-column: main;
+    grid-row: auto;
+    border-left: 0;
+    border-block-start: 2px solid var(--accent);
+    padding-inline-start: 0;
+    padding-block-start: var(--space-m);
+  }
   .hero-aside .dots { min-height: 22vh; }
+  .hero-category { text-align: left; }
 }
 
 /* Supply band: full bleed, after the hero, never inside it, kept
@@ -930,7 +1136,7 @@ section:has(.hero) { padding-block: 0; }
   gap: var(--space-l);
   border-top: var(--rule-hair) solid var(--rule-ink);
   padding-block-start: var(--space-s);
-  margin-block-end: var(--space-xl);
+  /* The heading rule: see 6b. The interval below lives there, once. */
 }
 /* The reference label is one token of data and never wraps. As a flex
  * item it was shrinking and breaking "01 / THE POSITION" across two
@@ -982,7 +1188,7 @@ section:has(.hero) { padding-block: 0; }
   fill: currentColor;
   font-family: var(--font-mono);
   font-size: 22px;                 /* viewBox units: tracks the plate, small by design */
-  letter-spacing: 0.18em;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;       /* sentence case in the DOM, always */
 }
 
@@ -1034,8 +1240,11 @@ section:has(.hero) { padding-block: 0; }
   padding-block: var(--space-xl);
   display: grid;
   justify-items: start;
-  row-gap: var(--space-m);
+  row-gap: var(--gap-under-heading);
 }
+/* Same law as the demand hero: the h1 owns its lede, the label above is
+ * a separate idea and gets the wider interval. */
+.hero-vert-copy h1 { margin-block-start: var(--space-xl); }
 
 /* Bleeds to the right viewport edge and to the band's top and bottom.
  * No caption, no pill, no text on it, ever. */
@@ -1064,6 +1273,7 @@ section:has(.hero) { padding-block: 0; }
  * so promoting an inline style is a swap, never a judgement call.
  * These exist because inline styles are where the next drift starts. */
 
+.push-xs    { margin-block-start: var(--space-xs); }
 .push-s     { margin-block-start: var(--space-s); }
 .push-m     { margin-block-start: var(--space-m); }
 .push-l     { margin-block-start: var(--space-l); }
@@ -1090,9 +1300,25 @@ section:has(.hero) { padding-block: 0; }
  * file on purpose, so it wins against the declarations it narrows. */
 
 @media (max-width: 60rem) {
-  .section--open { padding-block: var(--space-2xl); }
-  .editorial     { row-gap: var(--space-l); }
+  /* The section ladder collapses in 6b, in proportion, so the order of
+   * open / default / dense survives the breakpoint. */
+  .editorial     { --editorial-row-gap: var(--space-l); }
   .shell-footer  { margin-top: var(--space-2xl); }
+
+  /* A 48px headline in a 256px column eventually meets a word it cannot
+   * fit: "introductions" is 318px, "Qualification" 300px, and seven hero
+   * pages scrolled sideways at 320 because of it. Hyphenate rather than
+   * lower the hero floor, so the scale survives the small screen. Every
+   * page declares lang="en-CA", so these are real hyphenation points.
+   * anywhere, not break-word, is the net under it: break-word leaves the
+   * min-content width at the whole word, and the industry band sizes its
+   * copy column with justify-items: start, so the BOX still overflowed
+   * even though the text could have broken. Emergency breaks are the
+   * last resort the line breaker reaches for, after hyphenation. */
+  h1, .display, .pull p:first-child, .lede-text {
+    hyphens: auto;
+    overflow-wrap: anywhere;
+  }
 
   /* The desktop fix for ragged section labels (nowrap + no shrink) pushed
    * the longer ones past the right edge here and scrolled the document

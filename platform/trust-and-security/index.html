@@ -48,7 +48,12 @@
   <section class="section--open">
     <div class="wrap">
       <div class="editorial">
-        <h1 class="display--hero">ConvergX Connect holds no security certification.</h1>
+        <!-- Still the loudest thing on the page and still the first thing read.
+             --step-5, not --step-6: 101px is reserved for an authored hero
+             component and this section is a bare .editorial. At step-6 the
+             sentence ran four lines and 380px tall, and "certification." was
+             the one headline on the site that overflowed the narrow sweep. -->
+        <h1>ConvergX Connect holds no security certification.</h1>
         <p class="lede-text">No SOC 2 report, no ISO certificate, no FedRAMP authorisation, no CMMC or CPCSC level, no authority to operate.</p>
       </div>
     </div>
@@ -63,14 +68,17 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>Read this page as description, not as assurance</h2>
-        <span class="label label--lo label--edge">01 / Not claimed</span>
+        <span class="label label--lo label--edge">Not claimed</span>
       </div>
       <div class="editorial">
         <div class="lede">
           <p>No third-party security audit is on record for this platform.</p>
         </div>
         <div class="body">
-          <p>Everything below describes how the system behaves today. None of it is a warranty.</p>
+          <!-- The page's one .say. This sentence IS the page's legal posture:
+               every behaviour below is read through it. At body size it was
+               indistinguishable from the sentence that qualifies it. -->
+          <p class="say">Everything below describes how the system behaves today. None of it is a warranty.</p>
           <p>Where a behaviour is load-bearing for your review, ask ConvergX to demonstrate it in the running system before you rely on it.</p>
         </div>
       </div>
@@ -83,7 +91,7 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>How the system behaves</h2>
-        <span class="label label--lo label--edge">02 / Behaviour</span>
+        <span class="label label--lo label--edge">Behaviour</span>
       </div>
       <div class="editorial">
         <div class="claim">
@@ -121,7 +129,7 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>The record is the artefact</h2>
-        <span class="label label--lo label--edge">03 / The record</span>
+        <span class="label label--lo label--edge">The record</span>
       </div>
       <div class="editorial">
         <div class="lede">
@@ -183,7 +191,7 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>Send your control set</h2>
-        <span class="label label--lo label--edge">04 / What happens next</span>
+        <span class="label label--lo label--edge">What happens next</span>
       </div>
       <div class="editorial">
         <div class="body">

@@ -54,7 +54,7 @@
   <section class="section--open">
     <div class="wrap">
       <div class="editorial">
-        <h1 class="display">A registration buys a seat in the building.</h1>
+        <h1>A registration buys a seat in the building.</h1>
         <!-- RHYTHM-SPEC 4.46: split at the sentence, zero words changed. Every
              word of the boundary list is cleared and none may be cut. -->
         <p class="lede-text">It does not buy vetted standing, an introduction, or a place on the opportunity board.</p>
@@ -69,7 +69,7 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>What three days cost</h2>
-        <span class="label label--lo label--edge">01 / What it costs</span>
+        <span class="label label--lo label--edge">What it costs</span>
       </div>
       <div class="editorial">
         <div class="lede">
@@ -122,10 +122,11 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>Where the decision happens instead</h2>
-        <!-- OPEN, for the site-wide label sweep. RHYTHM 6.2 literal, but 5 words breaches that rule's own 2-to-4 ceiling and it
-             leaves ~64px for the h2 at 375px under the shipped nowrap. One owner decides
-             all three flagged labels together; see the note on congress/sponsor 02. -->
-        <span class="label label--lo label--edge">02 / What it does not buy</span>
+        <!-- CLOSED. Decided with the other two flagged labels in the group-D pass.
+             This one KEEPS its wording: after the ordinal strip it does not repeat
+             its h2, and the 375px crunch it was flagged for is gone, because
+             .sec-head now wraps and the label takes its own row below 60rem. -->
+        <span class="label label--lo label--edge">What it does not buy</span>
       </div>
       <ul class="link-index">
         <li>
@@ -157,7 +158,10 @@
   <section class="section--dense">
     <div class="wrap">
       <div class="editorial">
-        <h2>Registration is handled on the ConvergX shop</h2>
+        <div class="sec-head">
+          <h2>Registration is handled on the ConvergX shop</h2>
+          <span class="label label--lo label--edge">Next</span>
+        </div>
         <p class="lede-text">Payment happens there, on ConvergX's own site, not on this one.</p>
         <p><a class="btn btn--solid" href="https://convergx.wp2.guideloom.com/shop/" rel="noopener">Register on the ConvergX shop</a></p>
         <p class="meta">Opens convergx.wp2.guideloom.com, away from ConvergX Connect.</p>
