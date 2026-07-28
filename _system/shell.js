@@ -414,13 +414,16 @@
   }
 
 
-  /* The header condenses once past the first screenful and expands again at the
-   * top. Height only, one class, no scroll listener doing layout work: an
-   * IntersectionObserver on a zero-height sentinel does the sensing, so nothing
-   * runs on every scroll frame. Honours reduced motion by skipping the
-   * transition, not the state, because a cramped header is not a motion effect
-   * and the condensed state is still the correct one while reading. */
-  function wireCondense(header) {
+  /* The header floats over content once past the first screenful, and takes a
+   * hairline while it does. It does NOT resize: the bar is the same height at
+   * rest and in flight, and the rule is always in the box at transparent, so
+   * only its colour changes and the page never shifts.
+   *
+   * An IntersectionObserver on a zero-height sentinel does the sensing, so
+   * nothing runs on every scroll frame. Reduced motion keeps the state and drops
+   * the fade, because a separator over moving content is information, not an
+   * effect. */
+  function wireFloat(header) {
     if (!("IntersectionObserver" in window)) return;
     var sentinel = document.createElement("div");
     sentinel.setAttribute("aria-hidden", "true");
@@ -430,7 +433,7 @@
       header.style.transition = "none";
     }
     new IntersectionObserver(function (entries) {
-      header.classList.toggle("shell-header--condensed", !entries[0].isIntersecting);
+      header.classList.toggle("shell-header--floating", !entries[0].isIntersecting);
     }, { threshold: 0 }).observe(sentinel);
   }
 
@@ -459,7 +462,7 @@
       header.classList.add("shell-header");
       header.innerHTML = buildHeader(current);
       wireMega(header);
-      wireCondense(header);
+      wireFloat(header);
     }
     var footer = document.querySelector('[data-shell="footer"]');
     if (footer) {

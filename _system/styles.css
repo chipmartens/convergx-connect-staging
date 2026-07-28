@@ -24,8 +24,7 @@ html {
   /* Height of the fixed shell chrome: the nav bar plus its rule. Declared
    * once because two places need to agree: the bar sets it, the hero
    * subtracts it to work out how much screen is actually left. */
-  --shell-h: 96px;            /* resting header. Was 69, which crowded the mark */
-  --shell-h-condensed: 68px;  /* after the first scroll */
+  --shell-h: 96px;   /* constant. The bar does not resize on scroll */
 }
 
 body {
@@ -472,11 +471,6 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
   margin-inline: auto;
   padding-inline: var(--gutter);
   min-height: var(--shell-h);
-  /* The condense is the header's only motion. It fires once past the fold and
-   * reverses at the top, so the bar is generous on arrival and out of the way
-   * while reading. Height only: nothing reflows around it because the header is
-   * not in the page flow of the content below it. */
-  transition: min-height var(--t) linear;
   display: flex;
   align-items: center;
   gap: var(--space-l);
@@ -612,8 +606,16 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
   top: 0;
   z-index: 20;
   background: var(--bg);
+  /* The rule is ALWAYS in the box and only changes colour, so the header never
+   * changes height and the page never shifts by the 1px a real border would add.
+   * Transparent at rest, because at the top of the page the bar is part of the
+   * composition and a line under it read as a line drawn across the page. Inked
+   * the moment it floats, because then it genuinely is separating itself from
+   * content moving underneath it. */
+  border-bottom: var(--rule-hair) solid transparent;
+  transition: border-color var(--t) linear;
 }
-.shell-header--condensed .nav-bar { min-height: var(--shell-h-condensed); }
+.shell-header--floating { border-bottom-color: var(--rule-ink); }
 
 
 
