@@ -451,7 +451,7 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
   position: absolute;
   left: var(--space-s);
   top: -100%;
-  z-index: 10;
+  z-index: 40;
   padding: var(--space-2xs) var(--space-s);
   background: var(--focus);
   color: var(--focus-bar);
@@ -599,24 +599,22 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
  * it is also correct with CSS disabled and correct for reduced motion
  * without a query. */
 
-.shell-header { position: relative; }   /* the panel's containing block */
+/* Sticky, and it is ALSO the mega panel's containing block. `position: sticky`
+ * establishes one exactly as `relative` did, so the panel keeps resolving
+ * against the bar and not against a menu item. Do not move this to a child.
+ *
+ * The background is not optional: with no bottom rule and a transparent header,
+ * page content scrolls visibly underneath it. z-index sits above the page and
+ * above .mega (9), and below .skip, which is raised to 40 so the skip link can
+ * still appear over a stuck bar. */
+.shell-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--bg);
+}
 .shell-header--condensed .nav-bar { min-height: var(--shell-h-condensed); }
 
-/* THE HOVER BRIDGE. .mega is positioned against .shell-header, not against the
- * item, so a strip of dead ground sits between the button and the panel. The
- * pointer crossing it left the <li>, mouseleave fired, and the menu shut before
- * anyone reached a link. This pseudo spans that strip so the pointer never
- * leaves the item. It is hit-testable but invisible, and only exists while the
- * panel is open, so it can never swallow a click on the bar. */
-.nav-mega { position: relative; }
-.nav-mega:has(.mega:not([hidden]))::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 100%;
-  height: var(--shell-h);
-}
 
 
 .nav-mega-btn {
