@@ -324,7 +324,11 @@
       return "<div><p class=\"label label--lo\">" + col.title + "</p><ul>" + links + "</ul></div>";
     }).join("");
     return (
-      '<hr class="rule-double">' +
+      /* No rule above the footer. The double hairline read as a heavy line
+       * drawn across the page rather than as a boundary, and the header lost
+       * its rule for the same reason. The footer separates itself by its own
+       * ground and spacing. The .rule-double device still belongs to the page
+       * sections that use it deliberately. */
       '<div class="footer-inner">' +
         '<a class="logo logo--mark" href="/" style="display:block">' +
           logoSvg(LOGO_VIEWBOX_MARK, "ConvergX") +
