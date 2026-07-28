@@ -172,6 +172,9 @@
   --fig-dash:   4 9;      /* dash pattern, viewBox units */
   --fig-t:      800ms;    /* draw-on duration */
   --fig-t-fade: 300ms;    /* path, label and dot fade duration */
+  /* The hero globe's turn is driven by _system/globe.js, not by a transition,
+   * so its period lives there next to the loop that spends it. Nothing in CSS
+   * animates on that plate and the --t budget above is untouched. */
 }
 
 /* ---- the surface system. Three grounds, one family. ----

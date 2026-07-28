@@ -516,6 +516,29 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
 .nav-links > li > a:hover,
 .nav-links > li > .nav-mega-btn:hover { color: var(--fg-hi); }
 
+/* About is a utility link, not a fifth primary item, so it renders one visual
+ * class down from the four: the site's 11px mono micro-label, one tone back.
+ * The .label classes cannot be borrowed here because the bar rules above
+ * outrank them on font and size and would leave a half-applied label.
+ *
+ * Specificity is deliberate on both counts. Each selector carries one class
+ * more than the bar rule it has to beat, and the pair sits ABOVE the two
+ * current-page rules, which are the same weight and therefore win on order: a
+ * utility link that is the current page still gets the inline device and the
+ * full-contrast ink, and only loses the de-emphasis it no longer wants.
+ *
+ * Contrast at 11px, which is normal text and wants 4.5:1. --fg-lo measures
+ * 5.07:1 on dark, 6.55:1 on paper and 5.29:1 on the muted ground, so the
+ * treatment clears AA on every surface the header can sit on. */
+.nav-links > li > a.nav-util,
+.nav-mobile > ul > li > a.nav-util {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  color: var(--fg-lo);
+}
+
 /* The header CTA is a BUTTON that happens to be an <a>, so the nav-link rule
  * above must not claim it. `.nav-links > li > a` outranks `.btn--solid` on
  * specificity and was repainting the label --fg on the orange fill: measured
@@ -660,6 +683,14 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
   grid-template-columns: 2fr 1fr;   /* the verticals lead; the split is the aside */
   gap: var(--space-l) var(--space-2xl);
 }
+/* The Platform panel is the only three-column one: the two doors under their
+ * own label, then the platform's own pages, then the module groups. Equal
+ * columns, not the 2fr 1fr above, because none of the three is an aside to the
+ * other two. Same weight as the rule it narrows, so it has to sit after it.
+ * shell.js carries an identical inline declaration as a stand-in; with this
+ * rule in place that inline can come out. */
+.mega-inner--3 { grid-template-columns: 1fr 1fr 1fr; }
+
 .mega-col > .label { display: block; margin-block-end: var(--space-s); }
 .mega-col--sides {
   border-inline-start: var(--rule-hair) solid var(--rule-ink);
@@ -1100,6 +1131,10 @@ figcaption {
  * stacked on hero padding (--space-2xl) put ~216px of dead air above the
  * kicker at 1440x900 and pushed the CTA off the fold. */
 section:has(.hero) { padding-block: 0; }
+/* The band is the positioning context for the full bleed plate behind it, and
+ * the type layer sits above it. Nothing else about the hero changes. */
+.hero-band { position: relative; }
+.hero-band .editorial { position: relative; z-index: 1; }
 
 .hero {
   /* 85vh of the screen, but never more than the screen minus the nav.
@@ -1250,6 +1285,192 @@ section:has(.hero) { padding-block: 0; }
   transition: opacity var(--fig-t-fade) linear calc(var(--fig-t) + 200ms); }
 .fig-played .fig-dot   { opacity: 1;
   transition: opacity var(--fig-t-fade) linear calc(var(--fig-t) + 400ms); }
+
+/* ---- 20b. The hero globe plate ----
+ * assets/fig/fig-globe-converging-network.svg plus _system/globe.js, and the
+ * notes file beside the SVG. A member of the family above, not a second
+ * language: same viewBox, same two stroke weights, same dash token, same dot
+ * radius, and it reuses .fig-solid, .fig-dash and .fig-dot untouched.
+ *
+ * Four things are its own, listed here so the difference is auditable rather
+ * than discovered:
+ *
+ * 1. TONE. A numbered plate inks at --fg-hi. This one sits under hero type,
+ *    where 17:1 would fight the headline, so the cage takes the load-bearing
+ *    rule tone instead. It is a surface token, so the plate resolves on dark,
+ *    light and muted with no variant class and no knowledge of which one it is
+ *    on. Hero type crossing the busiest part of the plate measures 5.70:1 on
+ *    dark and 4.79:1 on light and muted.
+ * 2. ACCENT. FIGURE-SYSTEM 1.5 bans the accent inside a figure. This plate
+ *    carries it, on the routes and their endpoint dots and nowhere else,
+ *    because convergence is the thing the plate is for. Reported as a
+ *    collision, not resolved silently: see the notes file.
+ * 3. A FILL. FIGURE-SYSTEM 1.5 allows a fill only on a dot. Land is stroked in
+ *    the cage tone and filled with the page ground, which is what makes the
+ *    sphere read as solid rather than as a wire ball with shapes floating in
+ *    it: the fill occludes the graticule behind the land. The fill is a surface
+ *    token, so it is still the page showing through, not a colour.
+ * 4. MOTION. A slow turn, which --t does not cover, driven by globe.js
+ *    rewriting path data. See the notes file for why this figure earns a script
+ *    when no other one does, and how the no-JS plate stays correct.
+ *
+ * It never carries data-fig: the reveal above is for a figure you scroll to,
+ * and this one opens the page. */
+
+.fig-globe      { color: var(--rule-ink-load); }
+.fig-globe svg  { display: block; width: 100%; height: auto; }
+/* The route is the subject of the plate, so it takes the heavier of the
+ * system's two weights, not a third one, and keeps the dash pattern that says
+ * it is a route. At the hairline the accent dashes read as scattered specks
+ * against a graticule drawn in the same pattern. */
+.fig-globe-link { stroke: var(--accent); stroke-width: calc(var(--rule-hair) * 2); }
+/* The two kinds of point, and the whole idea of the deal cycle: the one with
+ * the problem is a FILLED accent dot, the ones that could solve it are UNFILLED
+ * accent circles. Filled against unfilled is the strongest distinction the line
+ * system has, and it reads at hero size without leaning in.
+ *
+ * It is also how the accent stays inside its ration. A ring of hairline is a
+ * fraction of the ink of a solid disc, so the providers stay quieter than the
+ * holder by construction rather than by dimming, and a site that is not part of
+ * a live deal is not drawn at all. The plate at rest carries a handful of marks,
+ * never a field of them. Opacity on these elements is owned by the projector,
+ * so it is never set here. */
+.fig-globe-node { fill: var(--accent); }
+.fig-globe-site { fill: none; stroke: var(--accent); stroke-width: calc(var(--rule-hair) * 2); }
+/* The graticule sits behind the land at the same tone, one step quieter, so the
+ * plate gains presence without gaining contrast: raising the whole cage to the
+ * next token up would drop hero type over it from 5.70:1 to 3.40:1, which
+ * passes only for large text. Separating the two layers is the legible win that
+ * costs nothing. Static, never transitioned. */
+.fig-globe-grat { opacity: 0.5; }
+.fig-globe-land {
+  fill: var(--bg);
+  stroke: currentColor;
+  stroke-width: calc(var(--rule-hair) * 2);
+  stroke-linejoin: round;
+}
+
+/* Rotation is JS, so reduced motion is handled in globe.js as well as here.
+ * This rule is the belt: it stops any transition the plate could pick up, and
+ * globe.js checks the same query and puts the plate back to its resting frame,
+ * which is the frame the markup shipped. Section 19 backstops both. */
+@media (prefers-reduced-motion: reduce) {
+  .fig-globe svg * { transition: none !important; animation: none !important; }
+}
+
+/* At 375 the whole 1600-unit plate scales down to a 124px globe, which is a
+ * pea, not a hero. The wrapper crops the plate's empty left half instead and
+ * the globe comes back up to roughly 273px across. No geometry changes: it is
+ * the same plate, cropped, which is what the frame edge already does to Figs
+ * 4, 6, 8 and 9. Nothing else in this file styles .fig-globe, so this query
+ * does not depend on where it sits. */
+/* The unmodified plate, in a full width band. Both modifiers opt out: their
+ * own narrow-width rules are LESS specific than this selector, so without the
+ * second :not this rule wins on specificity regardless of order and stacks its
+ * margin on top of theirs. That put the mobile plate 400px off screen, and it
+ * only surfaced when the marks were measured rather than looked at. */
+@media (max-width: 60rem) {
+  .fig-globe:not(.fig-globe--crop):not(.fig-globe--bleed) { overflow: hidden; }
+  /* max-width: none is load-bearing, not tidying: the reset on line 40 clamps
+   * every svg to 100% and silently ate the 220% until it was measured. */
+  .fig-globe:not(.fig-globe--crop):not(.fig-globe--bleed) svg {
+    width: 220%; max-width: none; margin-inline-start: -106%;
+  }
+}
+
+/* The bleed, for a plate that IS the background of a band rather than a thing
+ * inside it.
+ *
+ * FRAME THE POPULATED FACE, NOT THE SPHERE'S OUTLINE. Every touch point and
+ * every route sits in the north Atlantic and Europe, which projects to the
+ * upper right of the disc: measured over a full cycle the accent runs x 951 to
+ * 1390 of the globe's 865 to 1395, and y 97 to 358 of its 85 to 615. So the
+ * frame is solved around THAT box, and what gets sacrificed to the bleed is the
+ * empty part: the western ocean, which goes behind the type, and the southern
+ * hemisphere, which runs off the foot of the band. An earlier pass framed the
+ * sphere's outline instead and kept the left limb and the empty Atlantic in
+ * view while the whole subject sat off the right edge.
+ *
+ * The numbers are solved, not guessed. The plate is 1600 units wide, the globe
+ * occupies 530 of them centred on 1130:
+ *     diameter = 0.46 of the band width  ->  width = 1600 * 0.46 / 530 = 138.9%
+ *     offset   = -11%, which is the furthest LEFT the plate can go while the
+ *                leftmost accent mark of the whole cycle still lands clear of
+ *                the h1's eight column box at every width from 960 up
+ * Vertically the svg is centred and then lifted 37 percent of its own height,
+ * which puts the populated northern band across the middle of the frame and
+ * runs the empty south off the bottom.
+ *
+ * THE COMPOSITION IS THE ACCESSIBILITY. Hero type over the cage measures
+ * 5.70:1 on dark, which is fine and is why the globe's empty western limb is
+ * allowed behind the headline. Type over an accent route is 2.99:1, which
+ * fails, so no accent mark may reach the type at any moment in the cycle. The
+ * build script asserts exactly that against these two numbers and fails loudly
+ * if a change to the deal cycle or the framing breaks it. Do not edit the two
+ * values below without re-running it. */
+.fig-globe--bleed {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.fig-globe--bleed svg {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: -11%;
+  width: 138.9%;
+  max-width: none;
+  transform: translateY(-37%);
+}
+/* The band stacks at narrow widths: type first, then the plate under it at a
+ * size worth looking at. Behind full width type the routes would cross the
+ * lede, and that is the 2.99:1 case.
+ *
+ * position: relative is load-bearing, not tidying. The svg inside is absolutely
+ * positioned; with the wrapper static it resolved against the band instead and
+ * threw the whole plate several hundred pixels off screen, which only showed up
+ * when the marks were measured rather than looked at.
+ *
+ * The framing also changes here, and it should: at this width the whole sphere
+ * fits, so there is nothing to sacrifice and the frame goes back to the
+ * outline. Same derivation as the desktop one, solved for the globe filling
+ * 95 percent of the box:
+ *     width  = 1600 * 0.95 / 530           = 286.8%
+ *     offset = 0.5 - (1130/1600) * 2.868   = -152.6% */
+@media (max-width: 60rem) {
+  .hero-band { display: flex; flex-direction: column; }
+  .fig-globe--bleed {
+    position: relative;
+    order: 2;
+    aspect-ratio: 1 / 1;
+    margin-block-start: var(--space-xl);
+  }
+  .fig-globe--bleed svg {
+    inset-inline-start: -152.6%;
+    width: 286.8%;
+    transform: translateY(-50%);
+  }
+}
+
+/* The crop, for a plate in a column rather than across a band. The plate is
+ * 1600 units wide and the globe occupies 530 of them centred on 1130, so the
+ * empty left half is cropped away and the globe is sized to the box instead of
+ * the frame. At 286.8% the globe comes to 95 percent of the box width, and
+ * -152.6% puts its centre on the box centre:
+ *     width  = 0.95 * 1600 / 530          = 286.8%
+ *     offset = 0.5 - (1130 / 1600) * 2.868 = -152.6%
+ * Vertical centring is free: the globe sits at half the viewBox height, so
+ * centring the svg centres the globe. Same at every width, so the narrow-width
+ * crop above steps aside for it. */
+.fig-globe--crop { position: relative; overflow: hidden; }
+.fig-globe--crop svg {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: -152.6%;
+  width: 286.8%;
+  max-width: none;
+  transform: translateY(-50%);
+}
 
 /* ================= 21. THE INDUSTRY HEADER ================= */
 /* The four industry verticals ONLY. They were the site's one major
