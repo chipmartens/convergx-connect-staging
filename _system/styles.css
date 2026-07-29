@@ -716,27 +716,15 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
  * two equals.
  * The doors are locked distinctive assets, so this rule may change how they
  * look and never what they say. */
-.mega-col--doors {
-  border-inline-start: var(--rule-med) solid var(--link);
-  padding-inline-start: var(--space-m);
-  /* Sits under the overview inside .mega-col--lead since 2026-07-29, so it
-     needs its own top gap; as a sibling column it got that from the grid. */
-  margin-block-start: var(--space-l);
-}
-.mega-col--lead > .label { display: block; margin-block-end: var(--space-s); }
-.mega-col--doors > .label { display: block; margin-block-end: var(--space-2xs); }
-.mega .mega-col--doors .link-index a {
-  font-size: var(--step-2);
-  line-height: var(--lh-heading);
-}
-.mega .mega-col--doors .link-index li { padding-block: var(--space-s); }
+.mega-col--doors > .label { display: block; margin-block-end: var(--space-s); }
+
 
 /* ---- EVERY MODULE IN THE PANEL ----
  * Five group cells in a grid, each holding its own stack of module links. The
  * group label is not a link and stays a label: there is no per-group page.
  * Two across, not the industries grid's three, because a cell here holds up to
  * four stacked rows and three columns of that is a wall. */
-.mega .mod-groups { grid-template-columns: 1fr 1fr; column-gap: var(--space-xl); }
+.mega .mod-groups { grid-template-columns: repeat(3, 1fr); column-gap: var(--space-l); }
 .mega .mod-groups .mod-group { padding-block: var(--space-2xs) var(--space-s); }
 .mega .mod-groups .mod-group > .label { display: block; margin-block-end: var(--space-3xs); }
 .mega .mod-groups .mod-list { list-style: none; padding: 0; margin: 0; }
@@ -1865,17 +1853,30 @@ section:has(.hero) { padding-block: 0; }
  * its height and is what keeps the artwork from ever being stretched.
  * Re-measure, do not guess, if a file is replaced. */
 
+/* Spans the container. Chip, 2026-07-29: the row used to bunch at the left
+   with dead space to the right of it, which read as an unfinished row rather
+   than a set. space-between distributes them across the full measure and the
+   flex-wrap keeps that from turning into one mark per line on a phone. */
 .proofbar {
   list-style: none;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   gap: var(--space-m) var(--space-xl);
+}
+@media (max-width: 40rem) {
+  /* space-between across two marks on a phone parks them at opposite edges
+     with a hole between. Below this width they pack instead. */
+  .proofbar { justify-content: flex-start; }
 }
 
 .mark {
-  --mark-cap: 0.8125rem;                                /* 13px. THE size of the row */
+  /* 16px, up from 13 (Chip, 2026-07-29, "slightly bigger"). This is the ONE
+     number that sizes the row: every mark is scaled from its own measured cap
+     fraction so they sit on a common cap height rather than a common box. */
+  --mark-cap: 1rem;
   --mark-h: calc(var(--mark-cap) / var(--mark-cap-frac));
   display: block;
   width: calc(var(--mark-h) * var(--mark-ratio));
@@ -2086,18 +2087,6 @@ section:has(.hero) { padding-block: 0; }
   cursor: pointer;
 }
 
-.mega-overview-title {
-  display: block;
-  font-size: var(--step-2);
-  line-height: var(--lh-heading);
-  text-decoration: none;
-  color: var(--fg-hi);
-}
-.mega-overview-title:hover { color: var(--link); }
-.mega-overview-note {
-  margin-block: var(--space-2xs) var(--space-m);
-  max-width: var(--measure);
-}
 /* The merged platform page's own index. Same grid as the industries panel
    uses, at page level rather than in chrome. */
 .page-index { margin-block-start: var(--space-m); }
@@ -2120,3 +2109,130 @@ section:has(.hero) { padding-block: 0; }
 .grp-icon svg .fig-solid,
 .grp-icon svg .fig-dash,
 .grp-icon svg .fig-dot { opacity: 1; stroke-dashoffset: 0; }
+
+
+/* ==========================================================================
+   THE PLATFORM PANEL, third shape. Chip, 2026-07-29.
+   Overview as a band across the top, the two doors as blocks under it, the
+   modules beside them.
+   ========================================================================== */
+
+.mega-inner--platform { grid-template-columns: 17rem 1fr; }
+@media (max-width: 78rem) {
+  /* The stack holds its width and the module grid gives one column back. Three
+     blocks that narrow below about 15rem stop being squares and start being
+     labels with a paragraph under them. */
+  .mega-inner--platform { grid-template-columns: 15rem 1fr; }
+  .mega .mod-groups { grid-template-columns: 1fr 1fr; }
+}
+
+
+/* ---- THE DOOR BLOCKS ----
+   Square grounds, one dark and one accent. The whole block is one <a>, so the
+   target is the block and there is one tab stop, not two.
+   COLOUR IS NOT A CHOICE HERE. The accent block takes --accent-ink, near
+   black; light type on this orange is 3.42:1 and fails. The dark block takes
+   the dark surface's own inks. Neither invents a colour. */
+/* STACKED, not side by side. Chip, 2026-07-29. Three blocks in one column:
+   the overview on paper, then the two doors on their own grounds. */
+.door-blocks {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xs);
+}
+/* align-self:start, or the column stretches to match the module grid beside
+   it and two "square" blocks come out 200 wide by 392 tall. */
+.mega-col--doors { align-self: start; }
+.door-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding: var(--space-m);
+  /* Square-ish by construction: the column is a fixed 17rem, and the block is
+     floored just under it. min-height, not aspect-ratio, because the note has
+     to be allowed to make a block taller rather than overflow it, and three
+     hard squares stacked would run the panel past the viewport on a laptop.
+     The panel caps and scrolls if it ever does.
+     14rem, not 15: at 15 the stack measured 816 against an 804 cap on a
+     900px window and the panel clipped its own bottom padding. */
+  min-height: 14rem;
+  text-decoration: none;
+}
+.door-block-label {
+  font-size: var(--step-2);
+  line-height: var(--lh-heading);
+}
+.door-block-note { font-size: var(--step--1); }
+/* Pushed to the bottom edge so both blocks close on the same line however
+   long the note runs. */
+.door-block-cta {
+  margin-block-start: auto;
+  padding-block-start: var(--space-s);
+  font-size: var(--step--1);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+.door-block--dark {
+  background: var(--ground);
+  color: var(--ink);
+}
+.door-block--dark .door-block-label,
+.door-block--dark .door-block-cta { color: var(--ink-hi); }
+.door-block--accent {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.door-block--accent .door-block-label,
+.door-block--accent .door-block-cta { color: var(--accent-ink); }
+/* Hover moves the underline only. No lift, no shadow, no scale: this site has
+   no elevation model and one card with a shadow would be the only one. */
+.door-block:hover .door-block-cta { text-decoration-thickness: var(--rule-med); }
+
+@media (max-width: 60rem) {
+  .door-blocks { grid-template-columns: 1fr; }
+  .door-block { min-height: 0; }
+}
+
+/* ---- ICONS MOVED FROM THE GROUPS TO THE MODULES. Chip, 2026-07-29. ----
+   They were on the five group headings for one day. Every module row carries
+   its own now and no group does. */
+.modules .grp-icon { margin-block-end: var(--space-xs); }
+.grp-icon--lead { margin-block-end: var(--space-m); }
+
+
+/* ---- THE OVERVIEW BAR. Chip, 2026-07-29. ----
+   One row, spanning every column, above the doors and the modules. It was a
+   third stacked square for about ten minutes and that put the left column
+   past the viewport on its own.
+   THIN IS THE POINT. It is the way in to the section, not a fourth thing
+   competing with the two doors, so it gets a paper ground, one line of type
+   and no more height than the line needs. --paper is the only #ffffff in the
+   project; type on it is --ink-900 at 18.69:1. */
+.mega-bar {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2xs) var(--space-l);
+  padding: var(--space-s) var(--space-m);
+  margin-block-end: var(--space-s);
+  background: var(--paper);
+  color: var(--ink-900);
+  text-decoration: none;
+}
+.mega-bar-title {
+  font-size: var(--step-1);
+  line-height: var(--lh-heading);
+  color: var(--ink-900);
+}
+.mega-bar-note { font-size: var(--step--1); flex: 1 1 20rem; }
+.mega-bar-cta {
+  margin-inline-start: auto;
+  font-size: var(--step--1);
+  font-weight: 700;
+  color: var(--ink-900);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+.mega-bar:hover .mega-bar-cta { text-decoration-thickness: var(--rule-med); }

@@ -124,10 +124,17 @@
   var DOORS = [
     { label: "Find capability",
       href:  "/platform/find-capability/",
-      note:  "Where a requirement goes when your own supply base cannot fill it." },
+      note:  "Where a requirement goes when your own supply base cannot fill it.",
+      /* The long note is the panel block's only. Everywhere else the doors
+       * appear (footer, chooser, page copy) still uses `note`, so lengthening
+       * one did not lengthen all of them. */
+      long:  "Where a requirement goes when your own supply base cannot fill it. A person at ConvergX decides who answers it.",
+      tone:  "dark" },
     { label: "Get discovered",
       href:  "/platform/get-discovered/",
-      note:  "Past performance is scored inside a sector, and the score does not travel." }
+      note:  "Past performance is scored inside a sector, and the score does not travel.",
+      long:  "What makes you worth choosing is not on your website. This is how a room in another sector finds out.",
+      tone:  "accent" }
   ];
 
   /* Number words, so no count in this component is ever typed. A
@@ -251,11 +258,14 @@
    * exact index, so the panel was a table of contents for a table of
    * contents. One route in. */
   var PLATFORM_OVERVIEW = {
-    label: "The platform",
     title: "Platform overview",
     href:  "/platform/",
-    note:  "What the platform is, what is in it, why it exists and how it gets used."
+    note:  "What the platform is, what is in it, why it exists and how it gets used.",
+    tone:  "paper"
   };
+  /* The eyebrow came off on 2026-07-29 (Chip). It said "The platform" above a
+   * block titled "Platform overview" inside a panel opened from a bar item
+   * called The Platform. Three names for one thing in 40 vertical pixels. */
   /* Every module, grouped, with a real destination. There is no per-module
    * page and there should not be one, so a module row points at its own
    * anchor on /platform/modules/. The anchors are ids on the .module
@@ -265,29 +275,29 @@
    * /platform/modules/ exactly. */
   var PLATFORM_MODULE_GROUPS = [
     { label: "Stating the requirement", modules: [
-      { label: "Opportunity Board",           href: "/platform/#opportunity-board" },
-      { label: "RFP Intake and Analysis",     href: "/platform/#rfp-intake-and-analysis" },
-      { label: "Tender Scraping",             href: "/platform/#tender-scraping" },
-      { label: "RFP Authoring",               href: "/platform/#rfp-authoring" }
+      { label: "Opportunity Board",           href: "/platform/modules/opportunity-board/" },
+      { label: "RFP Intake and Analysis",     href: "/platform/modules/rfp-intake-and-analysis/" },
+      { label: "Tender Scraping",             href: "/platform/modules/tender-scraping/" },
+      { label: "RFP Authoring",               href: "/platform/modules/rfp-authoring/" }
     ] },
     { label: "Deciding who should meet", modules: [
-      { label: "Supplier Scoring",            href: "/platform/#supplier-scoring" },
-      { label: "Matching Engine",             href: "/platform/#matching-engine" },
-      { label: "Configurable Scoring",        href: "/platform/#configurable-scoring" }
+      { label: "Supplier Scoring",            href: "/platform/modules/supplier-scoring/" },
+      { label: "Matching Engine",             href: "/platform/modules/matching-engine/" },
+      { label: "Configurable Scoring",        href: "/platform/modules/configurable-scoring/" }
     ] },
     { label: "The introduction and its record", modules: [
-      { label: "Procurement Workflow Engine", href: "/platform/#procurement-workflow-engine" },
-      { label: "Role-Gated Portals",          href: "/platform/#role-gated-portals" },
-      { label: "Document Request Workflow",   href: "/platform/#document-request-workflow" },
-      { label: "Attribution Mechanism",       href: "/platform/#attribution-mechanism" }
+      { label: "Procurement Workflow Engine", href: "/platform/modules/procurement-workflow-engine/" },
+      { label: "Role-Gated Portals",          href: "/platform/modules/role-gated-portals/" },
+      { label: "Document Request Workflow",   href: "/platform/modules/document-request-workflow/" },
+      { label: "Attribution Mechanism",       href: "/platform/modules/attribution-mechanism/" }
     ] },
     { label: "The Congress", modules: [
-      { label: "Congress App",                href: "/platform/#congress-app" },
-      { label: "Event Management",            href: "/platform/#event-management" }
+      { label: "Congress App",                href: "/platform/modules/congress-app/" },
+      { label: "Event Management",            href: "/platform/modules/event-management/" }
     ] },
     { label: "Reference", modules: [
-      { label: "Knowledge-Base Chat",         href: "/platform/#knowledge-base-chat" },
-      { label: "Trade Agreements Library",    href: "/platform/#trade-agreements-library" }
+      { label: "Knowledge-Base Chat",         href: "/platform/modules/knowledge-base-chat/" },
+      { label: "Trade Agreements Library",    href: "/platform/modules/trade-agreements-library/" }
     ] }
   ];
 
@@ -515,17 +525,50 @@
    * on one page, so matching the whole string would mark fourteen rows
    * not-current and one current while the reader is looking at all
    * fifteen. The page gets the marker, the rows do not. */
-  /* The overview block. A heading link, one sentence, and the parts named as
-   * anchors. No .link-index here on purpose: this is one destination, and
-   * .link-index rows read as a list of separate places. */
-  function platformOverviewBlock(current) {
-    var o = PLATFORM_OVERVIEW;
-    var cur = current === o.href ? ' aria-current="page"' : "";
-    return '<div class="mega-overview">' +
-      '<a class="mega-overview-title" href="' + o.href + '"' + cur + ">" + o.title + "</a>" +
-      '<p class="mega-overview-note">' + o.note + "</p>" +
+  /* THE TWO DOORS AS BLOCKS. Chip, 2026-07-29: square grounds, one dark and
+   * one orange, a longer line each, a Learn more, and the whole block active.
+   *
+   * ONE <a> WRAPS THE WHOLE THING. Not a div with a link inside it: that
+   * gives a card that looks clickable, one small target that is, and a
+   * keyboard user tabbing to a link whose name is "Learn more". The Learn
+   * more here is a <span>, styled to read as the affordance it is, and the
+   * accessible name of the block is the door's own locked label.
+   *
+   * TYPE ON THE ORANGE BLOCK IS NEAR-BLACK. --accent-ink, never light. White
+   * on this orange is 3.42:1 and fails. The dark block is the mirror of it
+   * and takes the dark surface's own inks, so both blocks stay inside the
+   * three-surface system rather than inventing a fourth. */
+  function block(item, current, label, note) {
+    var cur = current === item.href ? ' aria-current="page"' : "";
+    return '<a class="door-block door-block--' + item.tone + '" href="' + item.href + '"' + cur + ">" +
+      '<span class="door-block-label">' + label + "</span>" +
+      '<span class="door-block-note">' + note + "</span>" +
+      '<span class="door-block-cta" aria-hidden="true">Learn more</span>' +
+    "</a>";
+  }
+
+  /* THE LEFT STACK: the two doors, stacked, and only the two. The overview
+   * was briefly the third square here and the column came out taller than the
+   * viewport on its own, so it is a thin bar across the top instead. */
+  function doorBlocks(current) {
+    return '<div class="door-blocks">' +
+      DOORS.map(function (d) { return block(d, current, d.label, d.long); }).join("") +
     "</div>";
   }
+
+  /* THE OVERVIEW BAR. Spans every column, one row high. It is the way IN to
+   * the section, so it sits above everything and stays out of the way of it:
+   * a title, one line, and the whole bar is the link. */
+  function overviewBar(current) {
+    var o = PLATFORM_OVERVIEW;
+    var cur = current === o.href ? ' aria-current="page"' : "";
+    return '<a class="mega-bar" href="' + o.href + '"' + cur + ">" +
+      '<span class="mega-bar-title">' + o.title + "</span>" +
+      '<span class="mega-bar-note">' + o.note + "</span>" +
+      '<span class="mega-bar-cta" aria-hidden="true">Learn more</span>' +
+    "</a>";
+  }
+
 
   function platformModuleGrid(current) {
     var onModules = current === "/platform/modules/";
@@ -597,13 +640,9 @@
          * The doors keep their accent rule and their size. They are still the
          * loudest thing in the panel and they still say exactly what they
          * have always said. */
-        '<div class="mega-col mega-col--lead">' +
-          '<p class="label label--lo" id="' + id + '-h">' + PLATFORM_OVERVIEW.label + "</p>" +
-          platformOverviewBlock(current) +
-          '<div class="mega-col--doors">' +
-            '<p class="label label--lo" id="' + id + '-doors">Two doors</p>' +
-            indexList(DOORS, current, ' aria-labelledby="' + id + '-doors"') +
-          "</div>" +
+        overviewBar(current) +
+        '<div class="mega-col mega-col--doors">' +
+          doorBlocks(current) +
         "</div>" +
         megaCol(id + "-g", PLATFORM_STANDFIRST, platformModuleGrid(current));
     } else if (key === "congress") {
@@ -650,12 +689,8 @@
        * phone the panel is a stack, so "first" is weaker than it is on
        * desktop and the wrapper is doing more of the work, not less. */
       body =
-        '<p class="label label--lo">' + PLATFORM_OVERVIEW.label + "</p>" +
-        platformOverviewBlock(current) +
-        '<div class="nav-sub-doors">' +
-          '<p class="label label--lo">Two doors</p>' +
-          indexList(DOORS, current, ' aria-label="Two doors"') +
-        "</div>" +
+        overviewBar(current) +
+        '<div class="nav-sub-doors">' + doorBlocks(current) + "</div>" +
         '<p class="label label--lo">' + PLATFORM_STANDFIRST + "</p>" +
         platformModuleGrid(current) +
         '<p class="nav-sub-all">' + allLink("/platform/modules/", "All modules", current) + "</p>";
