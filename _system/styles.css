@@ -701,7 +701,7 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
  * comment above it describes a panel that no longer exists in this shape and
  * nothing else uses it; it is left in place rather than deleted so a future
  * panel can pick it up. */
-.mega-inner--platform { grid-template-columns: 1.15fr 1fr 2.1fr; }
+.mega-inner--platform { grid-template-columns: 1fr 1.5fr; }
 @media (max-width: 78rem) {
   /* The module grid loses its second sub-column before the panel loses a
    * column, so the doors keep their width for as long as possible. */
@@ -718,8 +718,13 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
  * look and never what they say. */
 .mega-col--doors {
   border-inline-start: var(--rule-med) solid var(--link);
-  padding-inline-start: var(--space-l);
+  padding-inline-start: var(--space-m);
+  /* Sits under the overview inside .mega-col--lead since 2026-07-29, so it
+     needs its own top gap; as a sibling column it got that from the grid. */
+  margin-block-start: var(--space-l);
 }
+.mega-col--lead > .label { display: block; margin-block-end: var(--space-s); }
+.mega-col--doors > .label { display: block; margin-block-end: var(--space-2xs); }
 .mega .mega-col--doors .link-index a {
   font-size: var(--step-2);
   line-height: var(--lh-heading);
@@ -2093,18 +2098,6 @@ section:has(.hero) { padding-block: 0; }
   margin-block: var(--space-2xs) var(--space-m);
   max-width: var(--measure);
 }
-/* The parts are anchors INTO the page the heading already links to, so they
-   are deliberately quieter than a nav row: no hairline separators, no
-   descriptors, one step down. They are contents, not destinations. */
-.mega-overview-parts { list-style: none; padding: 0; margin: 0; }
-.mega-overview-parts li { padding-block: var(--space-3xs); border: 0; }
-.mega .mega-overview-parts a {
-  font-size: var(--step--1);
-  color: var(--fg);
-  text-decoration: none;
-}
-.mega .mega-overview-parts a:hover { color: var(--link); }
-
 /* The merged platform page's own index. Same grid as the industries panel
    uses, at page level rather than in chrome. */
 .page-index { margin-block-start: var(--space-m); }

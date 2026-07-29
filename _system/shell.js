@@ -246,20 +246,15 @@
    * It is a block instead: one route, stated once, with the parts named
    * underneath as what is ON the page rather than as four places to go.
    *
-   * The part links are in-page anchors and they are deliberately NOT styled
-   * as nav rows. A reader who takes one is going to the same page the
-   * heading goes to. */
+   * IT CARRIES NO SUB-LINKS. It listed the page's four parts as anchors
+   * until Chip pulled them the same day: the merged page opens with that
+   * exact index, so the panel was a table of contents for a table of
+   * contents. One route in. */
   var PLATFORM_OVERVIEW = {
     label: "The platform",
     title: "Platform overview",
     href:  "/platform/",
-    note:  "What the platform is, what is in it, why it exists and how it gets used.",
-    parts: [
-      { label: "What a person does in it",  href: "/platform/#the-software" },
-      { label: "Trust and security",        href: "/platform/#trust-and-security" },
-      { label: "Vetting and introductions", href: "/platform/#vetting-and-introductions" },
-      { label: "The fifteen modules",       href: "/platform/#modules" }
-    ]
+    note:  "What the platform is, what is in it, why it exists and how it gets used."
   };
   /* Every module, grouped, with a real destination. There is no per-module
    * page and there should not be one, so a module row points at its own
@@ -529,9 +524,6 @@
     return '<div class="mega-overview">' +
       '<a class="mega-overview-title" href="' + o.href + '"' + cur + ">" + o.title + "</a>" +
       '<p class="mega-overview-note">' + o.note + "</p>" +
-      '<ul class="mega-overview-parts">' + o.parts.map(function (x) {
-        return '<li><a href="' + x.href + '">' + x.label + "</a></li>";
-      }).join("") + "</ul>" +
     "</div>";
   }
 
@@ -595,10 +587,24 @@
          * It is weight and space, never a second accent colour: the doors
          * sit next to the header CTA, and two orange things in one
          * component is the CTA losing. */
-        megaCol(id + "-doors", "Two doors",
-          indexList(DOORS, current, ' aria-labelledby="' + id + '-doors"'),
-          "mega-col--doors") +
-        megaCol(id + "-h", PLATFORM_OVERVIEW.label, platformOverviewBlock(current)) +
+        /* ONE left column holding both, overview first. Chip, 2026-07-29.
+         * The doors were the first thing in the panel from the day they moved
+         * a level deeper, and this is the one change that puts something
+         * above them: the overview is now the whole section in one page, so
+         * it is the answer to "what IS this", and the doors are the answer to
+         * "which of us am I". That order is the only reason it is allowed to
+         * sit above a locked distinctive asset.
+         * The doors keep their accent rule and their size. They are still the
+         * loudest thing in the panel and they still say exactly what they
+         * have always said. */
+        '<div class="mega-col mega-col--lead">' +
+          '<p class="label label--lo" id="' + id + '-h">' + PLATFORM_OVERVIEW.label + "</p>" +
+          platformOverviewBlock(current) +
+          '<div class="mega-col--doors">' +
+            '<p class="label label--lo" id="' + id + '-doors">Two doors</p>' +
+            indexList(DOORS, current, ' aria-labelledby="' + id + '-doors"') +
+          "</div>" +
+        "</div>" +
         megaCol(id + "-g", PLATFORM_STANDFIRST, platformModuleGrid(current));
     } else if (key === "congress") {
       cols =
@@ -644,11 +650,12 @@
        * phone the panel is a stack, so "first" is weaker than it is on
        * desktop and the wrapper is doing more of the work, not less. */
       body =
-        '<div class="nav-sub-doors">' +
-          indexList(DOORS, current, ' aria-label="Two doors"') +
-        "</div>" +
         '<p class="label label--lo">' + PLATFORM_OVERVIEW.label + "</p>" +
         platformOverviewBlock(current) +
+        '<div class="nav-sub-doors">' +
+          '<p class="label label--lo">Two doors</p>' +
+          indexList(DOORS, current, ' aria-label="Two doors"') +
+        "</div>" +
         '<p class="label label--lo">' + PLATFORM_STANDFIRST + "</p>" +
         platformModuleGrid(current) +
         '<p class="nav-sub-all">' + allLink("/platform/modules/", "All modules", current) + "</p>";
