@@ -198,6 +198,10 @@
   --link:          var(--accent);
   --logo-ink:      var(--ink-hi);      /* hairline mark needs MORE contrast than body */
   --dot-ink:       var(--warm-700);
+  /* Inverted: a LIGHT block on the dark ground. */
+  --door-bg:       var(--warm-100);
+  --door-fg:       var(--warm-600);    /* 5.29:1 on warm-100 */
+  --door-fg-hi:    var(--ink-900);     /* 15.07:1 */
   /* Light type on a dark ground needs a touch more leading to hold its
    * lines apart. The body line unit never forks (1.55 everywhere); the
    * lede is where the compensation is affordable and visible. */
@@ -214,6 +218,10 @@
   --link:          var(--accent-text);
   --logo-ink:      var(--ink-900);
   --dot-ink:       var(--warm-300);
+  /* Inverted: a DARK block on the paper ground. */
+  --door-bg:       var(--ground);
+  --door-fg:       var(--ink);         /* 7.32:1 */
+  --door-fg-hi:    var(--ink-hi);      /* 17.23:1 */
 }
 [data-surface="muted"] {
   --bg:            var(--warm-100);
@@ -226,7 +234,22 @@
   --link:          var(--accent-text);
   --logo-ink:      var(--ink-900);
   --dot-ink:       var(--paper);       /* white dots on greige. Use deliberately */
+  /* Inverted: a DARK block on the greige ground. */
+  --door-bg:       var(--ground);
+  --door-fg:       var(--ink);
+  --door-fg-hi:    var(--ink-hi);
 }
+
+/* ---- THE DOOR BLOCKS. Surface-relative, added 2026-07-29. ----
+ * A filled block sitting ON a surface cannot use a fixed ground: the panel
+ * takes the page's surface, so the near-black block rendered near-black on
+ * near-black on every dark page and vanished.
+ * The rule is INVERSION, not elevation. --block is the elevation step and on
+ * dark it is #141210 against #0A0A0A, which is 1.06:1: correct for a panel,
+ * useless for a card that has to read as an object. So the block takes the
+ * opposite end of the ramp from whatever it is sitting on.
+ * The accent door is NOT in here. Orange reads on all three grounds and its
+ * type is always --accent-ink, near-black. */
 
 /* No prefers-color-scheme anywhere: the surface is an authored decision
  * per page, not a user preference. The site ships both grounds. */

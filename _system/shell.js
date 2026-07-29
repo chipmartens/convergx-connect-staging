@@ -242,7 +242,6 @@
    * Nothing in this panel may describe a module as automatic, intelligent
    * or AI-driven. Phase 1 matching is manual and admin-brokered: a person
    * decides. */
-  var PLATFORM_STANDFIRST = "Every module, by what it is for.";
 
   /* THE OVERVIEW BLOCK. Chip, 2026-07-29, and it REPLACED a four-row link
    * list, not a design that was missing one.
@@ -556,18 +555,6 @@
     "</div>";
   }
 
-  /* THE OVERVIEW BAR. Spans every column, one row high. It is the way IN to
-   * the section, so it sits above everything and stays out of the way of it:
-   * a title, one line, and the whole bar is the link. */
-  function overviewBar(current) {
-    var o = PLATFORM_OVERVIEW;
-    var cur = current === o.href ? ' aria-current="page"' : "";
-    return '<a class="mega-bar" href="' + o.href + '"' + cur + ">" +
-      '<span class="mega-bar-title">' + o.title + "</span>" +
-      '<span class="mega-bar-note">' + o.note + "</span>" +
-      '<span class="mega-bar-cta" aria-hidden="true">Learn more</span>' +
-    "</a>";
-  }
 
 
   function platformModuleGrid(current) {
@@ -640,11 +627,18 @@
          * The doors keep their accent rule and their size. They are still the
          * loudest thing in the panel and they still say exactly what they
          * have always said. */
-        overviewBar(current) +
         '<div class="mega-col mega-col--doors">' +
           doorBlocks(current) +
         "</div>" +
-        megaCol(id + "-g", PLATFORM_STANDFIRST, platformModuleGrid(current));
+        /* No column label here. The eyebrow said "Every module, by what it is
+         * for." above five group labels that each say what they are for, in a
+         * panel opened from The Platform. Chip pulled it 2026-07-29.
+         * The overview closes the column the way /industries/ closes its own:
+         * a tertiary named destination, no fill, under the grid. */
+        '<div class="mega-col">' +
+          platformModuleGrid(current) +
+          '<p class="mega-all">' + allLink(PLATFORM_OVERVIEW.href, PLATFORM_OVERVIEW.title, current) + "</p>" +
+        "</div>";
     } else if (key === "congress") {
       cols =
         megaCol(id + "-h", CONGRESS_STANDFIRST,
@@ -689,11 +683,9 @@
        * phone the panel is a stack, so "first" is weaker than it is on
        * desktop and the wrapper is doing more of the work, not less. */
       body =
-        overviewBar(current) +
         '<div class="nav-sub-doors">' + doorBlocks(current) + "</div>" +
-        '<p class="label label--lo">' + PLATFORM_STANDFIRST + "</p>" +
         platformModuleGrid(current) +
-        '<p class="nav-sub-all">' + allLink("/platform/modules/", "All modules", current) + "</p>";
+        '<p class="nav-sub-all">' + allLink(PLATFORM_OVERVIEW.href, PLATFORM_OVERVIEW.title, current) + "</p>";
     } else if (key === "congress") {
       body =
         '<p class="label label--lo">' + CONGRESS_STANDFIRST + "</p>" +

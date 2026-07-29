@@ -2173,12 +2173,18 @@ section:has(.hero) { padding-block: 0; }
   text-decoration: underline;
   text-underline-offset: 0.18em;
 }
+/* INVERTED, NOT FIXED. Chip, 2026-07-29: on a dark page this block was
+   near-black on near-black and disappeared. It now takes --door-*, which each
+   surface declares as the OPPOSITE end of the ramp from its own ground, so the
+   block reads as an object on all three. See the note in tokens.css.
+   The accent block below is not surface-relative and does not need to be:
+   orange reads on every ground and its type is always near-black. */
 .door-block--dark {
-  background: var(--ground);
-  color: var(--ink);
+  background: var(--door-bg);
+  color: var(--door-fg);
 }
 .door-block--dark .door-block-label,
-.door-block--dark .door-block-cta { color: var(--ink-hi); }
+.door-block--dark .door-block-cta { color: var(--door-fg-hi); }
 .door-block--accent {
   background: var(--accent);
   color: var(--accent-ink);
@@ -2201,38 +2207,90 @@ section:has(.hero) { padding-block: 0; }
 .grp-icon--lead { margin-block-end: var(--space-m); }
 
 
-/* ---- THE OVERVIEW BAR. Chip, 2026-07-29. ----
-   One row, spanning every column, above the doors and the modules. It was a
-   third stacked square for about ten minutes and that put the left column
-   past the viewport on its own.
-   THIN IS THE POINT. It is the way in to the section, not a fourth thing
-   competing with the two doors, so it gets a paper ground, one line of type
-   and no more height than the line needs. --paper is the only #ffffff in the
-   project; type on it is --ink-900 at 18.69:1. */
-.mega-bar {
-  grid-column: 1 / -1;
+
+/* ==========================================================================
+   THE HERO BAND, WITH THE PROOF BAR INSIDE IT. Chip, 2026-07-29.
+   The marks have to be above the fold, and the fade is what lets them sit
+   over the globe plate without the accent routes coming up under a logo.
+   ========================================================================== */
+
+/* One screen, minus the header. The type takes the top, the marks take the
+   bottom, and the plate runs behind both. min-height, never height: the type
+   is allowed to make the band taller on a short window rather than clip. */
+.hero-band {
+  /* The notice bar sits above the header and is NOT in --shell-h, so the band
+     starts lower than --shell-h implies. The extra allowance is that bar plus
+     a little air; without it the band ran 39px past the fold and put the marks
+     just under it, which is the one thing this layout exists to prevent. */
+  min-height: calc(100svh - var(--shell-h) - var(--space-3xl));
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--space-2xs) var(--space-l);
-  padding: var(--space-s) var(--space-m);
-  margin-block-end: var(--space-s);
-  background: var(--paper);
-  color: var(--ink-900);
-  text-decoration: none;
+  flex-direction: column;
 }
-.mega-bar-title {
-  font-size: var(--step-1);
-  line-height: var(--lh-heading);
-  color: var(--ink-900);
+/* The editorial keeps its NATURAL height. Stretching it to fill the band made
+   the grid distribute 400px of free space above the h1 and pushed the marks
+   below the fold, which is the opposite of the point. The bar is pinned to the
+   foot by its own margin-block-start: auto instead. */
+.hero-band > .editorial { flex: 0 0 auto; }
+
+/* THE FADE. Sits above the plate and below the content, which is the whole
+   trick: z-index 0 against the content's z-index 1, and the plate has none.
+   It fades to --bg rather than to a hardcoded black so it still works if the
+   hero is ever put on another surface. */
+.hero-band::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: 42%;
+  background: linear-gradient(to bottom, transparent, var(--bg) 72%);
+  z-index: 0;
+  pointer-events: none;
 }
-.mega-bar-note { font-size: var(--step--1); flex: 1 1 20rem; }
-.mega-bar-cta {
-  margin-inline-start: auto;
-  font-size: var(--step--1);
-  font-weight: 700;
-  color: var(--ink-900);
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
+
+.proofbar-band {
+  position: relative;
+  z-index: 1;                       /* over the fade, same layer as the type */
+  margin-block-start: auto;         /* pinned to the foot of the band */
+  padding-block-start: var(--space-2xl);
+  padding-block-end: var(--space-3xl);   /* the air Chip asked for under them */
 }
-.mega-bar:hover .mega-bar-cta { text-decoration-thickness: var(--rule-med); }
+
+@media (max-width: 60rem) {
+  /* The band stacks on a phone and the plate becomes a real block in the
+     flow, so there is nothing to fade over and no fold to beat. */
+  .hero-band { min-height: 0; }
+  .hero-band::after { content: none; }
+  .proofbar-band { padding-block: var(--space-xl) var(--space-2xl); }
+}
+
+/* The hero's own air, tightened for THIS BAND ONLY so the marks clear the fold
+   on a 900px window. Chip, 2026-07-29. The editorial grid elsewhere on the
+   site is untouched: these three values are what the hero was spending to be a
+   full-screen statement, and the statement still reads at these numbers.
+   Measured, not guessed: at the original spacing the band came to 1001px
+   against 765px of room above the fold at 1440x900. */
+.hero-band > .editorial {
+  padding-block: var(--space-m);
+  row-gap: var(--space-m);
+}
+.hero-band .hero-title { margin-block-start: var(--space-s); }
+.hero-band .proofbar-band {
+  padding-block-start: var(--space-l);
+  padding-block-end: var(--space-xl);
+}
+
+/* SHORT VIEWPORTS. The hero at --step-6 plus the marks needs 911px and a
+   1440x900 window offers 765 below the header and notice. Rather than let the
+   marks fall under the fold, the hero drops one step on a short screen. This
+   is a HEIGHT query, not a width one: the constraint is vertical, and a
+   1440x1100 window keeps the full hero.
+   Chip, 2026-07-29: the marks above the fold is the requirement; the hero
+   giving up one step on a laptop is what pays for it. */
+@media (min-width: 60rem) and (max-height: 1000px) {
+  .hero-band .hero-title { font-size: var(--step-5); }
+  .hero-band > .editorial { row-gap: var(--space-s); padding-block: var(--space-s); }
+  .hero-band .proofbar-band {
+    padding-block-start: var(--space-m);
+    padding-block-end: var(--space-l);
+  }
+}
