@@ -2263,13 +2263,15 @@ section:has(.hero) { padding-block: 0; }
   .proofbar-band { padding-block: var(--space-xl) var(--space-2xl); }
 }
 
-/* The hero's own air, tightened for THIS BAND ONLY so the marks clear the fold
-   on a 900px window. Chip, 2026-07-29. The editorial grid elsewhere on the
-   site is untouched: these three values are what the hero was spending to be a
-   full-screen statement, and the statement still reads at these numbers.
-   Measured, not guessed: at the original spacing the band came to 1001px
-   against 765px of room above the fold at 1440x900. */
-.hero-band > .editorial {
+/* THE ACTUAL CAUSE, found after three passes that treated symptoms.
+   `.hero` carries `min-height: min(85vh, calc(100vh - var(--shell-h)))`. That
+   is 765px on a 1440x900 window, which is the ENTIRE room above the fold, so
+   the hero claimed all of it and the marks had nowhere to go. Trimming gaps
+   and type could never fix it: the height was a floor, not content.
+   The floor moves to the BAND, which is the element that now has to hold both.
+   The hero returns to its content height and the marks pin to the foot. */
+.hero-band > .editorial.hero {
+  min-height: 0;
   padding-block: var(--space-m);
   row-gap: var(--space-m);
 }
@@ -2286,9 +2288,11 @@ section:has(.hero) { padding-block: 0; }
    1440x1100 window keeps the full hero.
    Chip, 2026-07-29: the marks above the fold is the requirement; the hero
    giving up one step on a laptop is what pays for it. */
-@media (min-width: 60rem) and (max-height: 1000px) {
+@media (min-width: 60rem) and (max-height: 820px) {
+  /* Only on a genuinely short window. With the min-height cause fixed the hero
+     keeps --step-6 at 900px; this is the last resort below that. */
   .hero-band .hero-title { font-size: var(--step-5); }
-  .hero-band > .editorial { row-gap: var(--space-s); padding-block: var(--space-s); }
+  .hero-band > .editorial.hero { row-gap: var(--space-s); padding-block: var(--space-s); }
   .hero-band .proofbar-band {
     padding-block-start: var(--space-m);
     padding-block-end: var(--space-l);
