@@ -219,30 +219,81 @@
    * every status tag on the site. They are not to be restored, renamed,
    * or replaced with a substitute signal, without Chip.
    *
-   * What still binds: the panel names the five groups and never an
-   * individual module, because a menu row is a name with no room for
-   * anything around it. Nothing in this panel may describe a module as
-   * automatic, intelligent or AI-driven. Phase 1 matching is manual and
-   * admin-brokered: a person decides. */
-  var PLATFORM_STANDFIRST = "Fifteen modules, grouped by what they are for.";
-  var PLATFORM_PAGES = [
-    { label: "Platform overview",         href: "/platform/",
-      note:  "What the fifteen modules are for, and where the software stops." },
-    { label: "All modules",              href: "/platform/modules/",
-      note:  "Every module, grouped by what it is for." },
-    { label: "Vetting and introductions", href: "/platform/vetting-and-introductions/",
-      note:  "How the decision gets made, and what the record of it holds." },
-    { label: "Trust and security",        href: "/platform/trust-and-security/",
-      note:  "What is enforced, what is not claimed, and what no audit has covered." },
-    { label: "What is next",              href: "/platform/whats-next/",
-      note:  "Future tense only. Nothing here is part of September." }
-  ];
-  var PLATFORM_GROUPS = [
-    { label: "Stating the requirement",     note: "Getting a requirement in with no name on it." },
-    { label: "Deciding who should meet",    note: "What a person reads before deciding. Nothing here decides." },
-    { label: "The introduction and its record", note: "Moving it through its steps, and keeping what came of it." },
-    { label: "The Congress",                note: "The three days, and the phone in the room." },
-    { label: "Reference",                   note: "Material the platform can be asked about." }
+   * 2026-07-29, CHIP'S SECOND DECISION, and it REVERSES a nav rule.
+   * The panel used to name the five groups and never an individual
+   * module. It now names every module, because Chip's instruction is that
+   * each one is a single click from the menu bar. The old rule's reason
+   * was real (a menu row is a name with no room around it), so the
+   * modules render as a GRID of group cells rather than a stack: the
+   * group label supplies the context the row cannot carry itself.
+   *
+   * The module column that this replaced was a summary of the five groups
+   * with no link on any of them, plus one link to the modules page. Chip
+   * pulled it in the same instruction. It was wayfinding to a place the
+   * reader could already reach from the column beside it.
+   *
+   * Nothing in this panel may describe a module as automatic, intelligent
+   * or AI-driven. Phase 1 matching is manual and admin-brokered: a person
+   * decides. */
+  var PLATFORM_STANDFIRST = "Every module, by what it is for.";
+
+  /* THE OVERVIEW BLOCK. Chip, 2026-07-29, and it REPLACED a four-row link
+   * list, not a design that was missing one.
+   *
+   * That list had four rows: the overview, the modules, vetting, and trust.
+   * All four are now one page, so three of the rows pointed at parts of the
+   * fourth and the column was a table of contents for a single destination.
+   * It is a block instead: one route, stated once, with the parts named
+   * underneath as what is ON the page rather than as four places to go.
+   *
+   * The part links are in-page anchors and they are deliberately NOT styled
+   * as nav rows. A reader who takes one is going to the same page the
+   * heading goes to. */
+  var PLATFORM_OVERVIEW = {
+    label: "The platform",
+    title: "Platform overview",
+    href:  "/platform/",
+    note:  "What the platform is, what is in it, why it exists and how it gets used.",
+    parts: [
+      { label: "What a person does in it",  href: "/platform/#the-software" },
+      { label: "Trust and security",        href: "/platform/#trust-and-security" },
+      { label: "Vetting and introductions", href: "/platform/#vetting-and-introductions" },
+      { label: "The fifteen modules",       href: "/platform/#modules" }
+    ]
+  };
+  /* Every module, grouped, with a real destination. There is no per-module
+   * page and there should not be one, so a module row points at its own
+   * anchor on /platform/modules/. The anchors are ids on the .module
+   * articles and they are generated from the module names, so a renamed
+   * module breaks visibly here rather than silently scrolling nowhere.
+   * The group order is the order the work happens in and it matches
+   * /platform/modules/ exactly. */
+  var PLATFORM_MODULE_GROUPS = [
+    { label: "Stating the requirement", modules: [
+      { label: "Opportunity Board",           href: "/platform/#opportunity-board" },
+      { label: "RFP Intake and Analysis",     href: "/platform/#rfp-intake-and-analysis" },
+      { label: "Tender Scraping",             href: "/platform/#tender-scraping" },
+      { label: "RFP Authoring",               href: "/platform/#rfp-authoring" }
+    ] },
+    { label: "Deciding who should meet", modules: [
+      { label: "Supplier Scoring",            href: "/platform/#supplier-scoring" },
+      { label: "Matching Engine",             href: "/platform/#matching-engine" },
+      { label: "Configurable Scoring",        href: "/platform/#configurable-scoring" }
+    ] },
+    { label: "The introduction and its record", modules: [
+      { label: "Procurement Workflow Engine", href: "/platform/#procurement-workflow-engine" },
+      { label: "Role-Gated Portals",          href: "/platform/#role-gated-portals" },
+      { label: "Document Request Workflow",   href: "/platform/#document-request-workflow" },
+      { label: "Attribution Mechanism",       href: "/platform/#attribution-mechanism" }
+    ] },
+    { label: "The Congress", modules: [
+      { label: "Congress App",                href: "/platform/#congress-app" },
+      { label: "Event Management",            href: "/platform/#event-management" }
+    ] },
+    { label: "Reference", modules: [
+      { label: "Knowledge-Base Chat",         href: "/platform/#knowledge-base-chat" },
+      { label: "Trade Agreements Library",    href: "/platform/#trade-agreements-library" }
+    ] }
   ];
 
   /* The Industries panel used to carry a second column holding a "Two
@@ -365,11 +416,15 @@
       { label: "How vetting works",  href: "/platform/get-discovered/how-vetting-works/" },
       { label: "Who is in the room", href: "/platform/get-discovered/who-is-in-the-room/" }
     ]},
+    /* One page since 2026-07-29, so these are anchors into it rather than
+     * four destinations. They stay as four rows: the footer is the no-JS
+     * run's only index, and a reader looking for "trust and security" needs
+     * to find those words somewhere. */
     { title: "Platform", links: [
       { label: "Overview",                  href: "/platform/" },
-      { label: "Modules",                   href: "/platform/modules/" },
-      { label: "Vetting and introductions", href: "/platform/vetting-and-introductions/" },
-      { label: "Trust and security",        href: "/platform/trust-and-security/" }
+      { label: "Modules",                   href: "/platform/#modules" },
+      { label: "Vetting and introductions", href: "/platform/#vetting-and-introductions" },
+      { label: "Trust and security",        href: "/platform/#trust-and-security" }
     ]},
     { title: "The Congress", links: [
       { label: "Overview",             href: "/congress/" },
@@ -456,14 +511,42 @@
     "</li>";
   }
 
-  /* Groups are NOT links. There is no per-group page, and inventing an
-   * anchor to a section people cannot see from here would be worse than
-   * plain text. They are wayfinding for the modules page. */
-  function platformGroupList() {
-    return PLATFORM_GROUPS.map(function (g) {
-      return "<li><span class=\"label\">" + g.label + "</span>" +
-        "<span class=\"descriptor\">" + g.note + "</span></li>";
-    }).join("");
+  /* The module grid. One cell per group: the group name is still not a
+   * link, because there is still no per-group page, but every module
+   * under it is. The group label is the context a bare module name cannot
+   * carry, which is the reason the old rule kept modules out of the menu
+   * at all; supplying it is what makes listing them safe.
+   * `current` is matched on the path only. Every module href is an anchor
+   * on one page, so matching the whole string would mark fourteen rows
+   * not-current and one current while the reader is looking at all
+   * fifteen. The page gets the marker, the rows do not. */
+  /* The overview block. A heading link, one sentence, and the parts named as
+   * anchors. No .link-index here on purpose: this is one destination, and
+   * .link-index rows read as a list of separate places. */
+  function platformOverviewBlock(current) {
+    var o = PLATFORM_OVERVIEW;
+    var cur = current === o.href ? ' aria-current="page"' : "";
+    return '<div class="mega-overview">' +
+      '<a class="mega-overview-title" href="' + o.href + '"' + cur + ">" + o.title + "</a>" +
+      '<p class="mega-overview-note">' + o.note + "</p>" +
+      '<ul class="mega-overview-parts">' + o.parts.map(function (x) {
+        return '<li><a href="' + x.href + '">' + x.label + "</a></li>";
+      }).join("") + "</ul>" +
+    "</div>";
+  }
+
+  function platformModuleGrid(current) {
+    var onModules = current === "/platform/modules/";
+    return '<ul class="link-index link-index--grid mod-groups">' +
+      PLATFORM_MODULE_GROUPS.map(function (g) {
+        return '<li class="mod-group">' +
+          '<span class="label label--lo">' + g.label + "</span>" +
+          '<ul class="mod-list">' + g.modules.map(function (m) {
+            return '<li><a href="' + m.href + '"' +
+              (onModules ? ' aria-current="true"' : "") + ">" + m.label + "</a></li>";
+          }).join("") + "</ul>" +
+        "</li>";
+      }).join("") + "</ul>";
   }
 
   function allLink(href, label, current) {
@@ -498,18 +581,25 @@
     var cols, wide = "";
 
     if (key === "platform") {
-      wide = " mega-inner--3";
+      /* Three unequal columns as of 2026-07-29, not three equal ones. The
+       * doors take the widest, which is the point of the change: they are
+       * the two decisions the whole platform sorts people into, and at
+       * 1fr they read as one list among three. The modules take the
+       * middle width because they are a grid inside their own column. */
+      wide = " mega-inner--platform";
       cols =
         /* THE TWO DOORS FIRST. Not last, not a footnote. This is now the
          * only panel that carries them, and that is deliberate: the
-         * Industries panel's chooser came out on 2026-07-29. */
+         * Industries panel's chooser came out on 2026-07-29.
+         * .mega-col--doors is the emphasis Chip asked for on 2026-07-29.
+         * It is weight and space, never a second accent colour: the doors
+         * sit next to the header CTA, and two orange things in one
+         * component is the CTA losing. */
         megaCol(id + "-doors", "Two doors",
-          indexList(DOORS, current, ' aria-labelledby="' + id + '-doors"')) +
-        megaCol(id + "-h", "The platform",
-          indexList(PLATFORM_PAGES, current, ' aria-labelledby="' + id + '-h"')) +
-        megaCol(id + "-g", PLATFORM_STANDFIRST,
-          '<ul class="link-index" aria-labelledby="' + id + '-g">' + platformGroupList() + "</ul>" +
-          '<p class="mega-all">' + allLink("/platform/modules/", "All fifteen modules", current) + "</p>");
+          indexList(DOORS, current, ' aria-labelledby="' + id + '-doors"'),
+          "mega-col--doors") +
+        megaCol(id + "-h", PLATFORM_OVERVIEW.label, platformOverviewBlock(current)) +
+        megaCol(id + "-g", PLATFORM_STANDFIRST, platformModuleGrid(current));
     } else if (key === "congress") {
       cols =
         megaCol(id + "-h", CONGRESS_STANDFIRST,
@@ -550,12 +640,18 @@
   function megaMobile(key, label, current) {
     var body;
     if (key === "platform") {
+      /* The doors keep their own emphasis wrapper on mobile too. On a
+       * phone the panel is a stack, so "first" is weaker than it is on
+       * desktop and the wrapper is doing more of the work, not less. */
       body =
-        indexList(DOORS, current, ' aria-label="Two doors"') +
+        '<div class="nav-sub-doors">' +
+          indexList(DOORS, current, ' aria-label="Two doors"') +
+        "</div>" +
+        '<p class="label label--lo">' + PLATFORM_OVERVIEW.label + "</p>" +
+        platformOverviewBlock(current) +
         '<p class="label label--lo">' + PLATFORM_STANDFIRST + "</p>" +
-        indexList(PLATFORM_PAGES, current, ' aria-label="The platform"') +
-        '<ul class="link-index" aria-label="Fifteen modules by what they are for">' + platformGroupList() + "</ul>" +
-        '<p class="nav-sub-all">' + allLink("/platform/modules/", "All fifteen modules", current) + "</p>";
+        platformModuleGrid(current) +
+        '<p class="nav-sub-all">' + allLink("/platform/modules/", "All modules", current) + "</p>";
     } else if (key === "congress") {
       body =
         '<p class="label label--lo">' + CONGRESS_STANDFIRST + "</p>" +
@@ -602,20 +698,39 @@
          * inside the panel is the one that owns "page". */
         var inBranch = current.indexOf(item.href) === 0 ? ' aria-current="true"' : "";
         if (mobile) return megaMobile(item.mega, item.label, current);
+        /* THE LABEL IS A LINK AND THE CARET IS THE BUTTON. Chip, 2026-07-29:
+         * clicking The Platform goes to the platform page. It was one
+         * <button> that only ever opened the panel, so the four section
+         * overviews were reachable from the panel and never from the word
+         * above it, which is the thing people click first.
+         *
+         * Applied to all four mega items, not just Platform. Every one
+         * already carries a real href, and a bar where one word of four
+         * navigates and the other three do not is worse than either rule
+         * applied consistently. Say so if you want it on Platform alone.
+         *
+         * Two controls, not one control doing two jobs: a link that opens a
+         * menu on click has no correct keyboard behaviour. Hover still opens
+         * the panel for both, because the handler is on the <li>. */
         return '<li class="nav-mega">' +
-          '<button type="button" class="nav-mega-btn" id="mega-' + item.mega + '-btn"' +
-          ' aria-expanded="false" aria-controls="mega-' + item.mega + '"' + inBranch + ">" +
+          '<a class="nav-mega-btn" href="' + item.href + '"' + inBranch + ">" +
           /* The label is wrapped so the current-branch rule can hug the
            * WORD. On the plain nav links the device is drawn on an inline
-           * <a>, so it ends where the text ends. On this button it was
+           * <a>, so it ends where the text ends. On the old button it was
            * drawn on the inline-block, so it ran the full control width
            * and swallowed the caret, which read as a focus ring on a
            * fresh page load rather than as the current-page marker. */
           '<span class="nav-mega-label">' + item.label + "</span>" +
+          "</a>" +
           /* The affordance is a text character, not an icon, and it does
            * not rotate: ::after is already spoken for by the current-page
-           * inline device, and rotation would spend the motion budget. */
-          ' <span class="nav-mega-caret" aria-hidden="true">↓</span>' +
+           * inline device, and rotation would spend the motion budget.
+           * It carries the aria-expanded now, and a real name, because a
+           * caret with no accessible name is a button called "↓". */
+          '<button type="button" class="nav-mega-caret" id="mega-' + item.mega + '-btn"' +
+          ' aria-expanded="false" aria-controls="mega-' + item.mega + '"' +
+          ' aria-label="' + item.label + ' menu">' +
+          '<span aria-hidden="true">↓</span>' +
           "</button>" +
           megaPanel(item.mega, current) +
         "</li>";
@@ -687,6 +802,82 @@
       ' <a href="' + NOTICE.href + '">' + NOTICE.link + "</a></p></div>";
   }
 
+  /* ---- THE CTA BAR AND THE QUOTES. Chip, 2026-07-29. ----
+   *
+   * Both were homepage-only sections. They are now the top of the footer,
+   * so they render on every page from this one definition.
+   *
+   * THE BAR STATES NOTHING NEW, ON PURPOSE. It is a label and three
+   * links, and every string in it is already a locked asset: the two
+   * doors and the Request access CTA. A band that runs on 41 pages is the
+   * worst possible place to introduce a sentence, because a claim made
+   * there is made 41 times and the verbatim ledger cannot see it coming.
+   * If a line is ever wanted here, it gets ledgered first.
+   *
+   * TYPE ON THE ORANGE PANEL IS NEAR-BLACK. --accent-ink, never light.
+   * White on this orange measures 3.42:1 and fails. This is the rule the
+   * site breaks most often and the bar is now its largest surface. */
+  var CTA_BAR = {
+    label: "Two doors",
+    links: [DOORS[0], DOORS[1]],
+    end:   CTA
+  };
+
+  /* Three of the nine published quotes. All nine still live on the
+   * homepage's own module; these are the footer's set and they are a
+   * fixed three, not a rotation, because a rotation on every page needs a
+   * script and this component renders identically without one.
+   *
+   * ATTRIBUTION ONLY, AND NEVER A MARK. Two of these name a government or
+   * military employer. That is attribution, which is permitted; it is not
+   * permission to render that department's crest, which never renders.
+   * Words are cut, never changed. */
+  var FOOTER_QUOTES = [
+    { quote: "ConvergX is one of the very few conferences that I have ever attended that provides real value.",
+      who:   "Jeff LaFrenz, VizworX Inc." },
+    { quote: "ConvergX has been a great opportunity for us to engage with representatives from some of those industries, understand their challenges, and find synergies between their needs and ours.",
+      who:   "Gary Biermann, Lockheed Martin" },
+    { quote: "I learned from and met many fascinating people I would normally never cross paths with. Different perspectives are so valuable in getting creative and thinking outside the box.",
+      who:   "Blaire Lancaster" }
+  ];
+
+  function buildCtaBar() {
+    var links = CTA_BAR.links.map(function (l) {
+      return '<a class="cta-bar-link" href="' + l.href + '">' + l.label + "</a>";
+    }).join("");
+    return (
+      '<section class="cta-bar" aria-label="' + CTA_BAR.label + '">' +
+        '<div class="wrap cta-bar-inner">' +
+          '<p class="label cta-bar-label">' + CTA_BAR.label + "</p>" +
+          '<p class="cta-bar-links">' + links + "</p>" +
+          '<p class="cta-bar-end"><a href="' + CTA_BAR.end.href + '">' + CTA_BAR.end.label + "</a></p>" +
+        "</div>" +
+      "</section>"
+    );
+  }
+
+  /* NO data-surface HERE, and that is the whole mechanism behind "the
+   * quotes match the module above them". The block declares no ground, so
+   * it inherits the page's, which is the same ground the section above it
+   * is already sitting on. A hardcoded surface would be right on exactly
+   * one page and wrong on the other forty. */
+  function buildQuotes() {
+    var items = FOOTER_QUOTES.map(function (q) {
+      return '<li class="quote"><figure>' +
+        "<blockquote><p>" + q.quote + "</p></blockquote>" +
+        "<figcaption>" + q.who + "</figcaption>" +
+      "</figure></li>";
+    }).join("");
+    return (
+      '<section class="footer-quotes" aria-label="Published quotes">' +
+        '<div class="wrap">' +
+          '<p class="label label--lo">ConvergX published every quote below. Words are cut, never changed.</p>' +
+          '<ul class="footer-quote-grid">' + items + "</ul>" +
+        "</div>" +
+      "</section>"
+    );
+  }
+
   function buildFooter() {
     var cols = FOOTER.map(function (col) {
       var links = col.links.map(function (l) {
@@ -700,6 +891,10 @@
        * its rule for the same reason. The footer separates itself by its own
        * ground and spacing. The .rule-double device still belongs to the page
        * sections that use it deliberately. */
+      /* The quotes then the bar, above the footer's own ground: the
+       * reader is handed the proof and then the door, in that order. */
+      buildQuotes() +
+      buildCtaBar() +
       '<div class="footer-inner">' +
         '<a class="logo logo--mark" href="/" style="display:block">' +
           logoSvg(LOGO_VIEWBOX_MARK, "ConvergX") +
@@ -762,7 +957,12 @@
 
   function wireOneMega(item) {
     if (!item) return;
-    var btn = item.querySelector(".nav-mega-btn");
+    /* The CARET, not the label. Since 2026-07-29 .nav-mega-btn is the <a>
+     * that navigates and .nav-mega-caret is the button that opens the
+     * panel, so this selector has to be the caret or clicking the caret
+     * would toggle nothing and the link would carry an aria-expanded it
+     * never changes. */
+    var btn = item.querySelector(".nav-mega-caret");
     var panel = item.querySelector(".mega");
     if (!btn || !panel) return;
 

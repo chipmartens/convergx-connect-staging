@@ -76,6 +76,11 @@
   /* ---- rules. The line system, derived from the logo's own
    * hairline-and-inline construction. ---- */
   --rule-hair: 1px;
+  --rule-med:  2px;       /* a rule carrying hierarchy, not dividing two equals.
+                             Added 2026-07-29 for the emphasised doors column.
+                             NOT halved on hi-dpi below: the hairline is halved
+                             so it stays a hairline, and this one is meant to
+                             read as weight. */
   --rule-gap:  4px;       /* the inline device: gap between the double rules */
 
   /* ---- dot matrix. INTEGER tiles only, never 16 or 24 (moire and

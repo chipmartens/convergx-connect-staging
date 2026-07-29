@@ -693,6 +693,80 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
  * The stand-in inline declaration shell.js carried for this is now deleted. */
 .mega-inner--3 { grid-template-columns: 1fr 1fr 1fr; }
 
+/* The Platform panel, 2026-07-29. Superseded --3 for this one panel when the
+ * module summary column became a grid of every module and the doors took
+ * emphasis. Three UNEQUAL columns: the doors need width for a two-line note at
+ * a larger size, the platform's own pages are the narrowest thing here, and the
+ * module grid holds five group cells and needs the rest. --3 stays because the
+ * comment above it describes a panel that no longer exists in this shape and
+ * nothing else uses it; it is left in place rather than deleted so a future
+ * panel can pick it up. */
+.mega-inner--platform { grid-template-columns: 1.15fr 1fr 2.1fr; }
+@media (max-width: 78rem) {
+  /* The module grid loses its second sub-column before the panel loses a
+   * column, so the doors keep their width for as long as possible. */
+  .mega-inner--platform { grid-template-columns: 1.15fr 1fr 1.5fr; }
+}
+
+/* ---- THE TWO DOORS, EMPHASISED. Chip, 2026-07-29. ----
+ * Weight, size and a left rule. NOT a second accent colour: this column sits a
+ * few hundred pixels from the header's orange CTA, and two orange things in one
+ * component is the CTA losing. The rule is --rule-ink-load rather than the
+ * decorative hairline because this one is carrying a hierarchy, not dividing
+ * two equals.
+ * The doors are locked distinctive assets, so this rule may change how they
+ * look and never what they say. */
+.mega-col--doors {
+  border-inline-start: var(--rule-med) solid var(--link);
+  padding-inline-start: var(--space-l);
+}
+.mega .mega-col--doors .link-index a {
+  font-size: var(--step-2);
+  line-height: var(--lh-heading);
+}
+.mega .mega-col--doors .link-index li { padding-block: var(--space-s); }
+
+/* ---- EVERY MODULE IN THE PANEL ----
+ * Five group cells in a grid, each holding its own stack of module links. The
+ * group label is not a link and stays a label: there is no per-group page.
+ * Two across, not the industries grid's three, because a cell here holds up to
+ * four stacked rows and three columns of that is a wall. */
+.mega .mod-groups { grid-template-columns: 1fr 1fr; column-gap: var(--space-xl); }
+.mega .mod-groups .mod-group { padding-block: var(--space-2xs) var(--space-s); }
+.mega .mod-groups .mod-group > .label { display: block; margin-block-end: var(--space-3xs); }
+.mega .mod-groups .mod-list { list-style: none; padding: 0; margin: 0; }
+/* These rows are names, not rows with descriptors, so they carry no separator
+ * and sit tighter than a .link-index row. The group label is the only boundary
+ * a reader needs inside a cell.
+ * SCOPED THROUGH .mod-groups, and that third class is load-bearing.
+ * `.mega .link-index a` and `.mega .link-index li` already match these nodes,
+ * because .mod-list is nested inside the .link-index grid. At .mega .mod-list
+ * the specificity TIES, and this block sits ABOVE those rules in the file, so
+ * the tie resolves against it and the modules rendered at --step-0 with list
+ * padding: an 804px menu. Do not drop .mod-groups from these selectors, and
+ * do not "simplify" them back to two classes. */
+.mega .mod-groups .mod-list li { padding-block: var(--space-3xs); border: 0; }
+.mega .mod-groups .mod-list a {
+  /* --step-0, the same size as every other nav row on the site, not the
+     --step--1 this was written at first. Fifteen links at 13.5px bought
+     170px of menu height and cost the reader a legible target; a nav row
+     is not a descriptor. The height comes back out of padding instead. */
+  font-size: var(--step-0);
+  line-height: var(--lh-label);
+  color: var(--fg);
+  text-decoration: none;
+}
+.mega .mod-groups .mod-list a:hover { color: var(--link); }
+
+/* Mobile: the same emphasis, done with the rule only. At phone width the
+ * doors are already full-bleed rows, so size is doing nothing extra and the
+ * rule is what separates them from the platform pages under them. */
+.nav-sub-doors {
+  border-inline-start: var(--rule-med) solid var(--link);
+  padding-inline-start: var(--space-m);
+  margin-block-end: var(--space-m);
+}
+
 /* The Industries panel is one FULL-WIDTH column, because its single column
  * holds a grid. In the default 2fr 1fr it would lay that grid out inside two
  * thirds of the panel and leave the last third empty. */
@@ -1919,3 +1993,137 @@ section:has(.hero) { padding-block: 0; }
   gap: var(--space-s);
   margin-block-start: var(--space-xl);
 }
+
+/* ==========================================================================
+   THE FOOTER QUOTES AND THE CTA BAR. Chip, 2026-07-29.
+   Appended at the END of this file on purpose. The .mod-list rules earlier
+   today were written mid-file, above the generic .mega .link-index rules they
+   needed to beat, tied on specificity and silently lost. Anything added from
+   here on goes at the bottom where source order is on its side.
+   ========================================================================== */
+
+/* The quotes declare NO ground. They inherit the page's, which is what makes
+   them match the section above them on every page instead of on one. */
+.footer-quotes { padding-block: var(--space-3xl) 0; }
+.footer-quotes > .wrap > .label { display: block; margin-block-end: var(--space-l); }
+/* .quote is reused verbatim from the homepage module: hairline above, no card,
+   no radius, no ornament. Only the layout is new. auto-fit so the row collapses
+   to two and then one without a breakpoint per count. */
+.footer-quote-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: var(--page-max);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: var(--space-xl);
+}
+
+/* ---- THE ORANGE BAR ----
+   Full bleed. The one place on the site with a solid accent field this large,
+   so the contrast rule matters more here than anywhere:
+   TYPE ON THIS PANEL IS --accent-ink, NEAR-BLACK, NEVER LIGHT.
+   White on this orange is 3.42:1 and fails. Do not "brighten" this bar. */
+.cta-bar {
+  margin-block-start: var(--space-3xl);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.cta-bar-inner {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-block: var(--space-xl);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-s) var(--space-2xl);
+}
+.cta-bar-label { color: var(--accent-ink); margin: 0; flex: 0 0 auto; }
+.cta-bar-links {
+  margin: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s) var(--space-2xl);
+}
+.cta-bar-end { margin: 0; flex: 0 0 auto; }
+/* The doors, bold and large, as the bar's own links. Underline offset rather
+   than a border so a wrapped link underlines both lines. */
+.cta-bar-link,
+.cta-bar-end a {
+  color: var(--accent-ink);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: var(--rule-med);
+}
+.cta-bar-link { font-size: var(--step-2); line-height: var(--lh-heading); }
+.cta-bar-end a { font-size: var(--step-0); }
+.cta-bar-link:hover,
+.cta-bar-end a:hover { text-decoration-thickness: 0.14em; }
+/* The bar sits directly on the footer's ground, so the footer's own top
+   margin would open a gap of the wrong colour between them. */
+.cta-bar + .footer-inner { margin-block-start: 0; }
+
+/* ---- THE PLATFORM OVERVIEW BLOCK, and the nav label becoming a link ----
+   Chip, 2026-07-29. Appended at the end for source order, same reason as the
+   block above. */
+
+/* The label is now an <a> and the caret a sibling <button>, so the pair has to
+   sit on one baseline and keep the single-control look the bar had. */
+.nav-mega { display: inline-flex; align-items: baseline; }
+.nav-mega-caret {
+  background: none;
+  border: 0;
+  padding: 0 0 0 var(--space-3xs);
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.mega-overview-title {
+  display: block;
+  font-size: var(--step-2);
+  line-height: var(--lh-heading);
+  text-decoration: none;
+  color: var(--fg-hi);
+}
+.mega-overview-title:hover { color: var(--link); }
+.mega-overview-note {
+  margin-block: var(--space-2xs) var(--space-m);
+  max-width: var(--measure);
+}
+/* The parts are anchors INTO the page the heading already links to, so they
+   are deliberately quieter than a nav row: no hairline separators, no
+   descriptors, one step down. They are contents, not destinations. */
+.mega-overview-parts { list-style: none; padding: 0; margin: 0; }
+.mega-overview-parts li { padding-block: var(--space-3xs); border: 0; }
+.mega .mega-overview-parts a {
+  font-size: var(--step--1);
+  color: var(--fg);
+  text-decoration: none;
+}
+.mega .mega-overview-parts a:hover { color: var(--link); }
+
+/* The merged platform page's own index. Same grid as the industries panel
+   uses, at page level rather than in chrome. */
+.page-index { margin-block-start: var(--space-m); }
+
+/* ---- GROUP ICONS on the merged platform page. Chip, 2026-07-29. ----
+   They reuse .fig-solid / .fig-dash / .fig-dot verbatim, so they inherit the
+   plates' stroke weights, the surface's currentColor and the hi-dpi hairline
+   halving for free, and there is exactly ONE line language on this site.
+   They are aria-hidden: every one of them restates the heading beside it, and
+   a decorative mark that announces itself is a screen reader reading the
+   group name twice. */
+.grp-icon {
+  display: block;
+  color: var(--fg-lo);
+  margin-block-end: var(--space-2xs);
+}
+.grp-icon svg { display: block; width: 64px; height: 48px; }
+/* The reveal observer arms anything inside .fig. These are not plates and
+   must never be armed, or five marks sit invisible until scrolled past. */
+.grp-icon svg .fig-solid,
+.grp-icon svg .fig-dash,
+.grp-icon svg .fig-dot { opacity: 1; stroke-dashoffset: 0; }
