@@ -1864,7 +1864,7 @@ section:has(.hero) { padding-block: 0; }
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-m) var(--space-xl);
+  gap: var(--space-m) var(--space-l);
 }
 @media (max-width: 40rem) {
   /* space-between across two marks on a phone parks them at opposite edges
@@ -1873,10 +1873,13 @@ section:has(.hero) { padding-block: 0; }
 }
 
 .mark {
-  /* 16px, up from 13 (Chip, 2026-07-29, "slightly bigger"). This is the ONE
-     number that sizes the row: every mark is scaled from its own measured cap
-     fraction so they sit on a common cap height rather than a common box. */
-  --mark-cap: 1rem;
+  /* 14px. Went 13 -> 16 when the row held four marks (Chip, "slightly
+     bigger"), then back to 14 when Doyletech made it five and the fifth
+     wrapped to its own line, which pushed the whole bar under the fold.
+     This is the ONE number that sizes the row: every mark scales from its own
+     measured cap fraction, so they sit on a common CAP HEIGHT rather than a
+     common box. Adding a sixth mark will need this number revisited again. */
+  --mark-cap: 0.875rem;
   --mark-h: calc(var(--mark-cap) / var(--mark-cap-frac));
   display: block;
   width: calc(var(--mark-h) * var(--mark-ratio));
@@ -1897,6 +1900,18 @@ section:has(.hero) { padding-block: 0; }
 .mark--vizworx {
   --mark-src: url("/assets/logo/vizworx.png");
   --mark-ratio: 4.717; --mark-cap-frac: 0.445;
+}
+/* Doyletech Corporation. Added 2026-07-29 (Chip). Source: the company's own
+ * site, doyletechcorp.com/wp-content/uploads/2023/10/dtlogo-in-black-800px.png.
+ * The file ships as RGB on white with no alpha, and this bar masks on the
+ * ALPHA channel, so a straight drop-in would have rendered a solid rectangle.
+ * The alpha was rebuilt from luminance and the transparent padding cropped.
+ * The cap fraction is the OYLETECH capitals only (rows 100 to 162 of 234),
+ * NOT the swoosh, which runs the full height, and NOT the CORPORATION line
+ * under it. Measured off the alpha, per the note at the top of this block. */
+.mark--doyletech {
+  --mark-src: url("/assets/logo/doyletech.png");
+  --mark-ratio: 3.415; --mark-cap-frac: 0.269;
 }
 /* The one lowercase wordmark, so the fraction is its ascender height and
  * not a cap height. Matching ascender to cap is what makes it sit level
