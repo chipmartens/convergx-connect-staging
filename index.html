@@ -374,23 +374,70 @@
     </div>
   </section>
 
-  <!-- THE MEMBER LOGO MARQUEE IS NOT BUILT, AND THAT IS THE SPECIFIED
-       OUTCOME, NOT AN OMISSION. No member mark, name or count has been
-       cleared, and a logo wall is a proof point whether or not it is
-       written as one. COMPANY-SITE-SPEC 6.2: nothing replaces it. No
-       placeholder, no grey boxes, no silhouettes, no "coming soon", no
-       count, no sentence about the room. The hero flows straight into
-       the sectors below, which are the hero's clearance-independent
-       evidence: nine named rooms, no participant asserted.
-       WHEN CLEARANCE ARRIVES, exactly one block drops in here, between
-       this comment and the sectors section: a self-contained marquee,
-       single-colour SVG marks in --ink-hi, one cycle no faster than 60
-       seconds, a static wrapped grid under prefers-reduced-motion, one
-       visually-hidden heading whose string is part of the clearance ask,
-       no link on any mark, alt is the legal name and nothing else. It
-       needs its own CSS section and it sits inside this same dark ground
-       with no rule above or below it. Nothing written on this page
-       depends on it, so nothing on this page changes when it lands. -->
+  <!-- SECTION 1b. THE LOGO BAR. Built 2026-07-29 on Chip's instruction
+       ("add all of the logos for now"), on a site that is noindexed and
+       pre-reveal. It replaces the deleted marquee of SPEC 6.2 and it
+       obeys 6.1's rendering rules: one optical size, one colour, a
+       monochrome knockout in --fg-hi, no mark larger than another, no
+       mark is a link, no count, no adjective, no "trusted by", no flag,
+       no country. Static, so it is not a second motion element.
+
+       PROVENANCE, PER MARK. Read this before adding or removing one.
+       Boeing            Chip confirmed 2026-07-29. Corroborated by
+                         Boeing's own release of 23 Oct 2025 and by a
+                         Boeing Canada speaker on the 2026 agenda.
+       Lockheed Martin   ConvergX publishes it as Gary Biermann's
+                         employer on its About Us page. SPEC 7B still
+                         records the MARK as uncleared; it renders here
+                         on Chip's instruction, not on 7B.
+       Magellan          CHIP'S INSTRUCTION ONLY. NO PUBLISHED SOURCE
+                         EXISTS. All 161 live ConvergX pages were pulled
+                         and grepped on 2026-07-29: zero matches, and it
+                         is absent from Boeing's release too. Nothing
+                         here was verified. Do not treat its presence on
+                         this page as evidence of anything.
+       VizworX           ConvergX publishes it as Jeff LaFrenz's
+                         employer. Their own site ships a raster mark
+                         only, so the file is their PNG, knocked out.
+       The Method Effect ConvergX's own 2020 agenda lists Chuck Bean
+                         there. Raster mark only, same treatment.
+
+       NOT RENDERED, AND NOT PENDING.
+       ATCO Frontec      Cleared by 7B, but frontec.atco.com brands with
+                         the ATCO corporate lockup and publishes no ATCO
+                         Frontec mark of its own. Rendering the parent's
+                         mark would be a different company's claim, and
+                         setting the name in type would be a drawn logo.
+                         Ships without it until somebody supplies a file.
+       DND, Royal Canadian Navy, Joint Task Force North: their crests may
+                         never appear here. Those departments prohibit a
+                         use that implies endorsement of a commercial
+                         entity, and a proof bar is exactly that. This is
+                         not a clearance that arrives later. Their quotes
+                         still run below with full attribution, which is
+                         the part that carries the weight.
+       GreyLevel         The entity behind the 13 Aug 2025 announcement
+                         is not identified. greylevel.com serves an
+                         unrelated site. Left out.
+
+       The bar is a content swap: add or delete an <li> and a .mark--
+       rule. Delete the whole <section> and the page still reads, which
+       is the acceptance test SPEC 6.2 sets. Attribution and endorsement
+       are different claims: nothing here says any of these companies
+       endorsed anything, and nothing in the quotes section below refers
+       to this bar. -->
+  <section class="section--dense proofbar-band">
+    <div class="wrap">
+      <h2 class="vh">Organisations named in ConvergX's published material</h2>
+      <ul class="proofbar">
+        <li><span class="mark mark--boeing" role="img" aria-label="Boeing"></span></li>
+        <li><span class="mark mark--lockheed" role="img" aria-label="Lockheed Martin"></span></li>
+        <li><span class="mark mark--magellan" role="img" aria-label="Magellan Aerospace"></span></li>
+        <li><span class="mark mark--vizworx" role="img" aria-label="VizworX Inc."></span></li>
+        <li><span class="mark mark--method" role="img" aria-label="The Method Effect"></span></li>
+      </ul>
+    </div>
+  </section>
 
   <!-- SECTION 2. THE SECTORS. Dark, continuous with the hero, and no
        rule-double between them on purpose: the hero and the rooms are
@@ -725,6 +772,130 @@
         </div>
       </div>
     </section>
+
+    <!-- SECTION 4b. THE QUOTES. Same warm ground as the Congress above
+         it, because these are the Congress's own past attendees and a
+         fourth surface change is not spent on them.
+
+         WHAT THIS SECTION MAY AND MAY NOT DO.
+         Every quote is ConvergX's own published testimonial, captured
+         2026-07-29 in _reference/CONVERGX-CO-2026-07-29.md section 5.2,
+         which is the single source of record for the WORDING of all
+         nine. Words are cut, never changed: each run below is a
+         contiguous verbatim span of whole sentences, and the one
+         internal omission is marked with an ellipsis. No paraphrase, no
+         two non-adjacent sentences joined, no grammar tidied, no
+         spelling corrected. Chuck Bean's "eye opening" and Claude
+         Rochette's "honor" are theirs. ConvergX's About Us page prints
+         Rochette as "honour"; if that version is ever preferred, swap
+         the whole sentence from that page, do not edit this one.
+
+         ATTRIBUTION IS NOT A FREE CHOICE. Rules and verdicts:
+         _reference/QUOTE-ATTRIBUTIONS-2026-07-29.md. An employer runs
+         ONLY on a CONFIRMED verdict, organisation only, no job title
+         for anybody. Cam MacDonald and Blaire Lancaster are PROBABLE
+         and run NAME ONLY. Do not promote a PROBABLE. A missing
+         employer is invisible to a reader; a wrong one is a live claim
+         about a real person.
+
+         CAM MACDONALD runs the homepage wording, the version captured
+         at 5.2 item 13. ConvergX's About Us page carries a different
+         edit of the same message. One page, one version, never a blend.
+
+         BLAIRE LANCASTER is truncated around the deal count inside her
+         quote. That line is hearsay inside a testimonial, it is
+         quarantined, and it may never be lifted out or restated. The
+         two sentences that run here sit before it and after nothing.
+
+         NO CREST. Rochette, King, Carpentier and Hardin are named with
+         their departments because ConvergX publishes them that way. No
+         DND, Royal Canadian Navy or Joint Task Force North mark may
+         appear anywhere near them, and nothing may imply departmental
+         endorsement. This section is independent of the logo bar in the
+         hero and neither refers to the other.
+
+         GARY BIERMANN: past tense only. He has left Lockheed Martin.
+         Never write that he is there.
+
+         NO JAVASCRIPT, NO PROBLEM. The markup below is the component.
+         With scripts off it is a wrapped grid of all nine, everything
+         readable, nothing clipped, no controls. _system/quotes.js turns
+         that grid into an advancing track and reveals the controls. It
+         adds behaviour and it never creates content. -->
+    <section class="section--open quotes" data-quotes>
+      <div class="wrap">
+        <div class="sec-head">
+          <h2>People who have been in the room, in their own words.</h2>
+          <span class="label label--lo label--edge">Published quotes</span>
+        </div>
+        <p class="quotes-note">ConvergX published every quote below. Words are cut, never changed.</p>
+
+        <ul class="quote-track" data-quotes-track>
+          <li class="quote">
+            <figure>
+              <blockquote><p>ConvergX is one of the very few conferences that I have ever attended that provides real value.</p></blockquote>
+              <figcaption>Jeff LaFrenz, VizworX Inc.</figcaption>
+            </figure>
+          </li>
+          <li class="quote">
+            <figure>
+              <blockquote><p>It was an honor to present at your conference.</p></blockquote>
+              <figcaption>Claude Rochette, Department of National Defence</figcaption>
+            </figure>
+          </li>
+          <li class="quote">
+            <figure>
+              <blockquote><p>Your conference was the most professional I've attended in the last 10 years, you should be very proud.</p></blockquote>
+              <figcaption>Cam MacDonald</figcaption>
+            </figure>
+          </li>
+          <li class="quote">
+            <figure>
+              <blockquote><p>ConvergX has been a great opportunity for us to engage with representatives from some of those industries, understand their challenges, and find synergies between their needs and ours.</p></blockquote>
+              <figcaption>Gary Biermann, Lockheed Martin</figcaption>
+            </figure>
+          </li>
+          <li class="quote">
+            <figure>
+              <blockquote><p>I meet key people and the lectures are eye opening … I wouldn't miss it.</p></blockquote>
+              <figcaption>Chuck Bean, The Method Effect</figcaption>
+            </figure>
+          </li>
+          <li class="quote">
+            <figure>
+              <blockquote><p>I'm very happy to be here and I'm impressed with the group of people that you've brought together for this forum.</p></blockquote>
+              <figcaption>BGen Carpentier, Joint Task Force North</figcaption>
+            </figure>
+          </li>
+          <li class="quote">
+            <figure>
+              <blockquote><p>The opportunity to engage directly with Aerospace, Defence and Security sectors enables broader markets and accelerates the introduction of solutions into practical use.</p></blockquote>
+              <figcaption>Stephan King, Royal Canadian Navy Innovation Team</figcaption>
+            </figure>
+          </li>
+          <li class="quote">
+            <figure>
+              <blockquote><p>Conferences like this are valuable because it gives us a deeper understanding of who the key players are in the Arctic.</p></blockquote>
+              <figcaption>BGen Hardin, Department of National Defence</figcaption>
+            </figure>
+          </li>
+          <li class="quote">
+            <figure>
+              <blockquote><p>I learned from and met many fascinating people I would normally never cross paths with. Different perspectives are so valuable in getting creative and thinking outside the box.</p></blockquote>
+              <figcaption>Blaire Lancaster</figcaption>
+            </figure>
+          </li>
+        </ul>
+
+        <!-- Hidden until quotes.js runs: with no script there is nothing
+             to advance and a dead button is worse than no button. -->
+        <div class="quote-controls" data-quotes-controls hidden>
+          <button type="button" class="btn" data-quotes-prev aria-label="Previous quotes">Previous</button>
+          <button type="button" class="btn" data-quotes-next aria-label="Next quotes">Next</button>
+          <button type="button" class="btn" data-quotes-toggle aria-label="Pause the quote rotation">Pause</button>
+        </div>
+      </div>
+    </section>
   </div>
 
   <!-- SECTION 5. XPAND. Back to the site's home ground, which is what
@@ -868,6 +1039,9 @@
 <!-- Turns the hero plate. Optional by design: with it absent, blocked or
      broken, the plate in the markup is already a finished globe. -->
 <script src="/_system/globe.js" defer></script>
+<!-- Upgrades the quote grid to an advancing track. Optional by design:
+     with it absent, blocked or broken, every quote is already on the page. -->
+<script src="/_system/quotes.js" defer></script>
 
 </body>
 </html>

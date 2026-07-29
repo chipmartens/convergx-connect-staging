@@ -1747,3 +1747,136 @@ section:has(.hero) { padding-block: 0; }
  * decorative: it is an edge the table stops against, the same device as the home
  * hero terminator and the industry header rule. */
 .edge-accent { border-inline-start: 2px solid var(--accent); padding-inline-start: var(--space-m); }
+
+/* ================= 24. VISUALLY HIDDEN ================= */
+/* The only way to give a region a name a screen reader can use without
+ * printing that name on a page whose design does not want it. Not
+ * display:none, which removes it from the accessibility tree too. */
+
+.vh {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* ================= 25. THE LOGO BAR ================= */
+/* Third-party marks under the hero. COMPANY-SITE-SPEC 6.1 governs the
+ * treatment; index.html carries the per-mark provenance and the list of
+ * what may never appear here.
+ *
+ * ONE COLOUR, ONE OPTICAL SIZE. Every mark is painted with --fg-hi
+ * through a mask, so the file supplies the SHAPE and the surface
+ * supplies the ink. That is why this works on all three grounds and why
+ * a raster mark is treated exactly like a vector one. Nothing is
+ * recoloured to the accent, nothing is cropped, no aspect ratio is
+ * touched: mask-size is contain, always.
+ *
+ * The per-mark heights below are NOT arbitrary and they are not equal on
+ * purpose. Equal box heights make marks with tall clearance (Boeing's
+ * swoosh, Lockheed's star) read larger than a plain wordmark, so each
+ * height is tuned until the LETTERFORMS match. Measured in the browser
+ * at 1280. Change one and re-measure the row. */
+
+.proofbar {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-m) var(--space-xl);
+}
+
+.mark {
+  display: block;
+  width: calc(var(--mark-h) * var(--mark-ratio));
+  height: var(--mark-h);
+  background-color: var(--fg-hi);
+  -webkit-mask: var(--mark-src) no-repeat center / contain;
+          mask: var(--mark-src) no-repeat center / contain;
+}
+
+/* --mark-ratio is the file's own width over its own height. It is stated
+ * so the box never distorts the artwork and never needs a hard width. */
+.mark--boeing   { --mark-src: url("/assets/logo/boeing.svg");            --mark-ratio: 4.365; --mark-h: var(--space-l); }
+.mark--lockheed { --mark-src: url("/assets/logo/lockheed-martin.svg");   --mark-ratio: 6.620; --mark-h: var(--space-s); }
+.mark--magellan { --mark-src: url("/assets/logo/magellan-aerospace.png");--mark-ratio: 5.364; --mark-h: var(--space-m); }
+.mark--vizworx  { --mark-src: url("/assets/logo/vizworx.png");           --mark-ratio: 4.717; --mark-h: var(--space-m); }
+.mark--method   { --mark-src: url("/assets/logo/the-method-effect.png"); --mark-ratio: 4.268; --mark-h: var(--space-m); }
+
+/* ================= 26. THE QUOTE CAROUSEL ================= */
+/* PROGRESSIVE ENHANCEMENT, AND THE ORDER MATTERS.
+ * Everything above the .is-live block is the no-JavaScript component: a
+ * wrapped grid holding every quote, all of them readable, nothing
+ * clipped and no scroll of any kind. That is the component. The .is-live
+ * rules below only exist once _system/quotes.js has confirmed it can
+ * drive the thing. Never move a base rule into .is-live. */
+
+.quotes-note {
+  font-size: var(--step--1);
+  color: var(--fg-lo);
+  max-width: var(--measure);
+  margin-block-end: var(--space-xl);
+}
+
+.quote-track {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--space-xl) var(--space-m);
+}
+
+/* Same idiom as .module: a hairline above, no card, no radius, no
+ * shadow, no quotation-mark ornament (.pull's rule, applied here). */
+.quote {
+  min-width: 0;                 /* a long unbroken string cannot widen the row */
+  border-top: var(--rule-hair) solid var(--rule-ink);
+  padding-block-start: var(--space-m);
+}
+.quote blockquote p {
+  color: var(--fg-hi);
+  font-size: var(--step-0);
+  text-wrap: pretty;
+}
+.quote figcaption {
+  margin-block-start: var(--space-m);
+  font-size: var(--step--1);
+  color: var(--fg-lo);
+}
+
+/* ---- the enhanced state ---- */
+/* One page is exactly the visible width, because three basis widths plus
+ * two gaps resolve to 100%. That is what lets the script advance by
+ * clientWidth and land on a card edge without measuring anything. */
+.quotes.is-live .quote-track {
+  display: flex;
+  gap: 0 var(--space-m);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;   /* a swipe at the end never turns into a page navigation */
+  scroll-snap-type: x proximity;    /* proximity, not mandatory: mandatory can strand a final
+                                     * partial page that has no snap point inside the range */
+  scrollbar-width: none;            /* the buttons are the affordance, and the row is a scroll
+                                     * container the keyboard can still reach and drive */
+}
+.quotes.is-live .quote-track::-webkit-scrollbar { display: none; }
+
+.quotes.is-live .quote {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+@media (min-width: 48rem) {
+  .quotes.is-live .quote { flex-basis: calc((100% - var(--space-m)) / 2); }
+}
+@media (min-width: 64rem) {
+  .quotes.is-live .quote { flex-basis: calc((100% - 2 * var(--space-m)) / 3); }
+}
+
+.quote-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+  margin-block-start: var(--space-xl);
+}
