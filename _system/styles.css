@@ -2191,6 +2191,11 @@ section:has(.hero) { padding-block: 0; }
 .door-block--invert {
   background: var(--door-bg, var(--paper));
   color: var(--door-fg, var(--warm-600));
+  /* A hairline, because white on off-white is 1.19:1 and the FILL alone cannot
+     draw the block's edge on the muted ground. The site's boundary device is a
+     rule, never a shadow, so this is the existing idiom rather than a new one.
+     The accent block needs none: orange states its own edge on every ground. */
+  border: var(--rule-hair) solid var(--rule-ink-load);
 }
 .door-block--invert .door-block-label,
 .door-block--invert .door-block-cta { color: var(--door-fg-hi, var(--ink-900)); }
