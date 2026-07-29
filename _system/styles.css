@@ -1774,11 +1774,17 @@ section:has(.hero) { padding-block: 0; }
  * recoloured to the accent, nothing is cropped, no aspect ratio is
  * touched: mask-size is contain, always.
  *
- * The per-mark heights below are NOT arbitrary and they are not equal on
- * purpose. Equal box heights make marks with tall clearance (Boeing's
- * swoosh, Lockheed's star) read larger than a plain wordmark, so each
- * height is tuned until the LETTERFORMS match. Measured in the browser
- * at 1280. Change one and re-measure the row. */
+ * ONE OPTICAL SIZE MEANS ONE CAP HEIGHT, NOT ONE BOX HEIGHT. Equal
+ * boxes make a mark with tall clearance read smaller than a plain
+ * wordmark: Boeing's swoosh, Lockheed's star and the Method Effect's arc
+ * all overhang their letterforms by different amounts. So --mark-cap is
+ * the single authored size for the whole row and every box is derived
+ * from it. --mark-cap-frac is not a design value, it is a MEASUREMENT of
+ * the file: the cap height (x-height for the one lowercase mark) as a
+ * fraction of its own box, taken off the alpha channel in the browser at
+ * a 400px render. Same for --mark-ratio, which is the file's width over
+ * its height and is what keeps the artwork from ever being stretched.
+ * Re-measure, do not guess, if a file is replaced. */
 
 .proofbar {
   list-style: none;
@@ -1790,6 +1796,8 @@ section:has(.hero) { padding-block: 0; }
 }
 
 .mark {
+  --mark-cap: 0.8125rem;                                /* 13px. THE size of the row */
+  --mark-h: calc(var(--mark-cap) / var(--mark-cap-frac));
   display: block;
   width: calc(var(--mark-h) * var(--mark-ratio));
   height: var(--mark-h);
@@ -1798,13 +1806,25 @@ section:has(.hero) { padding-block: 0; }
           mask: var(--mark-src) no-repeat center / contain;
 }
 
-/* --mark-ratio is the file's own width over its own height. It is stated
- * so the box never distorts the artwork and never needs a hard width. */
-.mark--boeing   { --mark-src: url("/assets/logo/boeing.svg");            --mark-ratio: 4.365; --mark-h: var(--space-l); }
-.mark--lockheed { --mark-src: url("/assets/logo/lockheed-martin.svg");   --mark-ratio: 6.620; --mark-h: var(--space-s); }
-.mark--magellan { --mark-src: url("/assets/logo/magellan-aerospace.png");--mark-ratio: 5.364; --mark-h: var(--space-m); }
-.mark--vizworx  { --mark-src: url("/assets/logo/vizworx.png");           --mark-ratio: 4.717; --mark-h: var(--space-m); }
-.mark--method   { --mark-src: url("/assets/logo/the-method-effect.png"); --mark-ratio: 4.268; --mark-h: var(--space-m); }
+.mark--boeing {
+  --mark-src: url("/assets/logo/boeing.svg");
+  --mark-ratio: 4.365; --mark-cap-frac: 0.362;
+}
+.mark--lockheed {
+  --mark-src: url("/assets/logo/lockheed-martin.svg");
+  --mark-ratio: 6.620; --mark-cap-frac: 0.378;
+}
+.mark--vizworx {
+  --mark-src: url("/assets/logo/vizworx.png");
+  --mark-ratio: 4.717; --mark-cap-frac: 0.445;
+}
+/* The one lowercase wordmark, so the fraction is its ascender height and
+ * not a cap height. Matching ascender to cap is what makes it sit level
+ * with the four sets of capitals beside it. */
+.mark--method {
+  --mark-src: url("/assets/logo/the-method-effect.png");
+  --mark-ratio: 4.268; --mark-cap-frac: 0.285;
+}
 
 /* ================= 26. THE QUOTE CAROUSEL ================= */
 /* PROGRESSIVE ENHANCEMENT, AND THE ORDER MATTERS.
@@ -1841,10 +1861,29 @@ section:has(.hero) { padding-block: 0; }
   font-size: var(--step-0);
   text-wrap: pretty;
 }
+/* The global figcaption is the FIGURE caption: mono, with its own
+ * hairline above it. Both are wrong here. This is a person's name, not
+ * spec metadata, and a second rule inside a card that already opens on
+ * one turns three quotes into six lines. Reset to the body face and let
+ * the card's own rule be the only one. */
 .quote figcaption {
   margin-block-start: var(--space-m);
+  font-family: var(--font-body);
   font-size: var(--step--1);
   color: var(--fg-lo);
+  border-top: 0;
+  padding-block-start: 0;
+  padding-inline-end: 0;
+}
+
+/* A band paints its own ground, so the ground has to close below its
+ * last line. Same rule and same reasoning as the one on
+ * main > [data-surface]:last-child in section 6b; this component is the
+ * one that ends a band without being the last band on the page, and
+ * without this its buttons sit flush on the colour change. */
+[data-surface] > .quotes:last-child { padding-block-end: var(--space-3xl); }
+@media (max-width: 60rem) {
+  [data-surface] > .quotes:last-child { padding-block-end: var(--space-2xl); }
 }
 
 /* ---- the enhanced state ---- */

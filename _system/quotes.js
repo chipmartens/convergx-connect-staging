@@ -90,7 +90,12 @@
   }
 
   function start() {
-    if (timer || pausedByUser || reduced.matches) return;
+    if (timer || pausedByUser || reduced.matches || document.hidden) return;
+    /* Asked for separately by mouseleave and focusout, and a reader can
+     * be using one while the other has just ended: tab into the buttons,
+     * then move the mouse away, and a naive resume would start the timer
+     * under a keyboard reader who never left. */
+    if (root.contains(document.activeElement) || root.matches(':hover')) return;
     timer = window.setInterval(function () { advance(1); }, STEP_MS);
   }
 
@@ -104,10 +109,9 @@
     /* Hidden when nothing rotates: a pause button for a thing that never
      * moves is a lie about what the control does. */
     toggle.hidden = reduced.matches;
-    var resume = pausedByUser;
-    toggle.textContent = resume ? 'Resume' : 'Pause';
+    toggle.textContent = pausedByUser ? 'Resume' : 'Pause';
     /* The accessible name always contains the visible word (WCAG 2.5.3). */
-    toggle.setAttribute('aria-label', resume ? 'Resume the quote rotation' : 'Pause the quote rotation');
+    toggle.setAttribute('aria-label', pausedByUser ? 'Resume the quote rotation' : 'Pause the quote rotation');
   }
 
   prev.addEventListener('click', function () { advance(-1); });
