@@ -2182,12 +2182,18 @@ section:has(.hero) { padding-block: 0; }
 /* Renamed from --dark on 2026-07-29: it is not dark, it is the OPPOSITE of
    whatever it sits on. On a dark page it renders light. Calling it --dark is
    how it got read as "the black one" and reported as invisible. */
+/* FALLBACKS ARE LOAD-BEARING HERE, not tidiness. `background: var(--door-bg)`
+   with no fallback is an INVALID declaration the moment the token is missing,
+   and an invalid background computes to transparent: the block vanishes onto
+   its own ground and takes its type with it. That is exactly what shipped, and
+   a stale tokens.css was enough to cause it. With the fallback the worst case
+   is a white block on a white page, which is visible and reports itself. */
 .door-block--invert {
-  background: var(--door-bg);
-  color: var(--door-fg);
+  background: var(--door-bg, var(--paper));
+  color: var(--door-fg, var(--warm-600));
 }
 .door-block--invert .door-block-label,
-.door-block--invert .door-block-cta { color: var(--door-fg-hi); }
+.door-block--invert .door-block-cta { color: var(--door-fg-hi, var(--ink-900)); }
 .door-block--accent {
   background: var(--accent);
   color: var(--accent-ink);

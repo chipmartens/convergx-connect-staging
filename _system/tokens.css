@@ -198,10 +198,10 @@
   --link:          var(--accent);
   --logo-ink:      var(--ink-hi);      /* hairline mark needs MORE contrast than body */
   --dot-ink:       var(--warm-700);
-  /* Inverted: a LIGHT block on the dark ground. */
-  --door-bg:       var(--warm-100);
-  --door-fg:       var(--warm-600);    /* 5.29:1 on warm-100 */
-  --door-fg-hi:    var(--ink-900);     /* 15.07:1 */
+  /* The light block, on the dark ground. */
+  --door-bg:       var(--paper);
+  --door-fg:       var(--warm-600);    /* 6.55:1 on paper */
+  --door-fg-hi:    var(--ink-900);     /* 18.69:1 */
   /* Light type on a dark ground needs a touch more leading to hold its
    * lines apart. The body line unit never forks (1.55 everywhere); the
    * lede is where the compensation is affordable and visible. */
@@ -218,10 +218,11 @@
   --link:          var(--accent-text);
   --logo-ink:      var(--ink-900);
   --dot-ink:       var(--warm-300);
-  /* Inverted: a DARK block on the paper ground. */
-  --door-bg:       var(--ground);
-  --door-fg:       var(--ink);         /* 7.32:1 */
-  --door-fg-hi:    var(--ink-hi);      /* 17.23:1 */
+  /* On the paper ground the light block goes the OTHER way, to the greige.
+     White on white is the same defect as black on black. */
+  --door-bg:       var(--warm-100);
+  --door-fg:       var(--warm-600);    /* 5.29:1 on warm-100 */
+  --door-fg-hi:    var(--ink-900);     /* 15.07:1 */
 }
 [data-surface="muted"] {
   --bg:            var(--warm-100);
@@ -234,20 +235,23 @@
   --link:          var(--accent-text);
   --logo-ink:      var(--ink-900);
   --dot-ink:       var(--paper);       /* white dots on greige. Use deliberately */
-  /* Inverted: a DARK block on the greige ground. */
-  --door-bg:       var(--ground);
-  --door-fg:       var(--ink);
-  --door-fg-hi:    var(--ink-hi);
+  /* Off-white ground, white block. */
+  --door-bg:       var(--paper);
+  --door-fg:       var(--warm-600);    /* 6.55:1 on paper */
+  --door-fg-hi:    var(--ink-900);     /* 18.69:1 */
 }
 
 /* ---- THE DOOR BLOCKS. Surface-relative, added 2026-07-29. ----
  * A filled block sitting ON a surface cannot use a fixed ground: the panel
  * takes the page's surface, so the near-black block rendered near-black on
  * near-black on every dark page and vanished.
- * The rule is INVERSION, not elevation. --block is the elevation step and on
- * dark it is #141210 against #0A0A0A, which is 1.06:1: correct for a panel,
- * useless for a card that has to read as an object. So the block takes the
- * opposite end of the ramp from whatever it is sitting on.
+ * The rule is CONTRAST WITHIN THE LIGHT END, revised 2026-07-29 after the
+ * first version put a near-black block on the light and muted grounds and
+ * Chip called it: the second door is always a LIGHT block, and the ground it
+ * takes is whichever light step is not the one underneath it. Off-white page
+ * gets white, white page gets off-white, dark page gets white.
+ * --block is the elevation step and cannot do this job: on dark it is #141210
+ * against #0A0A0A, 1.06:1, correct for a panel and useless for a card.
  * The accent door is NOT in here. Orange reads on all three grounds and its
  * type is always --accent-ink, near-black. */
 
