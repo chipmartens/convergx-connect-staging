@@ -2179,12 +2179,15 @@ section:has(.hero) { padding-block: 0; }
    block reads as an object on all three. See the note in tokens.css.
    The accent block below is not surface-relative and does not need to be:
    orange reads on every ground and its type is always near-black. */
-.door-block--dark {
+/* Renamed from --dark on 2026-07-29: it is not dark, it is the OPPOSITE of
+   whatever it sits on. On a dark page it renders light. Calling it --dark is
+   how it got read as "the black one" and reported as invisible. */
+.door-block--invert {
   background: var(--door-bg);
   color: var(--door-fg);
 }
-.door-block--dark .door-block-label,
-.door-block--dark .door-block-cta { color: var(--door-fg-hi); }
+.door-block--invert .door-block-label,
+.door-block--invert .door-block-cta { color: var(--door-fg-hi); }
 .door-block--accent {
   background: var(--accent);
   color: var(--accent-ink);
@@ -2218,11 +2221,14 @@ section:has(.hero) { padding-block: 0; }
    bottom, and the plate runs behind both. min-height, never height: the type
    is allowed to make the band taller on a short window rather than clip. */
 .hero-band {
-  /* The notice bar sits above the header and is NOT in --shell-h, so the band
-     starts lower than --shell-h implies. The extra allowance is that bar plus
-     a little air; without it the band ran 39px past the fold and put the marks
-     just under it, which is the one thing this layout exists to prevent. */
-  min-height: calc(100svh - var(--shell-h) - var(--space-3xl));
+  /* EXACTLY the rest of the first screen. Chip, 2026-07-29: the black has to
+     read as a full 100vh on desktop, with the marks inside it rather than the
+     next surface showing under them.
+     --shell-total is the nav PLUS the notice above it, measured by shell.js
+     because the notice self-removes after the Congress. --shell-h is the
+     no-JS fallback: the nav alone, which is the right answer on the run where
+     shell.js never executes and the notice is the hardcoded one. */
+  min-height: calc(100svh - var(--shell-total, var(--shell-h)));
   display: flex;
   flex-direction: column;
 }

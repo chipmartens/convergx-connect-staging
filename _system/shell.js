@@ -129,12 +129,15 @@
        * appear (footer, chooser, page copy) still uses `note`, so lengthening
        * one did not lengthen all of them. */
       long:  "Where a requirement goes when your own supply base cannot fill it. A person at ConvergX decides who answers it.",
-      tone:  "dark" },
+      /* ORANGE, and it is the primary door. Chip, 2026-07-29: this is the more
+       * prominent of the two, and the accent is the one ground that reads on
+       * every surface without depending on the inversion below. */
+      tone:  "accent" },
     { label: "Get discovered",
       href:  "/platform/get-discovered/",
       note:  "Past performance is scored inside a sector, and the score does not travel.",
       long:  "What makes you worth choosing is not on your website. This is how a room in another sector finds out.",
-      tone:  "accent" }
+      tone:  "invert" }
   ];
 
   /* Number words, so no count in this component is ever typed. A
@@ -259,8 +262,7 @@
   var PLATFORM_OVERVIEW = {
     title: "Platform overview",
     href:  "/platform/",
-    note:  "What the platform is, what is in it, why it exists and how it gets used.",
-    tone:  "paper"
+    note:  "What the platform is, what is in it, why it exists and how it gets used."
   };
   /* The eyebrow came off on 2026-07-29 (Chip). It said "The platform" above a
    * block titled "Platform overview" inside a panel opened from a bar item
@@ -1069,6 +1071,28 @@
     }, { threshold: 0 }).observe(sentinel);
   }
 
+  /* THE REAL DISTANCE FROM THE TOP OF THE VIEWPORT TO THE CONTENT.
+   * --shell-h is the nav bar alone, a constant, and the notice sits ABOVE the
+   * nav, so the two together are what actually pushes the page down. The
+   * homepage hero has to fill exactly the rest of the screen, and it can only
+   * do that against a number that includes the notice.
+   * It is MEASURED, not typed, for one reason: the notice self-removes after
+   * the Congress (NOTICE_UNTIL). On the day it stops rendering this number
+   * drops by its height on its own and the hero still fills the screen.
+   * Re-measured on resize because the notice wraps to two lines on a phone.
+   * The CSS falls back to --shell-h when this never runs (no JS). */
+  function measureShell(header) {
+    var set = function () {
+      var notice = document.querySelector(".notice");
+      var h = header.getBoundingClientRect().height +
+              (notice ? notice.getBoundingClientRect().height : 0);
+      document.documentElement.style.setProperty("--shell-total", Math.round(h) + "px");
+    };
+    set();
+    if (window.ResizeObserver) new ResizeObserver(set).observe(document.documentElement);
+    else window.addEventListener("resize", set);
+  }
+
   function currentPath() {
     var p = window.location.pathname;
     /* Normalise staging filenames back to site routes where possible. */
@@ -1097,6 +1121,7 @@
       /* Before wireFloat, which reads the header's resting offset. */
       header.insertAdjacentHTML("beforebegin", buildNotice());
       wireFloat(header);
+      measureShell(header);
     }
     var footer = document.querySelector('[data-shell="footer"]');
     if (footer) {
