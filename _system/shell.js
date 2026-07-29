@@ -15,15 +15,17 @@
 (function () {
   "use strict";
 
-  /* The single navigation definition. FOUR primary items, one utility
-   * link, one CTA.
+  /* The single navigation definition: the primary items, one utility
+   * link, one CTA. No count is stated here or anywhere below. The bar is
+   * a flex row with a gap and the footer is an auto-fit grid, so both
+   * absorb another item without a redesign, and a typed count would be
+   * the first thing to go stale when one arrives.
    *
-   * Xpand renders ONLY when its pages exist. Both /xpand/ pages are
-   * blocked, and a nav row pointing at an unwritten page is a link to a
-   * 404 on every page of the site. The item stays in this array so the
-   * four-item bar is visible in the source and nobody re-derives it;
-   * navList skips it until `live` is true. Flipping that one word is the
-   * whole of the change on the day the pages ship. */
+   * An item renders ONLY when its pages exist: `live` is the gate, and a
+   * nav row pointing at an unwritten page is a link to a 404 on every
+   * page of the site. The /xpand/ pages shipped on 2026-07-28 and were rebuilt 2026-07-29, so Xpand
+   * is live. A new item is added here with live:false until its page
+   * exists, then that one word flips. */
   var NAV = [
     { label: "Industries",     href: "/industries/", mega: "industries", live: true },
     { label: "The Platform",   href: "/platform/",   mega: "platform",   live: true },
@@ -32,13 +34,84 @@
      * word that tells a cold reader from another sector what the item
      * is. The panel standfirst resolves the two. No path changes. */
     { label: "The Conference", href: "/congress/",   mega: "congress",   live: true },
-    { label: "Xpand",          href: "/xpand/",                          live: false }
+    /* Xpand takes a panel, decided 2026-07-28. The earlier reading was that
+     * two pages do not earn one; what that missed is that the bar now shows
+     * a panel on every other item, so the one item without one reads as the
+     * shallow one rather than as the short one. The two rows are the two
+     * pages, and they are the same rows the footer carries.
+     *
+     * The label is the short word. The full name, "Xpand Commercialization
+     * Zone", is permitted ONCE and only on /xpand/. Every other item in the
+     * bar is already multi-word, and one more long one is what breaks the
+     * row at the narrow end of the desktop range. The ledger would not
+     * permit the repetition anyway. The full name belongs on the page. */
+    { label: "Xpand",          href: "/xpand/",     mega: "xpand",      live: true }
   ];
-  /* About is a UTILITY link, not a fifth primary item, and it never takes
-   * a panel. Visually a second class: the site's 11px mono micro-label
-   * token, which already exists. */
-  var UTILITY = { label: "About", href: "/about/" };
+  /* About is a UTILITY link and it now TAKES A PANEL. Chip, 2026-07-29:
+   * "you probably have to add a mega menu for About so those pages are
+   * accessible." /about/how-we-vet/, /about/leadership/ and
+   * /about/network/ were reachable only from the footer, which is a
+   * defect, not a placement decision. Spec 2 says About never takes a
+   * panel; Chip's instruction supersedes that line.
+   *
+   * IT STAYS A UTILITY LINK RATHER THAN BECOMING A FIFTH PRIMARY ITEM,
+   * and the reason is the item that is coming. NAV is the primary group
+   * and a further top-level item is known to be on its way. Promoting
+   * About would seat it inside that group and it would then have to move
+   * again when the real item arrives. Keeping it after the group costs
+   * nothing a reader can feel now that it has a panel, and it leaves the
+   * primary row's order untouched.
+   *
+   * It is STRUCTURALLY a utility link and VISUALLY a primary one: same
+   * font, size, weight, ink and hover as the items beside it. The 11px
+   * mono micro-label treatment it used to carry is retired (Chip,
+   * 2026-07-28), and the .nav-util hook went with it. What still makes it
+   * a second class is that it sits after the primary items. */
+  var UTILITY = { label: "About", href: "/about/", mega: "about" };
   var CTA = { label: "Request access", href: "/access/request/" };
+
+  /* ---- THE NOTICE BAR ----
+   * One line of orange above the header, on every page, pointing at the
+   * one page that takes money. Added 2026-07-28 at Chip's request.
+   *
+   * COLOUR IS NOT A CHOICE HERE. Type on the accent panel is
+   * --accent-ink, near-black, measured 5.76:1. Light type on this orange
+   * measures 3.42:1 and fails, which is why --accent-ink exists as its
+   * own token. Never light type on orange, anywhere, ever.
+   *
+   * COPY. Their own bar shouts, in caps, with exclamation marks and a
+   * "secure your spot" line. The facts are borrowed; the voice is not.
+   * Three cleared facts and nothing else: the tenth year, the dates, the
+   * city. No attendance figure, no delegate or country count, no "limited
+   * spots", no countdown. Every scarcity device is a claim about demand
+   * that nobody has verified, and this bar renders on every page, so a
+   * soft one would be the most-repeated unverified claim on the site.
+   *
+   * LEDGER NOTE, and it needs Chip's eye. Spec 3.4 rations "the tenth
+   * year" to two instances (/congress/ and the homepage Conference
+   * section) and spec 2 keeps it out of the nav for exactly this reason:
+   * chrome renders everywhere. Chip cleared all three facts for this bar
+   * on 2026-07-28, which supersedes the ration for this component only.
+   * If the ration matters more than the hook, delete the first sentence
+   * and the bar still works on the dates alone.
+   *
+   * NOT DISMISSIBLE, deliberately. A dismiss control is persistent state:
+   * storage to write, storage to read on every page, a decision about
+   * what happens in private mode or with storage blocked, and a support
+   * question the first time it does not stick. The bar is one line of
+   * chrome that scrolls away and never comes back on that screenful. It
+   * is not an interstitial, so it does not need an exit. */
+  var NOTICE = {
+    text: "The Congress is in its tenth year. Sep 22 to 24, 2026, Calgary.",
+    link: "Register",
+    href: "/congress/register/"
+  };
+  /* SELF-REMOVING, and this is the whole mechanism. A hardcoded date that
+   * outlives its event is a false claim on every page of the site, and a
+   * note asking someone to remember in September is not a mechanism. The
+   * bar stops rendering at midnight after the last day, Calgary time
+   * (UTC-6 in September). Nothing else needs touching then. */
+  var NOTICE_UNTIL = Date.parse("2026-09-25T00:00:00-06:00");
 
   /* THE TWO DOORS. Locked distinctive assets: the same two words in nav,
    * panel, footer, chooser, h1 and body copy, at every occurrence,
@@ -74,13 +147,16 @@
    * THE GATE. This array is the single source of truth for which sectors
    * exist. A sector enters it only once its page is written and has
    * passed the research gate. A sector that is not here has no nav row,
-   * no hub row and no page. Five more sectors are specified and none of
-   * them are researched, so four is what renders, and every count that
-   * renders is generated from this length.
+   * no hub row and no page. Every count that renders is generated from
+   * this length, never typed.
    *
    * Order is ALPHABETICAL and identical everywhere. Any other order
    * encodes something: researched-first would make the nav visibly stop
-   * where the research stopped. Alphabetical asserts nothing. */
+   * where the research stopped. Alphabetical asserts nothing.
+   *
+   * 2026-07-29: construction, manufacturing, military and technology
+   * joined. Each page was read before its descriptor was written and
+   * every line below is drawn from copy already live on that page. */
   var INDUSTRIES = [
     { label: "Aerospace and defence",
       href:  "/industries/aerospace-defence/",
@@ -88,37 +164,72 @@
     { label: "Agriculture",
       href:  "/industries/agriculture/",
       note:  "A harvest window with no second chance, and the engineering that came out of it." },
+    { label: "Construction",
+      href:  "/industries/construction/",
+      note:  "Bonding capacity and safety history clear the gate. Neither one reads the work." },
     { label: "Energy",
       href:  "/industries/energy/",
       note:  "Long-lead packages committed during engineering, off a vendor list built from the last project." },
+    { label: "Manufacturing",
+      href:  "/industries/manufacturing/",
+      note:  "The approval belongs to the tool, not the shop. None of them travels." },
+    { label: "Military",
+      href:  "/industries/military/",
+      note:  "A serviceability gap has no date on it. Both routes back run through whoever holds the contract." },
     { label: "Mining and natural resources",
       href:  "/industries/mining-natural-resources/",
-      note:  "Finding the part is not the hard problem. Qualifying the second source is." }
+      note:  "Finding the part is not the hard problem. Qualifying the second source is." },
+    { label: "Technology",
+      href:  "/industries/technology/",
+      note:  "An authorization clears one buyer. Passing it for somebody else buys nothing here." }
   ];
 
+  /* The ninth cell of the industries grid, and it is NOT a sector. It sits
+   * in the last position and it is not counted: every count on this panel
+   * is generated from INDUSTRIES.length, which this is not in.
+   *
+   * The destination is the existing door, /access/request/, under the
+   * locked CTA label from spec 3.5. No new label, no new destination, no
+   * second front door invented for a nav cell.
+   *
+   * THE LINE IS DRAWN FROM LIVE COPY, like every other descriptor here.
+   * /access/request/ already tells a reader why it asks which industries
+   * they source from: "This is how ConvergX works out which industries
+   * have not been looked at." That sentence is what makes this cell
+   * honest. It promises no page, no timeline and no new sector, and it
+   * does not say ConvergX will do anything, because the request page is
+   * explicit that no timeline can be given honestly. */
+  var PROMO = {
+    label: "Another industry",
+    note:  "Not one of these? Name it on the request form. That is how ConvergX works out which industries have not been looked at.",
+    cta:   "Request access",
+    href:  "/access/request/"
+  };
+
   /* The Platform panel. Three columns: the two doors, the platform's own
-   * pages, and the fifteen modules grouped by what they are FOR rather
-   * than by build state.
+   * pages, and the fifteen modules grouped by what they are FOR.
    *
    * The doors are the FIRST TWO ROWS of this panel, above the platform's
    * own pages, under their own label. Being one level deeper in the URL
    * is a real cost and this is the first of the four ways it is paid
    * back. They are never the last thing in the panel.
    *
-   * HONESTY GATE, and it is why the panel says what it says. Twelve of the
-   * fifteen modules are not live. A menu cannot carry fifteen status tags
-   * without becoming a table, so the panel never names an individual
-   * module: it names the five groups and states the live count once, in
-   * the standfirst, where nobody can miss it. Naming a module here without
-   * its tag would be a present-tense claim, which is the one thing the
-   * modules page exists to prevent. If you ever list modules in this
-   * panel, each one carries its tag or it does not go in. */
-  var PLATFORM_STANDFIRST = "Fifteen modules. Three run the Congress. Every one carries its build state.";
+   * 2026-07-29, CHIP'S DECISION. This standfirst used to carry a build
+   * state and a live count. Both were REMOVED DELIBERATELY, along with
+   * every status tag on the site. They are not to be restored, renamed,
+   * or replaced with a substitute signal, without Chip.
+   *
+   * What still binds: the panel names the five groups and never an
+   * individual module, because a menu row is a name with no room for
+   * anything around it. Nothing in this panel may describe a module as
+   * automatic, intelligent or AI-driven. Phase 1 matching is manual and
+   * admin-brokered: a person decides. */
+  var PLATFORM_STANDFIRST = "Fifteen modules, grouped by what they are for.";
   var PLATFORM_PAGES = [
     { label: "Platform overview",         href: "/platform/",
       note:  "What the fifteen modules are for, and where the software stops." },
     { label: "All modules",              href: "/platform/modules/",
-      note:  "Every module, grouped by what it is for, each with its build state." },
+      note:  "Every module, grouped by what it is for." },
     { label: "Vetting and introductions", href: "/platform/vetting-and-introductions/",
       note:  "How the decision gets made, and what the record of it holds." },
     { label: "Trust and security",        href: "/platform/trust-and-security/",
@@ -134,18 +245,23 @@
     { label: "Reference",                   note: "Material the platform can be asked about." }
   ];
 
-  /* The two-sided split, carried inside the Industries panel. The site's
-   * whole structure is two audiences, so a reader who lands on the
-   * industries menu never has to close it to find their own side. The
-   * labels and the paths are read from DOORS, so this block cannot drift
-   * from the panel that owns them. */
-  var SIDES = [
-    { label: "I need a capability", cta: DOORS[0].label, href: DOORS[0].href },
-    { label: "I have a capability", cta: DOORS[1].label, href: DOORS[1].href }
-  ];
-
-  /* The Conference panel. Six rows, each with a line drawn from copy
-   * already live on that page.
+  /* The Industries panel used to carry a second column holding a "Two
+   * paths" chooser built from the doors. It was REMOVED on 2026-07-29 at
+   * Chip's instruction: with eight sectors the panel is a grid, and a
+   * chooser wedged beside it made the sectors the aside. The doors keep
+   * their place, first, in the Platform panel, which is the panel that
+   * owns them. Nothing about the doors themselves changed. The SIDES
+   * array and its builder went with the column, because an array read by
+   * nothing is a fact waiting to go stale.
+   *
+   * The Conference panel. Two columns.
+   *
+   * Column one is the Congress itself. Column two is the convening that
+   * is NOT the Congress, and the split is the pages' own: the
+   * partnerships page opens "ConvergX convenes inside events it does not
+   * run", and the regional page opens on a region, not a company, doing
+   * the asking. Nine rows in one column ran past the fold on a laptop;
+   * two columns of the existing grid cost no new rule.
    *
    * Standfirst is the dates and the city ONLY. The tenth year is a
    * rationed figure and this component renders on every page of the
@@ -154,8 +270,14 @@
   var CONGRESS_PAGES = [
     { label: "Overview", href: "/congress/",
       note:  "Three days composed one introduction at a time." },
+    /* Rewritten 2026-07-29. The old line said the programme was published
+     * late. The programme IS published: the page now carries the schedule
+     * for all three days, so the old descriptor was a false claim on every
+     * page of the site. */
     { label: "Agenda",   href: "/congress/agenda/",
-      note:  "What is scheduled, and what happens in the gaps between the sessions." },
+      note:  "The published schedule for all three days. The programme is the Wednesday and the Thursday." },
+    { label: "Speakers", href: "/congress/speakers/",
+      note:  "Who ConvergX has named so far. The list is not closed." },
     { label: "Attend",   href: "/congress/attend/",
       note:  "The room is composed rather than filled, so attending starts with a request." },
     { label: "Register", href: "/congress/register/",
@@ -167,6 +289,68 @@
      * install language, no store reference and no promise renders here. */
     { label: "The app",  href: "/congress/the-app/",
       note:  "Your agenda and the opportunity board, on your phone." }
+  ];
+  /* Labels are the two pages' own published titles, verbatim. A shorter
+   * nav word would be a name this site invented for something ConvergX
+   * already names. */
+  var CONGRESS_ELSEWHERE_LABEL = "Convening that is not the Congress.";
+  var CONGRESS_ELSEWHERE = [
+    { label: "Regional Xchanges",   href: "/congress/regional-xchanges/",
+      note:  "The buyer here is a city, not a company. A region hosts one in its own city." },
+    { label: "Xchange Partnerships", href: "/congress/partnerships/",
+      note:  "ConvergX convenes inside events it does not run. The host runs the show." }
+  ];
+
+  /* The About panel, added 2026-07-29. Same shape as the Conference
+   * panel's first column: a standfirst in the label slot, then the rows.
+   *
+   * It exists because three live pages had exactly one route to them, the
+   * footer, and a page reachable only from the footer is a page most
+   * readers never reach. Descriptors are drawn from copy already live on
+   * each page, the same rule every other panel runs under.
+   *
+   * /about/network/ renders as "Who we convene", which is its own page
+   * title. The path says network and the label does not, deliberately:
+   * "network" is the thing the page spends its whole argument denying,
+   * that anything here accumulated. No path changes. */
+  var ABOUT_STANDFIRST = "ConvergX convenes, and that is all it does.";
+  var ABOUT_PAGES = [
+    { label: "Overview",       href: "/about/",
+      note:  "It does not manufacture, supply or bid, and has no side in the work it introduces." },
+    { label: "How we vet",     href: "/about/how-we-vet/",
+      note:  "Two sets of questions. One a file can answer, one it cannot." },
+    { label: "Leadership",     href: "/about/leadership/",
+      note:  "The people ConvergX names, with roles as ConvergX publishes them." },
+    { label: "Who we convene", href: "/about/network/",
+      note:  "Nothing about this room accumulated. Both sides were composed, company by company." }
+  ];
+
+  /* The Xpand panel. Same shape as the Conference panel: one column, a
+   * standfirst in the label slot, then the rows.
+   *
+   * HONESTY GATE. Both descriptors are drawn from copy already live on
+   * the two pages, the same rule the other three panels run under. No new
+   * claim enters the site through the nav. The standfirst is the pages'
+   * own load-bearing sentence, that a stream has a named owner and the
+   * owner is not ConvergX, which is the one thing a reader has to
+   * understand before either row means anything.
+   *
+   * Row labels match the footer's Xpand column exactly. Two routes to the
+   * same page that disagree on what it is called is a reader's problem,
+   * not a tidiness one. */
+  /* Rebuilt 2026-07-29. The previous rows described a "Stream Lead" model
+   * taken from ConvergX's OLD site. Their relaunched site does not publish
+   * it: "stream", "Stream Lead" and "stream owner" appear zero times across
+   * every live page. Xpand is a consulting practice. Do not restore the
+   * stream rows. Capture: _reference/CONVERGX-CO-2026-07-29.md */
+  var XPAND_STANDFIRST = "A consulting practice. One problem, asked across industries.";
+  var XPAND_PAGES = [
+    { label: "Overview",             href: "/xpand/",
+      note:  "Where a consulting engagement sits next to the platform and the Congress." },
+    { label: "What Xpand does",      href: "/xpand/what-xpand-does/",
+      note:  "Consulting, access to testing and validation, and the one that is not running." },
+    { label: "What readiness means", href: "/xpand/what-readiness-means/",
+      note:  "The scale ConvergX states for an engagement, and why it is not the platform's floor." }
   ];
 
   /* Footer sitemap: the September launch subset. */
@@ -188,18 +372,33 @@
       { label: "Trust and security",        href: "/platform/trust-and-security/" }
     ]},
     { title: "The Congress", links: [
-      { label: "Overview", href: "/congress/" },
-      { label: "Agenda",   href: "/congress/agenda/" },
-      { label: "The app",  href: "/congress/the-app/" },
-      { label: "Register", href: "/congress/register/" },
-      { label: "Sponsor",  href: "/congress/sponsor/" }
+      { label: "Overview",             href: "/congress/" },
+      { label: "Agenda",               href: "/congress/agenda/" },
+      { label: "Speakers",             href: "/congress/speakers/" },
+      { label: "The app",              href: "/congress/the-app/" },
+      { label: "Register",             href: "/congress/register/" },
+      { label: "Sponsor",              href: "/congress/sponsor/" },
+      { label: "Regional Xchanges",    href: "/congress/regional-xchanges/" },
+      { label: "Xchange Partnerships", href: "/congress/partnerships/" }
+    ]},
+    /* Xpand takes a column of its own rather than a pair of rows inside
+     * ConvergX. It is a top-level section, peer to Platform and the
+     * Congress, and the ConvergX column is the organisation's own rows.
+     * Two links is a short column; .footer-cols is auto-fit, so a short
+     * column costs nothing and a mislabelled one costs the reader. */
+    { title: "Xpand", links: [
+      { label: "Overview",             href: "/xpand/" },
+      { label: "What Xpand does",      href: "/xpand/what-xpand-does/" },
+      { label: "What readiness means", href: "/xpand/what-readiness-means/" }
     ]},
     { title: "ConvergX", links: [
       { label: "About",          href: "/about/" },
       { label: "How we vet",     href: "/about/how-we-vet/" },
-      /* These two are reachable ONLY here. About takes no mega panel, so
-       * the footer is their single route with JS on. Removing either
-       * orphans a live page. */
+      /* These two used to be reachable ONLY here, because About took no
+       * panel. It takes one now (see UTILITY above) and these rows are the
+       * second route rather than the only one. They stay: the footer
+       * carries every page the panels carry, which is what makes the
+       * noscript run navigable. */
       { label: "Leadership",     href: "/about/leadership/" },
       { label: "Who we convene", href: "/about/network/" },
       { label: "Industries",     href: "/industries/" },
@@ -232,25 +431,29 @@
    * pages are all this list, so a change to the row shape happens once.
    * `attrs` carries the labelling: aria-labelledby on desktop, where a
    * visible .label owns the name, aria-label on mobile, where it does
-   * not. */
-  function indexList(items, current, attrs) {
-    return '<ul class="link-index"' + (attrs || "") + ">" +
+   * not. `cls` is an extra class on the <ul>, `extra` is raw markup
+   * appended as a final <li>. Both are optional and both exist for the
+   * industries grid, which is this same list laid out in columns with a
+   * last cell that is not a link row. */
+  function indexList(items, current, attrs, cls, extra) {
+    return '<ul class="link-index' + (cls ? " " + cls : "") + '"' + (attrs || "") + ">" +
       items.map(function (i) {
         var cur = current === i.href ? ' aria-current="page"' : "";
         return "<li><a href=\"" + i.href + "\"" + cur + ">" + i.label + "</a>" +
           "<span class=\"descriptor\">" + i.note + "</span></li>";
-      }).join("") + "</ul>";
+      }).join("") + (extra || "") + "</ul>";
   }
 
-  function sideLinks() {
-    return SIDES.map(function (s) {
-      /* The whitespace between the spans is deliberate: it is what keeps
-       * the accessible name from running the two halves together. The
-       * hand-written .two-path blocks on the pages have it too. */
-      return "<a href=\"" + s.href + "\">" +
-        "<span class=\"label\">" + s.label + "</span>\n" +
-        "<span class=\"link-more\">" + s.cta + "</span></a>";
-    }).join("");
+  /* The promo cell. The prompt leads and the call closes it, which is the
+   * opposite order to a sector row and is what stops it reading as a
+   * ninth sector called "Request access". Both spans are existing
+   * components: .label--lo and .link-more. */
+  function promoCell() {
+    return '<li class="mega-promo">' +
+      '<span class="label label--lo">' + PROMO.label + "</span>" +
+      '<span class="descriptor">' + PROMO.note + "</span>" +
+      '<a class="link-more" href="' + PROMO.href + '">' + PROMO.cta + "</a>" +
+    "</li>";
   }
 
   /* Groups are NOT links. There is no per-group page, and inventing an
@@ -280,29 +483,26 @@
   }
 
   /* Desktop panel. Starts hidden in the markup, so it is closed before a
-   * single line of behaviour runs. One builder, three panels: the shape
-   * is identical, only the columns differ.
+   * single line of behaviour runs. One builder, every panel: the shape is
+   * identical, only the columns differ.
    *
-   * The Platform panel is the only three-column one, and .mega-inner is
-   * a two-column grid (2fr 1fr), so a third column wraps to a second row
-   * and the first column runs half empty. The fix is ONE declaration and
-   * it belongs in styles.css, which this file does not own:
-   *   .mega-inner--3 { grid-template-columns: 1fr 1fr 1fr; }
-   * The class is emitted for that rule. The identical inline declaration
-   * below is a STAND-IN so the panel is not broken on every page while
-   * that rule is pending, and it is deleted the moment the rule lands.
-   * ponytail: one inline declaration, not a second CSS file. */
-  var MEGA3 = ' style="grid-template-columns:1fr 1fr 1fr"';
-
+   * Two width modifiers, both declared in styles.css:
+   *   .mega-inner--3  three equal columns, the Platform panel
+   *   .mega-inner--1  one full-width column, the Industries panel, whose
+   *                   single column holds a grid and must not sit in the
+   *                   2fr of the default 2fr 1fr
+   * The inline stand-in that used to sit beside --3 is gone: the rule
+   * landed in styles.css and its own comment said the inline comes out. */
   function megaPanel(key, current) {
     var id = "mega-" + key;
-    var cols, wide = "", inline = "";
+    var cols, wide = "";
 
     if (key === "platform") {
       wide = " mega-inner--3";
-      inline = MEGA3;
       cols =
-        /* THE TWO DOORS FIRST. Not last, not a footnote. */
+        /* THE TWO DOORS FIRST. Not last, not a footnote. This is now the
+         * only panel that carries them, and that is deliberate: the
+         * Industries panel's chooser came out on 2026-07-29. */
         megaCol(id + "-doors", "Two doors",
           indexList(DOORS, current, ' aria-labelledby="' + id + '-doors"')) +
         megaCol(id + "-h", "The platform",
@@ -311,22 +511,34 @@
           '<ul class="link-index" aria-labelledby="' + id + '-g">' + platformGroupList() + "</ul>" +
           '<p class="mega-all">' + allLink("/platform/modules/", "All fifteen modules", current) + "</p>");
     } else if (key === "congress") {
-      cols = megaCol(id + "-h", CONGRESS_STANDFIRST,
-        indexList(CONGRESS_PAGES, current, ' aria-labelledby="' + id + '-h"'));
-    } else {
       cols =
-        megaCol(id + "-h", industriesLabel(),
-          indexList(INDUSTRIES, current, ' aria-labelledby="' + id + '-h"') +
-          '<p class="mega-all">' + allLink("/industries/", allIndustriesLabel(), current) + "</p>") +
-        megaCol(id + "-sides", "Two paths",
-          '<div class="two-path two-path--stack" role="group" aria-labelledby="' + id + '-sides">' +
-            sideLinks() +
-          "</div>", "mega-col--sides");
+        megaCol(id + "-h", CONGRESS_STANDFIRST,
+          indexList(CONGRESS_PAGES, current, ' aria-labelledby="' + id + '-h"')) +
+        megaCol(id + "-e", CONGRESS_ELSEWHERE_LABEL,
+          indexList(CONGRESS_ELSEWHERE, current, ' aria-labelledby="' + id + '-e"'),
+          "mega-col--aside");
+    } else if (key === "xpand") {
+      cols = megaCol(id + "-h", XPAND_STANDFIRST,
+        indexList(XPAND_PAGES, current, ' aria-labelledby="' + id + '-h"'));
+    } else if (key === "about") {
+      cols = megaCol(id + "-h", ABOUT_STANDFIRST,
+        indexList(ABOUT_PAGES, current, ' aria-labelledby="' + id + '-h"'));
+    } else {
+      /* Industries. One full-width column holding a grid of sector cells
+       * with the promo in the last position. The column count is a LAYOUT
+       * constant in styles.css and is not derived from and does not encode
+       * how many sectors exist: cells flow, so the grid absorbs a sector
+       * arriving or being pulled without a line changing here or there. */
+      wide = " mega-inner--1";
+      cols = megaCol(id + "-h", industriesLabel(),
+        indexList(INDUSTRIES, current, ' aria-labelledby="' + id + '-h"',
+                  "link-index--grid", promoCell()) +
+        '<p class="mega-all">' + allLink("/industries/", allIndustriesLabel(), current) + "</p>");
     }
 
     return (
       '<div class="mega" id="' + id + '" hidden>' +
-        '<div class="mega-inner' + wide + '"' + inline + ">" + cols + "</div>" +
+        '<div class="mega-inner' + wide + '">' + cols + "</div>" +
       "</div>"
     );
   }
@@ -347,11 +559,25 @@
     } else if (key === "congress") {
       body =
         '<p class="label label--lo">' + CONGRESS_STANDFIRST + "</p>" +
-        indexList(CONGRESS_PAGES, current, ' aria-label="The Conference"');
-    } else {
+        indexList(CONGRESS_PAGES, current, ' aria-label="The Conference"') +
+        '<p class="label label--lo">' + CONGRESS_ELSEWHERE_LABEL + "</p>" +
+        indexList(CONGRESS_ELSEWHERE, current, ' aria-label="' + CONGRESS_ELSEWHERE_LABEL + '"');
+    } else if (key === "xpand") {
       body =
-        indexList(INDUSTRIES, current, ' aria-label="' + industriesLabel() + '"') +
-        '<div class="two-path two-path--stack" role="group" aria-label="Two paths">' + sideLinks() + "</div>" +
+        '<p class="label label--lo">' + XPAND_STANDFIRST + "</p>" +
+        indexList(XPAND_PAGES, current, ' aria-label="Xpand"');
+    } else if (key === "about") {
+      body =
+        '<p class="label label--lo">' + ABOUT_STANDFIRST + "</p>" +
+        indexList(ABOUT_PAGES, current, ' aria-label="About"');
+    } else {
+      /* Every sector plus the promo, one under the other. No grid on a
+       * phone: three columns of 375px thirds is not a layout. The promo is
+       * the same last cell the desktop grid carries, so a no-grid reader
+       * loses nothing. */
+      body =
+        indexList(INDUSTRIES, current, ' aria-label="' + industriesLabel() + '"',
+                  "", promoCell()) +
         '<p class="nav-sub-all">' + allLink("/industries/", allIndustriesLabel(), current) + "</p>";
     }
     return (
@@ -362,12 +588,12 @@
     );
   }
 
-  function navList(current, mobile) {
-    /* The gate: an item with no page yet does not render at all. A nav
-     * row is not the place to announce something that does not exist,
-     * and a link to a 404 on every page of the site is worse than a
-     * missing item. */
-    var items = NAV.filter(function (item) { return item.live; }).map(function (item) {
+  /* ONE renderer for every item in the bar, primary or utility. About is
+   * a utility item that now takes a panel, and the only way to give it
+   * one without a second copy of this markup is for both to come through
+   * here. What makes About a utility item is its POSITION, applied by the
+   * caller below, not a different code path. */
+  function navItem(item, current, mobile) {
       var cur = current === item.href ? ' aria-current="page"' : "";
       if (item.mega) {
         /* Any page under /industries/ marks the trigger, not just the
@@ -395,21 +621,25 @@
         "</li>";
       }
       return "<li><a href=\"" + item.href + "\"" + cur + ">" + item.label + "</a></li>";
+  }
+
+  function navList(current, mobile) {
+    /* The gate: an item with no page yet does not render at all. A nav
+     * row is not the place to announce something that does not exist,
+     * and a link to a 404 on every page of the site is worse than a
+     * missing item. */
+    var items = NAV.filter(function (item) { return item.live; }).map(function (item) {
+      return navItem(item, current, mobile);
     });
-    /* About, then the CTA, in that order at both breakpoints. The
-     * .nav-util hook is what makes it read as a second class: it needs
-     * ONE declaration in styles.css, which this file does not own:
-     *   .nav-links > li > a.nav-util { font-family: var(--font-mono);
-     *     font-size: var(--step--2); text-transform: uppercase;
-     *     letter-spacing: var(--track-label); color: var(--fg-lo); }
-     * The specificity has to match .nav-links > li > a or the bar rule
-     * wins. Until that lands About renders as a plain nav link, which is
-     * the correct thing to degrade to. The .label classes are NOT used
-     * here on purpose: the bar rule outranks them on font and size and
-     * would leave a half-applied uppercase body-font label. */
-    var utilCur = current === UTILITY.href ? ' aria-current="page"' : "";
-    items.push("<li><a class=\"nav-util\" href=\"" + UTILITY.href + "\"" +
-      utilCur + ">" + UTILITY.label + "</a></li>");
+    /* About, then the CTA, in that order at both breakpoints. It renders
+     * through the same builder as every primary item and looks identical
+     * to them: same font, size, weight, ink, hover and current-page
+     * device. The old .nav-util hook and its 11px mono micro-label rule
+     * are both gone, and as of 2026-07-29 so is the "no panel" half of
+     * what used to make it a second class. What keeps it a utility item
+     * now is one thing only: it sits after the primary group, so the
+     * top-level item still to come does not have to displace it. */
+    items.push(navItem(UTILITY, current, mobile));
     if (mobile) {
       items.push("<li><a href=\"" + CTA.href + "\">" + CTA.label + "</a></li>");
       return '<ul>' + items.join("") + "</ul>";
@@ -442,6 +672,21 @@
     );
   }
 
+  /* The notice sits BEFORE the header in the flow, not inside it, so it
+   * scrolls away and the nav bar keeps the sticky top to itself. Inside
+   * the sticky header it would pin forever, and at 375px it wraps to two
+   * lines, so it would cost a phone reader that band on every screenful
+   * of every page.
+   *
+   * One paragraph with one link inside it, not a flex row of two boxes:
+   * the sentence and its call are the same sentence, and a paragraph
+   * wraps correctly at every width for free. */
+  function buildNotice() {
+    if (Date.now() >= NOTICE_UNTIL) return "";
+    return '<div class="notice"><p class="notice-inner">' + NOTICE.text +
+      ' <a href="' + NOTICE.href + '">' + NOTICE.link + "</a></p></div>";
+  }
+
   function buildFooter() {
     var cols = FOOTER.map(function (col) {
       var links = col.links.map(function (l) {
@@ -462,9 +707,28 @@
         '<div class="footer-cols">' + cols + "</div>" +
         '<div class="footer-meta">' +
           '<span class="label label--lo">Where industry lines disappear</span>' +
-          '<span class="label label--lo">' +
-            "ConvergX <span class=\"ph\">[[PLACEHOLDER: legal line and entity name, Kim]]</span>" +
-          "</span>" +
+          /* THE LEGAL LINE IS DELIBERATELY ABSENT, NOT FORGOTTEN.
+           *
+           * This slot used to render a visible .ph placeholder naming Kim.
+           * .ph is loud by design, so every page of the site was showing a
+           * reader an internal to-do note with the client's CEO named in
+           * it. Removed 2026-07-29. The note lives here now, where only a
+           * developer sees it.
+           *
+           * WHAT IS STILL OPEN: the entity, the legal line, and the
+           * relationship between ConvergX and WaVv. Spec open question 4,
+           * blocked on Kim Van Vliet.
+           *
+           * NEW INFORMATION, and it does NOT resolve it. ConvergX's own
+           * relaunched site now pairs "WaVv and ConvergX" publicly, in
+           * Kim's title. That is a public pairing, not a statement of which
+           * entity owns this site or what the legal line reads. DO NOT put
+           * WaVv in the footer and do not compose a line from it. A legal
+           * line is the one thing on a site that is never inferred.
+           *
+           * Until Kim answers, the footer says the organisation's name and
+           * stops, which is true. */
+          '<span class="label label--lo">ConvergX</span>' +
         "</div>" +
       "</div>"
     );
@@ -488,9 +752,11 @@
    *
    * Motion budget spent: zero. The panel appears. */
   function wireMega(root) {
-    /* Two panels now, Industries and Platform, so this wires ALL of them.
-     * Each closes independently; opening one does not close the other,
-     * because focusout and mouseleave already handle that per item. */
+    /* Wires EVERY panel in the bar, however many there are: About gained
+     * one on 2026-07-29 and needed no change here, which is the point of
+     * selecting on the class rather than naming the panels. Each closes
+     * independently; opening one does not close the other, because
+     * focusout and mouseleave already handle that per item. */
     root.querySelectorAll(".nav-mega").forEach(wireOneMega);
   }
 
@@ -553,7 +819,13 @@
     if (!("IntersectionObserver" in window)) return;
     var sentinel = document.createElement("div");
     sentinel.setAttribute("aria-hidden", "true");
-    sentinel.style.cssText = "position:absolute;top:0;left:0;width:1px;height:var(--shell-h);pointer-events:none";
+    /* Top is the header's OWN resting offset, not the document's, because
+     * the notice bar now sits above it. At top:0 the hairline would flip
+     * one notice-height late and the bar would float over moving content
+     * with no separator for that stretch. The span below the resting
+     * offset is unchanged at one header height. */
+    sentinel.style.cssText = "position:absolute;top:" + header.offsetTop +
+      "px;left:0;width:1px;height:var(--shell-h);pointer-events:none";
     document.body.insertBefore(sentinel, document.body.firstChild);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       header.style.transition = "none";
@@ -588,6 +860,8 @@
       header.classList.add("shell-header");
       header.innerHTML = buildHeader(current);
       wireMega(header);
+      /* Before wireFloat, which reads the header's resting offset. */
+      header.insertAdjacentHTML("beforebegin", buildNotice());
       wireFloat(header);
     }
     var footer = document.querySelector('[data-shell="footer"]');

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <title>All modules | ConvergX Connect</title>
-<meta name="description" content="Fifteen modules grouped by what they are for, each with a build state on it. Three run the Congress. Matching at the Congress is done by ConvergX, by hand, on purpose.">
+<meta name="description" content="Fifteen modules grouped by what they are for. Matching at the Congress is done by ConvergX, by hand, on purpose.">
 <link rel="stylesheet" href="/_system/tokens.css">
 <link rel="stylesheet" href="/_system/styles.css">
 </head>
@@ -14,20 +14,32 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <header data-shell="header">
-  <!-- shell.js injects the nav and the footer. Never hand-write either.
-       The block below is the no-JS fallback ONLY. It is generated from the
-       four nav items, the two doors, the live verticals and the CTA that
-       shell.js carries, so
-       if you change one, regenerate the other. Never hand-edit one page. -->
   <noscript>
+    <!-- shell.js injects the nav and the footer. Never hand-write either.
+         The block below is the no-JS fallback ONLY. It is generated from the
+         nav items, the two doors, the live verticals, the notice and the CTA
+         that shell.js carries, so if you change one, regenerate the other.
+         Never hand-edit one page. No count is stated here: another top-level
+         item is coming and a typed number is the first thing to go stale.
+         About carries a sub-list as of 2026-07-29, matching the panel it
+         gained; its three pages were footer-only before that.
+         The notice is hardcoded here and cannot self-remove on a no-JS run:
+         sweep this block once after 2026-09-24. -->
+    <div class="notice">
+      <p class="notice-inner">The Congress is in its tenth year. Sep 22 to 24, 2026, Calgary. <a href="/congress/register/">Register</a></p>
+    </div>
     <nav aria-label="Primary">
       <ul>
         <li><a href="/industries/">Industries</a>
           <ul>
             <li><a href="/industries/aerospace-defence/">Aerospace and defence</a></li>
             <li><a href="/industries/agriculture/">Agriculture</a></li>
+            <li><a href="/industries/construction/">Construction</a></li>
             <li><a href="/industries/energy/">Energy</a></li>
+            <li><a href="/industries/manufacturing/">Manufacturing</a></li>
+            <li><a href="/industries/military/">Military</a></li>
             <li><a href="/industries/mining-natural-resources/">Mining and natural resources</a></li>
+            <li><a href="/industries/technology/">Technology</a></li>
           </ul>
         </li>
         <li><a href="/platform/">The Platform</a>
@@ -43,13 +55,28 @@
         <li><a href="/congress/">The Conference</a>
           <ul>
             <li><a href="/congress/agenda/">Agenda</a></li>
+            <li><a href="/congress/speakers/">Speakers</a></li>
             <li><a href="/congress/attend/">Attend</a></li>
             <li><a href="/congress/the-app/">The app</a></li>
             <li><a href="/congress/register/">Register</a></li>
             <li><a href="/congress/sponsor/">Sponsor</a></li>
+            <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
+            <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
           </ul>
         </li>
-        <li><a href="/about/">About</a></li>
+        <li><a href="/xpand/">Xpand</a>
+          <ul>
+            <li><a href="/xpand/what-xpand-does/">What Xpand does</a></li>
+            <li><a href="/xpand/what-readiness-means/">What readiness means</a></li>
+          </ul>
+        </li>
+        <li><a href="/about/">About</a>
+          <ul>
+            <li><a href="/about/how-we-vet/">How we vet</a></li>
+            <li><a href="/about/leadership/">Leadership</a></li>
+            <li><a href="/about/network/">Who we convene</a></li>
+          </ul>
+        </li>
         <li><a href="/access/request/">Request access</a></li>
       </ul>
     </nav>
@@ -65,8 +92,8 @@
   <section class="section--open">
     <div class="wrap">
       <div class="editorial">
-        <h1>Fifteen modules, and three of them run the Congress.</h1>
-        <p class="lede-text">They are grouped by what they are for. Every row carries the build state it is actually in, and a module without a tag is a present-tense claim.</p>
+        <h1>Fifteen modules, grouped by what they are for.</h1>
+        <p class="lede-text">The groups follow the order the work happens in: a requirement is stated, a person decides, an introduction happens and leaves a record.</p>
         <!-- The line below is the page's beat and the one sentence that satisfies
              the matching gate in full. It is never shortened, reworded or moved
              back into the paragraph above it. RHYTHM-SPEC 4.35.
@@ -81,89 +108,55 @@
 
   <hr class="rule-double">
 
-  <!-- S2. The tag system. This page owns phase honesty as a system, so
-       the key is stated before the index rather than assumed from it.
-       Four tags, four exact strings, no dates in any definition.
-       Density: open, per POLISH-SPEC 2.2. The key is how the rest of the
-       page is read, so it gets air the five group sections do not. -->
-  <section class="section--open">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>The tag key</h2>
-        <span class="label label--lo label--edge">01 / Key</span>
-      </div>
-      <div class="editorial">
-        <div class="lede">
-          <p>Read the tag first. It is the only thing on a row that tells you whether the module exists.</p>
-        </div>
-        <div class="body">
-          <table>
-            <caption class="label">Status tags, the only four in use</caption>
-            <thead>
-              <tr><th scope="col">Tag</th><th scope="col">What it states</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Live at the Congress</td><td>Running the event in September.</td></tr>
-              <tr><td>In development</td><td>Code exists and was confirmed against source. No part of September.</td></tr>
-              <tr><td>In development, unverified</td><td>Code exists. This pass did not confirm it against source.</td></tr>
-              <tr><td>Planned</td><td>A name and an intent. Nothing is built.</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- 2026-07-29, CHIP'S DECISION. The per-module status tags and the tag
+       key table that stood here were REMOVED DELIBERATELY. They are not to
+       be restored, reintroduced under another name, or replaced with any
+       substitute signal, without Chip. That means no "coming soon", no
+       ordering by build state, no visual de-emphasis, no asterisk, no
+       footnote, no tooltip. He was shown the argument against this before
+       he decided and he decided anyway. It is his call, not an editor's.
 
-  <!-- S3 to S7. Five functional groups, in argument order: a requirement is
+       S2 to S6. Five functional groups, in argument order: a requirement is
        stated, a person decides, an introduction happens and leaves a record,
        the Congress is where it physically happens, reference sits underneath.
-       Grouping is by FUNCTION, so status is carried on the row and nowhere
-       else. There is no status-based block and no accent edge on any group:
-       any status-based visual treatment would put the old organising
-       principle back. Live modules sit in their functional homes and are
-       identified by their tag.
+       Grouping is by FUNCTION. There is no status-based block and no accent
+       edge on any group.
 
-       The framing lines on groups 1 and 2 are honesty gates, not captions,
-       and neither may be trimmed. Group 2: "Nothing in this group decides
-       anything" is what keeps a heading called "Deciding who should meet"
-       from reading as a claim that software decides, and "nothing in it is
-       live" is what keeps the decision layer from reading as operating.
-       Zero of its three modules exist. Group 1 has the same shape, milder:
-       one live module of four, named so the group does not read as four
-       working intake routes.
-
-       Group names and framing lines are locked strings, character-identical
-       to the architecture overview on /platform/. Count is fifteen, tags are
-       3 / 7 / 2 / 3. Check the arithmetic before committing. -->
+       What did NOT change on 2026-07-29, and still binds: every module
+       description stays exactly as neutral as it was written. Removing the
+       tags licenses nothing. No description may drift into present-tense
+       capability language, and nothing here is automatic, intelligent or
+       AI-driven. Phase 1 matching is manual and admin-brokered: a person
+       decides. Group names are locked strings, character-identical to the
+       architecture overview on /platform/. Count is fifteen. Check the
+       arithmetic before committing. -->
   <section class="section--dense">
     <div class="wrap">
       <div class="sec-head">
         <h2>Stating the requirement</h2>
-        <span class="label label--lo label--edge">02 / Requirement</span>
+        <span class="label label--lo label--edge">01 / Requirement</span>
       </div>
-      <p class="push-end-l">Getting a requirement into the system with no name on it, and getting requirements in from outside. The board is the part that runs at the Congress.</p>
+      <p class="push-end-l">Getting a requirement into the system with no name on it, and getting requirements in from outside.</p>
       <div class="modules">
         <article class="module">
           <h3>Opportunity Board</h3>
           <p>Posted requirements, carrying no author to anyone who reads them. ConvergX can decline a post and take it off the board.</p>
-          <span class="tag" aria-label="Status: live at the Congress">Live at the Congress</span>
         </article>
         <article class="module">
           <h3>RFP Intake and Analysis</h3>
           <p>A requirements document taken in as structured fields rather than an attachment.</p>
-          <span class="tag" aria-label="Status: in development">In development</span>
         </article>
-        <!-- NEEDS: source-audit confirmation for Tender Scraping, from Tracy
-             Gromniski. Until it clears, the row holds the unverified tag. -->
+        <!-- Tender Scraping was never confirmed against source. The tag that
+             said so was removed on 2026-07-29 by Chip's decision and is not to
+             be restored without him. The open question is still open: do not
+             add capability language to this row to fill the gap. -->
         <article class="module">
           <h3>Tender Scraping</h3>
           <p>Public tender notices collected for review.</p>
-          <span class="tag" aria-label="Status: in development, unverified">In development, unverified</span>
         </article>
         <article class="module">
           <h3>RFP Authoring</h3>
-          <p>Drafting a requirements document inside the platform. Named intent. No build exists.</p>
-          <span class="tag" aria-label="Status: planned">Planned</span>
+          <p>Drafting a requirements document inside the platform.</p>
         </article>
       </div>
     </div>
@@ -173,24 +166,21 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>Deciding who should meet</h2>
-        <span class="label label--lo label--edge">03 / Decision</span>
+        <span class="label label--lo label--edge">02 / Decision</span>
       </div>
-      <p class="push-end-l">Material a person at ConvergX reads before deciding. Nothing in this group decides anything, and nothing in it is live.</p>
+      <p class="push-end-l">Material a person at ConvergX reads before deciding.</p>
       <div class="modules">
         <article class="module">
           <h3>Supplier Scoring</h3>
           <p>Capability records scored against the requirement they are being considered for.</p>
-          <span class="tag" aria-label="Status: in development">In development</span>
         </article>
         <article class="module">
           <h3>Matching Engine</h3>
-          <p>Candidate shortlists put in front of the person who decides. No part of it runs the Congress.</p>
-          <span class="tag" aria-label="Status: in development">In development</span>
+          <p>Candidate shortlists put in front of the person who decides.</p>
         </article>
         <article class="module">
           <h3>Configurable Scoring</h3>
-          <p>Weights a ConvergX administrator could set. Named intent. No build exists.</p>
-          <span class="tag" aria-label="Status: planned">Planned</span>
+          <p>Weights a ConvergX administrator could set.</p>
         </article>
       </div>
     </div>
@@ -200,35 +190,32 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>The introduction and its record</h2>
-        <span class="label label--lo label--edge">04 / Introduction</span>
+        <span class="label label--lo label--edge">03 / Introduction</span>
       </div>
       <p class="push-end-l">Moving an introduction through its steps, and keeping what came of it.</p>
       <div class="modules">
         <article class="module">
           <h3>Procurement Workflow Engine</h3>
           <p>Configurable steps between a posted requirement and an introduction.</p>
-          <span class="tag" aria-label="Status: in development">In development</span>
         </article>
         <article class="module">
           <h3>Role-Gated Portals</h3>
           <p>Separate views for problem holders, solution providers and ConvergX staff.</p>
-          <span class="tag" aria-label="Status: in development">In development</span>
         </article>
-        <!-- NEEDS: source-audit confirmation for Document Request Workflow,
-             from Tracy Gromniski. Until it clears, the row holds the
-             unverified tag. -->
+        <!-- Document Request Workflow was never confirmed against source. The
+             tag that said so was removed on 2026-07-29 by Chip's decision and is
+             not to be restored without him. The open question is still open: do
+             not add capability language to this row to fill the gap. -->
         <article class="module">
           <h3>Document Request Workflow</h3>
           <p>Documents requested and tracked between two parties.</p>
-          <span class="tag" aria-label="Status: in development, unverified">In development, unverified</span>
         </article>
         <!-- The attribution argument is made to ConvergX and its board, never
              printed for delegates. The row exists because the count is
-             fifteen. Do not describe it. -->
+             fifteen. Do not describe it: this row carries a heading and
+             nothing else, and that is deliberate. -->
         <article class="module">
           <h3>Attribution Mechanism</h3>
-          <p>Named intent. No build exists.</p>
-          <span class="tag" aria-label="Status: planned">Planned</span>
         </article>
       </div>
     </div>
@@ -237,32 +224,27 @@
   <!-- The one emphasis mark that breaks the flat run of group sections, and
        the page's only structural turn: everything above is the platform,
        what follows is the event and then the reference shelf underneath it.
-       POLISH-SPEC 2.2 asked for that mark as an accent edge on a "Live at
-       the Congress" block. No such block exists and none may be built: the
-       ruling above is that grouping is by FUNCTION and status is carried on
-       the row and nowhere else, so a status-based block would reinstate the
-       retired organising principle. The rule does the same job without it.
-       The .modules--live class in styles.css is the dead remnant of that
-       retired principle and should be removed by whoever owns that file. -->
+       POLISH-SPEC 2.2 asked for that mark as an accent edge on a status
+       block. No such block exists and none may be built. Grouping is by
+       FUNCTION, and after 2026-07-29 there is no status on this page at all
+       to build a block out of. The rule does the job on its own. -->
   <hr class="rule-double">
 
   <section class="section--dense">
     <div class="wrap">
       <div class="sec-head">
         <h2>The Congress</h2>
-        <span class="label label--lo label--edge">05 / Congress</span>
+        <span class="label label--lo label--edge">04 / Congress</span>
       </div>
       <p class="push-end-l">The three days themselves, and the phone in the room.</p>
       <div class="modules">
         <article class="module">
           <h3>Congress App</h3>
           <p>Agenda, sessions and the board on a delegate's phone. Push notifications reach Android only.</p>
-          <span class="tag" aria-label="Status: live at the Congress">Live at the Congress</span>
         </article>
         <article class="module">
           <h3>Event Management</h3>
           <p>Registration, session scheduling and delegate logistics for the event itself.</p>
-          <span class="tag" aria-label="Status: live at the Congress">Live at the Congress</span>
         </article>
       </div>
     </div>
@@ -272,19 +254,17 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>Reference</h2>
-        <span class="label label--lo label--edge">06 / Reference</span>
+        <span class="label label--lo label--edge">05 / Reference</span>
       </div>
       <p class="push-end-l">Material the platform can be asked about.</p>
       <div class="modules">
         <article class="module">
           <h3>Knowledge-Base Chat</h3>
           <p>Questions answered from ConvergX reference material.</p>
-          <span class="tag" aria-label="Status: in development">In development</span>
         </article>
         <article class="module">
           <h3>Trade Agreements Library</h3>
           <p>Reference material on the agreements that govern cross-border work.</p>
-          <span class="tag" aria-label="Status: in development">In development</span>
         </article>
       </div>
     </div>
@@ -320,15 +300,29 @@
         <li><a href="/platform/whats-next/">What is next</a></li>
         <li><a href="/congress/">The Congress</a></li>
         <li><a href="/congress/agenda/">Agenda</a></li>
+        <li><a href="/congress/speakers/">Speakers</a></li>
         <li><a href="/congress/attend/">Attend</a></li>
         <li><a href="/congress/the-app/">The app</a></li>
         <li><a href="/congress/register/">Register</a></li>
         <li><a href="/congress/sponsor/">Sponsor</a></li>
+        <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
+        <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
+        <li><a href="/xpand/">Xpand</a></li>
+        <li><a href="/xpand/what-xpand-does/">What Xpand does</a></li>
+        <li><a href="/xpand/what-readiness-means/">What readiness means</a></li>
         <li><a href="/about/">About</a></li>
         <li><a href="/about/how-we-vet/">How we vet</a></li>
         <li><a href="/about/leadership/">Leadership</a></li>
         <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/industries/">Industries</a></li>
+        <li><a href="/industries/aerospace-defence/">Aerospace and defence</a></li>
+        <li><a href="/industries/agriculture/">Agriculture</a></li>
+        <li><a href="/industries/construction/">Construction</a></li>
+        <li><a href="/industries/energy/">Energy</a></li>
+        <li><a href="/industries/manufacturing/">Manufacturing</a></li>
+        <li><a href="/industries/military/">Military</a></li>
+        <li><a href="/industries/mining-natural-resources/">Mining and natural resources</a></li>
+        <li><a href="/industries/technology/">Technology</a></li>
         <li><a href="/access/">Access</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>

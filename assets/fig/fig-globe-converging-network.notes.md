@@ -14,7 +14,9 @@ beside every other plate is unchanged.
 |---|---|
 | `assets/fig/fig-globe-converging-network.svg` | The plate. Frame zero of the projection, rendered statically. Inline it; never `<img src>`. |
 | `_system/globe.js` | The projector, the loop, and the embedded land geometry. Optional. |
-| `site/index.html` | Carries an INLINED copy of the plate, written by the build script. |
+| `site/index.html` | Carries an INLINED copy of the plate. Written by the build script, but **only under `--inject`**, and as of 2026-07-28 it is deliberately stale. |
+| `_reference/globe-build/land.cache.json` | The simplified land, and the authoritative source for it. |
+| `_reference/globe-build/test_inject.py` | The check on the injector's failure path. |
 | this file | The notes. |
 
 Both shipped files are written by one build script, `_reference/globe-build/globe_build.py`,
@@ -42,9 +44,9 @@ could solve it, and a world that is real and turning underneath them.
 Filled against unfilled is the whole idea, and it is also how the accent stays inside its
 ration: a ring of hairline is a fraction of the ink of a solid disc, so providers stay quieter
 than holders by construction rather than by dimming. **A site that is not part of a live deal
-is not drawn at all**, which is what stops the plate reading as confetti. At rest the plate carries
-five holders and nineteen providers; through a full cycle the count visible in the hero runs
-between 7 and 46, averaging 24.
+is not drawn at all**, which is what stops the plate reading as confetti. At rest the plate
+carries four visible holders, eleven routes and twenty six marks in total; through a full cycle
+the count visible in the hero runs between 9 and 46, averaging 26, and never reaches zero.
 
 ## Strings
 
@@ -101,7 +103,8 @@ the live figure the same picture.
 | Radius, centre | 265 at (1130, 350) in a 1600 x 700 viewBox | The family's frame. Right-weighted like Fig. 4, so the empty left half is where hero type goes. |
 | View latitude | 40 | The dial that decides how much of the network travels round the back. A point at latitude p never leaves the face when 40 + p is over 90. |
 | Axial tilt | 23.44 degrees | Earth's real obliquity. |
-| Resting longitude | 25 W | Frame zero. Puts the Atlantic across the middle of the face, which is where the network is. |
+| **Resting longitude** | **31 W** | Frame zero. Mid Atlantic. Searched, not chosen: see below. Was 16 E, which rested on Europe. |
+| **Resting phase** | **150 s** | Which moment of the deal cycle the plate stops on. Searched WITH the longitude. Not a speed. |
 | One turn | 210 seconds | Slow enough to read as alive, not as animation. |
 | Frame cap | 24 per second | A hero decoration does not need 60. |
 
@@ -114,17 +117,77 @@ throughout, so the network is never absent from the plate.
 
 ## Geography
 
-**Fifty fixed sites, every one on the territory of a NATO member**, with several per country so
-the plate reads as companies rather than as capitals. The pool is in the build script; it is
-fixed and geographic and nothing is ever spawned at a random coordinate.
+### The membership rule widened on 2026-07-28, and that was asked for
 
-Coverage, for the record and for nowhere else: Canada 4, United States 5, and one to three each
+**It was NATO members only. It is now NATO members and NATO partners.** Chip asked for markers
+in Japan and South Korea connecting to Calgary. Japan and South Korea are not NATO members, they
+are Indo-Pacific partners, so the old rule and the request could not both stand and the rule is
+what moved.
+
+This is written here so that a future reader finds a **stated change, not a drift**. The five
+Indo-Pacific entries in the build script's pool are correct and deliberate. Do not "fix" them
+back out.
+
+**Fifty six fixed sites**, several per country so the plate reads as companies rather than as
+capitals. The pool is in the build script; it is fixed and geographic and nothing is ever spawned
+at a random coordinate.
+
+Coverage, for the record and for nowhere else: Canada 5, United States 5, one to three each
 across Iceland, the United Kingdom, Norway, Sweden, Finland, Denmark, Estonia, Latvia,
 Lithuania, Poland, Germany, the Netherlands, Belgium, Luxembourg, France, Czechia, Slovakia,
 Hungary, Slovenia, Croatia, Italy, Spain, Portugal, Greece, Bulgaria, Romania, Albania,
-Montenegro, North Macedonia and Turkiye. **No count and no country name appears anywhere a
-reader can see**, and at this size no viewer can identify a country from a dot, so the pool
-cannot be read as a claim about who is on the network.
+Montenegro, North Macedonia and Turkiye, and three in Japan and two in South Korea. **No count
+and no country name appears anywhere a reader can see**, and at this size no viewer can identify
+a country from a dot, so the pool cannot be read as a claim about who is on the network.
+
+### The trans-Pacific link
+
+Added 2026-07-28. Calgary is a new named endpoint and the right anchor for it, because that is
+where the Congress is held. It is the only deal in the whole system **written by hand rather than
+drawn**: the holder is fixed and the legs are fixed, because "Japan and South Korea connecting to
+Calgary" is a specific instruction and not something to leave to the pool.
+
+| End | Latitude | Longitude | Separation from Calgary |
+|---|---|---|---|
+| Calgary, the holder | 51.0447 N | 114.0719 W | n/a |
+| Sapporo | 43.0618 N | 141.3545 E | 65.5 degrees |
+| Sendai | 38.2682 N | 140.8694 E | 69.3 degrees |
+| Nagoya | 35.1815 N | 136.9066 E | 73.7 degrees |
+| Incheon | 37.4563 N | 126.7052 E | 76.7 degrees |
+| Busan | 35.1796 N | 129.0756 E | 77.5 degrees |
+
+Every one is on its real coordinates, and all five separations sit inside the pool's existing
+12 to 80 degree band, so the link is an ordinary deal in every respect except that it is pinned.
+
+**Kobe was tried and dropped.** It is a real industrial site, but it sits 1.8 degrees from
+Nagoya, which at hero size is about four pixels, and two marks of radius six that close together
+merge into one. A five leg fan that renders as four legs is a lie about the geometry, so Sendai
+took its place at 4.4 degrees from Nagoya. This is now asserted rather than eyeballed: the build
+script measures every pair of marks inside a deal at the frame that deal is actually seen at, and
+**fails if any pair involving a site this change added comes within 8 units.** Tightest such pair
+is 10.0.
+
+**Where it appears is measured, not chosen.** A Calgary to Asia great circle runs over the north
+Pacific, so for most of the turn it is genuinely round the back. The build script computes the
+band of view longitudes over which the arc is actually on the near face and inside the hero
+window, and then places the link's slots across that band. Measured in the browser, sweeping the
+whole cycle:
+
+| Check | Result |
+|---|---|
+| Slots per turn | 6 |
+| Alive | 0.224 of the turn |
+| **Visible in the hero band** | **0.217 of the turn, about 46 seconds of 210** |
+| Partly behind the sphere, of the time it is alive | 0.41 |
+
+**It is absent for roughly four fifths of the turn and that is correct.** It is not faked into
+persistence and it is not dimmed into a permanent ghost: it comes round, it is cut by the limb as
+it arrives and as it leaves, and it goes behind again. A route that travels round the back and
+reappears is the thing that proves the globe is a sphere, so **the slots are deliberately spread
+across the whole visible window including its edges rather than concentrated in the clean middle
+of it.** An earlier pass took the six phases with the most visible seconds, which put every
+appearance in the middle of the window and left the link never once crossing the horizon. The
+build script now asserts that it IS cut by the horizon; that assert is what caught it.
 
 Half the deals are anchored above 50 N, where a point never leaves the face for the whole turn.
 Without that rule the plate goes bare whenever the Pacific faces the reader, because the
@@ -162,6 +225,14 @@ Natural Earth 110m admin 0 countries. Public domain. Simplified with Douglas Peu
 never on the face at this view latitude. **135 features, 167 rings, 1478 points, embedded in
 `globe.js`. Nothing is fetched at runtime, ever, and the figure works offline.**
 
+**The simplified result IS the source, and it lives in `_reference/globe-build/land.cache.json`.**
+The Natural Earth download is not kept in the repo, so a rebuild used to depend on a file that
+was not there. Re-fetching and re-simplifying would make a second source of truth for the same
+geometry, and the first silent difference between the two would land in the parity diff, so the
+cache is authoritative instead. Drop `ne110m.geojson` beside the build script only when the land
+itself has to change; it then rewrites the cache. The land came through this change byte for
+byte, which is exactly what should happen when nothing about the land changed.
+
 Countries are outlined in the cage tone and **filled with `var(--bg)`**. The fill does real work
 beyond the look: it occludes the graticule behind the land, which is what makes the sphere read
 as solid rather than as a wire ball with shapes floating inside it. Because the fill is a
@@ -178,8 +249,9 @@ Great circles, interpolated on the sphere and projected point by point, so they 
 surface. Each is lifted off the surface by up to 9 percent at its midpoint, so it arcs over the
 land instead of lying on it.
 
-Ten routes: seven from the endpoints to the convergence node, and three joining endpoints to
-each other, so the plate reads as connected and not only as draining into one point.
+**Twenty five route slots**, five deals of up to five legs, drawn from a fixed pool that is never
+added to and never removed from: a slot holding no deal this frame carries an empty `d` and zero
+opacity. Across the whole cycle the 105 deals carry 387 legs between them.
 
 **Far-side segments are dropped, not dimmed.** A run of points is emitted only while z is
 positive, and the crossing is interpolated on the sphere so the route ends exactly on the limb.
@@ -207,14 +279,16 @@ load, fails to parse, or throws, a complete correct globe is still on screen.
 carries no script tag at all, on any of the three surfaces.
 
 **Parity, measured.** The static plate on disk was fetched, parsed, and diffed attribute by
-attribute against what `globe.js` produces at the resting longitude:
+attribute against what `globe.js` produces at the resting frame. Re-run 2026-07-28 after the
+recentring and the new sites:
 
 | Layer | Result |
 |---|---|
 | Graticule | 0 of 17 paths differ |
 | Land | 0 of 135 paths differ |
-| Routes | 0 of 10 paths differ |
-| Nodes | 0 of 8 differ, position and opacity |
+| Routes | 0 of 25 differ, path and opacity |
+| Provider circles | 0 of 25 differ, position and opacity |
+| Holder dots | 0 of 5 differ, position and opacity |
 
 That diff is not decoration; it caught two real bugs that nothing else would have found. The
 JS clipper was not counting the crossing point that closes a run, so a one-vertex run at the
@@ -246,8 +320,10 @@ not in that number. **If it stutters on a real phone, the first dial is the fram
 second is the simplification tolerance**, which is one constant in the build script: raising it
 from 1.1 to 1.6 drops the land from 1478 points to 1078 and costs very little visually.
 
-**Weight:** plate 38.2 KB, 9.5 KB gzipped. Projector 29.1 KB, 10.9 KB gzipped. About 20 KB
-gzipped for the whole hero graphic, and no second request, no font, no image.
+**Weight**, re-measured 2026-07-28: plate 42.3 KB, 9.7 KB gzipped. Projector 35.0 KB, 13.3 KB
+gzipped. About 23 KB gzipped for the whole hero graphic, and no second request, no font, no
+image. The projector grew by 2.4 KB gzipped for the six new sites and the longer deal list;
+the land, which is most of the file, did not change at all.
 
 ## The loop closes
 
@@ -312,11 +388,16 @@ cross-page repeat.
 
 This is the rule the placement is solved against, and it is the correction that mattered most.
 
-Every touch point and every route sits in the north Atlantic and Europe. Measured over a full
-cycle, the accent occupies **x 951 to 1390 of the globe's 865 to 1395, and y 97 to 358 of its
-85 to 615**: the upper right of the disc. So the frame is solved around that box, and what
-gets sacrificed to the bleed is the empty part: the western ocean, which passes behind the
-type, and the southern hemisphere, which runs off the foot of the band.
+Measured over a full cycle, the accent occupies **x 951 to 1389 of the globe's 865 to 1395, and
+y 61 to 418 of its 85 to 615**: the upper right of the disc, and now taller than it was, because
+the trans-Pacific arc rides high over the north Pacific and the recentring brought the northern
+approaches up. So the frame is solved around that box, and what gets sacrificed to the bleed is
+the empty part: the western ocean, which passes behind the type, and the southern hemisphere,
+which runs off the foot of the band.
+
+The plate is never empty. Measured in the real hero band at 1440, sweeping the whole cycle:
+**between 9 and 46 marks are on screen at all times, averaging 26, and zero frames of 420 have
+nothing visible at all.**
 
 An earlier pass framed the sphere's outline instead. It kept the left limb and the empty
 Atlantic in view and pushed the whole subject off the right edge, and it sat high enough that
@@ -328,11 +409,61 @@ Two dials moved:
 
 1. **The camera**, in styles.css 20b. Width 138.9 percent of the band, offset -11 percent,
    lifted 37 percent of the plate's own height. The globe is 0.46 of the band wide.
-2. **The view longitude**, `LAM0`, from 25 W to 16 E. This is the honest fix rather than a
-   fudge: it moves the camera, not the geography. Every point stays on its real coordinates
-   and still travels round the back. It was searched, not chosen by eye: the build script
-   scores candidate longitudes by how many of the deals live at the resting moment land inside
-   the window the hero framing actually shows.
+2. **The view longitude**, `LAM0`. This is the honest fix rather than a fudge: it moves the
+   camera, not the geography. Every point stays on its real coordinates and still travels round
+   the back. It is searched, never chosen by eye: see the section below.
+
+### The resting frame, searched
+
+    python3 _reference/globe-build/globe_build.py --search-lam0
+
+**2026-07-28: 16 E to 31 W, and the resting phase from 44.5 s to 150 s.** Chip asked for the
+plate to open on Canada and the United States while Europe stays visible and still carries live
+deals. It rested on Europe.
+
+**The search runs on both dials together, because they are not independent.** The longitude
+decides where the populated face sits; the phase decides which deals are alive to sit on it.
+Solving one and then the other gives a well placed camera pointed at an almost empty plate, which
+is exactly what happened on the first attempt: at the best longitude on its own, only 38 percent
+of the marks live at the resting moment were inside the hero window.
+
+**What is scored, and what merely gates.** Sweeping every longitude first showed which is which,
+and it inverted the obvious answer:
+
+- **North America is inside the hero window at every longitude from 115 W to 20 E.** So "is North
+  America in frame" discriminates nothing. What changes is how CENTRED it is, and centrality is
+  just `z`: 1 at the middle of the face, 0 on the limb. That is the objective.
+- **Europe is the opposite.** It is fully in frame down to about 25 W and then falls away fast:
+  0.85 of its sites at 25 W, 0.68 at 31 W, 0.51 at 35 W, 0.24 at 45 W, 0.02 by 60 W. So Europe is
+  the binding constraint, and it is a gate rather than a term, because a gate cannot be traded
+  away by a big enough win elsewhere.
+
+| Gate | Threshold | What it stops |
+|---|---|---|
+| Europe in the hero window at rest | a majority, 0.50 of its sites | the camera sailing west until Europe is a remnant |
+| Europe still carrying live deals | 0.55 of the turn | Europe being technically visible but dead |
+| Leftmost accent clear of the h1 box | see Contrast | hero type over an accent route, which is 2.99:1 |
+| Resting frame representative | all 5 slots live, ages spread | a static plate showing five deals at the same instant of their life |
+
+The objective is then `hero + North American centrality`, weighted equally and both reported, so
+the trade is visible rather than buried in one number.
+
+**The result, and why it beat the alternatives:**
+
+| Longitude | hero | NA centred | Europe in frame | Europe live | Verdict |
+|---|---|---|---|---|---|
+| 16 E, the old value | 1.00 | **0.24** | 1.00 | ok | Europe is the subject. This is what Chip asked to change. |
+| 25 W | 1.00 | 0.58 | 0.85 | 0.76 | passes, but 0.05 less centred on North America |
+| **31 W, the winner** | **1.00** | **0.63** | **0.68** | **0.77** | **the westernmost longitude that still keeps every resting mark in frame** |
+| 35 W | 0.81 | 0.66 | 0.51 | 0.75 | scores lower: a fifth of the resting marks fall out of frame |
+| 45 W | 0.67 | 0.73 | **0.24** | n/a | Europe out of frame |
+| 100 W | 0.56 | 0.95 | **0.00** | n/a | Europe gone entirely |
+
+So North America goes from 0.24, which is riding the limb, to 0.63, while Europe keeps 68 percent
+of its sites in the hero window and carries a live deal through 77 percent of the turn. Reported
+for completeness: **the leftmost-accent gate is nearly flat across longitude**, landing at 945 to
+948 units everywhere in the shortlist, because over a full turn every longitude gets sampled
+anyway. It is a real gate and it is kept, but it did not decide this.
 
 ### Contrast, measured after wiring
 
@@ -347,14 +478,28 @@ eight-column box. It fails loudly if a change to the deal cycle or the framing b
 Measured in the browser, sweeping the entire 210 second cycle and testing every accent element
 against the boxes of the kicker, the h1, the sub and the CTA:
 
-| Viewport | Type box ends | Leftmost accent | Clearance | Accent over type, whole cycle |
-|---|---|---|---|---|
-| 975 | 630 | 693 | 63 px | **0** |
-| 1180 | 766 | 838 | 72 px | **0** |
-| 1280 | 815 | 909 | 93 px | **0** |
-| 1440 | 896 | 1023 | 127 px | **0** |
-| 1920 | 1166 | 1364 | 198 px | **0** |
-| 375 | stacks above the plate | n/a | n/a | **0** |
+Re-measured 2026-07-28 after the recentring, on `_dev/globe-hero.html`, which reproduces the
+hero band as index.html builds it. 420 frames swept per viewport, every accent element tested
+against the boxes of the kicker, the h1, the sub and the CTA:
+
+| Viewport | Type box ends | Leftmost accent | Clearance | Was | Accent over type, whole cycle |
+|---|---|---|---|---|---|
+| 975 | 630 | 693 | 63 px | 63 | **0** |
+| 1180 | 735 | 838 | 103 px | 72 | **0** |
+| 1280 | 816 | 909 | 93 px | 93 | **0** |
+| 1440 | 896 | 1023 | 127 px | 127 | **0** |
+| 1920 | 1113 | 1364 | 251 px | 198 | **0** |
+| 375 | stacks above the plate | n/a | n/a | n/a | **0** |
+
+**Recentring did not cost clearance anywhere and gained it at two widths.** That is not luck and
+it is worth understanding: pulling the camera west moves the GEOGRAPHY across the face, but the
+leftmost point any accent mark can reach is set by the globe's own left limb inside the frame,
+and the frame did not move. The gain at 1180 and 1920 is the type box getting shorter, not the
+accent retreating.
+
+**Measure it on `_dev/globe-hero.html`, not on `globe-preview.html`.** The preview panels use
+their own stage, which is not the hero's geometry, so a sweep run there is measuring the wrong
+box. That page exists only because this measurement was nearly taken against the wrong one.
 
 **So the worst case behind hero type is the cage, at 5.70:1 on dark and 4.79:1 on light and
 muted.** Both clear AA for normal text, not just large. No scrim, no dimming, no accent moved:
@@ -370,9 +515,11 @@ overflow. The network is never absent: between 10 and 29 marks are in the plate 
 ## For the integration agent
 
 1. **Inline the SVG.** Never `<img src>`: the colour model is `currentColor` plus `var(--bg)`
-   inherited from the surface, and an `<img>` breaks both on every surface. The build script
-   writes the inlined copy into any page whose wrapper it recognises; add the page to its list
-   rather than pasting by hand.
+   inherited from the surface, and an `<img>` breaks both on every surface. The build script owns
+   the inlined copy; never paste one by hand. **The homepage's inlined copy is deliberately STALE
+   as of 2026-07-28** and carries the old plate: the homepage is being rebuilt by other hands and
+   writing it from here would either be thrown away or throw their work away. Re-inject it with
+   the command below once that rebuild lands.
 2. Wrap it in `<div class="fig-globe fig-globe--bleed">` for a full bleed band, or
    `fig-globe--crop` for a plate inside a column. There is no caption, so there is no
    `<figure>`, and `.fig` would ink it at `--fg-hi` and fight the headline.
@@ -384,6 +531,40 @@ overflow. The network is never absent: between 10 and 29 marks are in the plate 
    preview does exactly that, but a real page should carry one.
 6. Preview: `/_dev/globe-preview.html`. Three surfaces turning, the same three held still, a
    link to the zero-script page, and the 375 companion in a real frame.
+   `/_dev/globe-hero.html` is the hero band as index.html builds it, and is the page the
+   accent-over-type sweep must be run against.
+
+### Re-injecting the plate into the rebuilt homepage
+
+    cd "_reference/globe-build"
+    python3 globe_build.py --inject
+
+**Without `--inject` it writes the plate and the projector and leaves every page alone.** That is
+the default on purpose, so a routine rebuild can never touch a page someone else owns.
+
+**What it expects to find, and what happens when it does not.** It looks in `site/index.html`
+for exactly one line reading
+
+    <div class="fig-globe fig-globe--bleed">
+
+(or `fig-globe--crop`), and replaces everything between that line and its closing `</div>`.
+Nothing else on the page is touched: the surrounding section, the type, the nav and every other
+section come through byte for byte.
+
+It **fails loudly and writes nothing at all** if the page is missing, if the container is missing
+or was renamed, or if there is more than one container (which would duplicate the
+`cx-globe-limb` clipPath id). The error names the file, says what it expected, and says that
+nothing was written. The write itself goes to a temp file and lands with one atomic rename, so
+the page is never left half rewritten. Re-running when the plate is already current is a no-op,
+not an error.
+
+Those are the two failure modes that would otherwise be silent, and both are covered by a test
+that runs against a **deliberately rewritten homepage**, not the current one:
+
+    python3 test_inject.py
+
+If that test ever fails after the homepage rebuild, the container moved. Fix the page or update
+`CONTAINER` in the build script; do not paste the plate in by hand.
 
 ## Collisions reported, not resolved (FIGURE-SYSTEM rule 14)
 
@@ -405,6 +586,23 @@ overflow. The network is never absent: between 10 and 29 marks are in the plate 
    The polarity that matters is also intact, and is measured above rather than argued.
 5. **The route weight.** Routes take the solid weight with the dash pattern. Still two weights,
    both from `--rule-hair`.
+6. **Six pairs of European marks merge at the limb.** Added to this list 2026-07-28, when the
+   check that protects the new Asia-Pacific sites was written and turned on the existing pool.
+   Where two sites of one deal are near the limb and heavily foreshortened, their marks come
+   within 12 units and read as one: Glasgow and Belfast at 7.3, Aarhus and Hamburg at 8.9,
+   Belfast and Manchester at 10.7, Tallinn and Riga at 11.2, Aarhus and Gdansk at 11.3, Glasgow
+   and Manchester at 11.7. All six are older than this change and all six are on a plate that is
+   already signed off, so they are **reported, not resolved**. The assert covers the sites this
+   change added, which is what it was written for; widening it to the whole pool would be a
+   redesign, not a fix. Anyone doing that redesign later should move the tighter European pairs
+   apart the way Kobe was moved, rather than loosening the threshold.
+7. **The deal after a pinned one measures its spread against the wrong predecessor.** The
+   trans-Pacific link is written by hand and overwrites six of the 105 drawn deals AFTER they are
+   drawn, so the deal following one of those six had its `SPREAD_DEG` separation measured against
+   the organic deal it replaced, not against Calgary. That split is deliberate and load bearing:
+   without it the whole 105 deal sequence becomes a function of the view longitude and the joint
+   search would have to redraw it tens of thousands of times. Six seams out of 105 do not change
+   whether the cycle walks the globe.
 
 ## What I tried that did not work
 
@@ -431,12 +629,27 @@ overflow. The network is never absent: between 10 and 29 marks are in the plate 
    carry an explicit empty value.
 6. **`max-width: 100%`.** The global `img, svg, video` reset silently ate the 220 percent
    narrow-width crop until it was measured. `max-width: none` in that query is load-bearing.
+7. **Searching the view longitude before the resting phase.** Two separate one dimensional
+   searches gave 50 W, where only 38 percent of the marks live at the resting moment were in
+   frame. The phase has to move with the camera. Searched jointly it is 31 W and 150 s, with
+   every resting mark in frame.
+8. **Taking the six best phases for the trans-Pacific link.** It maximised visible seconds and
+   put every appearance in the clean middle of the visibility window, so the arc was never once
+   cut by the horizon and the link read as a decal rather than as something on a sphere. The
+   slots are now spread across the whole window, edges included, and the build script asserts the
+   arc IS cut.
+9. **Asserting no two marks of any deal come within 12 units.** True of the new sites, false of
+   six pre-existing European pairs, on a plate already signed off. Scoped to the new sites and
+   the rest reported. A check written for a new thing should not silently redesign an old one.
 
 ## Honesty check
 
 - No endpoint is labelled. No country name, member name, company name or number appears in the
   plate, in `globe.js`, in the CSS, or in the preview.
-- The convergence node is open ocean, so it cannot be read as a country or a headquarters.
+- No point is a headquarters, a convergence node or a hub. A deal is one dot joined to a handful
+  of circles and nothing in the plate says any of them is a centre.
+- **The pool widened to include two non-members on 2026-07-28, on request, and it is written up
+  as a stated change rather than left to be discovered.** Nothing rendered names them.
 - Nothing here shows verifying, checking, catching, scoring or matching. Routes meeting at a
   point is the whole assertion.
 - No arrowheads: an arrowhead is a claim about direction and force.

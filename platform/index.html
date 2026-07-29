@@ -15,20 +15,32 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <header data-shell="header">
-  <!-- shell.js injects the nav and the footer. Never hand-write either.
-       The block below is the no-JS fallback ONLY. It is generated from the
-       four nav items, the two doors, the live verticals and the CTA that
-       shell.js carries, so
-       if you change one, regenerate the other. Never hand-edit one page. -->
   <noscript>
+    <!-- shell.js injects the nav and the footer. Never hand-write either.
+         The block below is the no-JS fallback ONLY. It is generated from the
+         nav items, the two doors, the live verticals, the notice and the CTA
+         that shell.js carries, so if you change one, regenerate the other.
+         Never hand-edit one page. No count is stated here: another top-level
+         item is coming and a typed number is the first thing to go stale.
+         About carries a sub-list as of 2026-07-29, matching the panel it
+         gained; its three pages were footer-only before that.
+         The notice is hardcoded here and cannot self-remove on a no-JS run:
+         sweep this block once after 2026-09-24. -->
+    <div class="notice">
+      <p class="notice-inner">The Congress is in its tenth year. Sep 22 to 24, 2026, Calgary. <a href="/congress/register/">Register</a></p>
+    </div>
     <nav aria-label="Primary">
       <ul>
         <li><a href="/industries/">Industries</a>
           <ul>
             <li><a href="/industries/aerospace-defence/">Aerospace and defence</a></li>
             <li><a href="/industries/agriculture/">Agriculture</a></li>
+            <li><a href="/industries/construction/">Construction</a></li>
             <li><a href="/industries/energy/">Energy</a></li>
+            <li><a href="/industries/manufacturing/">Manufacturing</a></li>
+            <li><a href="/industries/military/">Military</a></li>
             <li><a href="/industries/mining-natural-resources/">Mining and natural resources</a></li>
+            <li><a href="/industries/technology/">Technology</a></li>
           </ul>
         </li>
         <li><a href="/platform/">The Platform</a>
@@ -44,13 +56,28 @@
         <li><a href="/congress/">The Conference</a>
           <ul>
             <li><a href="/congress/agenda/">Agenda</a></li>
+            <li><a href="/congress/speakers/">Speakers</a></li>
             <li><a href="/congress/attend/">Attend</a></li>
             <li><a href="/congress/the-app/">The app</a></li>
             <li><a href="/congress/register/">Register</a></li>
             <li><a href="/congress/sponsor/">Sponsor</a></li>
+            <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
+            <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
           </ul>
         </li>
-        <li><a href="/about/">About</a></li>
+        <li><a href="/xpand/">Xpand</a>
+          <ul>
+            <li><a href="/xpand/what-xpand-does/">What Xpand does</a></li>
+            <li><a href="/xpand/what-readiness-means/">What readiness means</a></li>
+          </ul>
+        </li>
+        <li><a href="/about/">About</a>
+          <ul>
+            <li><a href="/about/how-we-vet/">How we vet</a></li>
+            <li><a href="/about/leadership/">Leadership</a></li>
+            <li><a href="/about/network/">Who we convene</a></li>
+          </ul>
+        </li>
         <li><a href="/access/request/">Request access</a></li>
       </ul>
     </nav>
@@ -92,16 +119,23 @@
         <span class="label label--lo label--edge">The software</span>
       </div>
       <div class="editorial">
-        <p class="lede lede-text">Attendees see requirements. ConvergX sees the requirements and the people behind them.</p>
+        <p class="lede lede-text">Attendees read requirements with no author on them. A post reaches ConvergX with its author attached.</p>
         <div class="body">
           <p>A requirement reaches the opportunity board the moment it is submitted. It carries no author to anyone reading it, and ConvergX can decline it and take it down.</p>
-          <p>ConvergX staff see the name and the email. What passes between the two sides, and when, is set out on <a href="/platform/vetting-and-introductions/">Vetting and introductions</a>.</p>
-          <p>A supplier portal reads records your organisation already holds. This board holds the requirements those records have no answer for.</p>
-          <!-- The page's one .say. Honesty gate 2's headline fact, and the
-               single line in this column that carries the page's argument.
-               At body size it was the fourth of five identical paragraphs. -->
-          <p class="say">Three of the fifteen modules run the Congress.</p>
-          <p>Every module carries the build state it is actually in, wherever it is listed.</p>
+          <p>The name and the email reach ConvergX with the post. What passes between the two sides, and when, is set out on <a href="/platform/vetting-and-introductions/">Vetting and introductions</a>.</p>
+          <p>A supplier portal reads records your organisation already holds.</p>
+          <!-- The section's one weight change. Restored 2026-07-29: the 0A tag removal
+               took this column's only .say with it and left five paragraphs at the same
+               weight, which RHYTHM flags as a defect. Nothing new is claimed here. The
+               sentence is the existing close, split off the paragraph above it so the
+               contrast lands, exactly as the earlier rhythm passes did elsewhere. -->
+          <p class="say">This board holds the requirements those records have no answer for.</p>
+          <!-- 2026-07-29, CHIP'S DECISION. This column's .say carried a live
+               count and the sentence under it carried the build-state rule.
+               Both were REMOVED DELIBERATELY and are not to be restored, or
+               replaced with a substitute signal, without Chip. The column now
+               runs without a .say beat. If one is ever wanted back it is a
+               copy decision for Chip, and it is not a status line. -->
         </div>
         <div class="bleed bleed--inset">
           <div class="dots dots--band dots--fine dots--fade-down" aria-hidden="true"></div>
@@ -110,15 +144,20 @@
     </div>
   </section>
 
-  <!-- The architecture. Groups, never modules: the inventory and its status
-       tags belong to /platform/modules/. Group names and their descriptors
-       are locked strings and must stay character-identical to the section
-       headings and framing lines on that page. Two of the five descriptors
-       carry group-level build state on purpose. Without it, five groups read
-       as a shipped system on the page most readers stop at, which is exactly
-       what the status tags exist to prevent. The closing paragraph is part
-       of the disclosure, not a caption: it is what stops this overview
-       describing twelve unbuilt modules in the present tense.
+  <!-- The architecture. RETIRED, 2026-07-28: the five-group link index that
+       used to sit here was a wholesale duplicate of a section that already
+       exists on /platform/modules/, same five group names, same two framing
+       lines, same link target. The homepage now carries the group names and
+       both framing lines in its module showcase, and those seven strings are
+       budgeted at two instances each site-wide, so a third here is a defect
+       by count. Do not restore it. Anyone who wants the groups reads them on
+       /platform/modules/, which is where the link below goes.
+       The closing paragraph stays as a pointer to the full index. The
+       build-state disclosure it used to carry was removed on 2026-07-29 by
+       Chip's decision and is not to be restored without him. What still
+       binds: this overview never describes a module in present-tense
+       capability language, and nothing here is automatic, intelligent or
+       AI-driven.
        Density: dense, per POLISH-SPEC 2.2. This section and the one below
        it alternate so the page stops reading as one even corridor of four
        identical bare sections. -->
@@ -128,29 +167,7 @@
         <h2>What the fifteen modules are for</h2>
         <span class="label label--lo label--edge">Architecture</span>
       </div>
-      <ul class="link-index">
-        <li>
-          <a href="/platform/modules/">Stating the requirement</a>
-          <span class="descriptor">Getting a requirement into the system with no name on it, and getting requirements in from outside. The board is the part that runs at the Congress.</span>
-        </li>
-        <li>
-          <a href="/platform/modules/">Deciding who should meet</a>
-          <span class="descriptor">Material a person at ConvergX reads before deciding. Nothing in this group decides anything, and nothing in it is live.</span>
-        </li>
-        <li>
-          <a href="/platform/modules/">The introduction and its record</a>
-          <span class="descriptor">Moving an introduction through its steps, and keeping what came of it.</span>
-        </li>
-        <li>
-          <a href="/platform/modules/">The Congress</a>
-          <span class="descriptor">The three days themselves, and the phone in the room.</span>
-        </li>
-        <li>
-          <a href="/platform/modules/">Reference</a>
-          <span class="descriptor">Material the platform can be asked about.</span>
-        </li>
-      </ul>
-      <p class="body">Each of the fifteen carries the build state it is actually in. Twelve are not live. <a class="link-more" href="/platform/modules/">All fifteen modules</a></p>
+      <p class="body">Grouped by what they are for, in the order the work happens in. <a class="link-more" href="/platform/modules/">All fifteen modules</a></p>
     </div>
   </section>
 
@@ -180,7 +197,7 @@
       <ul class="link-index">
         <li>
           <a href="/platform/modules/">All modules</a>
-          <span class="descriptor">All fifteen, grouped by what they are for, each with the build state it is actually in.</span>
+          <span class="descriptor">All fifteen, grouped by what they are for.</span>
         </li>
         <li>
           <a href="/platform/vetting-and-introductions/">Vetting and introductions</a>
@@ -219,15 +236,29 @@
         <li><a href="/platform/whats-next/">What is next</a></li>
         <li><a href="/congress/">The Congress</a></li>
         <li><a href="/congress/agenda/">Agenda</a></li>
+        <li><a href="/congress/speakers/">Speakers</a></li>
         <li><a href="/congress/attend/">Attend</a></li>
         <li><a href="/congress/the-app/">The app</a></li>
         <li><a href="/congress/register/">Register</a></li>
         <li><a href="/congress/sponsor/">Sponsor</a></li>
+        <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
+        <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
+        <li><a href="/xpand/">Xpand</a></li>
+        <li><a href="/xpand/what-xpand-does/">What Xpand does</a></li>
+        <li><a href="/xpand/what-readiness-means/">What readiness means</a></li>
         <li><a href="/about/">About</a></li>
         <li><a href="/about/how-we-vet/">How we vet</a></li>
         <li><a href="/about/leadership/">Leadership</a></li>
         <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/industries/">Industries</a></li>
+        <li><a href="/industries/aerospace-defence/">Aerospace and defence</a></li>
+        <li><a href="/industries/agriculture/">Agriculture</a></li>
+        <li><a href="/industries/construction/">Construction</a></li>
+        <li><a href="/industries/energy/">Energy</a></li>
+        <li><a href="/industries/manufacturing/">Manufacturing</a></li>
+        <li><a href="/industries/military/">Military</a></li>
+        <li><a href="/industries/mining-natural-resources/">Mining and natural resources</a></li>
+        <li><a href="/industries/technology/">Technology</a></li>
         <li><a href="/access/">Access</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>

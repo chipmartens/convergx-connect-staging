@@ -480,6 +480,16 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
 /* The mark is a flex item in the nav bar, so it was shrinking below the
  * 150px floor its own clamp declares the moment the links needed room. */
 .shell-header .logo { flex: none; }
+/* The nav takes the free space, so its LAST item lands on the container's own
+ * right edge: the same edge the page grid resolves to, not the viewport's.
+ * .nav-bar is already the container (max-width --page-max, --gutter padding),
+ * so pushing the nav to the end of it is the whole alignment.
+ *
+ * This lives on the <nav>, not on .nav-links. .nav-links sits INSIDE the nav,
+ * so the auto margin it used to carry only pushed the links to the end of a
+ * box that was itself content-sized and parked next to the logo: measured at
+ * 1440, the CTA finished 158px short of the text column below it. */
+.shell-header .nav-bar > nav { margin-inline-start: auto; }
 .logo svg { fill: currentColor; width: 100%; height: auto; }
 /* The mark alone, header and footer, every width. The tagline lockup was
  * retired from the header: see the note in shell.js buildHeader. The
@@ -492,7 +502,6 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
   display: flex;
   align-items: center;
   gap: var(--space-m);
-  margin-inline-start: auto;
   list-style: none;
   padding: 0;
 }
@@ -516,28 +525,13 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
 .nav-links > li > a:hover,
 .nav-links > li > .nav-mega-btn:hover { color: var(--fg-hi); }
 
-/* About is a utility link, not a fifth primary item, so it renders one visual
- * class down from the four: the site's 11px mono micro-label, one tone back.
- * The .label classes cannot be borrowed here because the bar rules above
- * outrank them on font and size and would leave a half-applied label.
- *
- * Specificity is deliberate on both counts. Each selector carries one class
- * more than the bar rule it has to beat, and the pair sits ABOVE the two
- * current-page rules, which are the same weight and therefore win on order: a
- * utility link that is the current page still gets the inline device and the
- * full-contrast ink, and only loses the de-emphasis it no longer wants.
- *
- * Contrast at 11px, which is normal text and wants 4.5:1. --fg-lo measures
- * 5.07:1 on dark, 6.55:1 on paper and 5.29:1 on the muted ground, so the
- * treatment clears AA on every surface the header can sit on. */
-.nav-links > li > a.nav-util,
-.nav-mobile > ul > li > a.nav-util {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  text-transform: uppercase;
-  letter-spacing: var(--track-label);
-  color: var(--fg-lo);
-}
+/* About had its own rule here: an 11px mono uppercase micro-label, one tone
+ * back, to mark it as a utility link rather than a primary item. Retired
+ * 2026-07-28 (Chip). It reads as a primary item now and takes NO rule at all,
+ * because the bar rules above already give it the right treatment. The
+ * .nav-util class went with the rule; a hook with nothing hanging off it is
+ * the next person's dead end. What still separates About from the items
+ * beside it is structural: no panel, no caret, last in the row. */
 
 /* The header CTA is a BUTTON that happens to be an <a>, so the nav-link rule
  * above must not claim it. `.nav-links > li > a` outranks `.btn--solid` on
@@ -672,6 +666,15 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
   z-index: 9;                  /* over the page, under .skip at 10 */
   background: var(--bg);
   border-bottom: var(--rule-hair) solid var(--rule-ink-load);
+  /* A panel taller than the viewport loses its last rows outright once the
+   * header is stuck, because then the panel is pinned to the viewport and
+   * there is nothing left to scroll to reach them. The Conference panel with
+   * its new rows measures 667px, which clears a 1280x860 window and clips the
+   * last row on a 1280x720 one. Capping and scrolling costs nothing when the
+   * panel fits, which is every panel at every common height today, and it is
+   * what keeps the next set of rows from silently amputating a link. */
+  max-height: calc(100vh - var(--shell-h));
+  overflow-y: auto;
 }
 .mega[hidden] { display: none; }   /* beats the grid below, which would revive it */
 
@@ -687,12 +690,21 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
  * own label, then the platform's own pages, then the module groups. Equal
  * columns, not the 2fr 1fr above, because none of the three is an aside to the
  * other two. Same weight as the rule it narrows, so it has to sit after it.
- * shell.js carries an identical inline declaration as a stand-in; with this
- * rule in place that inline can come out. */
+ * The stand-in inline declaration shell.js carried for this is now deleted. */
 .mega-inner--3 { grid-template-columns: 1fr 1fr 1fr; }
 
+/* The Industries panel is one FULL-WIDTH column, because its single column
+ * holds a grid. In the default 2fr 1fr it would lay that grid out inside two
+ * thirds of the panel and leave the last third empty. */
+.mega-inner--1 { grid-template-columns: 1fr; }
+
 .mega-col > .label { display: block; margin-block-end: var(--space-s); }
-.mega-col--sides {
+/* A second column that is genuinely an aside to the first, divided by a rule.
+ * Was .mega-col--sides, named for the two-path chooser that used to be the
+ * only thing in it. That chooser left the Industries panel on 2026-07-29 and
+ * the Conference panel's "not the Congress" column took the slot, so the name
+ * described nothing that used it. Nothing outside _system ever referenced it. */
+.mega-col--aside {
   border-inline-start: var(--rule-hair) solid var(--rule-ink);
   padding-inline-start: var(--space-l);
 }
@@ -706,16 +718,42 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
 .mega .link-index .descriptor { max-width: var(--measure); }
 .mega-all { margin-block-start: var(--space-m); }
 
-/* Stacked two-path. The component, its labels and its hover ground are
- * unchanged: only the axis the dividing hairline sits on moves.
- * Doubled class: .two-path is declared further down the file and would
- * otherwise win the tie on source order. */
-.two-path.two-path--stack { grid-template-columns: 1fr; }
-.two-path.two-path--stack > a {
-  border-inline-end: 0;
-  border-block-end: var(--rule-hair) solid var(--rule-ink-load);
+/* ---- THE INDUSTRIES GRID ----
+ * The same .link-index rows, laid out in columns instead of one stack.
+ *
+ * THE COLUMN COUNT IS A LAYOUT CONSTANT AND ENCODES NO COUNT OF ANYTHING.
+ * Three across is what Chip asked for and what a nav-panel cell can hold at
+ * this measure; the sectors flow into it, so a sector arriving or being pulled
+ * changes nothing here and nothing in shell.js. Deliberately NOT auto-fit with
+ * a minmax floor: at 1920 the panel is wide enough that auto-fit would find a
+ * fourth column and the grid would silently stop being three across.
+ *
+ * Column gap only. With no row gap the rows sit directly under one another and
+ * each cell's own border-top draws one continuous hairline across the row,
+ * which is the same separator the stacked list already uses. */
+.link-index--grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: var(--space-2xl);
 }
-.two-path.two-path--stack > a:last-child { border-block-end: 0; }
+/* The panel only exists above 60rem, where the bar stops being a phone menu.
+ * Between there and 68rem three cells are too narrow for a two-line
+ * descriptor, so the grid drops a column and the rows reflow. */
+@media (max-width: 68rem) {
+  .link-index--grid { grid-template-columns: 1fr 1fr; }
+}
+/* .mega kills the first row's top border because the column label is the
+ * boundary. In a grid that only unsets ONE of the cells on the top row, so the
+ * rule is put back and the label keeps its own margin as the separator. */
+.mega .link-index--grid > li:first-child {
+  border-top: var(--rule-hair) solid var(--rule-ink);
+}
+
+/* The promo cell. Not a sector and not counted: the prompt leads, the call
+ * closes. Both inner spans are existing components, so this rule is spacing
+ * only and states no colour, size or face of its own. */
+.mega-promo > .label { display: block; margin-block-end: var(--space-3xs); }
+.mega-promo > .link-more { display: inline-block; margin-block-start: var(--space-xs); }
 
 /* ---- 7c. THE PHONE VERSION ----
  * A mega panel is wrong on a phone, so below the breakpoint the same
@@ -751,6 +789,46 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
   .shell-header .nav-bar { flex-wrap: wrap; align-items: center; }
   .nav-mobile > ul { width: 100%; }
 }
+
+/* ---- 7d. THE NOTICE BAR ----
+ * One line of orange above the header. It is not a surface: it carries the
+ * accent as a fill and states its own ink, so it renders identically on the
+ * dark, light and muted grounds rather than inheriting three different sets of
+ * tokens and three different results. That is deliberate for a fill: the
+ * surface system exists so components sit ON a ground, and this one IS a
+ * ground.
+ *
+ * CONTRAST, and it is the whole reason --accent-ink exists. --accent-ink on
+ * --accent measures 5.76:1, clearing AA for normal text at any size. Light
+ * type on this orange measures 3.42:1 and FAILS. Never invert this, never
+ * substitute --fg or --fg-hi, and note that the header CTA a few rules above
+ * has this exact note for this exact reason.
+ *
+ * Focus inside the bar is the global two-part indicator: the yellow alone is
+ * 2.55:1 on orange, and the --focus-bar underneath it is 5.76:1, which is the
+ * part that carries it. Same composite that already carries focus on the
+ * orange CTA and on every light surface. */
+.notice {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.notice-inner {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding: var(--space-2xs) var(--gutter);
+  font-size: var(--step--1);
+  font-weight: 500;
+}
+/* The global link rule paints --link, which is the accent itself on dark and
+ * near-invisible here, and :hover repaints --fg-hi, which is LIGHT on dark and
+ * would drop the link to 3.42:1 on hover alone. Both restated. The underline
+ * is what marks it as a link, not a colour change, because there is no second
+ * safe ink on this fill. */
+.notice-inner a {
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+.notice-inner a:hover { color: var(--accent-ink); }
 
 .shell-footer { margin-top: var(--space-4xl); }
 .shell-footer .footer-inner {
@@ -842,30 +920,16 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
 }
 .block--accent h2, .block--accent h3, .block--accent .label { color: var(--accent-ink); }
 
-/* ================= 10. STATUS TAGS ================= */
-/* Spec annotations, not warnings. All four tags are the SAME tone:
- * no colour coding, no fill, no pill, no icon, no date, ever. */
-
-.tag {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);          /* 11px, fixed */
-  font-weight: 400;
-  text-transform: uppercase;          /* sentence case in the DOM, always */
-  letter-spacing: var(--track-label);
-  line-height: 1;
-  color: var(--fg);
-  display: inline-block;
-  padding-block-end: var(--rule-gap); /* the gap before the rule */
-  border-block-end: var(--rule-hair) solid var(--rule-ink-load);
-  background: none;
-  border-radius: var(--radius);
-}
-.tag--edge { margin-inline-end: calc(var(--track-label) * -1); }
+/* ================= 10. STATUS TAGS: RETIRED ================= */
+/* 2026-07-29, CHIP'S DECISION. Every module status tag was removed from
+ * the site, so .tag and .tag--edge styled nothing and the rules were
+ * deleted rather than left orphaned. Do not re-add them, and do not add
+ * any substitute status treatment, without Chip. */
 
 /* ================= 11. MODULE INDEX ================= */
-/* Subgrid so title, description and tag align across every module
- * regardless of description length. Density-8 zone: no card
- * containers, hairlines separate data. */
+/* Subgrid so title and description align across every module regardless
+ * of description length. Density-8 zone: no card containers, hairlines
+ * separate data. */
 
 .modules {
   display: grid;
@@ -881,7 +945,7 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
 }
 .module {
   display: grid;
-  grid-row: span 3;
+  grid-row: span 2;                   /* h3 + description. Was 3 with the tag. */
   grid-template-rows: subgrid;
   row-gap: var(--space-xs);
   container-type: inline-size;
@@ -894,11 +958,53 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
   letter-spacing: var(--track-1);
 }
 .module p { font-size: var(--step--1); color: var(--fg); }
-.module .tag { align-self: end; justify-self: start; }
 
-/* The three that ship in September sit in their own block with a 2px
- * accent left edge: one of the page's two permitted orange rules.
- * The tags themselves stay identical across all twelve. */
+/* Portraits. /about/leadership/ ONLY, and it is the only page on the site
+ * that shows a face: FIGURE-SYSTEM 4.1 carries a page-scoped exception for
+ * it and says in as many words not to extend it. Do not reuse this class.
+ *
+ * Three rows instead of two: portrait, name, role.
+ *
+ * ONE size for all ten, founder included, and no hover, no lightbox, no
+ * expand, no per-person link, no bio, no honorific. THAT is what holds the
+ * page to a roster rather than a founder and some staff, and it holds at
+ * any size. An earlier pass here capped the frame at --space-4xl on the
+ * theory that small portraits read as an index and large ones read as a
+ * gallery. CHIP OVERRULED IT 2026-07-29 and he is right: key-person risk
+ * comes from DIFFERENTIAL treatment, not from scale. Ten identical frames
+ * in one flat grid in the order ConvergX publishes them is a roster
+ * whether they are 130px or 440px. Do not re-cap the size. Do add to the
+ * list above if a hover, a link or a bio is ever proposed.
+ *
+ * Full column width, so no size value is authored at all and the frame is
+ * whatever the existing three-column grid already gives it. MEASURED: the
+ * widest column the site can produce is at the 1920 breakpoint where
+ * --page-max goes to 1360, and it lands under the 640px source, so no
+ * portrait is ever upscaled by CSS. If a future breakpoint takes a column
+ * past 640 these files must be re-fetched larger, not stretched.
+ *
+ * --radius is 0 and declared structural, so the frame stays square. A
+ * circle would be the only rounded corner in the system and it would
+ * import a team-page convention this page is deliberately not.
+ *
+ * object-fit only ever matters if a future file arrives non-square; it
+ * crops rather than distorting the row.
+ *
+ * align-content: start is load-bearing, not tidying. MEASURED 2026-07-29:
+ * `grid-template-rows: subgrid` on .module resolves to nothing, because
+ * .modules declares no explicit row tracks and a subgrid cannot draw from
+ * implicit tracks its own span created. The rows fall back to auto, the
+ * parent band fixes the module height, and the leftover is then split
+ * EQUALLY across the three auto rows, so a module with a three-line role
+ * got a shorter portrait row than its neighbours and its name sat 7px
+ * high. start pins the rows to the top and parks the leftover at the
+ * bottom of the module, where nothing is drawn.
+ * The same fallback is why the two-row modules elsewhere on the site do
+ * not align their descriptions either. That is a pre-existing defect in
+ * the shared component, it is NOT fixed here, and fixing it means giving
+ * .modules real row tracks, which changes every page that uses it. */
+.modules--people > .module { grid-row: span 3; align-content: start; }
+.module-portrait { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
 
 /* ================= 12. CLAIM BLOCK AND PULL STATEMENT ================= */
 
@@ -943,8 +1049,18 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
  * default gives it. Same family as .pull .attribution, same reasoning. */
 .display + .meta { margin-block-start: var(--space-m); }
 
-/* Inline placeholder marker. Visually loud in staging, greppable,
- * and never shipped: the literal string is the point. */
+/* Inline placeholder marker. Visually loud, greppable: the literal string is
+ * the point.
+ *
+ * THE OLD COMMENT HERE CLAIMED IT WAS "never shipped". That was not true. The
+ * shell rendered one in the footer of every page on the site, naming the
+ * client's CEO in an internal to-do note, and pages carried around twenty
+ * more. All of them were swept on 2026-07-29.
+ *
+ * The rule stays because /_dev/ still uses it, and /_dev/ is the one place it
+ * is FOR. The claim it may not carry again is that nothing renders it: check,
+ * do not assume. `grep -rn 'class="ph"' site` is the check, and any hit
+ * outside site/_dev/ is a defect, not a work-in-progress marker. */
 .ph {
   font-family: var(--font-mono);
   font-size: var(--step--1);
@@ -1235,7 +1351,7 @@ section:has(.hero) { padding-block: 0; }
 /* ================= 19. MOTION ================= */
 /* The entire budget: three properties, one duration, one easing. */
 
-.btn, a, .tag, input, select, textarea, summary, .nav-mega-btn {
+.btn, a, input, select, textarea, summary, .nav-mega-btn {
   transition: border-color var(--t) linear, background-color var(--t) linear, color var(--t) linear;
 }
 
@@ -1555,6 +1671,19 @@ section:has(.hero) { padding-block: 0; }
  * reads as a card grid it is not. Opt out here and run one full-width
  * .rule above the row-group instead. */
 .modules--flush > .module { border-top: 0; }
+
+/* The homepage module showcase carries name plus tag and no description,
+ * so the subgrid is two rows rather than three. Without this the empty
+ * third row still spends a row-gap and every tag sits on a stray
+ * interval above its own rule. */
+.modules--names > .module { grid-row: span 1; }  /* name only. Was 2 with the tag. */
+
+/* Each showcase group is a <section> so its label and its framing line
+ * reach the accessibility tree through aria-labelledby and
+ * aria-describedby. Structural only: the element default would stack
+ * --space-3xl of section padding on every group. Spacing between groups
+ * is the existing .push-xl utility, not a number invented here. */
+.module-group { padding-block: 0; }
 
 /* ================= 23. NARROW WIDTHS ================= */
 /* Everything above reads as generous at desktop and as abandoned at

@@ -281,7 +281,7 @@ false? If not, it is decoration. Delete it.
 
 Each of these is a **build defect**, not a style note, per `README.md` and `08-sitemap.md`:
 
-- A Phase 2 module rendered anywhere without a visible status tag
+- ~~A Phase 2 module rendered anywhere without a visible status tag~~ **VOID, 2026-07-29.** Chip removed every status tag from the site. An untagged module is now correct. Do not restore tags without him.
 - Any module status tag carrying a date
 - "Coming soon"
 - Any claim that push notifications work on iOS (Android only)
@@ -757,7 +757,22 @@ sides may appear at equal weight, and it is a foot-of-page chooser, never a hero
 
 ---
 
-## 5. THE STATUS-TAG SYSTEM
+## 5. THE STATUS-TAG SYSTEM: RETIRED 2026-07-29
+
+> **RETIRED BY CHIP, 2026-07-29.** Every status tag and the tag key were removed from the live site,
+> and `.tag` / `.tag--edge` were deleted from `styles.css`. All fifteen modules stay listed, untagged.
+> He was shown the argument against this, in writing, before deciding, and decided anyway. It is his
+> call. **Do not restore the tags, and do not add a substitute signal in their place:** no "coming
+> soon", no ordering by build state, no visual de-emphasis of the unbuilt modules, no asterisk, no
+> footnote, no tooltip. If you think the site needs a build-state signal, that is a conversation with
+> Chip, not an edit.
+>
+> **What removing the tags did NOT license.** Module descriptions stay exactly as neutral as they are.
+> No module may be described as automatic, intelligent or AI-driven, in any tense. Phase 1 matching is
+> manual and admin-brokered: a person decides. The rest of §2.8 still binds, and so does the
+> trust-and-security disclosure that ConvergX Connect holds no security certification.
+>
+> The section below is kept as the record of what the system was. It is history, not instruction.
 
 Twelve modules, four tags. `08-sitemap.md` call 3: an untagged Phase 2 module is a present-tense claim and is a
 defect. `DESIGN-REFERENCE-uncommon.md` calls this the strongest argument for the whole direction: in this
@@ -962,7 +977,7 @@ grep -rniE '#(3b82f6|6366f1|8b5cf6|0f172a|121212)|\bInter\b|Poppins|\bGeist\b|ro
 - [ ] Home hero is 8/4, not 6/6. The 4-column side carries texture, not a second audience
 - [ ] Supply band sits after the hero, <= 22vh, outlined CTA
 - [ ] One label per CTA intent across the whole site. No synonyms
-- [ ] Every module rendered anywhere carries a status tag. No tag is filled, coloured, rounded, dated, or icon-bearing
+- [ ] ~~Every module rendered anywhere carries a status tag~~ **VOID, 2026-07-29, see §5.** No module carries a tag and none is to be re-added without Chip
 - [ ] Every asymmetric layout collapses to single column below 60rem, declared in the same component
 - [ ] Real photography slots marked with dimensions and art direction, or the section legitimately has no image
 - [ ] All copy re-read: no broken strings, no negative parallelism, no copula avoidance, no tricolon, no hedge, no Title Case heading
