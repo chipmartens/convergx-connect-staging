@@ -1336,7 +1336,12 @@ section:has(.hero) { padding-block: 0; }
   row-gap: var(--gap-under-display);
   padding-block: var(--space-xl);
 }
-.hero .hero-title { margin-block-start: var(--space-2xl); }
+/* --space-2xs, not --space-2xl. The row-gap ALREADY separates the kicker from
+   the h1; the margin was stacking a second interval on top of it and putting
+   ~110px under the eyebrow on the homepage against ~18px on a module page.
+   Chip, 2026-07-29: the eyebrow distance is the same everywhere, and the
+   module pages are the reference. */
+.hero .hero-title { margin-block-start: var(--space-2xs); }
 .hero-head  { grid-column: col-start 1 / span 8; align-self: end; }
 .hero-title { grid-column: col-start 1 / span 8; }
 .hero-sub   { grid-column: col-start 1 / span 5; }   /* the 5-col lede against the 12-col measure */
@@ -2226,7 +2231,12 @@ section:has(.hero) { padding-block: 0; }
      because the notice self-removes after the Congress. --shell-h is the
      no-JS fallback: the nav alone, which is the right answer on the run where
      shell.js never executes and the notice is the hardcoded one. */
-  min-height: calc(100svh - var(--shell-total, var(--shell-h)));
+  /* min(), so a tall screen is not padded out with blank. 46rem is what the
+     hero and the marks actually need; on a shorter window the second term wins
+     and the band shrinks to the viewport instead of pushing the marks under
+     the fold. Chip, 2026-07-29: "on taller screens make it so it's not 100VH,
+     there is just a LOT of blank space". */
+  min-height: min(46rem, calc(100svh - var(--shell-total, var(--shell-h))));
   display: flex;
   flex-direction: column;
 }
@@ -2495,4 +2505,30 @@ section:has(.hero) { padding-block: 0; }
   .mod-nav-inner { grid-template-columns: 1fr; }
   .mod-nav-link--next { text-align: left; align-items: flex-start; }
   .mod-nav-link--next:only-child { grid-column: 1; }
+}
+
+/* ==========================================================================
+   THE HOMEPAGE HERO BAND. 2026-07-29, after three wrong turns worth writing
+   down so nobody repeats them.
+
+   1. min-height CANNOT shrink anything. It is a floor. Capping the band with
+      min-height: min(46rem, ...) did nothing, because the band was 990px tall
+      from its own CONTENT, not from a floor.
+   2. The content was 990 because `.hero` carries its own
+      min-height: min(85vh, 100vh - shell-h), which floored the editorial at
+      exactly the 765px of room above the fold and left the marks no space at
+      all. The band has to hold BOTH, so the hero gives up that floor here.
+   3. The eyebrow gap was never the h1 margin. The editorial grid's row-gap
+      sits between the kicker and the h1 as well, so shrinking the margin moved
+      nothing. The row-gap is the number that matters.
+   ========================================================================== */
+
+.hero-band > .editorial.hero {
+  min-height: 0;                    /* the band owns the height, not the hero */
+  padding-block: var(--space-m);
+  row-gap: var(--space-m);          /* THIS is the eyebrow-to-h1 distance */
+}
+.hero-band .proofbar-band {
+  padding-block-start: var(--space-l);
+  padding-block-end: var(--space-l);
 }
