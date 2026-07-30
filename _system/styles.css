@@ -2051,51 +2051,6 @@ section:has(.hero) { padding-block: 0; }
   gap: var(--space-xl);
 }
 
-/* ---- THE ORANGE BAR ----
-   Full bleed. The one place on the site with a solid accent field this large,
-   so the contrast rule matters more here than anywhere:
-   TYPE ON THIS PANEL IS --accent-ink, NEAR-BLACK, NEVER LIGHT.
-   White on this orange is 3.42:1 and fails. Do not "brighten" this bar. */
-.cta-bar {
-  margin-block-start: var(--space-3xl);
-  background: var(--accent);
-  color: var(--accent-ink);
-}
-.cta-bar-inner {
-  max-width: var(--page-max);
-  margin-inline: auto;
-  padding-block: var(--space-xl);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--space-s) var(--space-2xl);
-}
-.cta-bar-label { color: var(--accent-ink); margin: 0; flex: 0 0 auto; }
-.cta-bar-links {
-  margin: 0;
-  flex: 1 1 auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-s) var(--space-2xl);
-}
-.cta-bar-end { margin: 0; flex: 0 0 auto; }
-/* The doors, bold and large, as the bar's own links. Underline offset rather
-   than a border so a wrapped link underlines both lines. */
-.cta-bar-link,
-.cta-bar-end a {
-  color: var(--accent-ink);
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
-  text-decoration-thickness: var(--rule-med);
-}
-.cta-bar-link { font-size: var(--step-2); line-height: var(--lh-heading); }
-.cta-bar-end a { font-size: var(--step-0); }
-.cta-bar-link:hover,
-.cta-bar-end a:hover { text-decoration-thickness: 0.14em; }
-/* The bar sits directly on the footer's ground, so the footer's own top
-   margin would open a gap of the wrong colour between them. */
-.cta-bar + .footer-inner { margin-block-start: 0; }
 
 /* ---- THE PLATFORM OVERVIEW BLOCK, and the nav label becoming a link ----
    Chip, 2026-07-29. Appended at the end for source order, same reason as the
@@ -2354,30 +2309,23 @@ section:has(.hero) { padding-block: 0; }
    FAQ, previous/next.
    ========================================================================== */
 
-.crumbs {
-  max-width: var(--page-max);
-  margin-inline: auto;
-  padding: var(--space-l) var(--gutter) 0;
-}
-.crumbs ol { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-2xs); }
-.crumbs li { font-size: var(--step--2); letter-spacing: var(--track-label); text-transform: uppercase;
-             font-family: var(--font-mono); color: var(--fg-lo); }
-/* The separator is generated, so the markup carries no punctuation a screen
-   reader would read aloud between every crumb. */
-.crumbs li + li::before { content: "/"; margin-inline-end: var(--space-2xs); color: var(--fg-lo); }
-.crumbs a { color: var(--fg-lo); text-decoration: none; }
-.crumbs a:hover { color: var(--link); }
 
 /* Hero: type left, the module's own mark right. NOT a screenshot, and the
    comment in the generated page says why. */
-.mod-hero .wrap { display: grid; grid-template-columns: 1fr auto; gap: var(--space-2xl); align-items: start; }
-.mod-hero-fig { color: var(--fg-lo); }
-.mod-hero-fig svg { display: block; width: 10rem; height: 7.5rem; }
-@media (max-width: 60rem) {
-  .mod-hero .wrap { grid-template-columns: 1fr; }
-  .mod-hero-fig { order: -1; }
-  .mod-hero-fig svg { width: 6rem; height: 4.5rem; }
+/* THE FIGURE SITS ON THE SITE'S OWN GRID, in the right-hand columns, exactly
+   where .hero-aside sits on the homepage. It was in a wrapper grid until
+   2026-07-29, which overrode .wrap and left the h1 starting 65px to the left
+   of every other block on the page: the hero did not line up with its own
+   page. Nothing here may reintroduce a grid on .wrap. */
+.mod-hero-fig {
+  color: var(--fg-lo);
+  grid-column: col-start 9 / main-end;
+  grid-row: 1 / 4;
+  justify-self: end;
+  align-self: start;
 }
+.mod-hero .editorial > :not(.mod-hero-fig) { grid-column: main-start / span 8; }
+.mod-hero-fig svg { display: block; width: 10rem; height: 7.5rem; }
 
 
 /* THE LABEL IS DEMOTED AND THE DESCRIPTION IS PROMOTED. Chip: the section
@@ -2481,9 +2429,12 @@ section:has(.hero) { padding-block: 0; }
 .mod-body .claim p { max-width: var(--measure); }
 
 /* Hero: the type leads and the mark is a mark, not a column of its own. */
-.mod-hero .wrap { display: grid; grid-template-columns: 1fr auto; gap: var(--space-2xl); align-items: start; }
 .mod-hero .editorial { row-gap: var(--space-m); padding-block: 0; }
-.mod-hero h1 { margin-block-start: var(--space-2xs); max-width: 18ch; }
+/* 24ch, not 18. At 18ch two of the fifteen headlines wrapped to three lines
+   while the other thirteen took two, which is the inconsistency the length
+   bands exist to remove. The band is 40 to 48 characters; 24ch fits all of it
+   in two lines. */
+.mod-hero h1 { margin-block-start: var(--space-2xs); max-width: 24ch; }
 .mod-hero .lede-text { max-width: 42ch; }
 .mod-hero .hero-cta { margin-block-start: var(--space-s); }
 
@@ -2495,3 +2446,110 @@ section:has(.hero) { padding-block: 0; }
    why; when real captures land it takes their place. */
 .mod-hero-fig svg { width: 16rem; height: 12rem; }
 @media (max-width: 60rem) { .mod-hero-fig svg { width: 8rem; height: 6rem; } }
+
+/* ---- THE RESERVED SCREENSHOT SLOT ----
+   Held empty on purpose. The site has no product captures yet and inventing
+   product UI for software that does not exist is the one thing it cannot do,
+   so the space is reserved rather than filled. It keeps a fixed aspect so the
+   page does not reflow the day a real capture drops in.
+   The hairline and the greige field are the site's own devices; this is not a
+   dashed "image missing" box, because a reader should read it as a plate that
+   is coming, not as a broken asset. */
+.mod-shot { padding-block: 0 var(--space-2xl); }
+.mod-shot-frame {
+  margin: 0;
+  border: var(--rule-hair) solid var(--rule-ink-load);
+  background: var(--block);
+  aspect-ratio: 16 / 9;
+  display: grid;
+  place-content: center;
+}
+.mod-shot-frame figcaption {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--fg-lo);
+  border: 0;
+  padding: 0;
+}
+/* When a real capture lands the img fills the frame and the aspect goes with
+   the file rather than being imposed on it. */
+.mod-shot-frame:not(.mod-shot--empty) { aspect-ratio: auto; display: block; }
+.mod-shot-frame img { display: block; width: 100%; height: auto; }
+@media (max-width: 40rem) { .mod-shot-frame { aspect-ratio: 4 / 3; } }
+
+@media (max-width: 60rem) {
+  .mod-hero-fig { grid-column: main; grid-row: auto; justify-self: start; order: -1; }
+  .mod-hero-fig svg { width: 8rem; height: 6rem; }
+  .mod-hero .editorial > :not(.mod-hero-fig) { grid-column: main; }
+}
+
+/* ==========================================================================
+   THE FOOTER. Rebuilt 2026-07-29 (Chip). ALWAYS DARK on every page, whatever
+   the page above it is. Order: quotes, then the two doors, then the columns.
+   The footer being one consistent object site-wide is what lets the doors use
+   the same orange-and-white pair as the header panel without either surface
+   fighting the page it happens to sit on.
+   ========================================================================== */
+
+.shell-footer { background: var(--bg); color: var(--fg); }
+
+/* ---- QUOTES ---- outlined blocks on the same ground, so the outline does
+   the separating rather than a fill. Larger than the old set, per Chip. */
+.footer-quotes { padding-block: var(--space-3xl) var(--space-xl); }
+.fq-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--space-l); margin-block-end: var(--space-l);
+}
+.fq-arrows { display: flex; gap: var(--space-2xs); margin: 0; }
+.fq-arrow {
+  background: none;
+  border: var(--rule-hair) solid var(--rule-ink-load);
+  color: var(--fg);
+  font: inherit;
+  line-height: 1;
+  padding: var(--space-2xs) var(--space-s);
+  cursor: pointer;
+}
+.fq-arrow:hover { color: var(--fg-hi); border-color: var(--fg-hi); }
+
+/* A scroll-snap row. With scripts off this is still every quote, readable and
+   scrollable; only the arrows go quiet. */
+.footer-quote-grid {
+  list-style: none; padding: 0; margin: 0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(20rem, 1fr);
+  gap: var(--space-l);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.footer-quote-grid::-webkit-scrollbar { display: none; }
+/* The block, outlined rather than filled. .quote's own top hairline is
+   replaced by a full outline here, so it reads as a card without a fill. */
+.footer-quotes .quote {
+  scroll-snap-align: start;
+  border: var(--rule-hair) solid var(--rule-ink-load);
+  border-top: var(--rule-hair) solid var(--rule-ink-load);
+  padding: var(--space-l);
+  display: flex; flex-direction: column; gap: var(--space-m);
+}
+.footer-quotes .quote blockquote p { font-size: var(--step-1); line-height: var(--lh-lede); }
+.footer-quotes .quote figcaption { margin-block-start: auto; font-size: var(--step-0); }
+
+/* ---- THE TWO DOORS, in the footer ---- same component as the header panel,
+   so the copy and the tones are defined once. Side by side here because the
+   footer has the width the panel column did not. */
+.cta-blocks { padding-block: var(--space-xl) var(--space-2xl); }
+.cta-blocks > .wrap > .label { display: block; margin-block-end: var(--space-m); }
+.cta-blocks .door-blocks { grid-template-columns: 1fr 1fr; gap: var(--space-l); }
+.cta-blocks .door-block { min-height: 0; padding: var(--space-l); }
+.cta-blocks .door-block-label { font-size: var(--step-3); }
+.cta-blocks .door-block-note { font-size: var(--step-0); max-width: 34ch; }
+.cta-blocks-end { margin-block-start: var(--space-l); }
+@media (max-width: 48rem) {
+  .cta-blocks .door-blocks { grid-template-columns: 1fr; }
+  .footer-quote-grid { grid-auto-columns: minmax(16rem, 85%); }
+}

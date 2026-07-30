@@ -870,26 +870,34 @@
       who:   "Blaire Lancaster" }
   ];
 
+  /* THE TWO DOORS AS BLOCKS, in the footer, on the dark ground. Chip,
+   * 2026-07-29: the same orange-and-white pair the header panel carries, with
+   * the same longer copy, so a reader who never opens the menu still gets the
+   * context rather than two bare words on a band.
+   * It reuses doorBlocks(), so the copy, the tones, the whole-block link and
+   * the near-black type on orange are defined once and cannot drift apart
+   * between the header and the footer. */
   function buildCtaBar() {
-    var links = CTA_BAR.links.map(function (l) {
-      return '<a class="cta-bar-link" href="' + l.href + '">' + l.label + "</a>";
-    }).join("");
     return (
-      '<section class="cta-bar" aria-label="' + CTA_BAR.label + '">' +
-        '<div class="wrap cta-bar-inner">' +
-          '<p class="label cta-bar-label">' + CTA_BAR.label + "</p>" +
-          '<p class="cta-bar-links">' + links + "</p>" +
-          '<p class="cta-bar-end"><a href="' + CTA_BAR.end.href + '">' + CTA_BAR.end.label + "</a></p>" +
+      '<section class="cta-blocks" aria-label="' + CTA_BAR.label + '">' +
+        '<div class="wrap">' +
+          '<p class="label label--lo">' + CTA_BAR.label + "</p>" +
+          doorBlocks(currentPath()) +
+          '<p class="cta-blocks-end"><a class="link-more" href="' + CTA_BAR.end.href + '">' +
+            CTA_BAR.end.label + "</a></p>" +
         "</div>" +
       "</section>"
     );
   }
 
-  /* NO data-surface HERE, and that is the whole mechanism behind "the
-   * quotes match the module above them". The block declares no ground, so
-   * it inherits the page's, which is the same ground the section above it
-   * is already sitting on. A hardcoded surface would be right on exactly
-   * one page and wrong on the other forty. */
+  /* THE FOOTER IS ALWAYS DARK as of 2026-07-29 (Chip), so the quotes stop
+   * inheriting the page ground and take the footer's. They were surface-
+   * matched to the section above them for one day; the footer being one
+   * consistent thing on every page is the stronger rule, and it is what
+   * lets the two CTA blocks below use the same orange-and-white pair the
+   * header panel uses.
+   * The track is a scroll-snap row: with scripts off it is still every
+   * quote, readable and scrollable, and the arrows simply do not appear. */
   function buildQuotes() {
     var items = FOOTER_QUOTES.map(function (q) {
       return '<li class="quote"><figure>' +
@@ -900,8 +908,14 @@
     return (
       '<section class="footer-quotes" aria-label="Published quotes">' +
         '<div class="wrap">' +
-          '<p class="label label--lo">ConvergX published every quote below. Words are cut, never changed.</p>' +
-          '<ul class="footer-quote-grid">' + items + "</ul>" +
+          '<div class="fq-head">' +
+            '<p class="label label--lo">ConvergX published every quote below. Words are cut, never changed.</p>' +
+            '<p class="fq-arrows">' +
+              '<button type="button" class="fq-arrow" data-fq="prev" aria-label="Previous quotes">&#8592;</button>' +
+              '<button type="button" class="fq-arrow" data-fq="next" aria-label="Next quotes">&#8594;</button>' +
+            "</p>" +
+          "</div>" +
+          '<ul class="footer-quote-grid" data-fq-track>' + items + "</ul>" +
         "</div>" +
       "</section>"
     );
@@ -1086,6 +1100,22 @@
     else window.addEventListener("resize", set);
   }
 
+  /* The quote arrows. Progressive enhancement only: the track is a scroll
+   * container that already works by touch and trackpad, and these move it by
+   * one card. With scripts off the buttons are never rendered as interactive
+   * and the track is still every quote in DOM order. */
+  function wireQuotes(root) {
+    var track = root.querySelector("[data-fq-track]");
+    if (!track) return;
+    root.querySelectorAll("[data-fq]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var card = track.querySelector(".quote");
+        var step = card ? card.getBoundingClientRect().width + 24 : track.clientWidth;
+        track.scrollBy({ left: btn.dataset.fq === "next" ? step : -step, behavior: "smooth" });
+      });
+    });
+  }
+
   function currentPath() {
     var p = window.location.pathname;
     /* Normalise staging filenames back to site routes where possible. */
@@ -1119,7 +1149,10 @@
     var footer = document.querySelector('[data-shell="footer"]');
     if (footer) {
       footer.classList.add("shell-footer");
+      /* ALWAYS DARK, on every page, whatever the page's own surface is. */
+      footer.setAttribute("data-surface", "dark");
       footer.innerHTML = buildFooter();
+      wireQuotes(footer);
     }
   }
 
