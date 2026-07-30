@@ -1853,33 +1853,44 @@ section:has(.hero) { padding-block: 0; }
  * its height and is what keeps the artwork from ever being stretched.
  * Re-measure, do not guess, if a file is replaced. */
 
-/* Spans the container. Chip, 2026-07-29: the row used to bunch at the left
-   with dead space to the right of it, which read as an unfinished row rather
-   than a set. space-between distributes them across the full measure and the
-   flex-wrap keeps that from turning into one mark per line on a phone. */
+/* CENTRED AS A ROW, not justified to the edges. Chip, 2026-07-29.
+   It span-to-the-edges'd first, which pinned the first and last marks to the
+   container and let the gaps fall wherever five unequal widths left them: the
+   row read as stretched rather than as a set. Centre plus ONE even gap means
+   the space between any two marks is the same number, which is what makes a
+   logo row look deliberate.
+   align-items: center is the vertical half of the same idea, and the marks are
+   already cap-aligned to each other by --mark-cap-frac, so they sit on one
+   optical line rather than one box line. */
 .proofbar {
   list-style: none;
   padding: 0;
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-m) var(--space-l);
+  justify-content: center;
+  /* --space-2xl, not --space-3xl. ARITHMETIC, not taste: five marks at a 12px
+     cap measure 814px together and the container is 1108, which leaves 294 for
+     four gaps, so 73px each is the ceiling. At --space-3xl (108) the fifth mark
+     wrapped to its own line and took the bar under the fold with it.
+     Adding a sixth mark means re-running that sum. */
+  gap: var(--space-m) var(--space-2xl);
 }
 @media (max-width: 40rem) {
-  /* space-between across two marks on a phone parks them at opposite edges
-     with a hole between. Below this width they pack instead. */
-  .proofbar { justify-content: flex-start; }
+  /* One even gap of --space-3xl between five marks does not fit a phone. They
+     keep the centring and take the smaller gap. */
+  .proofbar { gap: var(--space-m) var(--space-l); }
 }
 
 .mark {
-  /* 14px. Went 13 -> 16 when the row held four marks (Chip, "slightly
-     bigger"), then back to 14 when Doyletech made it five and the fifth
-     wrapped to its own line, which pushed the whole bar under the fold.
+  /* 12px. 13 -> 16 at four marks, 14 when Doyletech made it five, now 12
+     (Chip, "slightly smaller and more spaced out"): the size came down so the
+     even --space-3xl gap has room to sit between five marks on one row.
      This is the ONE number that sizes the row: every mark scales from its own
      measured cap fraction, so they sit on a common CAP HEIGHT rather than a
      common box. Adding a sixth mark will need this number revisited again. */
-  --mark-cap: 0.875rem;
+  --mark-cap: 0.75rem;
   --mark-h: calc(var(--mark-cap) / var(--mark-cap-frac));
   display: block;
   width: calc(var(--mark-h) * var(--mark-ratio));
@@ -2132,12 +2143,18 @@ section:has(.hero) { padding-block: 0; }
    modules beside them.
    ========================================================================== */
 
-.mega-inner--platform { grid-template-columns: 17rem 1fr; }
+/* Modules LEFT, doors RIGHT. Chip, 2026-07-29. The doors are still emitted
+   first in shell.js and are placed here, so source order (and therefore focus
+   order, and the brief's "never last in the panel") is untouched and only the
+   drawing moved. */
+.mega-inner--platform { grid-template-columns: 1fr 17rem; }
+.mega-col--doors   { grid-column: 2; grid-row: 1; }
+.mega-col--modules { grid-column: 1; grid-row: 1; }
 @media (max-width: 78rem) {
-  /* The stack holds its width and the module grid gives one column back. Three
-     blocks that narrow below about 15rem stop being squares and start being
-     labels with a paragraph under them. */
-  .mega-inner--platform { grid-template-columns: 15rem 1fr; }
+  /* The blocks hold their width and the module grid gives a column back. Blocks
+     narrower than about 15rem stop being squares and start being labels with a
+     paragraph under them. */
+  .mega-inner--platform { grid-template-columns: 1fr 15rem; }
   .mega .mod-groups { grid-template-columns: 1fr 1fr; }
 }
 

@@ -605,39 +605,25 @@
     var cols, wide = "";
 
     if (key === "platform") {
-      /* Three unequal columns as of 2026-07-29, not three equal ones. The
-       * doors take the widest, which is the point of the change: they are
-       * the two decisions the whole platform sorts people into, and at
-       * 1fr they read as one list among three. The modules take the
-       * middle width because they are a grid inside their own column. */
       wide = " mega-inner--platform";
       cols =
-        /* THE TWO DOORS FIRST. Not last, not a footnote. This is now the
-         * only panel that carries them, and that is deliberate: the
-         * Industries panel's chooser came out on 2026-07-29.
-         * .mega-col--doors is the emphasis Chip asked for on 2026-07-29.
-         * It is weight and space, never a second accent colour: the doors
-         * sit next to the header CTA, and two orange things in one
-         * component is the CTA losing. */
-        /* ONE left column holding both, overview first. Chip, 2026-07-29.
-         * The doors were the first thing in the panel from the day they moved
-         * a level deeper, and this is the one change that puts something
-         * above them: the overview is now the whole section in one page, so
-         * it is the answer to "what IS this", and the doors are the answer to
-         * "which of us am I". That order is the only reason it is allowed to
-         * sit above a locked distinctive asset.
-         * The doors keep their accent rule and their size. They are still the
-         * loudest thing in the panel and they still say exactly what they
-         * have always said. */
+        /* THE DOORS STAY FIRST IN THE SOURCE and render on the RIGHT.
+         * Chip moved them right on 2026-07-29; they are still emitted first
+         * because two rules survive that move. The brief's rule is that the
+         * doors are never the last thing in this panel, which is source
+         * order, not pixels. And a keyboard or screen-reader user reaches the
+         * two doors before fifteen module rows rather than after them.
+         * The swap is done with grid-column in styles.css, so the only thing
+         * that changed is where they are drawn. */
         '<div class="mega-col mega-col--doors">' +
           doorBlocks(current) +
         "</div>" +
-        /* No column label here. The eyebrow said "Every module, by what it is
-         * for." above five group labels that each say what they are for, in a
-         * panel opened from The Platform. Chip pulled it 2026-07-29.
+        /* No column label. The eyebrow said "Every module, by what it is for."
+         * above five group labels that each say what they are for, in a panel
+         * opened from The Platform. Chip pulled it 2026-07-29.
          * The overview closes the column the way /industries/ closes its own:
          * a tertiary named destination, no fill, under the grid. */
-        '<div class="mega-col">' +
+        '<div class="mega-col mega-col--modules">' +
           platformModuleGrid(current) +
           '<p class="mega-all">' + allLink(PLATFORM_OVERVIEW.href, PLATFORM_OVERVIEW.title, current) + "</p>" +
         "</div>";
