@@ -2267,166 +2267,6 @@ section:has(.hero) { padding-block: 0; }
   .proofbar-band { padding-block: var(--space-xl) var(--space-2xl); }
 }
 
-/* THE ACTUAL CAUSE, found after three passes that treated symptoms.
-   `.hero` carries `min-height: min(85vh, calc(100vh - var(--shell-h)))`. That
-   is 765px on a 1440x900 window, which is the ENTIRE room above the fold, so
-   the hero claimed all of it and the marks had nowhere to go. Trimming gaps
-   and type could never fix it: the height was a floor, not content.
-   The floor moves to the BAND, which is the element that now has to hold both.
-   The hero returns to its content height and the marks pin to the foot. */
-.hero-band > .editorial.hero {
-  min-height: 0;
-  padding-block: var(--space-m);
-  row-gap: var(--space-m);
-}
-.hero-band .hero-title { margin-block-start: var(--space-s); }
-.hero-band .proofbar-band {
-  padding-block-start: var(--space-l);
-  padding-block-end: var(--space-xl);
-}
-
-/* SHORT VIEWPORTS. The hero at --step-6 plus the marks needs 911px and a
-   1440x900 window offers 765 below the header and notice. Rather than let the
-   marks fall under the fold, the hero drops one step on a short screen. This
-   is a HEIGHT query, not a width one: the constraint is vertical, and a
-   1440x1100 window keeps the full hero.
-   Chip, 2026-07-29: the marks above the fold is the requirement; the hero
-   giving up one step on a laptop is what pays for it. */
-@media (min-width: 60rem) and (max-height: 820px) {
-  /* Only on a genuinely short window. With the min-height cause fixed the hero
-     keeps --step-6 at 900px; this is the last resort below that. */
-  .hero-band .hero-title { font-size: var(--step-5); }
-  .hero-band > .editorial.hero { row-gap: var(--space-s); padding-block: var(--space-s); }
-  .hero-band .proofbar-band {
-    padding-block-start: var(--space-m);
-    padding-block-end: var(--space-l);
-  }
-}
-
-/* ==========================================================================
-   THE MODULE PAGE. Chip, 2026-07-29, shaped after the DOSS module page.
-   Breadcrumb, hero, statement on a changed ground, two description blocks,
-   FAQ, previous/next.
-   ========================================================================== */
-
-
-/* Hero: type left, the module's own mark right. NOT a screenshot, and the
-   comment in the generated page says why. */
-/* THE FIGURE SITS ON THE SITE'S OWN GRID, in the right-hand columns, exactly
-   where .hero-aside sits on the homepage. It was in a wrapper grid until
-   2026-07-29, which overrode .wrap and left the h1 starting 65px to the left
-   of every other block on the page: the hero did not line up with its own
-   page. Nothing here may reintroduce a grid on .wrap. */
-.mod-hero-fig {
-  color: var(--fg-lo);
-  grid-column: col-start 9 / main-end;
-  grid-row: 1 / 4;
-  justify-self: end;
-  align-self: start;
-}
-.mod-hero .editorial > :not(.mod-hero-fig) { grid-column: main-start / span 8; }
-.mod-hero-fig svg { display: block; width: 10rem; height: 7.5rem; }
-
-
-/* THE LABEL IS DEMOTED AND THE DESCRIPTION IS PROMOTED. Chip: the section
-   headings outweighed the sentences under them, and the sentences are the
-   part anybody reads. The h2 keeps its level for structure and gives up its
-   size to a micro-label; the first description line takes lede size. */
-/* FAQ. <details>, so it works with scripts off and needs none of its own. */
-.faq { border-top: var(--rule-hair) solid var(--rule-ink); }
-.faq summary {
-  cursor: pointer;
-  list-style: none;
-  padding-block: var(--space-m);
-  font-size: var(--step-1);
-  line-height: var(--lh-heading);
-  color: var(--fg-hi);
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-l);
-}
-.faq summary::-webkit-details-marker { display: none; }
-/* A text affordance, matching the nav caret rather than introducing an icon. */
-.faq summary::after { content: "+"; flex: none; color: var(--fg-lo); }
-.faq[open] summary::after { content: "\2212"; }
-.faq summary:hover { color: var(--link); }
-.faq-a { padding-block-end: var(--space-m); }
-.faq-a p { max-width: var(--measure); }
-
-/* Previous / next. Named destinations, because "Next" alone tells a reader
-   nothing about whether they want it. */
-.mod-nav { max-width: var(--page-max); margin-inline: auto; padding: var(--space-2xl) var(--gutter) var(--space-3xl); }
-.mod-nav-inner { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-l); }
-.mod-nav-link {
-  display: flex; flex-direction: column; gap: var(--space-3xs);
-  padding-block-start: var(--space-m);
-  border-top: var(--rule-med) solid var(--rule-ink-load);
-  text-decoration: none;
-}
-.mod-nav-link--next { text-align: right; }
-/* The next link holds column 2 even when there is no previous one, so the
-   last-and-first modules do not shunt their single link to the wrong side. */
-.mod-nav-link--next:only-child { grid-column: 2; }
-.mod-nav-dir { font-family: var(--font-mono); font-size: var(--step--2);
-               letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-lo); }
-.mod-nav-name { font-size: var(--step-1); line-height: var(--lh-heading); color: var(--fg-hi); }
-.mod-nav-link:hover .mod-nav-name { color: var(--link); }
-.mod-nav-all { margin-block-start: var(--space-xl); }
-@media (max-width: 40rem) {
-  .mod-nav-inner { grid-template-columns: 1fr; }
-  .mod-nav-link--next { text-align: left; }
-  .mod-nav-link--next:only-child { grid-column: 1; }
-}
-
-/* ==========================================================================
-   MODULE PAGE RHYTHM. Rewritten 2026-07-29 after a layout pass.
-   THE DIAGNOSIS, so nobody re-flattens it: every section was .section--open,
-   which is padding-block: --space-4xl 0. One 142px interval above everything
-   and nothing below, repeated six times down the page. That is not spacing,
-   it is a single value applied until every part of the page weighs the same.
-   The measured symptom was a label sitting 53px from the sentence it belongs
-   to, which is exactly as far as it sat from the section above it.
-
-   THE THESIS: a label HUGS what it names. The two description blocks are a
-   PAIR and sit close to each other. The gap between one idea and the next
-   idea is the only generous interval on the page.
-   ========================================================================== */
-
-.mod-hero { padding-block: var(--space-2xl) var(--space-3xl); }
-.mod-body { padding-block: 0 var(--space-2xl); }
-/* The pair closes and the page changes subject, so this is the one big gap. */
-.mod-body + .mod-body { padding-block-end: var(--space-4xl); }
-.mod-faq  { padding-block: 0 var(--space-2xl); }
-
-/* The editorial grid's uniform row gap is what put the label as far from its
-   own sentence as from the section above it. These blocks author their own. */
-.mod-body .editorial,
-.mod-faq .editorial { row-gap: 0; }
-
-.mod-body-label {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  font-weight: 400;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: var(--fg-lo);
-  /* Hugs the sentence under it. The air belongs ABOVE the heading, which is
-     the section padding, not between the heading and what it names. */
-  margin-block: 0 var(--space-s);
-}
-.mod-lede p {
-  font-size: var(--step-1);
-  line-height: var(--lh-lede);
-  color: var(--fg-hi);
-  max-width: 34ch;          /* the opening line is a statement, not a column */
-}
-/* The supporting rows are one group: tight to each other, hairline between,
-   and clearly subordinate to the opening line above them. */
-.mod-body .claim {
-  margin-block-start: var(--space-m);
-  padding-block-start: var(--space-m);
-}
-.mod-body .claim p { max-width: var(--measure); }
 
 /* Hero: the type leads and the mark is a mark, not a column of its own. */
 .mod-hero .editorial { row-gap: var(--space-m); padding-block: 0; }
@@ -2444,45 +2284,9 @@ section:has(.hero) { padding-block: 0; }
    glyph in the corner. It is the module's own mark from the index, drawn at
    the scale a figure gets. It is NOT a screenshot and the generated page says
    why; when real captures land it takes their place. */
-.mod-hero-fig svg { width: 16rem; height: 12rem; }
-@media (max-width: 60rem) { .mod-hero-fig svg { width: 8rem; height: 6rem; } }
 
-/* ---- THE RESERVED SCREENSHOT SLOT ----
-   Held empty on purpose. The site has no product captures yet and inventing
-   product UI for software that does not exist is the one thing it cannot do,
-   so the space is reserved rather than filled. It keeps a fixed aspect so the
-   page does not reflow the day a real capture drops in.
-   The hairline and the greige field are the site's own devices; this is not a
-   dashed "image missing" box, because a reader should read it as a plate that
-   is coming, not as a broken asset. */
-.mod-shot { padding-block: 0 var(--space-2xl); }
-.mod-shot-frame {
-  margin: 0;
-  border: var(--rule-hair) solid var(--rule-ink-load);
-  background: var(--block);
-  aspect-ratio: 16 / 9;
-  display: grid;
-  place-content: center;
-}
-.mod-shot-frame figcaption {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: var(--fg-lo);
-  border: 0;
-  padding: 0;
-}
-/* When a real capture lands the img fills the frame and the aspect goes with
-   the file rather than being imposed on it. */
-.mod-shot-frame:not(.mod-shot--empty) { aspect-ratio: auto; display: block; }
-.mod-shot-frame img { display: block; width: 100%; height: auto; }
-@media (max-width: 40rem) { .mod-shot-frame { aspect-ratio: 4 / 3; } }
 
 @media (max-width: 60rem) {
-  .mod-hero-fig { grid-column: main; grid-row: auto; justify-self: start; order: -1; }
-  .mod-hero-fig svg { width: 8rem; height: 6rem; }
-  .mod-hero .editorial > :not(.mod-hero-fig) { grid-column: main; }
 }
 
 /* ==========================================================================
@@ -2553,3 +2357,78 @@ section:has(.hero) { padding-block: 0; }
   .cta-blocks .door-blocks { grid-template-columns: 1fr; }
   .footer-quote-grid { grid-auto-columns: minmax(16rem, 85%); }
 }
+
+/* ==========================================================================
+   MODULE FEATURE BLOCKS. 2026-07-29, on the DOSS module shape.
+   Copy left, screenshot right, same every time. The frames are empty on
+   purpose and hold their aspect so nothing reflows when captures land.
+   ========================================================================== */
+
+.mod-hero { padding-block: var(--space-2xl) var(--space-2xl); }
+.mod-hero .editorial { row-gap: var(--space-m); padding-block: 0; }
+.mod-hero h1 { margin-block-start: var(--space-2xs); max-width: 20ch; }
+/* The lede is long here by design, so it takes a reading measure rather than
+   the short statement width the old one-line lede used. */
+.mod-hero .lede-text { max-width: 54ch; }
+.mod-hero .hero-cta { margin-block-start: var(--space-s); }
+
+.mod-feature { padding-block: 0 var(--space-3xl); }
+.mod-feature-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: var(--space-2xl);
+  align-items: start;
+}
+.mod-feature-copy h2 { max-width: 22ch; }
+.mod-feature-desc {
+  margin-block-start: var(--space-m);
+  max-width: var(--measure);
+  color: var(--fg);
+}
+/* Plain markers, not bolded-phrase bullets: COPY-DIRECTION bans the bolded
+   label pattern, and a hairline row is the site's own device for a short list. */
+.mod-feature-list { list-style: none; padding: 0; margin-block-start: var(--space-l); }
+.mod-feature-list li {
+  padding-block: var(--space-s);
+  border-top: var(--rule-hair) solid var(--rule-ink);
+  color: var(--fg-hi);
+}
+.mod-feature-list li:last-child { border-bottom: var(--rule-hair) solid var(--rule-ink); }
+
+.mod-shot-frame {
+  margin: 0;
+  border: var(--rule-hair) solid var(--rule-ink-load);
+  background: var(--block);
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-content: center;
+}
+.mod-shot-frame figcaption {
+  font-family: var(--font-mono); font-size: var(--step--2);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--fg-lo); border: 0; padding: 0;
+}
+.mod-shot-frame:not(.mod-shot--empty) { aspect-ratio: auto; display: block; }
+.mod-shot-frame img { display: block; width: 100%; height: auto; }
+
+@media (max-width: 60rem) {
+  .mod-feature-inner { grid-template-columns: 1fr; gap: var(--space-l); }
+  .mod-shot-frame { aspect-ratio: 16 / 9; }
+}
+
+/* ---- FAQ ---- The answers were running the full editorial width, which is a
+   reading measure problem: a question is short and its answer was 100ch. Both
+   sit on the body measure now, and the heading stops competing with the h1. */
+.mod-faq { padding-block: 0 var(--space-2xl); }
+.mod-faq-h { margin-block-end: var(--space-l); }
+.mod-faq .faq { max-width: var(--measure-wide, 78ch); }
+.faq summary { max-width: var(--measure); }
+.faq-a p { max-width: var(--measure); }
+
+/* ---- PREVIOUS / NEXT ---- .mod-nav had its OWN max-width and gutter, which
+   is why its rules and words did not line up with the container above it: it
+   was a second, parallel page width. It uses .wrap like every other block now,
+   and the two links align to the outer edges of that container. */
+.mod-nav { padding-block: 0 var(--space-3xl); }
+.mod-nav-inner { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-l); }
+.mod-nav-all { margin-block-start: var(--space-xl); }
