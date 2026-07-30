@@ -84,40 +84,65 @@
 
 <main id="main">
 
-  <!-- GENERATED. Do not hand-edit this file.
-       Source of truth is the module record in the site's module table; this
-       page, its menu row, its row in the index on /platform/ and its icon all
-       render from that one record, so a module can only ever be wrong in one
-       place. Re-running the generator overwrites anything typed here.
+  <!-- GENERATED. Do not hand-edit this file: the generator overwrites it.
+       Source of truth is the module table plus its extras record.
 
-       The copy rules the record was written under, restated because this is
-       where a reader would break them: present tense (Chip, 2026-07-29, this
-       is a sample site showing everything live); ConvergX asks, decides, vets,
-       brokers and convenes, and never knows, sees, verifies, checks, confirms
-       or watches; a PERSON decides and no module is ever the subject of a
-       decision verb; zero numbers, because there are no cleared ones. -->
-  <section class="section--open">
+       PAGE SHAPE, 2026-07-29, modelled on the DOSS module page at Chip's
+       direction: breadcrumb, hero, a statement on a changed ground, the two
+       description blocks, an FAQ, and previous/next.
+       TWO PARTS OF THAT MODEL ARE DELIBERATELY ABSENT and are not to be
+       added back without Chip:
+         1. STAT CALLOUTS. DOSS opens on "3x faster deployment". ConvergX has
+            zero cleared numbers, so this page carries mechanism, never
+            magnitude.
+         2. PRODUCT SCREENSHOTS. DOSS is screenshot-led. Twelve of the fifteen
+            modules do not exist, so a screenshot here would be invented
+            product UI. The figure slot takes the module's own hairline mark
+            instead, which claims nothing.
+       The copy rules are unchanged: present tense; ConvergX asks, decides,
+       vets, brokers and convenes and never knows, sees or verifies; a PERSON
+       decides and no module is the subject of a decision verb. -->
+
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/platform/">Platform</a></li>
+      <li><a href="/platform/#modules">All modules</a></li>
+      <li aria-current="page">Supplier Scoring</li>
+    </ol>
+  </nav>
+
+  <section class="section--open mod-hero">
     <div class="wrap">
       <div class="editorial">
-        <span class="grp-icon grp-icon--lead" aria-hidden="true"><svg viewBox="0 0 64 48" width="64" height="48" focusable="false"><line class="fig-solid" x1="6" y1="40" x2="60" y2="40"/><line class="fig-solid" x1="14" y1="40" x2="14" y2="22"/><line class="fig-solid" x1="26" y1="40" x2="26" y2="12"/><line class="fig-solid" x1="38" y1="40" x2="38" y2="28"/><line class="fig-solid" x1="50" y1="40" x2="50" y2="18"/><path class="fig-dash" d="M6 16 H60"/></svg></span>
+        <span class="label label--edge">Deciding who should meet</span>
         <h1>A capability record gets scored against the requirement in front of it.</h1>
         <p class="lede-text">A company is not good or bad in the abstract. It is a fit for this requirement or it is not.</p>
+        <p class="hero-cta"><a class="btn btn--solid" href="/access/request/">Request access</a></p>
+      </div>
+      <div class="mod-hero-fig" aria-hidden="true">
+        <svg viewBox="0 0 64 48" focusable="false"><line class="fig-solid" x1="6" y1="40" x2="60" y2="40"/><line class="fig-solid" x1="14" y1="40" x2="14" y2="22"/><line class="fig-solid" x1="26" y1="40" x2="26" y2="12"/><line class="fig-solid" x1="38" y1="40" x2="38" y2="28"/><line class="fig-solid" x1="50" y1="40" x2="50" y2="18"/><path class="fig-dash" d="M6 16 H60"/></svg>
       </div>
     </div>
   </section>
 
-  <hr class="rule-double">
-
-  <section>
+  <!-- The statement, on the page's one changed ground. It builds off the h1
+       rather than restating it, and it is the only place the module's REASON
+       is stated rather than its behaviour. -->
+  <section class="mod-statement" data-surface="light">
     <div class="wrap">
-      <div class="sec-head">
-        <h2>What it does</h2>
-        <span class="label label--lo label--edge">Deciding who should meet</span>
-      </div>
+      <p class="say">You still qualify the company yourself. What changes is what you spend the qualification looking for.</p>
+    </div>
+  </section>
+
+  <!-- The two description blocks. THE LABEL IS DEMOTED ON PURPOSE (Chip,
+       2026-07-29): "What it does" was set at h2 weight and outweighed the
+       sentences under it, which are the part anybody reads. The heading is
+       now a micro-label and the description carries the size. -->
+  <section class="section--open mod-body">
+    <div class="wrap">
       <div class="editorial">
-        <div class="claim">
-          <p>Scoring runs against one requirement at a time, so the same company scores differently for different work.</p>
-        </div>
+        <h2 class="mod-body-label">What it does</h2>
+        <div class="mod-lede"><p>Scoring runs against one requirement at a time, so the same company scores differently for different work.</p></div>
         <div class="claim">
           <p>What comes out is material a person at ConvergX reads before deciding. It is an input to that reading, not a substitute for it.</p>
         </div>
@@ -128,27 +153,51 @@
     </div>
   </section>
 
-  <section class="section--open">
+  <section class="section--open mod-body">
     <div class="wrap">
-      <div class="sec-head">
-        <h2>Where it stops</h2>
-        <span class="label label--lo label--edge">Scope</span>
-      </div>
       <div class="editorial">
-        <div class="body">
-          <p>Nothing here decides. A score cannot rule a company in or out, and no score reaches the other side of an introduction.</p>
-        </div>
+        <h2 class="mod-body-label">Where it stops</h2>
+        <div class="mod-lede"><p>Nothing here decides. A score cannot rule a company in or out, and no score reaches the other side of an introduction.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="section--dense">
+  <!-- FAQ. Native <details>, so it opens with JavaScript disabled and needs
+       no script of its own. An FAQ invites reassurance and reassurance is
+       where invented capability gets in: where the honest answer is "a person
+       does that" or "it does not", the answer says so. -->
+  <section class="section--open mod-faq">
     <div class="wrap">
-      <hr class="rule rule--load">
-      <p class="push-l"><a class="link-more" href="/platform/#modules">All fifteen modules</a></p>
-      <p><a class="btn btn--solid" href="/access/request/">Request access</a></p>
+      <div class="sec-head">
+        <h2>Common questions</h2>
+        <span class="label label--lo label--edge">FAQ</span>
+      </div>
+      <div class="editorial">
+        <details class="faq">
+          <summary>Does a score decide anything?</summary>
+          <div class="faq-a"><p>No. A score is material a person at ConvergX reads before deciding. It cannot rule a company in or out.</p></div>
+        </details>
+        <details class="faq">
+          <summary>Does the other side see its score?</summary>
+          <div class="faq-a"><p>No score reaches either side of an introduction.</p></div>
+        </details>
+        <details class="faq">
+          <summary>Does a score follow a company between sectors?</summary>
+          <div class="faq-a"><p>No. Scoring runs against one requirement at a time and does not travel outside the sector it was earned in.</p></div>
+        </details>
+      </div>
     </div>
   </section>
+
+  <nav class="mod-nav" aria-label="Modules">
+    <div class="wrap">
+      <div class="mod-nav-inner">
+        <a class="mod-nav-link mod-nav-link--prev" href="/platform/modules/rfp-authoring/"><span class="mod-nav-dir">Previous module</span><span class="mod-nav-name">RFP Authoring</span></a>
+        <a class="mod-nav-link mod-nav-link--next" href="/platform/modules/matching-engine/"><span class="mod-nav-dir">Next module</span><span class="mod-nav-name">Matching Engine</span></a>
+      </div>
+      <p class="mod-nav-all"><a class="link-more" href="/platform/#modules">All fifteen modules</a></p>
+    </div>
+  </nav>
 
 </main>
 

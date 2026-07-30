@@ -2347,3 +2347,102 @@ section:has(.hero) { padding-block: 0; }
     padding-block-end: var(--space-l);
   }
 }
+
+/* ==========================================================================
+   THE MODULE PAGE. Chip, 2026-07-29, shaped after the DOSS module page.
+   Breadcrumb, hero, statement on a changed ground, two description blocks,
+   FAQ, previous/next.
+   ========================================================================== */
+
+.crumbs {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding: var(--space-l) var(--gutter) 0;
+}
+.crumbs ol { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-2xs); }
+.crumbs li { font-size: var(--step--2); letter-spacing: var(--track-label); text-transform: uppercase;
+             font-family: var(--font-mono); color: var(--fg-lo); }
+/* The separator is generated, so the markup carries no punctuation a screen
+   reader would read aloud between every crumb. */
+.crumbs li + li::before { content: "/"; margin-inline-end: var(--space-2xs); color: var(--fg-lo); }
+.crumbs a { color: var(--fg-lo); text-decoration: none; }
+.crumbs a:hover { color: var(--link); }
+
+/* Hero: type left, the module's own mark right. NOT a screenshot, and the
+   comment in the generated page says why. */
+.mod-hero .wrap { display: grid; grid-template-columns: 1fr auto; gap: var(--space-2xl); align-items: start; }
+.mod-hero-fig { color: var(--fg-lo); }
+.mod-hero-fig svg { display: block; width: 10rem; height: 7.5rem; }
+@media (max-width: 60rem) {
+  .mod-hero .wrap { grid-template-columns: 1fr; }
+  .mod-hero-fig { order: -1; }
+  .mod-hero-fig svg { width: 6rem; height: 4.5rem; }
+}
+
+/* The statement band. Its own ground, per Chip: the module pages are muted,
+   so the band is paper. One sentence, set at display size. */
+.mod-statement { padding-block: var(--space-3xl); }
+.mod-statement .say { max-width: 24ch; font-size: var(--step-3); line-height: var(--lh-heading); }
+@media (max-width: 60rem) { .mod-statement .say { max-width: none; font-size: var(--step-2); } }
+
+/* THE LABEL IS DEMOTED AND THE DESCRIPTION IS PROMOTED. Chip: the section
+   headings outweighed the sentences under them, and the sentences are the
+   part anybody reads. The h2 keeps its level for structure and gives up its
+   size to a micro-label; the first description line takes lede size. */
+.mod-body-label {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 400;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--fg-lo);
+  margin-block-end: var(--space-m);
+}
+.mod-lede p { font-size: var(--step-1); line-height: var(--lh-lede); color: var(--fg-hi); max-width: var(--measure); }
+.mod-body .claim { margin-block-start: var(--space-l); }
+
+/* FAQ. <details>, so it works with scripts off and needs none of its own. */
+.faq { border-top: var(--rule-hair) solid var(--rule-ink); }
+.faq summary {
+  cursor: pointer;
+  list-style: none;
+  padding-block: var(--space-m);
+  font-size: var(--step-1);
+  line-height: var(--lh-heading);
+  color: var(--fg-hi);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-l);
+}
+.faq summary::-webkit-details-marker { display: none; }
+/* A text affordance, matching the nav caret rather than introducing an icon. */
+.faq summary::after { content: "+"; flex: none; color: var(--fg-lo); }
+.faq[open] summary::after { content: "\2212"; }
+.faq summary:hover { color: var(--link); }
+.faq-a { padding-block-end: var(--space-m); }
+.faq-a p { max-width: var(--measure); }
+
+/* Previous / next. Named destinations, because "Next" alone tells a reader
+   nothing about whether they want it. */
+.mod-nav { max-width: var(--page-max); margin-inline: auto; padding: var(--space-2xl) var(--gutter) var(--space-3xl); }
+.mod-nav-inner { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-l); }
+.mod-nav-link {
+  display: flex; flex-direction: column; gap: var(--space-3xs);
+  padding-block-start: var(--space-m);
+  border-top: var(--rule-med) solid var(--rule-ink-load);
+  text-decoration: none;
+}
+.mod-nav-link--next { text-align: right; }
+/* The next link holds column 2 even when there is no previous one, so the
+   last-and-first modules do not shunt their single link to the wrong side. */
+.mod-nav-link--next:only-child { grid-column: 2; }
+.mod-nav-dir { font-family: var(--font-mono); font-size: var(--step--2);
+               letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-lo); }
+.mod-nav-name { font-size: var(--step-1); line-height: var(--lh-heading); color: var(--fg-hi); }
+.mod-nav-link:hover .mod-nav-name { color: var(--link); }
+.mod-nav-all { margin-block-start: var(--space-xl); }
+@media (max-width: 40rem) {
+  .mod-nav-inner { grid-template-columns: 1fr; }
+  .mod-nav-link--next { text-align: left; }
+  .mod-nav-link--next:only-child { grid-column: 1; }
+}

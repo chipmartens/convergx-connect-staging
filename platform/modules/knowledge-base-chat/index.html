@@ -84,40 +84,65 @@
 
 <main id="main">
 
-  <!-- GENERATED. Do not hand-edit this file.
-       Source of truth is the module record in the site's module table; this
-       page, its menu row, its row in the index on /platform/ and its icon all
-       render from that one record, so a module can only ever be wrong in one
-       place. Re-running the generator overwrites anything typed here.
+  <!-- GENERATED. Do not hand-edit this file: the generator overwrites it.
+       Source of truth is the module table plus its extras record.
 
-       The copy rules the record was written under, restated because this is
-       where a reader would break them: present tense (Chip, 2026-07-29, this
-       is a sample site showing everything live); ConvergX asks, decides, vets,
-       brokers and convenes, and never knows, sees, verifies, checks, confirms
-       or watches; a PERSON decides and no module is ever the subject of a
-       decision verb; zero numbers, because there are no cleared ones. -->
-  <section class="section--open">
+       PAGE SHAPE, 2026-07-29, modelled on the DOSS module page at Chip's
+       direction: breadcrumb, hero, a statement on a changed ground, the two
+       description blocks, an FAQ, and previous/next.
+       TWO PARTS OF THAT MODEL ARE DELIBERATELY ABSENT and are not to be
+       added back without Chip:
+         1. STAT CALLOUTS. DOSS opens on "3x faster deployment". ConvergX has
+            zero cleared numbers, so this page carries mechanism, never
+            magnitude.
+         2. PRODUCT SCREENSHOTS. DOSS is screenshot-led. Twelve of the fifteen
+            modules do not exist, so a screenshot here would be invented
+            product UI. The figure slot takes the module's own hairline mark
+            instead, which claims nothing.
+       The copy rules are unchanged: present tense; ConvergX asks, decides,
+       vets, brokers and convenes and never knows, sees or verifies; a PERSON
+       decides and no module is the subject of a decision verb. -->
+
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/platform/">Platform</a></li>
+      <li><a href="/platform/#modules">All modules</a></li>
+      <li aria-current="page">Knowledge-Base Chat</li>
+    </ol>
+  </nav>
+
+  <section class="section--open mod-hero">
     <div class="wrap">
       <div class="editorial">
-        <span class="grp-icon grp-icon--lead" aria-hidden="true"><svg viewBox="0 0 64 48" width="64" height="48" focusable="false"><path class="fig-solid" d="M8 10 H48 V32 H24 L14 40 V32 H8 Z"/><line class="fig-solid" x1="16" y1="18" x2="40" y2="18"/><line class="fig-solid" x1="16" y1="25" x2="32" y2="25"/><circle class="fig-dot" cx="57" cy="21" r="3"/></svg></span>
+        <span class="label label--edge">Reference</span>
         <h1>Ask the reference material a question.</h1>
         <p class="lede-text">The answer to most questions about how this works is already written down somewhere nobody wants to read.</p>
+        <p class="hero-cta"><a class="btn btn--solid" href="/access/request/">Request access</a></p>
+      </div>
+      <div class="mod-hero-fig" aria-hidden="true">
+        <svg viewBox="0 0 64 48" focusable="false"><path class="fig-solid" d="M8 10 H48 V32 H24 L14 40 V32 H8 Z"/><line class="fig-solid" x1="16" y1="18" x2="40" y2="18"/><line class="fig-solid" x1="16" y1="25" x2="32" y2="25"/><circle class="fig-dot" cx="57" cy="21" r="3"/></svg>
       </div>
     </div>
   </section>
 
-  <hr class="rule-double">
-
-  <section>
+  <!-- The statement, on the page's one changed ground. It builds off the h1
+       rather than restating it, and it is the only place the module's REASON
+       is stated rather than its behaviour. -->
+  <section class="mod-statement" data-surface="light">
     <div class="wrap">
-      <div class="sec-head">
-        <h2>What it does</h2>
-        <span class="label label--lo label--edge">Reference</span>
-      </div>
+      <p class="say">It answers about the material and nothing else, which is the only reason it can be trusted to answer at all.</p>
+    </div>
+  </section>
+
+  <!-- The two description blocks. THE LABEL IS DEMOTED ON PURPOSE (Chip,
+       2026-07-29): "What it does" was set at h2 weight and outweighed the
+       sentences under it, which are the part anybody reads. The heading is
+       now a micro-label and the description carries the size. -->
+  <section class="section--open mod-body">
+    <div class="wrap">
       <div class="editorial">
-        <div class="claim">
-          <p>Questions get answered out of ConvergX reference material.</p>
-        </div>
+        <h2 class="mod-body-label">What it does</h2>
+        <div class="mod-lede"><p>Questions get answered out of ConvergX reference material.</p></div>
         <div class="claim">
           <p>The material it answers from is material ConvergX published, so an answer can be traced back to something.</p>
         </div>
@@ -128,27 +153,51 @@
     </div>
   </section>
 
-  <section class="section--open">
+  <section class="section--open mod-body">
     <div class="wrap">
-      <div class="sec-head">
-        <h2>Where it stops</h2>
-        <span class="label label--lo label--edge">Scope</span>
-      </div>
       <div class="editorial">
-        <div class="body">
-          <p>It answers about the reference material and nothing else. It does not answer about a company, a requirement or a match, and it has no part in who meets.</p>
-        </div>
+        <h2 class="mod-body-label">Where it stops</h2>
+        <div class="mod-lede"><p>It answers about the reference material and nothing else. It does not answer about a company, a requirement or a match, and it has no part in who meets.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="section--dense">
+  <!-- FAQ. Native <details>, so it opens with JavaScript disabled and needs
+       no script of its own. An FAQ invites reassurance and reassurance is
+       where invented capability gets in: where the honest answer is "a person
+       does that" or "it does not", the answer says so. -->
+  <section class="section--open mod-faq">
     <div class="wrap">
-      <hr class="rule rule--load">
-      <p class="push-l"><a class="link-more" href="/platform/#modules">All fifteen modules</a></p>
-      <p><a class="btn btn--solid" href="/access/request/">Request access</a></p>
+      <div class="sec-head">
+        <h2>Common questions</h2>
+        <span class="label label--lo label--edge">FAQ</span>
+      </div>
+      <div class="editorial">
+        <details class="faq">
+          <summary>What can it answer about?</summary>
+          <div class="faq-a"><p>ConvergX reference material, and nothing else. It does not answer about a company, a requirement or a match.</p></div>
+        </details>
+        <details class="faq">
+          <summary>Where do the answers come from?</summary>
+          <div class="faq-a"><p>Material ConvergX published, so an answer can be traced back to something.</p></div>
+        </details>
+        <details class="faq">
+          <summary>Does it have any part in who meets?</summary>
+          <div class="faq-a"><p>None.</p></div>
+        </details>
+      </div>
     </div>
   </section>
+
+  <nav class="mod-nav" aria-label="Modules">
+    <div class="wrap">
+      <div class="mod-nav-inner">
+        <a class="mod-nav-link mod-nav-link--prev" href="/platform/modules/event-management/"><span class="mod-nav-dir">Previous module</span><span class="mod-nav-name">Event Management</span></a>
+        <a class="mod-nav-link mod-nav-link--next" href="/platform/modules/trade-agreements-library/"><span class="mod-nav-dir">Next module</span><span class="mod-nav-name">Trade Agreements Library</span></a>
+      </div>
+      <p class="mod-nav-all"><a class="link-more" href="/platform/#modules">All fifteen modules</a></p>
+    </div>
+  </nav>
 
 </main>
 
