@@ -2569,3 +2569,72 @@ section:has(.hero) { padding-block: 0; }
 @media (max-width: 60rem) {
   .footer-quote-grid { grid-auto-columns: calc((100% - var(--space-l)) / 1.6); }
 }
+
+/* ==========================================================================
+   ONE HERO OFFSET, SITE-WIDE. Chip, 2026-07-29, the last thing before launch.
+   The distance from the header to the first thing in a hero was SIX different
+   numbers depending on which page you were on: 27 on the homepage, 54 on the
+   platform and congress heroes, 57 on Find capability, 64 on a sector page,
+   72 on a module page, and 144 on every page whose h1 sits straight under the
+   header with no eyebrow above it.
+   The module pages are the reference (Chip's call), so everything is 72 now.
+   --hero-offset is the single value. Change it here and every hero moves
+   together; that is the whole point of it existing.
+   ========================================================================== */
+
+:root { --hero-offset: var(--space-2xl); }
+
+/* Heroes that carry a .hero editorial: platform, the two doors, congress,
+   the sector pages. section:has(.hero) zeroes the section, so .hero owns it. */
+.hero { padding-block: var(--hero-offset) var(--space-xl); }
+
+/* The homepage band, which puts its padding on the editorial rather than the
+   section because the band also has to hold the proof bar. */
+.hero-band > .editorial.hero { padding-block: var(--hero-offset) var(--space-m); }
+
+/* Module pages. Already at this value; stated through the token so it cannot
+   drift away from the others again. */
+.mod-hero { padding-block: var(--hero-offset) var(--space-2xl); }
+
+/* Pages with NO eyebrow, whose h1 sits directly under the header. These were
+   inheriting .section--open's --space-4xl, which is the correct interval
+   BETWEEN sections and far too much as the first one on a page.
+   Scoped to the first section only, so mid-page rhythm is untouched. */
+main > section:first-child:not(:has(.hero)) { padding-block-start: var(--hero-offset); }
+
+/* The sector heroes centre their copy against a full-height media column, and
+   that centring put the eyebrow 64px lower than every other page on the site.
+   Top-aligned so the eyebrow lands on --hero-offset like the rest, and the
+   copy column's own padding comes off because the section now supplies it.
+   The media column still bleeds full height; only the copy moved. */
+.hero-vert-copy { align-self: start; padding-block: 0; }
+/* The sector eyebrow is wrapped in a bare <header>, which inherits the body
+   line unit (1.55) while the label inside it sets --lh-label. The difference
+   is half-leading above the text, and it was putting the sector eyebrows 10px
+   lower than every other page. The wrapper takes the label's own leading. */
+/* ANY hero eyebrow wrapper, not just the sector one. A <header> or .hero-head
+   holding a single inline label still contributes the line box's half-leading
+   above it, and that inherited body leading (27.9px against the label's 13.75)
+   is what left the sector and app heroes 4 to 10px lower than every other
+   page. As a flex container the wrapper's box IS the label's box.
+   :has() is already used elsewhere in this file, so no new support floor. */
+.hero-vert-copy > header,
+.hero-head,
+header:has(> .label:only-child) {
+  display: flex;
+  line-height: var(--lh-label);
+}
+/* .hero-head carries align-self: end so the kicker sits on the h1's shoulder.
+   Where its grid row is exactly the label's height that is identical to start,
+   which is every hero but one: on /congress/the-app/ the row is taller and end
+   pushed the eyebrow 11px down. start is the no-op everywhere else and the fix
+   there, so the offset is one number on every page. */
+.hero-head { align-self: start; }
+/* .hero distributes its slack with align-content: center against a 85vh
+   min-height. Where the content nearly fills that height the centring is
+   invisible; where it does not (/congress/the-app/ is 60 words) it pushes the
+   eyebrow down, which is the last thing making the offset vary by page.
+   Top-aligned: the eyebrow now starts at --hero-offset on every page, and the
+   slack falls below the hero where it reads as air rather than as a different
+   starting position. */
+.hero { align-content: start; }
