@@ -146,7 +146,6 @@
   var NUM = ["zero", "one", "two", "three", "four", "five", "six", "seven",
              "eight", "nine", "ten", "eleven", "twelve"];
   function numWord(n) { return NUM[n] || String(n); }
-  function capitalise(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
   /* The Industries panel. One line each, drawn from the copy already live
    * on /industries/ and on each sector page: no new claim enters the site
@@ -579,7 +578,6 @@
   }
 
   /* Every count that renders is generated from the array it counts. */
-  function industriesLabel() { return capitalise(numWord(INDUSTRIES.length)) + " industries"; }
   function allIndustriesLabel() { return "All " + numWord(INDUSTRIES.length) + " industries"; }
 
   function megaCol(id, label, body, cls) {
@@ -647,10 +645,19 @@
        * how many sectors exist: cells flow, so the grid absorbs a sector
        * arriving or being pulled without a line changing here or there. */
       wide = " mega-inner--1";
-      cols = megaCol(id + "-h", industriesLabel(),
-        indexList(INDUSTRIES, current, ' aria-labelledby="' + id + '-h"',
+      /* NO EYEBROW. Chip, 2026-07-29: it read "Eight industries" above a grid
+       * of eight named industries in a panel opened from Industries.
+       * The column is built without megaCol because megaCol's whole job is to
+       * render that label. The list keeps an accessible NAME via aria-label:
+       * without it the aria-labelledby would point at an element that no
+       * longer exists and the grid would be an unnamed list of eight links.
+       * The name is the plain word, no count. Typed counts go stale; that is
+       * the same reason the closing link derives its own from the array. */
+      cols = '<div class="mega-col">' +
+        indexList(INDUSTRIES, current, ' aria-label="Industries"',
                   "link-index--grid", promoCell()) +
-        '<p class="mega-all">' + allLink("/industries/", allIndustriesLabel(), current) + "</p>");
+        '<p class="mega-all">' + allLink("/industries/", allIndustriesLabel(), current) + "</p>" +
+      "</div>";
     }
 
     return (
@@ -694,7 +701,7 @@
        * the same last cell the desktop grid carries, so a no-grid reader
        * loses nothing. */
       body =
-        indexList(INDUSTRIES, current, ' aria-label="' + industriesLabel() + '"',
+        indexList(INDUSTRIES, current, ' aria-label="Industries"',
                   "", promoCell()) +
         '<p class="nav-sub-all">' + allLink("/industries/", allIndustriesLabel(), current) + "</p>";
     }
