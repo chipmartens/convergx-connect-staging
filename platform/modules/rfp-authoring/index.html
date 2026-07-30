@@ -86,26 +86,20 @@
 
   <!-- GENERATED. Do not hand-edit: the generator overwrites this file.
 
-       SHAPE, 2026-07-29, modelled on the DOSS module page at Chip's direction:
-       eyebrow is the MODULE NAME, h1 is "<the thing> that <the outcome>", the
-       lede is verb-led capability then value, then feature blocks that each
-       carry a title, a description, three bullets and a screenshot to the
-       right. Same shape for every feature, every module.
+       ONE FEATURE BLOCK PER CAPABILITY, not a fixed number (Chip, 2026-07-29).
+       The count follows what the module actually has, three or four here, and
+       each block's DESCRIPTION is that module's own existing claim. No new
+       capability enters through this structure; the titles and bullets are
+       new, the claims are not.
 
-       WHAT IS NOT HERE, and none of it returns without Chip:
-         - stat callouts. There are no cleared numbers.
-         - "Where it stops". Retired 2026-07-29; every line it carried is
-           already in this module's FAQ, checked one by one before deleting.
-         - the hero mark and the full-width capture slot above the body. Both
-           pulled the same day.
        The screenshot frames are EMPTY ON PURPOSE. Inventing product UI for a
-       module that does not exist is the one thing this site cannot do; when
-       real captures land (see _reference/QUEUED-JARVIS-SCREENSHOTS.md) they
-       drop straight into these frames.
+       module that does not exist is the one thing this site cannot do. When
+       captures land (_reference/QUEUED-JARVIS-SCREENSHOTS.md) they drop into
+       these frames and the aspect stops being imposed.
 
-       Copy rules unchanged: present tense; ConvergX asks, decides, vets,
-       brokers and convenes, never knows or verifies; a PERSON decides and no
-       module is the subject of a decision verb; zero numbers. -->
+       Copy rules: present tense; ConvergX asks, decides, vets, brokers and
+       convenes, never knows or verifies; a PERSON decides and no module is
+       the subject of a decision verb; zero numbers. -->
 
   <section class="mod-hero">
     <div class="wrap">
@@ -118,20 +112,24 @@
     </div>
   </section>
 
+  <!-- The hero closes on a rule, with air either side of it, so the features
+       start as their own movement rather than running on from the CTA. -->
+  <div class="wrap"><hr class="rule rule--load mod-rule"></div>
+
   <section class="mod-feature">
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Draft straight into the fields that carry the requirement</h2>
-          <p class="mod-feature-desc">You write the requirement in the platform, in the fields it will be read in. It is structured the moment you finish, so nothing is transcribed afterwards.</p>
+          <p class="mod-feature-n">01</p>
+          <h2>Draft straight into the fields that carry it</h2>
+          <p class="mod-feature-desc">You draft in the fields the requirement will be read in, so nothing is transcribed.</p>
           <ul class="mod-feature-list">
             <li>Author in the fields themselves</li>
-            <li>Structured as you write it</li>
-            <li>No transcription step afterwards</li>
+            <li>No separate form afterwards</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Draft straight into the fields that carry the requirement. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Draft straight into the fields that carry it. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>RFP Authoring</figcaption>
         </figure>
       </div>
@@ -142,16 +140,36 @@
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Decide for yourself when the requirement goes live</h2>
-          <p class="mod-feature-desc">Authoring is not the same as publishing. The draft stays yours until you post it, and ConvergX can still decline the post once it reaches the board.</p>
+          <p class="mod-feature-n">02</p>
+          <h2>Finish writing with the structure already done</h2>
+          <p class="mod-feature-desc">Everything you write lands in a field, so the requirement is comparable the moment it posts.</p>
           <ul class="mod-feature-list">
-            <li>Drafts stay private to you</li>
-            <li>You choose when it posts</li>
+            <li>Every line lands in a field</li>
+            <li>Comparable the moment it posts</li>
+          </ul>
+        </div>
+        <figure class="mod-shot-frame mod-shot--empty"
+                data-spec="Screenshot: Finish writing with the structure already done. Scrubbed or synthetic data, no real attendee or company names">
+          <figcaption>RFP Authoring</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="mod-feature">
+    <div class="wrap">
+      <div class="mod-feature-inner">
+        <div class="mod-feature-copy">
+          <p class="mod-feature-n">03</p>
+          <h2>Keep the draft private until you decide</h2>
+          <p class="mod-feature-desc">The draft stays yours until you post it.</p>
+          <ul class="mod-feature-list">
+            <li>Yours until you post it</li>
             <li>ConvergX can still decline it</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Decide for yourself when the requirement goes live. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Keep the draft private until you decide. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>RFP Authoring</figcaption>
         </figure>
       </div>
@@ -161,18 +179,21 @@
 
   <section class="mod-faq">
     <div class="wrap">
-      <div class="editorial">
-        <h2 class="mod-faq-h">Common questions</h2>
+      <div class="sec-head">
+        <h2>Common questions</h2>
+        <span class="label label--lo label--edge">RFP Authoring</span>
+      </div>
+      <div class="mod-faq-list">
         <details class="faq">
-          <summary>Is a draft visible to anyone?</summary>
+          <summary><span>Is a draft visible to anyone?</span></summary>
           <div class="faq-a"><p>No. The draft stays yours until you post it.</p></div>
         </details>
         <details class="faq">
-          <summary>Can I still write it elsewhere?</summary>
+          <summary><span>Can I still write it elsewhere?</span></summary>
           <div class="faq-a"><p>Yes. RFP Intake takes a document you already wrote and turns it into the same fields.</p></div>
         </details>
         <details class="faq">
-          <summary>Does drafting publish it?</summary>
+          <summary><span>Does drafting publish it?</span></summary>
           <div class="faq-a"><p>No. A drafted requirement goes on the board when you decide it does, and ConvergX can still decline it.</p></div>
         </details>
       </div>
@@ -185,7 +206,6 @@
         <a class="mod-nav-link mod-nav-link--prev" href="/platform/modules/tender-scraping/"><span class="mod-nav-dir">Previous module</span><span class="mod-nav-name">Tender Scraping</span></a>
         <a class="mod-nav-link mod-nav-link--next" href="/platform/modules/supplier-scoring/"><span class="mod-nav-dir">Next module</span><span class="mod-nav-name">Supplier Scoring</span></a>
       </div>
-      <p class="mod-nav-all"><a class="link-more" href="/platform/#modules">All fifteen modules</a></p>
     </div>
   </nav>
 

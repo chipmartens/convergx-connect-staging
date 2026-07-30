@@ -86,26 +86,20 @@
 
   <!-- GENERATED. Do not hand-edit: the generator overwrites this file.
 
-       SHAPE, 2026-07-29, modelled on the DOSS module page at Chip's direction:
-       eyebrow is the MODULE NAME, h1 is "<the thing> that <the outcome>", the
-       lede is verb-led capability then value, then feature blocks that each
-       carry a title, a description, three bullets and a screenshot to the
-       right. Same shape for every feature, every module.
+       ONE FEATURE BLOCK PER CAPABILITY, not a fixed number (Chip, 2026-07-29).
+       The count follows what the module actually has, three or four here, and
+       each block's DESCRIPTION is that module's own existing claim. No new
+       capability enters through this structure; the titles and bullets are
+       new, the claims are not.
 
-       WHAT IS NOT HERE, and none of it returns without Chip:
-         - stat callouts. There are no cleared numbers.
-         - "Where it stops". Retired 2026-07-29; every line it carried is
-           already in this module's FAQ, checked one by one before deleting.
-         - the hero mark and the full-width capture slot above the body. Both
-           pulled the same day.
        The screenshot frames are EMPTY ON PURPOSE. Inventing product UI for a
-       module that does not exist is the one thing this site cannot do; when
-       real captures land (see _reference/QUEUED-JARVIS-SCREENSHOTS.md) they
-       drop straight into these frames.
+       module that does not exist is the one thing this site cannot do. When
+       captures land (_reference/QUEUED-JARVIS-SCREENSHOTS.md) they drop into
+       these frames and the aspect stops being imposed.
 
-       Copy rules unchanged: present tense; ConvergX asks, decides, vets,
-       brokers and convenes, never knows or verifies; a PERSON decides and no
-       module is the subject of a decision verb; zero numbers. -->
+       Copy rules: present tense; ConvergX asks, decides, vets, brokers and
+       convenes, never knows or verifies; a PERSON decides and no module is
+       the subject of a decision verb; zero numbers. -->
 
   <section class="mod-hero">
     <div class="wrap">
@@ -118,20 +112,24 @@
     </div>
   </section>
 
+  <!-- The hero closes on a rule, with air either side of it, so the features
+       start as their own movement rather than running on from the CTA. -->
+  <div class="wrap"><hr class="rule rule--load mod-rule"></div>
+
   <section class="mod-feature">
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Run registration and scheduling from a single place</h2>
-          <p class="mod-feature-desc">Registration runs through the platform, so who is coming is one list rather than several. Sessions get scheduled in the same place the agenda is read from.</p>
+          <p class="mod-feature-n">01</p>
+          <h2>Keep one list of who is actually coming</h2>
+          <p class="mod-feature-desc">Registration runs in one place, so who is coming is one list and not several.</p>
           <ul class="mod-feature-list">
-            <li>One registration list, not several</li>
-            <li>Scheduled where the agenda is read</li>
-            <li>Delegate logistics in the same place</li>
+            <li>One registration list</li>
+            <li>Not several spreadsheets</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Run registration and scheduling from a single place. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Keep one list of who is actually coming. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Event Management</figcaption>
         </figure>
       </div>
@@ -142,16 +140,36 @@
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Keep the operations side away from who meets whom</h2>
-          <p class="mod-feature-desc">None of this decides who meets whom. That is decided by a person at ConvergX, one introduction at a time, and never by a room, a slot or a schedule.</p>
+          <p class="mod-feature-n">02</p>
+          <h2>Schedule where the agenda is read from</h2>
+          <p class="mod-feature-desc">Sessions get scheduled and rescheduled in the same place the agenda is read from.</p>
           <ul class="mod-feature-list">
-            <li>Operations and logistics only</li>
-            <li>No bearing on introductions</li>
-            <li>A person decides, never a schedule</li>
+            <li>Scheduled and rescheduled in place</li>
+            <li>The same source as the agenda</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Keep the operations side away from who meets whom. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Schedule where the agenda is read from. Scrubbed or synthetic data, no real attendee or company names">
+          <figcaption>Event Management</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="mod-feature">
+    <div class="wrap">
+      <div class="mod-feature-inner">
+        <div class="mod-feature-copy">
+          <p class="mod-feature-n">03</p>
+          <h2>Keep logistics with the event itself</h2>
+          <p class="mod-feature-desc">Delegate logistics sit with the event rather than in a spreadsheet beside it.</p>
+          <ul class="mod-feature-list">
+            <li>Not a spreadsheet beside it</li>
+            <li>No bearing on introductions</li>
+          </ul>
+        </div>
+        <figure class="mod-shot-frame mod-shot--empty"
+                data-spec="Screenshot: Keep logistics with the event itself. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Event Management</figcaption>
         </figure>
       </div>
@@ -161,18 +179,21 @@
 
   <section class="mod-faq">
     <div class="wrap">
-      <div class="editorial">
-        <h2 class="mod-faq-h">Common questions</h2>
+      <div class="sec-head">
+        <h2>Common questions</h2>
+        <span class="label label--lo label--edge">Event Management</span>
+      </div>
+      <div class="mod-faq-list">
         <details class="faq">
-          <summary>Does this decide who meets whom?</summary>
+          <summary><span>Does this decide who meets whom?</span></summary>
           <div class="faq-a"><p>No. It has nothing to do with introductions, which are decided by a person and never by a schedule.</p></div>
         </details>
         <details class="faq">
-          <summary>What does it cover?</summary>
+          <summary><span>What does it cover?</span></summary>
           <div class="faq-a"><p>Registration, session scheduling and delegate logistics for the event itself.</p></div>
         </details>
         <details class="faq">
-          <summary>Why is it part of the platform?</summary>
+          <summary><span>Why is it part of the platform?</span></summary>
           <div class="faq-a"><p>Because who is in the room is one list rather than several, and the agenda is read from the same place it is scheduled in.</p></div>
         </details>
       </div>
@@ -185,7 +206,6 @@
         <a class="mod-nav-link mod-nav-link--prev" href="/platform/modules/congress-app/"><span class="mod-nav-dir">Previous module</span><span class="mod-nav-name">Congress App</span></a>
         <a class="mod-nav-link mod-nav-link--next" href="/platform/modules/knowledge-base-chat/"><span class="mod-nav-dir">Next module</span><span class="mod-nav-name">Knowledge-Base Chat</span></a>
       </div>
-      <p class="mod-nav-all"><a class="link-more" href="/platform/#modules">All fifteen modules</a></p>
     </div>
   </nav>
 

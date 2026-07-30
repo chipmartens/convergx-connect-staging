@@ -86,26 +86,20 @@
 
   <!-- GENERATED. Do not hand-edit: the generator overwrites this file.
 
-       SHAPE, 2026-07-29, modelled on the DOSS module page at Chip's direction:
-       eyebrow is the MODULE NAME, h1 is "<the thing> that <the outcome>", the
-       lede is verb-led capability then value, then feature blocks that each
-       carry a title, a description, three bullets and a screenshot to the
-       right. Same shape for every feature, every module.
+       ONE FEATURE BLOCK PER CAPABILITY, not a fixed number (Chip, 2026-07-29).
+       The count follows what the module actually has, three or four here, and
+       each block's DESCRIPTION is that module's own existing claim. No new
+       capability enters through this structure; the titles and bullets are
+       new, the claims are not.
 
-       WHAT IS NOT HERE, and none of it returns without Chip:
-         - stat callouts. There are no cleared numbers.
-         - "Where it stops". Retired 2026-07-29; every line it carried is
-           already in this module's FAQ, checked one by one before deleting.
-         - the hero mark and the full-width capture slot above the body. Both
-           pulled the same day.
        The screenshot frames are EMPTY ON PURPOSE. Inventing product UI for a
-       module that does not exist is the one thing this site cannot do; when
-       real captures land (see _reference/QUEUED-JARVIS-SCREENSHOTS.md) they
-       drop straight into these frames.
+       module that does not exist is the one thing this site cannot do. When
+       captures land (_reference/QUEUED-JARVIS-SCREENSHOTS.md) they drop into
+       these frames and the aspect stops being imposed.
 
-       Copy rules unchanged: present tense; ConvergX asks, decides, vets,
-       brokers and convenes, never knows or verifies; a PERSON decides and no
-       module is the subject of a decision verb; zero numbers. -->
+       Copy rules: present tense; ConvergX asks, decides, vets, brokers and
+       convenes, never knows or verifies; a PERSON decides and no module is
+       the subject of a decision verb; zero numbers. -->
 
   <section class="mod-hero">
     <div class="wrap">
@@ -118,20 +112,24 @@
     </div>
   </section>
 
+  <!-- The hero closes on a rule, with air either side of it, so the features
+       start as their own movement rather than running on from the CTA. -->
+  <div class="wrap"><hr class="rule rule--load mod-rule"></div>
+
   <section class="mod-feature">
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Carry the agenda, the sessions and the board in one place</h2>
-          <p class="mod-feature-desc">Everything a delegate needs during the three days is on the phone they already have with them, updating as the room changes rather than as a printout allows.</p>
+          <p class="mod-feature-n">01</p>
+          <h2>Post from the floor, not from a laptop</h2>
+          <p class="mod-feature-desc">A requirement raised in a hallway goes on the board without finding a laptop.</p>
           <ul class="mod-feature-list">
-            <li>Agenda and sessions on the phone</li>
-            <li>The opportunity board travels too</li>
-            <li>Updates as the room changes</li>
+            <li>Raise it where it comes up</li>
+            <li>Straight onto the board</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Carry the agenda, the sessions and the board in one place. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Post from the floor, not from a laptop. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Congress App</figcaption>
         </figure>
       </div>
@@ -142,16 +140,36 @@
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Raise a requirement from the floor, not from a laptop</h2>
-          <p class="mod-feature-desc">A requirement raised in a hallway can go on the board without anybody going back to a room to find a laptop. Push notifications reach Android.</p>
+          <p class="mod-feature-n">02</p>
+          <h2>Carry the three days on the phone already there</h2>
+          <p class="mod-feature-desc">The agenda, the sessions and the opportunity board sit on the phone of everybody in the room.</p>
           <ul class="mod-feature-list">
-            <li>Post a requirement from the floor</li>
-            <li>Push notifications reach Android</li>
-            <li>September availability is not confirmed</li>
+            <li>The agenda and the sessions</li>
+            <li>The opportunity board too</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Raise a requirement from the floor, not from a laptop. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Carry the three days on the phone already there. Scrubbed or synthetic data, no real attendee or company names">
+          <figcaption>Congress App</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="mod-feature">
+    <div class="wrap">
+      <div class="mod-feature-inner">
+        <div class="mod-feature-copy">
+          <p class="mod-feature-n">03</p>
+          <h2>Get told when something in the room changes</h2>
+          <p class="mod-feature-desc">Push notifications reach Android.</p>
+          <ul class="mod-feature-list">
+            <li>Push reaches Android</li>
+            <li>September availability unconfirmed</li>
+          </ul>
+        </div>
+        <figure class="mod-shot-frame mod-shot--empty"
+                data-spec="Screenshot: Get told when something in the room changes. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Congress App</figcaption>
         </figure>
       </div>
@@ -161,18 +179,21 @@
 
   <section class="mod-faq">
     <div class="wrap">
-      <div class="editorial">
-        <h2 class="mod-faq-h">Common questions</h2>
+      <div class="sec-head">
+        <h2>Common questions</h2>
+        <span class="label label--lo label--edge">Congress App</span>
+      </div>
+      <div class="mod-faq-list">
         <details class="faq">
-          <summary>Is there an iOS app?</summary>
+          <summary><span>Is there an iOS app?</span></summary>
           <div class="faq-a"><p>Push notifications reach Android. Availability for September is not confirmed, and nothing here promises a download.</p></div>
         </details>
         <details class="faq">
-          <summary>Can I post a requirement from the floor?</summary>
+          <summary><span>Can I post a requirement from the floor?</span></summary>
           <div class="faq-a"><p>Yes. A requirement raised in a hallway can go on the board without going back to a laptop.</p></div>
         </details>
         <details class="faq">
-          <summary>What is on it?</summary>
+          <summary><span>What is on it?</span></summary>
           <div class="faq-a"><p>The agenda, the sessions and the opportunity board.</p></div>
         </details>
       </div>
@@ -185,7 +206,6 @@
         <a class="mod-nav-link mod-nav-link--prev" href="/platform/modules/attribution-mechanism/"><span class="mod-nav-dir">Previous module</span><span class="mod-nav-name">Attribution Mechanism</span></a>
         <a class="mod-nav-link mod-nav-link--next" href="/platform/modules/event-management/"><span class="mod-nav-dir">Next module</span><span class="mod-nav-name">Event Management</span></a>
       </div>
-      <p class="mod-nav-all"><a class="link-more" href="/platform/#modules">All fifteen modules</a></p>
     </div>
   </nav>
 

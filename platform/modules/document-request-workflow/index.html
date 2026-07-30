@@ -86,26 +86,20 @@
 
   <!-- GENERATED. Do not hand-edit: the generator overwrites this file.
 
-       SHAPE, 2026-07-29, modelled on the DOSS module page at Chip's direction:
-       eyebrow is the MODULE NAME, h1 is "<the thing> that <the outcome>", the
-       lede is verb-led capability then value, then feature blocks that each
-       carry a title, a description, three bullets and a screenshot to the
-       right. Same shape for every feature, every module.
+       ONE FEATURE BLOCK PER CAPABILITY, not a fixed number (Chip, 2026-07-29).
+       The count follows what the module actually has, three or four here, and
+       each block's DESCRIPTION is that module's own existing claim. No new
+       capability enters through this structure; the titles and bullets are
+       new, the claims are not.
 
-       WHAT IS NOT HERE, and none of it returns without Chip:
-         - stat callouts. There are no cleared numbers.
-         - "Where it stops". Retired 2026-07-29; every line it carried is
-           already in this module's FAQ, checked one by one before deleting.
-         - the hero mark and the full-width capture slot above the body. Both
-           pulled the same day.
        The screenshot frames are EMPTY ON PURPOSE. Inventing product UI for a
-       module that does not exist is the one thing this site cannot do; when
-       real captures land (see _reference/QUEUED-JARVIS-SCREENSHOTS.md) they
-       drop straight into these frames.
+       module that does not exist is the one thing this site cannot do. When
+       captures land (_reference/QUEUED-JARVIS-SCREENSHOTS.md) they drop into
+       these frames and the aspect stops being imposed.
 
-       Copy rules unchanged: present tense; ConvergX asks, decides, vets,
-       brokers and convenes, never knows or verifies; a PERSON decides and no
-       module is the subject of a decision verb; zero numbers. -->
+       Copy rules: present tense; ConvergX asks, decides, vets, brokers and
+       convenes, never knows or verifies; a PERSON decides and no module is
+       the subject of a decision verb; zero numbers. -->
 
   <section class="mod-hero">
     <div class="wrap">
@@ -118,20 +112,24 @@
     </div>
   </section>
 
+  <!-- The hero closes on a rule, with air either side of it, so the features
+       start as their own movement rather than running on from the CTA. -->
+  <div class="wrap"><hr class="rule rule--load mod-rule"></div>
+
   <section class="mod-feature">
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Ask for a document and have the asking on the record</h2>
-          <p class="mod-feature-desc">One side asks for a document and the request is a record, not a message somebody has to remember sending or go looking for in a thread months later.</p>
+          <p class="mod-feature-n">01</p>
+          <h2>Make the request a record, not an email</h2>
+          <p class="mod-feature-desc">One side asks for a document, and the request is a record rather than a message.</p>
           <ul class="mod-feature-list">
-            <li>A request is a record, not an email</li>
-            <li>Visible to both parties at once</li>
-            <li>Outstanding items stay outstanding</li>
+            <li>A record, not a message</li>
+            <li>Nothing to remember sending</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Ask for a document and have the asking on the record. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Make the request a record, not an email. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Document Request Workflow</figcaption>
         </figure>
       </div>
@@ -142,16 +140,36 @@
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Answer what was provided without opening an inbox</h2>
-          <p class="mod-feature-desc">What was asked for, what came back and what is still outstanding stays after the fact, so the question of what was provided has an answer somebody can produce.</p>
+          <p class="mod-feature-n">02</p>
+          <h2>Show both sides what is still outstanding</h2>
+          <p class="mod-feature-desc">What was asked for, what came back and what is still outstanding is visible to both parties.</p>
           <ul class="mod-feature-list">
-            <li>Persists after the engagement</li>
-            <li>Produced months later, not only on the day</li>
-            <li>Nothing here judges a document</li>
+            <li>Visible to both parties</li>
+            <li>Outstanding stays outstanding</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Answer what was provided without opening an inbox. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Show both sides what is still outstanding. Scrubbed or synthetic data, no real attendee or company names">
+          <figcaption>Document Request Workflow</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="mod-feature">
+    <div class="wrap">
+      <div class="mod-feature-inner">
+        <div class="mod-feature-copy">
+          <p class="mod-feature-n">03</p>
+          <h2>Answer the question months after the fact</h2>
+          <p class="mod-feature-desc">It stays after the fact, so the question of what was provided has an answer that is not somebody's inbox.</p>
+          <ul class="mod-feature-list">
+            <li>Persists past the engagement</li>
+            <li>Not somebody's inbox</li>
+          </ul>
+        </div>
+        <figure class="mod-shot-frame mod-shot--empty"
+                data-spec="Screenshot: Answer the question months after the fact. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Document Request Workflow</figcaption>
         </figure>
       </div>
@@ -161,18 +179,21 @@
 
   <section class="mod-faq">
     <div class="wrap">
-      <div class="editorial">
-        <h2 class="mod-faq-h">Common questions</h2>
+      <div class="sec-head">
+        <h2>Common questions</h2>
+        <span class="label label--lo label--edge">Document Request Workflow</span>
+      </div>
+      <div class="mod-faq-list">
         <details class="faq">
-          <summary>Does the platform check the documents?</summary>
+          <summary><span>Does the platform check the documents?</span></summary>
           <div class="faq-a"><p>No. Whether a certificate satisfies your standard is your call, and nothing here rates one.</p></div>
         </details>
         <details class="faq">
-          <summary>Who can see what was asked for?</summary>
+          <summary><span>Who can see what was asked for?</span></summary>
           <div class="faq-a"><p>Both parties to the request see what was asked for, what came back and what is still outstanding.</p></div>
         </details>
         <details class="faq">
-          <summary>Does the record survive the engagement?</summary>
+          <summary><span>Does the record survive the engagement?</span></summary>
           <div class="faq-a"><p>Yes. The question of what was provided has an answer that is not somebody's inbox.</p></div>
         </details>
       </div>
@@ -185,7 +206,6 @@
         <a class="mod-nav-link mod-nav-link--prev" href="/platform/modules/role-gated-portals/"><span class="mod-nav-dir">Previous module</span><span class="mod-nav-name">Role-Gated Portals</span></a>
         <a class="mod-nav-link mod-nav-link--next" href="/platform/modules/attribution-mechanism/"><span class="mod-nav-dir">Next module</span><span class="mod-nav-name">Attribution Mechanism</span></a>
       </div>
-      <p class="mod-nav-all"><a class="link-more" href="/platform/#modules">All fifteen modules</a></p>
     </div>
   </nav>
 

@@ -86,26 +86,20 @@
 
   <!-- GENERATED. Do not hand-edit: the generator overwrites this file.
 
-       SHAPE, 2026-07-29, modelled on the DOSS module page at Chip's direction:
-       eyebrow is the MODULE NAME, h1 is "<the thing> that <the outcome>", the
-       lede is verb-led capability then value, then feature blocks that each
-       carry a title, a description, three bullets and a screenshot to the
-       right. Same shape for every feature, every module.
+       ONE FEATURE BLOCK PER CAPABILITY, not a fixed number (Chip, 2026-07-29).
+       The count follows what the module actually has, three or four here, and
+       each block's DESCRIPTION is that module's own existing claim. No new
+       capability enters through this structure; the titles and bullets are
+       new, the claims are not.
 
-       WHAT IS NOT HERE, and none of it returns without Chip:
-         - stat callouts. There are no cleared numbers.
-         - "Where it stops". Retired 2026-07-29; every line it carried is
-           already in this module's FAQ, checked one by one before deleting.
-         - the hero mark and the full-width capture slot above the body. Both
-           pulled the same day.
        The screenshot frames are EMPTY ON PURPOSE. Inventing product UI for a
-       module that does not exist is the one thing this site cannot do; when
-       real captures land (see _reference/QUEUED-JARVIS-SCREENSHOTS.md) they
-       drop straight into these frames.
+       module that does not exist is the one thing this site cannot do. When
+       captures land (_reference/QUEUED-JARVIS-SCREENSHOTS.md) they drop into
+       these frames and the aspect stops being imposed.
 
-       Copy rules unchanged: present tense; ConvergX asks, decides, vets,
-       brokers and convenes, never knows or verifies; a PERSON decides and no
-       module is the subject of a decision verb; zero numbers. -->
+       Copy rules: present tense; ConvergX asks, decides, vets, brokers and
+       convenes, never knows or verifies; a PERSON decides and no module is
+       the subject of a decision verb; zero numbers. -->
 
   <section class="mod-hero">
     <div class="wrap">
@@ -118,20 +112,24 @@
     </div>
   </section>
 
+  <!-- The hero closes on a rule, with air either side of it, so the features
+       start as their own movement rather than running on from the CTA. -->
+  <div class="wrap"><hr class="rule rule--load mod-rule"></div>
+
   <section class="mod-feature">
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>State a requirement without putting your name in the room</h2>
-          <p class="mod-feature-desc">Your post goes up on submission and no review queue holds it back. What other attendees are served carries no author field at all, masked or otherwise.</p>
+          <p class="mod-feature-n">01</p>
+          <h2>Post a requirement and have it live immediately</h2>
+          <p class="mod-feature-desc">Your post goes up the moment you submit it, and no review queue holds it back.</p>
           <ul class="mod-feature-list">
-            <li>Live on the board the moment you submit</li>
-            <li>No author field on the attendee view</li>
-            <li>Your name and email reach ConvergX only</li>
+            <li>Live the moment you submit</li>
+            <li>No review queue in front of it</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: State a requirement without putting your name in the room. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Post a requirement and have it live immediately. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Opportunity Board</figcaption>
         </figure>
       </div>
@@ -142,16 +140,56 @@
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Keep control of the post once it is live</h2>
-          <p class="mod-feature-desc">A requirement that should not be on the board comes off it. You can withdraw a post, and ConvergX can decline one, which removes it for everybody.</p>
+          <p class="mod-feature-n">02</p>
+          <h2>Reach the room without reaching it by name</h2>
+          <p class="mod-feature-desc">Every other attendee reads the requirement with no author field on it. Not a masked one and not a hidden one.</p>
           <ul class="mod-feature-list">
-            <li>Withdraw a post at any time</li>
-            <li>ConvergX can decline and remove a post</li>
-            <li>No post becomes a meeting on its own</li>
+            <li>No author field on the attendee view</li>
+            <li>Not masked, not hidden, absent</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Keep control of the post once it is live. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Reach the room without reaching it by name. Scrubbed or synthetic data, no real attendee or company names">
+          <figcaption>Opportunity Board</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="mod-feature">
+    <div class="wrap">
+      <div class="mod-feature-inner">
+        <div class="mod-feature-copy">
+          <p class="mod-feature-n">03</p>
+          <h2>Give ConvergX what it needs to answer for the post</h2>
+          <p class="mod-feature-desc">The post reaches ConvergX with your name and your email attached, because somebody has to be able to answer questions about it.</p>
+          <ul class="mod-feature-list">
+            <li>Your name and email reach ConvergX</li>
+            <li>Somebody can be asked about it</li>
+          </ul>
+        </div>
+        <figure class="mod-shot-frame mod-shot--empty"
+                data-spec="Screenshot: Give ConvergX what it needs to answer for the post. Scrubbed or synthetic data, no real attendee or company names">
+          <figcaption>Opportunity Board</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="mod-feature">
+    <div class="wrap">
+      <div class="mod-feature-inner">
+        <div class="mod-feature-copy">
+          <p class="mod-feature-n">04</p>
+          <h2>Take a post down when it should come down</h2>
+          <p class="mod-feature-desc">ConvergX can decline a post, which takes it off the board.</p>
+          <ul class="mod-feature-list">
+            <li>ConvergX can decline a post</li>
+            <li>Declining removes it from the board</li>
+          </ul>
+        </div>
+        <figure class="mod-shot-frame mod-shot--empty"
+                data-spec="Screenshot: Take a post down when it should come down. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Opportunity Board</figcaption>
         </figure>
       </div>
@@ -161,18 +199,21 @@
 
   <section class="mod-faq">
     <div class="wrap">
-      <div class="editorial">
-        <h2 class="mod-faq-h">Common questions</h2>
+      <div class="sec-head">
+        <h2>Common questions</h2>
+        <span class="label label--lo label--edge">Opportunity Board</span>
+      </div>
+      <div class="mod-faq-list">
         <details class="faq">
-          <summary>Who can see that the post is mine?</summary>
+          <summary><span>Who can see that the post is mine?</span></summary>
           <div class="faq-a"><p>ConvergX can. Nobody else. The post reaches ConvergX with your name and your email on it, because somebody has to be able to ask you about it, and every other attendee is served the requirement with no author field at all.</p></div>
         </details>
         <details class="faq">
-          <summary>Can I take a post down?</summary>
+          <summary><span>Can I take a post down?</span></summary>
           <div class="faq-a"><p>Yes, and so can ConvergX. A post that should not be on the board comes off it.</p></div>
         </details>
         <details class="faq">
-          <summary>Does posting commit me to anything?</summary>
+          <summary><span>Does posting commit me to anything?</span></summary>
           <div class="faq-a"><p>No. A post is a requirement stated. Nothing becomes a meeting until a person at ConvergX decides it should, and both sides consent before an introduction happens.</p></div>
         </details>
       </div>
@@ -184,7 +225,6 @@
       <div class="mod-nav-inner">
         <a class="mod-nav-link mod-nav-link--next" href="/platform/modules/rfp-intake-and-analysis/"><span class="mod-nav-dir">Next module</span><span class="mod-nav-name">RFP Intake and Analysis</span></a>
       </div>
-      <p class="mod-nav-all"><a class="link-more" href="/platform/#modules">All fifteen modules</a></p>
     </div>
   </nav>
 

@@ -86,26 +86,20 @@
 
   <!-- GENERATED. Do not hand-edit: the generator overwrites this file.
 
-       SHAPE, 2026-07-29, modelled on the DOSS module page at Chip's direction:
-       eyebrow is the MODULE NAME, h1 is "<the thing> that <the outcome>", the
-       lede is verb-led capability then value, then feature blocks that each
-       carry a title, a description, three bullets and a screenshot to the
-       right. Same shape for every feature, every module.
+       ONE FEATURE BLOCK PER CAPABILITY, not a fixed number (Chip, 2026-07-29).
+       The count follows what the module actually has, three or four here, and
+       each block's DESCRIPTION is that module's own existing claim. No new
+       capability enters through this structure; the titles and bullets are
+       new, the claims are not.
 
-       WHAT IS NOT HERE, and none of it returns without Chip:
-         - stat callouts. There are no cleared numbers.
-         - "Where it stops". Retired 2026-07-29; every line it carried is
-           already in this module's FAQ, checked one by one before deleting.
-         - the hero mark and the full-width capture slot above the body. Both
-           pulled the same day.
        The screenshot frames are EMPTY ON PURPOSE. Inventing product UI for a
-       module that does not exist is the one thing this site cannot do; when
-       real captures land (see _reference/QUEUED-JARVIS-SCREENSHOTS.md) they
-       drop straight into these frames.
+       module that does not exist is the one thing this site cannot do. When
+       captures land (_reference/QUEUED-JARVIS-SCREENSHOTS.md) they drop into
+       these frames and the aspect stops being imposed.
 
-       Copy rules unchanged: present tense; ConvergX asks, decides, vets,
-       brokers and convenes, never knows or verifies; a PERSON decides and no
-       module is the subject of a decision verb; zero numbers. -->
+       Copy rules: present tense; ConvergX asks, decides, vets, brokers and
+       convenes, never knows or verifies; a PERSON decides and no module is
+       the subject of a decision verb; zero numbers. -->
 
   <section class="mod-hero">
     <div class="wrap">
@@ -118,20 +112,24 @@
     </div>
   </section>
 
+  <!-- The hero closes on a rule, with air either side of it, so the features
+       start as their own movement rather than running on from the CTA. -->
+  <div class="wrap"><hr class="rule rule--load mod-rule"></div>
+
   <section class="mod-feature">
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Turn the document you already have into structured fields</h2>
-          <p class="mod-feature-desc">You submit the requirements document as it stands. What comes back is the same requirement in fields, so nothing is transcribed and nothing is lost in the transcription.</p>
+          <p class="mod-feature-n">01</p>
+          <h2>Submit the document exactly as you already wrote it</h2>
+          <p class="mod-feature-desc">You hand over the document you already wrote, and nobody has to retype a line of it.</p>
           <ul class="mod-feature-list">
-            <li>Upload the document you already wrote</li>
-            <li>Fields for scope, standard and date</li>
-            <li>No rekeying and no lost detail</li>
+            <li>No rewriting into a form first</li>
+            <li>Nobody retypes a line</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Turn the document you already have into structured fields. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Submit the document exactly as you already wrote it. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>RFP Intake and Analysis</figcaption>
         </figure>
       </div>
@@ -142,16 +140,36 @@
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Compare a requirement against a capability record</h2>
-          <p class="mod-feature-desc">Fields are the reason a requirement can be held against anything at all. An attachment can only be forwarded to somebody else to read and interpret.</p>
+          <p class="mod-feature-n">02</p>
+          <h2>Get the requirement back as fields you can work with</h2>
+          <p class="mod-feature-desc">What comes out is the requirement broken into fields: what is needed, to what standard, by when.</p>
           <ul class="mod-feature-list">
-            <li>Structured fields, not a PDF</li>
-            <li>Comparable against capability records</li>
+            <li>Scope, standard and date as fields</li>
+            <li>Structured, not prose</li>
+          </ul>
+        </div>
+        <figure class="mod-shot-frame mod-shot--empty"
+                data-spec="Screenshot: Get the requirement back as fields you can work with. Scrubbed or synthetic data, no real attendee or company names">
+          <figcaption>RFP Intake and Analysis</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="mod-feature">
+    <div class="wrap">
+      <div class="mod-feature-inner">
+        <div class="mod-feature-copy">
+          <p class="mod-feature-n">03</p>
+          <h2>Hold the requirement against a capability record</h2>
+          <p class="mod-feature-desc">Fields are the reason the same requirement can be compared against a capability record at all. An attachment cannot be compared with anything.</p>
+          <ul class="mod-feature-list">
+            <li>Fields compare, attachments cannot</li>
             <li>Interpretation stays with a person</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Compare a requirement against a capability record. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Hold the requirement against a capability record. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>RFP Intake and Analysis</figcaption>
         </figure>
       </div>
@@ -161,18 +179,21 @@
 
   <section class="mod-faq">
     <div class="wrap">
-      <div class="editorial">
-        <h2 class="mod-faq-h">Common questions</h2>
+      <div class="sec-head">
+        <h2>Common questions</h2>
+        <span class="label label--lo label--edge">RFP Intake and Analysis</span>
+      </div>
+      <div class="mod-faq-list">
         <details class="faq">
-          <summary>Do I have to rewrite my requirements document?</summary>
+          <summary><span>Do I have to rewrite my requirements document?</span></summary>
           <div class="faq-a"><p>No. You hand over the document you already wrote and it comes back as fields: what is needed, to what standard, by when.</p></div>
         </details>
         <details class="faq">
-          <summary>What happens to the original?</summary>
+          <summary><span>What happens to the original?</span></summary>
           <div class="faq-a"><p>It stays attached. The fields are how the requirement gets compared against a capability record; the document is still the document.</p></div>
         </details>
         <details class="faq">
-          <summary>Does the platform judge the requirement?</summary>
+          <summary><span>Does the platform judge the requirement?</span></summary>
           <div class="faq-a"><p>No. Structuring a requirement is not assessing it. What it is worth and who should see it stays with a person at ConvergX.</p></div>
         </details>
       </div>
@@ -185,7 +206,6 @@
         <a class="mod-nav-link mod-nav-link--prev" href="/platform/modules/opportunity-board/"><span class="mod-nav-dir">Previous module</span><span class="mod-nav-name">Opportunity Board</span></a>
         <a class="mod-nav-link mod-nav-link--next" href="/platform/modules/tender-scraping/"><span class="mod-nav-dir">Next module</span><span class="mod-nav-name">Tender Scraping</span></a>
       </div>
-      <p class="mod-nav-all"><a class="link-more" href="/platform/#modules">All fifteen modules</a></p>
     </div>
   </nav>
 

@@ -86,26 +86,20 @@
 
   <!-- GENERATED. Do not hand-edit: the generator overwrites this file.
 
-       SHAPE, 2026-07-29, modelled on the DOSS module page at Chip's direction:
-       eyebrow is the MODULE NAME, h1 is "<the thing> that <the outcome>", the
-       lede is verb-led capability then value, then feature blocks that each
-       carry a title, a description, three bullets and a screenshot to the
-       right. Same shape for every feature, every module.
+       ONE FEATURE BLOCK PER CAPABILITY, not a fixed number (Chip, 2026-07-29).
+       The count follows what the module actually has, three or four here, and
+       each block's DESCRIPTION is that module's own existing claim. No new
+       capability enters through this structure; the titles and bullets are
+       new, the claims are not.
 
-       WHAT IS NOT HERE, and none of it returns without Chip:
-         - stat callouts. There are no cleared numbers.
-         - "Where it stops". Retired 2026-07-29; every line it carried is
-           already in this module's FAQ, checked one by one before deleting.
-         - the hero mark and the full-width capture slot above the body. Both
-           pulled the same day.
        The screenshot frames are EMPTY ON PURPOSE. Inventing product UI for a
-       module that does not exist is the one thing this site cannot do; when
-       real captures land (see _reference/QUEUED-JARVIS-SCREENSHOTS.md) they
-       drop straight into these frames.
+       module that does not exist is the one thing this site cannot do. When
+       captures land (_reference/QUEUED-JARVIS-SCREENSHOTS.md) they drop into
+       these frames and the aspect stops being imposed.
 
-       Copy rules unchanged: present tense; ConvergX asks, decides, vets,
-       brokers and convenes, never knows or verifies; a PERSON decides and no
-       module is the subject of a decision verb; zero numbers. -->
+       Copy rules: present tense; ConvergX asks, decides, vets, brokers and
+       convenes, never knows or verifies; a PERSON decides and no module is
+       the subject of a decision verb; zero numbers. -->
 
   <section class="mod-hero">
     <div class="wrap">
@@ -118,20 +112,24 @@
     </div>
   </section>
 
+  <!-- The hero closes on a rule, with air either side of it, so the features
+       start as their own movement rather than running on from the CTA. -->
+  <div class="wrap"><hr class="rule rule--load mod-rule"></div>
+
   <section class="mod-feature">
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Ask the reference material instead of finding the paragraph</h2>
-          <p class="mod-feature-desc">Questions are answered out of material ConvergX published. It saves a person having to find the paragraph, and every answer traces back to a published source.</p>
+          <p class="mod-feature-n">01</p>
+          <h2>Ask the material instead of finding the paragraph</h2>
+          <p class="mod-feature-desc">Questions get answered from material ConvergX published, so answers trace back.</p>
           <ul class="mod-feature-list">
             <li>Answers from published material</li>
-            <li>Traceable back to a source</li>
-            <li>Saves finding the paragraph</li>
+            <li>No paragraph hunting</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Ask the reference material instead of finding the paragraph. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Ask the material instead of finding the paragraph. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Knowledge-Base Chat</figcaption>
         </figure>
       </div>
@@ -142,16 +140,36 @@
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Keep it to the material and away from the decision</h2>
-          <p class="mod-feature-desc">It answers on the reference material and nothing else. It does not answer about a company, a requirement or a match, and it plays no part in who meets.</p>
+          <p class="mod-feature-n">02</p>
+          <h2>Trace every answer back to its source</h2>
+          <p class="mod-feature-desc">Every answer points at the published source it was drawn from.</p>
           <ul class="mod-feature-list">
-            <li>Reference material and nothing else</li>
-            <li>No company, requirement or match</li>
-            <li>No part in deciding who meets</li>
+            <li>Points at the published source</li>
+            <li>Nothing asserted without one</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Keep it to the material and away from the decision. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Trace every answer back to its source. Scrubbed or synthetic data, no real attendee or company names">
+          <figcaption>Knowledge-Base Chat</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="mod-feature">
+    <div class="wrap">
+      <div class="mod-feature-inner">
+        <div class="mod-feature-copy">
+          <p class="mod-feature-n">03</p>
+          <h2>Keep it away from the decision entirely</h2>
+          <p class="mod-feature-desc">It saves a person having to find the paragraph.</p>
+          <ul class="mod-feature-list">
+            <li>No company, requirement or match</li>
+            <li>No part in who meets</li>
+          </ul>
+        </div>
+        <figure class="mod-shot-frame mod-shot--empty"
+                data-spec="Screenshot: Keep it away from the decision entirely. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Knowledge-Base Chat</figcaption>
         </figure>
       </div>
@@ -161,18 +179,21 @@
 
   <section class="mod-faq">
     <div class="wrap">
-      <div class="editorial">
-        <h2 class="mod-faq-h">Common questions</h2>
+      <div class="sec-head">
+        <h2>Common questions</h2>
+        <span class="label label--lo label--edge">Knowledge-Base Chat</span>
+      </div>
+      <div class="mod-faq-list">
         <details class="faq">
-          <summary>What can it answer about?</summary>
+          <summary><span>What can it answer about?</span></summary>
           <div class="faq-a"><p>ConvergX reference material, and nothing else. It does not answer about a company, a requirement or a match.</p></div>
         </details>
         <details class="faq">
-          <summary>Where do the answers come from?</summary>
+          <summary><span>Where do the answers come from?</span></summary>
           <div class="faq-a"><p>Material ConvergX published, so an answer can be traced back to something.</p></div>
         </details>
         <details class="faq">
-          <summary>Does it have any part in who meets?</summary>
+          <summary><span>Does it have any part in who meets?</span></summary>
           <div class="faq-a"><p>None.</p></div>
         </details>
       </div>
@@ -185,7 +206,6 @@
         <a class="mod-nav-link mod-nav-link--prev" href="/platform/modules/event-management/"><span class="mod-nav-dir">Previous module</span><span class="mod-nav-name">Event Management</span></a>
         <a class="mod-nav-link mod-nav-link--next" href="/platform/modules/trade-agreements-library/"><span class="mod-nav-dir">Next module</span><span class="mod-nav-name">Trade Agreements Library</span></a>
       </div>
-      <p class="mod-nav-all"><a class="link-more" href="/platform/#modules">All fifteen modules</a></p>
     </div>
   </nav>
 

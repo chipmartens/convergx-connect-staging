@@ -86,26 +86,20 @@
 
   <!-- GENERATED. Do not hand-edit: the generator overwrites this file.
 
-       SHAPE, 2026-07-29, modelled on the DOSS module page at Chip's direction:
-       eyebrow is the MODULE NAME, h1 is "<the thing> that <the outcome>", the
-       lede is verb-led capability then value, then feature blocks that each
-       carry a title, a description, three bullets and a screenshot to the
-       right. Same shape for every feature, every module.
+       ONE FEATURE BLOCK PER CAPABILITY, not a fixed number (Chip, 2026-07-29).
+       The count follows what the module actually has, three or four here, and
+       each block's DESCRIPTION is that module's own existing claim. No new
+       capability enters through this structure; the titles and bullets are
+       new, the claims are not.
 
-       WHAT IS NOT HERE, and none of it returns without Chip:
-         - stat callouts. There are no cleared numbers.
-         - "Where it stops". Retired 2026-07-29; every line it carried is
-           already in this module's FAQ, checked one by one before deleting.
-         - the hero mark and the full-width capture slot above the body. Both
-           pulled the same day.
        The screenshot frames are EMPTY ON PURPOSE. Inventing product UI for a
-       module that does not exist is the one thing this site cannot do; when
-       real captures land (see _reference/QUEUED-JARVIS-SCREENSHOTS.md) they
-       drop straight into these frames.
+       module that does not exist is the one thing this site cannot do. When
+       captures land (_reference/QUEUED-JARVIS-SCREENSHOTS.md) they drop into
+       these frames and the aspect stops being imposed.
 
-       Copy rules unchanged: present tense; ConvergX asks, decides, vets,
-       brokers and convenes, never knows or verifies; a PERSON decides and no
-       module is the subject of a decision verb; zero numbers. -->
+       Copy rules: present tense; ConvergX asks, decides, vets, brokers and
+       convenes, never knows or verifies; a PERSON decides and no module is
+       the subject of a decision verb; zero numbers. -->
 
   <section class="mod-hero">
     <div class="wrap">
@@ -118,20 +112,24 @@
     </div>
   </section>
 
+  <!-- The hero closes on a rule, with air either side of it, so the features
+       start as their own movement rather than running on from the CTA. -->
+  <div class="wrap"><hr class="rule rule--load mod-rule"></div>
+
   <section class="mod-feature">
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Give each side the view built for the job it is doing</h2>
-          <p class="mod-feature-desc">A problem holder works in the view for stating a requirement. A solution provider works in the view for keeping a capability record current. ConvergX holds both.</p>
+          <p class="mod-feature-n">01</p>
+          <h2>Work in the view built for the job you are doing</h2>
+          <p class="mod-feature-desc">You work in the view built for the job you are actually doing on the platform.</p>
           <ul class="mod-feature-list">
-            <li>A view for stating requirements</li>
-            <li>A view for capability records</li>
-            <li>One view that carries both</li>
+            <li>One working view per role</li>
+            <li>Nothing else on screen</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Give each side the view built for the job it is doing. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Work in the view built for the job you are doing. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Role-Gated Portals</figcaption>
         </figure>
       </div>
@@ -142,16 +140,56 @@
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Enforce the boundary in the application, not the login</h2>
-          <p class="mod-feature-desc">What a role can reach is enforced by the application itself. Read this as a description of how the system behaves and not as an assurance about it.</p>
+          <p class="mod-feature-n">02</p>
+          <h2>Give the solution provider a view for being found</h2>
+          <p class="mod-feature-desc">A solution provider works in the view built for keeping a capability record current.</p>
           <ul class="mod-feature-list">
-            <li>Enforced by the application</li>
-            <li>Not asserted by the identity provider</li>
-            <li>No third-party audit is on record</li>
+            <li>Keep a capability record current</li>
+            <li>Built for the answering side</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Enforce the boundary in the application, not the login. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Give the solution provider a view for being found. Scrubbed or synthetic data, no real attendee or company names">
+          <figcaption>Role-Gated Portals</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="mod-feature">
+    <div class="wrap">
+      <div class="mod-feature-inner">
+        <div class="mod-feature-copy">
+          <p class="mod-feature-n">03</p>
+          <h2>Give ConvergX the view that carries both sides</h2>
+          <p class="mod-feature-desc">ConvergX works in the view that carries both, because ConvergX is the party that has to hold both.</p>
+          <ul class="mod-feature-list">
+            <li>Both sides in one place</li>
+            <li>The party that has to hold both</li>
+          </ul>
+        </div>
+        <figure class="mod-shot-frame mod-shot--empty"
+                data-spec="Screenshot: Give ConvergX the view that carries both sides. Scrubbed or synthetic data, no real attendee or company names">
+          <figcaption>Role-Gated Portals</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="mod-feature">
+    <div class="wrap">
+      <div class="mod-feature-inner">
+        <div class="mod-feature-copy">
+          <p class="mod-feature-n">04</p>
+          <h2>Enforce the boundary in the application itself</h2>
+          <p class="mod-feature-desc">What a role can reach is enforced by the application itself, not asserted by whatever signed the user in.</p>
+          <ul class="mod-feature-list">
+            <li>Enforced by the application</li>
+            <li>No third-party audit on record</li>
+          </ul>
+        </div>
+        <figure class="mod-shot-frame mod-shot--empty"
+                data-spec="Screenshot: Enforce the boundary in the application itself. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Role-Gated Portals</figcaption>
         </figure>
       </div>
@@ -161,18 +199,21 @@
 
   <section class="mod-faq">
     <div class="wrap">
-      <div class="editorial">
-        <h2 class="mod-faq-h">Common questions</h2>
+      <div class="sec-head">
+        <h2>Common questions</h2>
+        <span class="label label--lo label--edge">Role-Gated Portals</span>
+      </div>
+      <div class="mod-faq-list">
         <details class="faq">
-          <summary>Is this a security control?</summary>
+          <summary><span>Is this a security control?</span></summary>
           <div class="faq-a"><p>Read it as a description of how the system behaves, not as an assurance. No third-party security audit is on record for this platform.</p></div>
         </details>
         <details class="faq">
-          <summary>What enforces the boundary?</summary>
+          <summary><span>What enforces the boundary?</span></summary>
           <div class="faq-a"><p>The application itself, rather than whatever signed the user in.</p></div>
         </details>
         <details class="faq">
-          <summary>Can I be shown it working?</summary>
+          <summary><span>Can I be shown it working?</span></summary>
           <div class="faq-a"><p>Yes. Where a behaviour is load-bearing for your review, ask ConvergX to demonstrate it in the running system before you rely on it.</p></div>
         </details>
       </div>
@@ -185,7 +226,6 @@
         <a class="mod-nav-link mod-nav-link--prev" href="/platform/modules/procurement-workflow-engine/"><span class="mod-nav-dir">Previous module</span><span class="mod-nav-name">Procurement Workflow Engine</span></a>
         <a class="mod-nav-link mod-nav-link--next" href="/platform/modules/document-request-workflow/"><span class="mod-nav-dir">Next module</span><span class="mod-nav-name">Document Request Workflow</span></a>
       </div>
-      <p class="mod-nav-all"><a class="link-more" href="/platform/#modules">All fifteen modules</a></p>
     </div>
   </nav>
 

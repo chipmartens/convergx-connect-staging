@@ -86,26 +86,20 @@
 
   <!-- GENERATED. Do not hand-edit: the generator overwrites this file.
 
-       SHAPE, 2026-07-29, modelled on the DOSS module page at Chip's direction:
-       eyebrow is the MODULE NAME, h1 is "<the thing> that <the outcome>", the
-       lede is verb-led capability then value, then feature blocks that each
-       carry a title, a description, three bullets and a screenshot to the
-       right. Same shape for every feature, every module.
+       ONE FEATURE BLOCK PER CAPABILITY, not a fixed number (Chip, 2026-07-29).
+       The count follows what the module actually has, three or four here, and
+       each block's DESCRIPTION is that module's own existing claim. No new
+       capability enters through this structure; the titles and bullets are
+       new, the claims are not.
 
-       WHAT IS NOT HERE, and none of it returns without Chip:
-         - stat callouts. There are no cleared numbers.
-         - "Where it stops". Retired 2026-07-29; every line it carried is
-           already in this module's FAQ, checked one by one before deleting.
-         - the hero mark and the full-width capture slot above the body. Both
-           pulled the same day.
        The screenshot frames are EMPTY ON PURPOSE. Inventing product UI for a
-       module that does not exist is the one thing this site cannot do; when
-       real captures land (see _reference/QUEUED-JARVIS-SCREENSHOTS.md) they
-       drop straight into these frames.
+       module that does not exist is the one thing this site cannot do. When
+       captures land (_reference/QUEUED-JARVIS-SCREENSHOTS.md) they drop into
+       these frames and the aspect stops being imposed.
 
-       Copy rules unchanged: present tense; ConvergX asks, decides, vets,
-       brokers and convenes, never knows or verifies; a PERSON decides and no
-       module is the subject of a decision verb; zero numbers. -->
+       Copy rules: present tense; ConvergX asks, decides, vets, brokers and
+       convenes, never knows or verifies; a PERSON decides and no module is
+       the subject of a decision verb; zero numbers. -->
 
   <section class="mod-hero">
     <div class="wrap">
@@ -118,20 +112,24 @@
     </div>
   </section>
 
+  <!-- The hero closes on a rule, with air either side of it, so the features
+       start as their own movement rather than running on from the CTA. -->
+  <div class="wrap"><hr class="rule rule--load mod-rule"></div>
+
   <section class="mod-feature">
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Set out the steps between a posted requirement and a meeting</h2>
-          <p class="mod-feature-desc">The sequence between a post going up and two parties meeting is written down in order, with an owner on every step rather than an assumption about who has it.</p>
+          <p class="mod-feature-n">01</p>
+          <h2>Set out the sequence with an owner on each step</h2>
+          <p class="mod-feature-desc">The steps between a post going up and two parties meeting are set out in order.</p>
           <ul class="mod-feature-list">
             <li>Steps in order, owner on each</li>
-            <li>Configurable per sector and work type</li>
-            <li>Nothing advances on its own</li>
+            <li>No assumption about who has it</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Set out the steps between a posted requirement and a meeting. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Set out the sequence with an owner on each step. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Procurement Workflow Engine</figcaption>
         </figure>
       </div>
@@ -142,16 +140,36 @@
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>See what a stalled introduction is actually waiting on</h2>
-          <p class="mod-feature-desc">When an introduction stalls, the useful question is whose desk it is sitting on. Where a step is waiting, it is visible that it is waiting and on whom.</p>
+          <p class="mod-feature-n">02</p>
+          <h2>Fit the sequence to the sector it runs in</h2>
+          <p class="mod-feature-desc">The sequence is configurable, because a defence introduction and an agriculture introduction do not need the same steps.</p>
+          <ul class="mod-feature-list">
+            <li>Configurable per sector</li>
+            <li>Defence and agriculture differ</li>
+          </ul>
+        </div>
+        <figure class="mod-shot-frame mod-shot--empty"
+                data-spec="Screenshot: Fit the sequence to the sector it runs in. Scrubbed or synthetic data, no real attendee or company names">
+          <figcaption>Procurement Workflow Engine</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="mod-feature">
+    <div class="wrap">
+      <div class="mod-feature-inner">
+        <div class="mod-feature-copy">
+          <p class="mod-feature-n">03</p>
+          <h2>See whose desk a stalled introduction sits on</h2>
+          <p class="mod-feature-desc">Where a step is waiting on somebody, it is visible that it is waiting and on whom.</p>
           <ul class="mod-feature-list">
             <li>Waiting steps are visible</li>
-            <li>Named owner on every gate</li>
             <li>The last gate is always ConvergX</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: See what a stalled introduction is actually waiting on. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: See whose desk a stalled introduction sits on. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Procurement Workflow Engine</figcaption>
         </figure>
       </div>
@@ -161,18 +179,21 @@
 
   <section class="mod-faq">
     <div class="wrap">
-      <div class="editorial">
-        <h2 class="mod-faq-h">Common questions</h2>
+      <div class="sec-head">
+        <h2>Common questions</h2>
+        <span class="label label--lo label--edge">Procurement Workflow Engine</span>
+      </div>
+      <div class="mod-faq-list">
         <details class="faq">
-          <summary>Can the steps be changed?</summary>
+          <summary><span>Can the steps be changed?</span></summary>
           <div class="faq-a"><p>Yes. A defence introduction and an agriculture introduction do not need the same sequence.</p></div>
         </details>
         <details class="faq">
-          <summary>Does the workflow approve anything?</summary>
+          <summary><span>Does the workflow approve anything?</span></summary>
           <div class="faq-a"><p>No. It moves an introduction along. Every gate in it is a person, and the last one is always ConvergX.</p></div>
         </details>
         <details class="faq">
-          <summary>Can I see what a step is waiting on?</summary>
+          <summary><span>Can I see what a step is waiting on?</span></summary>
           <div class="faq-a"><p>Yes. Where a step is waiting, it is visible that it is waiting and on whom.</p></div>
         </details>
       </div>
@@ -185,7 +206,6 @@
         <a class="mod-nav-link mod-nav-link--prev" href="/platform/modules/configurable-scoring/"><span class="mod-nav-dir">Previous module</span><span class="mod-nav-name">Configurable Scoring</span></a>
         <a class="mod-nav-link mod-nav-link--next" href="/platform/modules/role-gated-portals/"><span class="mod-nav-dir">Next module</span><span class="mod-nav-name">Role-Gated Portals</span></a>
       </div>
-      <p class="mod-nav-all"><a class="link-more" href="/platform/#modules">All fifteen modules</a></p>
     </div>
   </nav>
 

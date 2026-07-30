@@ -86,26 +86,20 @@
 
   <!-- GENERATED. Do not hand-edit: the generator overwrites this file.
 
-       SHAPE, 2026-07-29, modelled on the DOSS module page at Chip's direction:
-       eyebrow is the MODULE NAME, h1 is "<the thing> that <the outcome>", the
-       lede is verb-led capability then value, then feature blocks that each
-       carry a title, a description, three bullets and a screenshot to the
-       right. Same shape for every feature, every module.
+       ONE FEATURE BLOCK PER CAPABILITY, not a fixed number (Chip, 2026-07-29).
+       The count follows what the module actually has, three or four here, and
+       each block's DESCRIPTION is that module's own existing claim. No new
+       capability enters through this structure; the titles and bullets are
+       new, the claims are not.
 
-       WHAT IS NOT HERE, and none of it returns without Chip:
-         - stat callouts. There are no cleared numbers.
-         - "Where it stops". Retired 2026-07-29; every line it carried is
-           already in this module's FAQ, checked one by one before deleting.
-         - the hero mark and the full-width capture slot above the body. Both
-           pulled the same day.
        The screenshot frames are EMPTY ON PURPOSE. Inventing product UI for a
-       module that does not exist is the one thing this site cannot do; when
-       real captures land (see _reference/QUEUED-JARVIS-SCREENSHOTS.md) they
-       drop straight into these frames.
+       module that does not exist is the one thing this site cannot do. When
+       captures land (_reference/QUEUED-JARVIS-SCREENSHOTS.md) they drop into
+       these frames and the aspect stops being imposed.
 
-       Copy rules unchanged: present tense; ConvergX asks, decides, vets,
-       brokers and convenes, never knows or verifies; a PERSON decides and no
-       module is the subject of a decision verb; zero numbers. -->
+       Copy rules: present tense; ConvergX asks, decides, vets, brokers and
+       convenes, never knows or verifies; a PERSON decides and no module is
+       the subject of a decision verb; zero numbers. -->
 
   <section class="mod-hero">
     <div class="wrap">
@@ -118,20 +112,24 @@
     </div>
   </section>
 
+  <!-- The hero closes on a rule, with air either side of it, so the features
+       start as their own movement rather than running on from the CTA. -->
+  <div class="wrap"><hr class="rule rule--load mod-rule"></div>
+
   <section class="mod-feature">
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Collect notices as they publish, not when somebody remembers</h2>
-          <p class="mod-feature-desc">Public tender notices are gathered as they appear. Everything collected was already published, so nothing here is obtained privately or held back from anyone.</p>
+          <p class="mod-feature-n">01</p>
+          <h2>Collect notices on their schedule, not on yours</h2>
+          <p class="mod-feature-desc">Notices get collected as they are published, not when somebody remembers.</p>
           <ul class="mod-feature-list">
-            <li>Collected as notices are published</li>
-            <li>Public sources only, nothing private</li>
-            <li>One place instead of a dozen portals</li>
+            <li>Gathered as they are published</li>
+            <li>Public sources, nothing private</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Collect notices as they publish, not when somebody remembers. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Collect notices on their schedule, not on yours. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Tender Scraping</figcaption>
         </figure>
       </div>
@@ -142,16 +140,36 @@
     <div class="wrap">
       <div class="mod-feature-inner">
         <div class="mod-feature-copy">
-          <h2>Put a notice in front of the person who raised the need</h2>
-          <p class="mod-feature-desc">A notice that bears on a requirement already on the board can reach the person who raised it, rather than waiting for somebody to check a portal that week.</p>
+          <p class="mod-feature-n">02</p>
+          <h2>Put notices where somebody is already looking</h2>
+          <p class="mod-feature-desc">They arrive somewhere a person is already looking, instead of on a portal somebody has to remember to check.</p>
           <ul class="mod-feature-list">
-            <li>Matched to requirements already posted</li>
-            <li>Reaches the person who raised it</li>
-            <li>Collecting is not qualifying</li>
+            <li>One place, not a dozen portals</li>
+            <li>No portal to remember checking</li>
           </ul>
         </div>
         <figure class="mod-shot-frame mod-shot--empty"
-                data-spec="Screenshot: Put a notice in front of the person who raised the need. Scrubbed or synthetic data, no real attendee or company names">
+                data-spec="Screenshot: Put notices where somebody is already looking. Scrubbed or synthetic data, no real attendee or company names">
+          <figcaption>Tender Scraping</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="mod-feature">
+    <div class="wrap">
+      <div class="mod-feature-inner">
+        <div class="mod-feature-copy">
+          <p class="mod-feature-n">03</p>
+          <h2>Connect a notice to a requirement already posted</h2>
+          <p class="mod-feature-desc">A notice that matters to a requirement already on the board can be put in front of the person who raised it.</p>
+          <ul class="mod-feature-list">
+            <li>Matched to live requirements</li>
+            <li>Reaches whoever raised it</li>
+          </ul>
+        </div>
+        <figure class="mod-shot-frame mod-shot--empty"
+                data-spec="Screenshot: Connect a notice to a requirement already posted. Scrubbed or synthetic data, no real attendee or company names">
           <figcaption>Tender Scraping</figcaption>
         </figure>
       </div>
@@ -161,18 +179,21 @@
 
   <section class="mod-faq">
     <div class="wrap">
-      <div class="editorial">
-        <h2 class="mod-faq-h">Common questions</h2>
+      <div class="sec-head">
+        <h2>Common questions</h2>
+        <span class="label label--lo label--edge">Tender Scraping</span>
+      </div>
+      <div class="mod-faq-list">
         <details class="faq">
-          <summary>Where do the notices come from?</summary>
+          <summary><span>Where do the notices come from?</span></summary>
           <div class="faq-a"><p>Public tender portals. Everything collected here was already published; nothing is obtained privately.</p></div>
         </details>
         <details class="faq">
-          <summary>Does a collected notice mean the work is winnable?</summary>
+          <summary><span>Does a collected notice mean the work is winnable?</span></summary>
           <div class="faq-a"><p>No. Collecting a notice is not qualifying it and it is not a judgement about your chances.</p></div>
         </details>
         <details class="faq">
-          <summary>Can a notice reach the person who raised a related requirement?</summary>
+          <summary><span>Can a notice reach the person who raised a related requirement?</span></summary>
           <div class="faq-a"><p>Yes. A notice that bears on a requirement already on the board can be put in front of the person who raised it.</p></div>
         </details>
       </div>
@@ -185,7 +206,6 @@
         <a class="mod-nav-link mod-nav-link--prev" href="/platform/modules/rfp-intake-and-analysis/"><span class="mod-nav-dir">Previous module</span><span class="mod-nav-name">RFP Intake and Analysis</span></a>
         <a class="mod-nav-link mod-nav-link--next" href="/platform/modules/rfp-authoring/"><span class="mod-nav-dir">Next module</span><span class="mod-nav-name">RFP Authoring</span></a>
       </div>
-      <p class="mod-nav-all"><a class="link-more" href="/platform/#modules">All fifteen modules</a></p>
     </div>
   </nav>
 

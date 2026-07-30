@@ -2416,19 +2416,83 @@ section:has(.hero) { padding-block: 0; }
   .mod-shot-frame { aspect-ratio: 16 / 9; }
 }
 
-/* ---- FAQ ---- The answers were running the full editorial width, which is a
-   reading measure problem: a question is short and its answer was 100ch. Both
-   sit on the body measure now, and the heading stops competing with the h1. */
-.mod-faq { padding-block: 0 var(--space-2xl); }
-.mod-faq-h { margin-block-end: var(--space-l); }
-.mod-faq .faq { max-width: var(--measure-wide, 78ch); }
-.faq summary { max-width: var(--measure); }
-.faq-a p { max-width: var(--measure); }
 
-/* ---- PREVIOUS / NEXT ---- .mod-nav had its OWN max-width and gutter, which
-   is why its rules and words did not line up with the container above it: it
-   was a second, parallel page width. It uses .wrap like every other block now,
-   and the two links align to the outer edges of that container. */
-.mod-nav { padding-block: 0 var(--space-3xl); }
+
+/* ---- THE HERO CLOSE ---- air, a rule, air. The features start as their own
+   movement instead of running straight on from the CTA. */
+.mod-rule { margin-block: var(--space-3xl); }
+
+/* ---- FEATURE NUMBERING ---- The count varies by module, so a reader needs to
+   know how far through a set they are. This is the one place a number is not a
+   claim about anything. */
+.mod-feature-n {
+  font-family: var(--font-mono); font-size: var(--step--2);
+  letter-spacing: var(--track-label); color: var(--fg-lo);
+  margin-block-end: var(--space-s);
+}
+
+/* ==========================================================================
+   COMMON QUESTIONS. Was a bare stack of hairlines with no section treatment,
+   which read as unstyled next to the feature blocks above it.
+   It gets the site's own .sec-head, a bounding rule, real row padding, and an
+   affordance that changes on open.
+   ========================================================================== */
+.mod-faq { padding-block: var(--space-2xl) var(--space-3xl); }
+.mod-faq .sec-head { margin-block-end: var(--space-l); }
+.mod-faq-list {
+  border-top: var(--rule-med) solid var(--rule-ink-load);
+  max-width: 72ch;
+}
+.faq { border-top: 0; border-bottom: var(--rule-hair) solid var(--rule-ink); }
+.faq summary {
+  cursor: pointer; list-style: none;
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--space-l);
+  padding-block: var(--space-l);
+  font-size: var(--step-1); line-height: var(--lh-heading);
+  color: var(--fg-hi);
+}
+.faq summary > span { max-width: var(--measure); }
+.faq summary::-webkit-details-marker { display: none; }
+/* A text affordance rather than an icon, matching the nav caret. */
+.faq summary::after {
+  content: "+"; flex: none; color: var(--fg-lo);
+  font-size: var(--step-1); line-height: 1;
+}
+.faq[open] summary::after { content: "\2212"; color: var(--fg-hi); }
+.faq[open] summary { padding-block-end: var(--space-s); }
+.faq summary:hover { color: var(--link); }
+.faq summary:hover::after { color: var(--link); }
+.faq-a { padding-block-end: var(--space-l); }
+.faq-a p { max-width: var(--measure); color: var(--fg); }
+
+/* ==========================================================================
+   PREVIOUS / NEXT. Was two bare rules with text under them. They are the only
+   way on from the bottom of a module page now that the all-modules link is
+   gone, so they read as destinations: a full-height block each, a rule that
+   belongs to the block, and the module name at heading size.
+   ========================================================================== */
+.mod-nav { padding-block: 0 var(--space-4xl); }
 .mod-nav-inner { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-l); }
-.mod-nav-all { margin-block-start: var(--space-xl); }
+.mod-nav-link {
+  display: flex; flex-direction: column; gap: var(--space-2xs);
+  padding: var(--space-l);
+  border: var(--rule-hair) solid var(--rule-ink-load);
+  text-decoration: none;
+  min-height: 8rem;
+  justify-content: center;
+}
+.mod-nav-link--next { text-align: right; align-items: flex-end; }
+.mod-nav-link--next:only-child { grid-column: 2; }
+.mod-nav-dir {
+  font-family: var(--font-mono); font-size: var(--step--2);
+  letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-lo);
+}
+.mod-nav-name { font-size: var(--step-2); line-height: var(--lh-heading); color: var(--fg-hi); }
+.mod-nav-link:hover { border-color: var(--fg-hi); }
+.mod-nav-link:hover .mod-nav-name { color: var(--link); }
+@media (max-width: 48rem) {
+  .mod-nav-inner { grid-template-columns: 1fr; }
+  .mod-nav-link--next { text-align: left; align-items: flex-start; }
+  .mod-nav-link--next:only-child { grid-column: 1; }
+}
