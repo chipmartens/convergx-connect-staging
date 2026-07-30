@@ -2379,28 +2379,11 @@ section:has(.hero) { padding-block: 0; }
   .mod-hero-fig svg { width: 6rem; height: 4.5rem; }
 }
 
-/* The statement band. Its own ground, per Chip: the module pages are muted,
-   so the band is paper. One sentence, set at display size. */
-.mod-statement { padding-block: var(--space-3xl); }
-.mod-statement .say { max-width: 24ch; font-size: var(--step-3); line-height: var(--lh-heading); }
-@media (max-width: 60rem) { .mod-statement .say { max-width: none; font-size: var(--step-2); } }
 
 /* THE LABEL IS DEMOTED AND THE DESCRIPTION IS PROMOTED. Chip: the section
    headings outweighed the sentences under them, and the sentences are the
    part anybody reads. The h2 keeps its level for structure and gives up its
    size to a micro-label; the first description line takes lede size. */
-.mod-body-label {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  font-weight: 400;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: var(--fg-lo);
-  margin-block-end: var(--space-m);
-}
-.mod-lede p { font-size: var(--step-1); line-height: var(--lh-lede); color: var(--fg-hi); max-width: var(--measure); }
-.mod-body .claim { margin-block-start: var(--space-l); }
-
 /* FAQ. <details>, so it works with scripts off and needs none of its own. */
 .faq { border-top: var(--rule-hair) solid var(--rule-ink); }
 .faq summary {
@@ -2446,3 +2429,69 @@ section:has(.hero) { padding-block: 0; }
   .mod-nav-link--next { text-align: left; }
   .mod-nav-link--next:only-child { grid-column: 1; }
 }
+
+/* ==========================================================================
+   MODULE PAGE RHYTHM. Rewritten 2026-07-29 after a layout pass.
+   THE DIAGNOSIS, so nobody re-flattens it: every section was .section--open,
+   which is padding-block: --space-4xl 0. One 142px interval above everything
+   and nothing below, repeated six times down the page. That is not spacing,
+   it is a single value applied until every part of the page weighs the same.
+   The measured symptom was a label sitting 53px from the sentence it belongs
+   to, which is exactly as far as it sat from the section above it.
+
+   THE THESIS: a label HUGS what it names. The two description blocks are a
+   PAIR and sit close to each other. The gap between one idea and the next
+   idea is the only generous interval on the page.
+   ========================================================================== */
+
+.mod-hero { padding-block: var(--space-2xl) var(--space-3xl); }
+.mod-body { padding-block: 0 var(--space-2xl); }
+/* The pair closes and the page changes subject, so this is the one big gap. */
+.mod-body + .mod-body { padding-block-end: var(--space-4xl); }
+.mod-faq  { padding-block: 0 var(--space-2xl); }
+
+/* The editorial grid's uniform row gap is what put the label as far from its
+   own sentence as from the section above it. These blocks author their own. */
+.mod-body .editorial,
+.mod-faq .editorial { row-gap: 0; }
+
+.mod-body-label {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 400;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--fg-lo);
+  /* Hugs the sentence under it. The air belongs ABOVE the heading, which is
+     the section padding, not between the heading and what it names. */
+  margin-block: 0 var(--space-s);
+}
+.mod-lede p {
+  font-size: var(--step-1);
+  line-height: var(--lh-lede);
+  color: var(--fg-hi);
+  max-width: 34ch;          /* the opening line is a statement, not a column */
+}
+/* The supporting rows are one group: tight to each other, hairline between,
+   and clearly subordinate to the opening line above them. */
+.mod-body .claim {
+  margin-block-start: var(--space-m);
+  padding-block-start: var(--space-m);
+}
+.mod-body .claim p { max-width: var(--measure); }
+
+/* Hero: the type leads and the mark is a mark, not a column of its own. */
+.mod-hero .wrap { display: grid; grid-template-columns: 1fr auto; gap: var(--space-2xl); align-items: start; }
+.mod-hero .editorial { row-gap: var(--space-m); padding-block: 0; }
+.mod-hero h1 { margin-block-start: var(--space-2xs); max-width: 18ch; }
+.mod-hero .lede-text { max-width: 42ch; }
+.mod-hero .hero-cta { margin-block-start: var(--space-s); }
+
+.mod-faq .sec-head { margin-block-end: var(--space-l); }
+
+/* The hero mark, sized to read as a deliberate plate rather than a stray
+   glyph in the corner. It is the module's own mark from the index, drawn at
+   the scale a figure gets. It is NOT a screenshot and the generated page says
+   why; when real captures land it takes their place. */
+.mod-hero-fig svg { width: 16rem; height: 12rem; }
+@media (max-width: 60rem) { .mod-hero-fig svg { width: 8rem; height: 6rem; } }
