@@ -410,26 +410,30 @@
   ];
 
   /* Footer sitemap: the September launch subset. */
+  /* FIVE COLUMNS, not six. Chip, 2026-07-29: Find capability and Get discovered
+   * had a column each directly under the two blocks that ARE Find capability
+   * and Get discovered, and six columns wrapped a column onto a second line on
+   * a narrow screen. Their pages fold into one doors column here.
+   * The footer still carries EVERY page the panels carry, which is what makes
+   * the no-JS run navigable, so nothing was dropped to get the count down. The
+   * two "How it works" pages take door-qualified labels because two rows both
+   * reading "How it works" in one column is not a list, it is a puzzle. */
   var FOOTER = [
-    { title: "Find capability", links: [
-      { label: "How it works",       href: "/platform/find-capability/how-it-works/" },
-      { label: "What vetting means", href: "/platform/find-capability/what-vetting-means/" },
-      { label: "Confidentiality",    href: "/platform/find-capability/confidentiality/" }
-    ]},
-    { title: "Get discovered", links: [
-      { label: "How it works",       href: "/platform/get-discovered/how-it-works/" },
-      { label: "How vetting works",  href: "/platform/get-discovered/how-vetting-works/" },
-      { label: "Who is in the room", href: "/platform/get-discovered/who-is-in-the-room/" }
-    ]},
-    /* One page since 2026-07-29, so these are anchors into it rather than
-     * four destinations. They stay as four rows: the footer is the no-JS
-     * run's only index, and a reader looking for "trust and security" needs
-     * to find those words somewhere. */
-    { title: "Platform", links: [
+    { title: "The Platform", links: [
       { label: "Overview",                  href: "/platform/" },
-      { label: "Modules",                   href: "/platform/#modules" },
+      { label: "All modules",               href: "/platform/#modules" },
       { label: "Vetting and introductions", href: "/platform/#vetting-and-introductions" },
       { label: "Trust and security",        href: "/platform/#trust-and-security" }
+    ]},
+    { title: "The two doors", links: [
+      { label: "Find capability",            href: "/platform/find-capability/" },
+      { label: "How Find capability works",  href: "/platform/find-capability/how-it-works/" },
+      { label: "What vetting means",         href: "/platform/find-capability/what-vetting-means/" },
+      { label: "Confidentiality",            href: "/platform/find-capability/confidentiality/" },
+      { label: "Get discovered",             href: "/platform/get-discovered/" },
+      { label: "How Get discovered works",   href: "/platform/get-discovered/how-it-works/" },
+      { label: "How vetting works",          href: "/platform/get-discovered/how-vetting-works/" },
+      { label: "Who is in the room",         href: "/platform/get-discovered/who-is-in-the-room/" }
     ]},
     { title: "The Congress", links: [
       { label: "Overview",             href: "/congress/" },
@@ -441,11 +445,6 @@
       { label: "Regional Xchanges",    href: "/congress/regional-xchanges/" },
       { label: "Xchange Partnerships", href: "/congress/partnerships/" }
     ]},
-    /* Xpand takes a column of its own rather than a pair of rows inside
-     * ConvergX. It is a top-level section, peer to Platform and the
-     * Congress, and the ConvergX column is the organisation's own rows.
-     * Two links is a short column; .footer-cols is auto-fit, so a short
-     * column costs nothing and a mislabelled one costs the reader. */
     { title: "Xpand", links: [
       { label: "Overview",             href: "/xpand/" },
       { label: "What Xpand does",      href: "/xpand/what-xpand-does/" },
@@ -454,11 +453,6 @@
     { title: "ConvergX", links: [
       { label: "About",          href: "/about/" },
       { label: "How we vet",     href: "/about/how-we-vet/" },
-      /* These two used to be reachable ONLY here, because About took no
-       * panel. It takes one now (see UTILITY above) and these rows are the
-       * second route rather than the only one. They stay: the footer
-       * carries every page the panels carry, which is what makes the
-       * noscript run navigable. */
       { label: "Leadership",     href: "/about/leadership/" },
       { label: "Who we convene", href: "/about/network/" },
       { label: "Industries",     href: "/industries/" },
@@ -863,11 +857,23 @@
    * Words are cut, never changed. */
   var FOOTER_QUOTES = [
     { quote: "ConvergX is one of the very few conferences that I have ever attended that provides real value.",
-      who:   "Jeff LaFrenz, VizworX Inc." },
+      who: "Jeff LaFrenz", org: "VizworX Inc." },
     { quote: "ConvergX has been a great opportunity for us to engage with representatives from some of those industries, understand their challenges, and find synergies between their needs and ours.",
-      who:   "Gary Biermann, Lockheed Martin" },
+      who: "Gary Biermann", org: "Lockheed Martin" },
+    { quote: "Your conference was the most professional I've attended in the last 10 years, you should be very proud.",
+      who: "Cam MacDonald", org: "" },
+    { quote: "I meet key people and the lectures are eye opening \u2026 I wouldn't miss it.",
+      who: "Chuck Bean", org: "The Method Effect" },
+    { quote: "The opportunity to engage directly with Aerospace, Defence and Security sectors enables broader markets and accelerates the introduction of solutions into practical use.",
+      who: "Stephan King", org: "Royal Canadian Navy Innovation Team" },
+    { quote: "I'm very happy to be here and I'm impressed with the group of people that you've brought together for this forum.",
+      who: "BGen Carpentier", org: "Joint Task Force North" },
+    { quote: "Conferences like this are valuable because it gives us a deeper understanding of who the key players are in the Arctic.",
+      who: "BGen Hardin", org: "Department of National Defence" },
+    { quote: "It was an honor to present at your conference.",
+      who: "Claude Rochette", org: "Department of National Defence" },
     { quote: "I learned from and met many fascinating people I would normally never cross paths with. Different perspectives are so valuable in getting creative and thinking outside the box.",
-      who:   "Blaire Lancaster" }
+      who: "Blaire Lancaster", org: "" }
   ];
 
   /* THE TWO DOORS AS BLOCKS, in the footer, on the dark ground. Chip,
@@ -880,12 +886,10 @@
   function buildCtaBar() {
     return (
       '<section class="cta-blocks" aria-label="' + CTA_BAR.label + '">' +
-        '<div class="wrap">' +
-          '<p class="label label--lo">' + CTA_BAR.label + "</p>" +
-          doorBlocks(currentPath()) +
-          '<p class="cta-blocks-end"><a class="link-more" href="' + CTA_BAR.end.href + '">' +
-            CTA_BAR.end.label + "</a></p>" +
-        "</div>" +
+        /* No label above and no link below. Chip, 2026-07-29: the two blocks
+         * say what they are, and a "Two doors" kicker plus a Request access
+         * link underneath was three calls to action stacked on each other. */
+        '<div class="wrap">' + doorBlocks(currentPath()) + "</div>" +
       "</section>"
     );
   }
@@ -902,14 +906,19 @@
     var items = FOOTER_QUOTES.map(function (q) {
       return '<li class="quote"><figure>' +
         "<blockquote><p>" + q.quote + "</p></blockquote>" +
-        "<figcaption>" + q.who + "</figcaption>" +
+        '<figcaption><span class="q-who">' + q.who + "</span>" +
+        (q.org ? '<span class="q-org">' + q.org + "</span>" : "") +
+        "</figcaption>" +
       "</figure></li>";
     }).join("");
     return (
       '<section class="footer-quotes" aria-label="Published quotes">' +
         '<div class="wrap">' +
           '<div class="fq-head">' +
-            '<p class="label label--lo">ConvergX published every quote below. Words are cut, never changed.</p>' +
+            '<div class="fq-title">' +
+              "<h2>ConvergX testimonials</h2>" +
+              '<p class="label label--lo">Published by ConvergX. Words are cut, never changed.</p>' +
+            "</div>" +
             '<p class="fq-arrows">' +
               '<button type="button" class="fq-arrow" data-fq="prev" aria-label="Previous quotes">&#8592;</button>' +
               '<button type="button" class="fq-arrow" data-fq="next" aria-label="Next quotes">&#8594;</button>' +
@@ -1102,18 +1111,34 @@
 
   /* The quote arrows. Progressive enhancement only: the track is a scroll
    * container that already works by touch and trackpad, and these move it by
-   * one card. With scripts off the buttons are never rendered as interactive
-   * and the track is still every quote in DOM order. */
+   * one card. With scripts off the buttons never get wired and the track is
+   * still every quote in DOM order.
+   * The step is measured from a real card plus the real gap rather than
+   * assumed, because the card width is a minmax() that changes with the
+   * viewport. Ends disable, so a reader is never clicking a dead control. */
   function wireQuotes(root) {
     var track = root.querySelector("[data-fq-track]");
     if (!track) return;
-    root.querySelectorAll("[data-fq]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var card = track.querySelector(".quote");
-        var step = card ? card.getBoundingClientRect().width + 24 : track.clientWidth;
-        track.scrollBy({ left: btn.dataset.fq === "next" ? step : -step, behavior: "smooth" });
-      });
-    });
+    var prev = root.querySelector('[data-fq="prev"]');
+    var next = root.querySelector('[data-fq="next"]');
+    if (!prev || !next) return;
+
+    function step() {
+      var card = track.querySelector(".quote");
+      if (!card) return track.clientWidth;
+      var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return card.getBoundingClientRect().width + gap;
+    }
+    function sync() {
+      var max = track.scrollWidth - track.clientWidth;
+      prev.disabled = track.scrollLeft <= 1;
+      next.disabled = track.scrollLeft >= max - 1;
+    }
+    prev.addEventListener("click", function () { track.scrollBy({ left: -step(), behavior: "smooth" }); });
+    next.addEventListener("click", function () { track.scrollBy({ left:  step(), behavior: "smooth" }); });
+    track.addEventListener("scroll", sync, { passive: true });
+    if (window.ResizeObserver) new ResizeObserver(sync).observe(track);
+    sync();
   }
 
   function currentPath() {

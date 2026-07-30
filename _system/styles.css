@@ -2312,21 +2312,6 @@ section:has(.hero) { padding-block: 0; }
 /* ---- QUOTES ---- outlined blocks on the same ground, so the outline does
    the separating rather than a fill. Larger than the old set, per Chip. */
 .footer-quotes { padding-block: var(--space-3xl) var(--space-xl); }
-.fq-head {
-  display: flex; align-items: baseline; justify-content: space-between;
-  gap: var(--space-l); margin-block-end: var(--space-l);
-}
-.fq-arrows { display: flex; gap: var(--space-2xs); margin: 0; }
-.fq-arrow {
-  background: none;
-  border: var(--rule-hair) solid var(--rule-ink-load);
-  color: var(--fg);
-  font: inherit;
-  line-height: 1;
-  padding: var(--space-2xs) var(--space-s);
-  cursor: pointer;
-}
-.fq-arrow:hover { color: var(--fg-hi); border-color: var(--fg-hi); }
 
 /* A scroll-snap row. With scripts off this is still every quote, readable and
    scrollable; only the arrows go quiet. */
@@ -2343,26 +2328,15 @@ section:has(.hero) { padding-block: 0; }
 .footer-quote-grid::-webkit-scrollbar { display: none; }
 /* The block, outlined rather than filled. .quote's own top hairline is
    replaced by a full outline here, so it reads as a card without a fill. */
-.footer-quotes .quote {
-  scroll-snap-align: start;
-  border: var(--rule-hair) solid var(--rule-ink-load);
-  border-top: var(--rule-hair) solid var(--rule-ink-load);
-  padding: var(--space-l);
-  display: flex; flex-direction: column; gap: var(--space-m);
-}
-.footer-quotes .quote blockquote p { font-size: var(--step-1); line-height: var(--lh-lede); }
-.footer-quotes .quote figcaption { margin-block-start: auto; font-size: var(--step-0); }
 
 /* ---- THE TWO DOORS, in the footer ---- same component as the header panel,
    so the copy and the tones are defined once. Side by side here because the
    footer has the width the panel column did not. */
 .cta-blocks { padding-block: var(--space-xl) var(--space-2xl); }
-.cta-blocks > .wrap > .label { display: block; margin-block-end: var(--space-m); }
 .cta-blocks .door-blocks { grid-template-columns: 1fr 1fr; gap: var(--space-l); }
 .cta-blocks .door-block { min-height: 0; padding: var(--space-l); }
 .cta-blocks .door-block-label { font-size: var(--step-3); }
 .cta-blocks .door-block-note { font-size: var(--step-0); max-width: 34ch; }
-.cta-blocks-end { margin-block-start: var(--space-l); }
 @media (max-width: 48rem) {
   .cta-blocks .door-blocks { grid-template-columns: 1fr; }
   .footer-quote-grid { grid-auto-columns: minmax(16rem, 85%); }
@@ -2532,3 +2506,56 @@ section:has(.hero) { padding-block: 0; }
   padding-block-start: var(--space-l);
   padding-block-end: var(--space-l);
 }
+
+/* ==========================================================================
+   FOOTER TESTIMONIALS. 2026-07-29, Chip's notes.
+   A real title, square arrow buttons, taller blocks, and the attribution
+   pinned to the bottom of each card with the name in the accent.
+   ========================================================================== */
+
+.fq-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: var(--space-l); margin-block-end: var(--space-l);
+}
+.fq-title h2 { color: var(--fg-hi); margin-block-end: var(--space-2xs); }
+.fq-title .label { display: block; }
+
+/* SQUARE. Equal width and height, set from one value so they cannot drift. */
+.fq-arrows { display: flex; gap: var(--space-2xs); margin: 0; flex: none; }
+.fq-arrow {
+  --fq-arrow-size: 3rem;
+  inline-size: var(--fq-arrow-size);
+  block-size: var(--fq-arrow-size);
+  display: grid; place-content: center;
+  background: none;
+  border: var(--rule-hair) solid var(--rule-ink-load);
+  color: var(--fg); font: inherit; line-height: 1; cursor: pointer;
+}
+.fq-arrow:hover { color: var(--fg-hi); border-color: var(--fg-hi); }
+.fq-arrow:disabled { opacity: 0.35; cursor: default; }
+.fq-arrow:disabled:hover { color: var(--fg); border-color: var(--rule-ink-load); }
+
+/* Taller, and the attribution sits on the floor of the card so the names line
+   up across the row however long the quotes run. */
+.footer-quotes .quote {
+  scroll-snap-align: start;
+  border: var(--rule-hair) solid var(--rule-ink-load);
+  padding: var(--space-l);
+  min-block-size: 22rem;
+}
+.footer-quotes .quote figure {
+  margin: 0; block-size: 100%;
+  display: flex; flex-direction: column;
+}
+.footer-quotes .quote blockquote { margin: 0; }
+.footer-quotes .quote blockquote p { color: var(--fg-hi); font-size: var(--step-1); }
+.footer-quotes .quote figcaption {
+  margin-block-start: auto;          /* pinned to the bottom of the card */
+  padding-block-start: var(--space-l);
+  border: 0;
+  display: flex; flex-direction: column; gap: var(--space-3xs);
+}
+/* The name takes the accent, the employer stays quiet. Attribution is not
+   endorsement: naming an employer here is permitted, rendering its mark is not. */
+.q-who { color: var(--link); }
+.q-org { color: var(--fg-lo); font-size: var(--step--1); }
