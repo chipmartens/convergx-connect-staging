@@ -915,10 +915,7 @@
       '<section class="footer-quotes" aria-label="Published quotes">' +
         '<div class="wrap">' +
           '<div class="fq-head">' +
-            '<div class="fq-title">' +
-              "<h2>ConvergX testimonials</h2>" +
-              '<p class="label label--lo">Published by ConvergX. Words are cut, never changed.</p>' +
-            "</div>" +
+            '<div class="fq-title">' + "<h2>ConvergX testimonials</h2>" + "</div>" +
             '<p class="fq-arrows">' +
               '<button type="button" class="fq-arrow" data-fq="prev" aria-label="Previous quotes">&#8592;</button>' +
               '<button type="button" class="fq-arrow" data-fq="next" aria-label="Next quotes">&#8594;</button>' +
@@ -1133,6 +1130,9 @@
       var max = track.scrollWidth - track.clientWidth;
       prev.disabled = track.scrollLeft <= 1;
       next.disabled = track.scrollLeft >= max - 1;
+      /* The peek fade is only honest while there IS a next card. */
+      if (track.scrollLeft >= max - 1) track.setAttribute("data-fq-end", "");
+      else track.removeAttribute("data-fq-end");
     }
     prev.addEventListener("click", function () { track.scrollBy({ left: -step(), behavior: "smooth" }); });
     next.addEventListener("click", function () { track.scrollBy({ left:  step(), behavior: "smooth" }); });
