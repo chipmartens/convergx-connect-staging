@@ -2938,3 +2938,1077 @@ img.launcher-logo {
   text-underline-offset: 0.2em;
 }
 .launcher-cta a:hover { text-decoration-thickness: 2px; }
+
+/* ================= 30. THE PHOTOGRAPHIC HERO ================= */
+/* Opt-in per page via [data-hero="photo"] on <body>. Only /congress/ uses
+ * it. Everything here is scoped to that attribute so the other 63 pages
+ * cannot be touched by it.
+ *
+ * The photograph is the hero's ground: transparent header on top, all
+ * hero copy on top, duotone in the accent blue, fading to the page ground
+ * at the bottom. No second image file and no build step, so the source
+ * asset stays the untouched original and swapping it is one src. */
+
+.hero-photo-band {
+  position: relative;
+  isolation: isolate;          /* contains the blend modes below */
+}
+
+/* Pulled UP behind the nav bar by exactly one bar height so the image
+ * starts at the top of the page rather than under the header.
+ * --shell-total is measured by shell.js and INCLUDES the notice bar;
+ * --shell-h is the bar alone and is the no-JS fallback. The notice is a
+ * solid band and paints over the image anyway, so the bar height is the
+ * honest number to pull by. */
+[data-hero="photo"] .hero-photo {
+  position: absolute;
+  inset-inline: 0;
+  /* DEFAULT IS ZERO, and that is the no-JS case, not an oversight.
+   * .shell-header is a class shell.js ADDS; with scripts off it never
+   * exists, the <noscript> nav renders in normal flow instead, and there
+   * is no sticky bar to hide behind. Pulling up regardless would drag the
+   * photograph over the bottom of that nav list. */
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* Only once the real shell has rendered does the photo climb behind it. */
+[data-hero="photo"]:has(.shell-header) .hero-photo {
+  top: calc(-1 * var(--shell-h));
+}
+
+[data-hero="photo"] .hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 45%;
+  /* Flattened to luminance first so the tint below has clean tone to sit
+   * on, then pushed back up slightly. Chip asked for duotone but SLIGHTLY
+   * saturated, so this is deliberately not a full grayscale(1): a little
+   * of the room's own warmth survives under the blue and stops it going
+   * flat and screen-printed. */
+  filter: grayscale(0.82) contrast(1.06) brightness(0.5) saturate(1.15);
+}
+
+/* The tint. `color` blend keeps the image's luminance and takes the hue
+ * and saturation from the accent, which is what makes it read as a
+ * duotone rather than as a blue sheet laid over a photo. */
+[data-hero="photo"] .hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--accent);
+  mix-blend-mode: color;
+  opacity: 0.9;
+}
+
+/* THE SCRIM, and it is not decoration. White copy over a photograph is
+ * only legible by luck unless something guarantees a floor underneath it,
+ * and "it looked fine on my screen" is how that ships broken. This lays a
+ * ground-coloured wash that is heaviest on the left, where the whole text
+ * column sits, and clears off to the right so the room is still visible.
+ * Sampled after the fact: see the measured floor in the build notes. */
+[data-hero="photo"] .hero-photo-scrim,
+[data-hero="photo"] .hero-photo > span {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to right,
+    rgba(10, 10, 10, 0.88) 0%,
+    rgba(10, 10, 10, 0.72) 38%,
+    rgba(10, 10, 10, 0.30) 72%,
+    rgba(10, 10, 10, 0.10) 100%);
+}
+@media (max-width: 60rem) {
+  /* On a phone the copy runs the full width, so a left-weighted wash has
+   * nowhere to clear to. Flat and heavier instead. */
+  [data-hero="photo"] .hero-photo > span {
+    background: rgba(10, 10, 10, 0.78);
+  }
+}
+
+/* The fade to the page ground, and it sits ABOVE the tint on purpose:
+ * it has to resolve to the real --bg or the band edge shows as a seam.
+ * Starting at 45% keeps the top of the frame clean where the headline is. */
+[data-hero="photo"] .hero-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(to bottom,
+    rgba(0,0,0,0) 45%,
+    var(--bg) 100%);
+}
+
+/* THE HEADER GOES TRANSPARENT, but only at rest. The base .shell-header
+ * comment is explicit that its background is not optional, because a
+ * transparent sticky bar lets content scroll visibly underneath it. That
+ * is still true. This only removes the fill while the bar is sitting on
+ * the photograph; the moment shell.js marks it floating it takes the
+ * ground back and behaves exactly like every other page. */
+[data-hero="photo"] .shell-header {
+  background: transparent;
+  /* The base rule only transitions border-color. Without background here
+   * the bar would snap between transparent and grey on hover, which reads
+   * as a flicker rather than as a surface arriving. */
+  transition: border-color var(--t) linear, background-color var(--t) linear;
+}
+[data-hero="photo"] .shell-header--floating { background: var(--bg); }
+
+/* THE BAR TAKES ITS GROUND BACK WHENEVER IT IS BEING USED. Chip, 2026-07-31.
+ * Transparent is right while the bar is just sitting on the photograph; the
+ * moment someone reaches for it, nav labels over a busy image are hard work,
+ * and an open mega panel hanging off an invisible bar looks detached from it.
+ *
+ * Three triggers, and each is doing a different job:
+ *   :hover        the pointer case Chip asked for.
+ *   :focus-within the SAME case for a keyboard, which hover never covers.
+ *                 Without it, tabbing into the nav leaves every focused
+ *                 link sitting on the photograph.
+ *   :has(.mega:not([hidden]))  an open panel. The panels live inside the
+ *                 header and toggle the hidden attribute, so this needs no
+ *                 JS and cannot drift out of sync with the real state.
+ * Deliberately NOT --floating: that one is scroll state and already handled. */
+[data-hero="photo"] .shell-header:hover,
+[data-hero="photo"] .shell-header:focus-within,
+[data-hero="photo"] .shell-header:has(.mega:not([hidden])) {
+  background: var(--bg);
+}
+
+/* The hero needs real height now that it is carrying an image, and room
+ * under the copy so the fade has somewhere to happen. */
+[data-hero="photo"] .hero {
+  min-height: min(44rem, calc(100svh - var(--shell-total, var(--shell-h))));
+  padding-block-end: var(--space-4xl);
+}
+
+/* DELETED 2026-07-31: .hero-aside--bare, .hero-provenance, and the
+ * [data-hero="photo"] overrides for .hero-category and .hero-provenance.
+ * The Congress hero's <aside> is gone from the markup (Chip: wider copy
+ * block, less vertical height), and those four rules were written for it
+ * and nothing else, so they now match nothing on any of the 64 pages.
+ * The BASE .hero-aside rules in section 17 are untouched and still live:
+ * four platform pages render an aside. Section 31 below carries the
+ * replacement geometry.
+ *
+ * THE ONE PLACE THE BLUE EYEBROW RULE CANNOT APPLY, and it STAYS. Every
+ * other eyebrow on the site is --label-ink, which is a blue. This one sits
+ * on a BLUE PHOTOGRAPH, where blue-on-blue measured as unreadable and
+ * looked it. Lifted to the emphasis ink: --ink-hi on the scrimmed
+ * photograph, and the scrim's own floor is what carries it. Scoped as
+ * tightly as possible, the photo hero only. */
+[data-hero="photo"] .hero-head .label { color: var(--ink-hi); }
+
+/* ================= 31. THE CONGRESS HERO, ASIDE REMOVED ================= */
+/* Chip, 2026-07-31: the hero copy block gets wider and shorter. The aside
+ * that held "Tenth year." and the 2018 provenance line is deleted from the
+ * markup, which frees columns 9 to 12 on this page and this page only.
+ *
+ * SCOPED TO [data-hero="photo"], WHICH IS /congress/ AND NOTHING ELSE.
+ * Checked before writing rather than assumed, because the brief that
+ * ordered this said the homepage still carries an aside and it does not:
+ *   .hero-aside renders on platform/index.html, platform/find-capability/,
+ *   platform/get-discovered/, platform/get-discovered/how-it-works/ and
+ *   _dev/_reference.html. The homepage hero has head, title, sub and cta
+ *   only, and has never had an aside.
+ * So the four platform heroes are the regression risk here, not the
+ * homepage, and the [data-hero="photo"] scope keeps all five off it.
+ *
+ * BOTH THE COLUMN AND THE MEASURE MOVE, BECAUSE THEY WERE TIED. Measured
+ * live at 1280 rather than assumed: the content box is 1110px, so a column
+ * is 68.1px and the column gap 26.6px. .display--hero carries
+ * max-width: var(--measure-hero), 12ch, which resolves to 737px there,
+ * against a span-8 column of 731px. The two were within 6px of each other,
+ * so BOTH were binding and moving either one alone would have changed
+ * nothing on screen. Column to 10 of 12 (920px), measure to 16ch (983px).
+ * The column is the governor by design.
+ *
+ * SPAN 9 WAS TRIED FIRST AND MEASURED AS A FAILURE. At 826px the live
+ * headline still rendered FOUR lines, exactly as it did at 737px, so the
+ * whole point of the change (Chip: less vertical height) was not bought.
+ * 920px is where it drops to three, which is about 90px of height back.
+ * This is the reason to measure a line count rather than reason about a
+ * character count: 826 and 920 look like a small difference on paper and
+ * are a whole line apart on screen.
+ *
+ * AND THE SCRIM MOVES WITH IT, see the override at the end of this
+ * section. At span 10 the copy box ends at 1005px, about 79% across the
+ * viewport, which on the ORIGINAL gradient would have been roughly 0.25
+ * alpha and genuinely too thin for white type. Re-weighting the wash to
+ * follow the copy is the right half of that trade; starving the headline
+ * to fit a gradient authored for a narrower column is the wrong half.
+ * main-end is still refused: past 93% there is no honest amount of wash
+ * that leaves the photograph visible at all. */
+[data-hero="photo"] .hero-head,
+[data-hero="photo"] .hero-title,
+[data-hero="photo"] .hero-cta   { grid-column: col-start 1 / span 10; }
+[data-hero="photo"] .hero-title { max-width: 16ch; }
+
+/* The lede is NOT widened by measure. --measure-lede is 34ch, the authored
+ * reading measure for running copy, and stretching it to fill new space is
+ * the one change here that would cost legibility rather than buy it. Only
+ * the column moves, from 5 to 6, and only because below about 1100px the
+ * 5-column track resolves NARROWER than 34ch and starts binding instead of
+ * the measure. At 1280 this is a no-op by design. */
+[data-hero="photo"] .hero-sub { grid-column: col-start 1 / span 6; }
+
+/* Height comes down with the copy. 44rem to 36rem, and the bottom pad from
+ * 5 body lines to 4. The floor is the fade: the gradient in section 30
+ * starts at 45% of the photo box and has to resolve to --bg by 100%, so
+ * there has to be real height under the last line for it to land in.
+ * --space-3xl is 96 to 108px, which is more than the fade needs and is a
+ * line-commensurate step, so the rhythm rules in 6b still hold. */
+[data-hero="photo"] .hero {
+  min-height: min(36rem, calc(100svh - var(--shell-total, var(--shell-h))));
+  /* Was --space-3xl, 107px, measured as dead space below the sponsor strip.
+   * --space-2xl still clears what the fade needs: the gradient starts at 45%
+   * of the photo box and must resolve to --bg by 100%, and at this hero
+   * height that is roughly 480px of run for a 64px pad to sit inside. If the
+   * hero ever gets much shorter, re-check the fade before cutting further. */
+  padding-block-end: var(--space-2xl);
+}
+
+/* THE MOBILE COLLAPSE HAS TO BE RESTATED, and the first version of this
+ * section did not restate it and was broken. Section 17's collapse rule is
+ * `.hero-head, .hero-title, .hero-sub, .hero-cta { grid-column: main }`,
+ * specificity 0,1,0. The rules above are 0,2,0 and BEAT it, so the span-9
+ * placement kept applying inside a grid that no longer has nine content
+ * columns, `col-start 1 / span 9` resolved into the right-hand rail, and
+ * the document scrolled sideways by a full gutter at both 375 and 768.
+ * Caught by measuring the scrollWidth, not by reading the rule. Anything
+ * scoped to an attribute has to re-win every media query it lands in. */
+@media (max-width: 60rem) {
+  [data-hero="photo"] .hero-head,
+  [data-hero="photo"] .hero-title,
+  [data-hero="photo"] .hero-sub,
+  [data-hero="photo"] .hero-cta   { grid-column: main; }
+  [data-hero="photo"] .hero-title { max-width: var(--measure-hero); }
+}
+
+/* THE SCRIM FOLLOWS THE COPY. Section 30 authored this gradient against a
+ * span-8 column whose text ended near 64% of the viewport, so it spent its
+ * weight in the first 38% and cleared to 0.10 by 72%. The copy now runs to
+ * 71%, which on the original stops is about 0.31 alpha, and white type over
+ * a photograph at that floor is legible by luck rather than by design.
+ *
+ * The heavy stretch is extended and the clear-off pushed right. Measured
+ * against where the copy box actually ends, 1005px of 1280, which is 78.5%:
+ * this gradient interpolates to about 0.50 alpha there, against about 0.25
+ * on the original stops. It is also HIGHER than the 0.40 the old, narrower
+ * copy enjoyed at its own 64%, so the widening costs nothing in legibility
+ * and buys a little. The right 15% of the frame still clears to 0.14, so
+ * the room is still visible and the photograph is still doing its job.
+ *
+ * Same near-black wash and the same reasoning as the base rule, so it is
+ * stated the same way. This is the ONE component that cannot resolve its
+ * wash through a surface token: it has to composite against image pixels,
+ * not against a ground, which is why section 30 wrote a literal here and
+ * why this override does too. Both are scoped to the photo hero alone.
+ *
+ * GATED TO min-width, WHICH IS NOT TIDINESS. Section 30's mobile rule
+ * flattens this wash to a single heavy value below 60rem, and it carries
+ * the SAME specificity as this selector, 0,2,0. A media query adds none.
+ * So an unconditional override here would sit later in the file and beat
+ * the flat wash at every width, taking a left-weighted gradient onto the
+ * one layout where the copy runs full width and the wash has nowhere to
+ * clear to. 60.0625rem is 961px, exactly one pixel past the max-width
+ * breakpoint, so the two never both apply. */
+@media (min-width: 60.0625rem) {
+  [data-hero="photo"] .hero-photo-scrim,
+  [data-hero="photo"] .hero-photo > span {
+    background: linear-gradient(to right,
+      rgba(10, 10, 10, 0.88) 0%,
+      rgba(10, 10, 10, 0.78) 60%,
+      rgba(10, 10, 10, 0.40) 85%,
+      rgba(10, 10, 10, 0.14) 100%);
+  }
+}
+
+/* ================= 32. THE NOTIFICATION BAR, REBUILT ================= */
+/* Chip, 2026-07-31: bigger, centred, a live countdown, and a real Register
+ * button. Section 7d still owns the bar's ground and ink and is unchanged.
+ * This section is the layout, the type step and the CTA on top of it.
+ *
+ * THE BAR RENDERS ON 52 PAGES. Nothing here is scoped to /congress/ on
+ * purpose: the bar is chrome and has to look the same everywhere. What
+ * that costs is that every rule below has to be surface-independent, and
+ * it is: the bar states its own ground (--accent) and its own ink
+ * (--accent-ink), so it resolves identically on dark, light and muted.
+ *
+ * CONTRAST, ALL RE-MEASURED 2026-07-31 AGAINST THE CURRENT BLUE.
+ * Ignore any figure written above the stale-ratio warning line at the top
+ * of this file; those were computed against the retired orange.
+ *   --accent-ink (white) on --accent (#146ef5)   4.59:1   body and countdown
+ *   --paper fill on --accent                     4.59:1   the button's edge
+ *   --accent-text on --paper                     6.46:1   the button's label
+ *   --cool-100 fill on --accent                  4.02:1   hover edge
+ *   --accent-text on --cool-100                  5.67:1   hover label
+ * The two fill figures are the WCAG 1.4.11 non-text boundary and need
+ * 3:1. Both label figures are normal text and need 4.5:1. All five clear.
+ *
+ * MOTION. Nothing in this component animates. The colour transition on the
+ * CTA comes from the single global rule in section 19, and the
+ * prefers-reduced-motion block directly under it zeroes every transition
+ * and animation on the page with !important, so it governs this bar
+ * already and a second query here would be dead weight. */
+
+.notice-inner {
+  /* Was --space-2xs and --step--1. Both up: this is now a band, not a line
+   * of fine print. --space-s block padding is the paragraph unit and reads
+   * as deliberate air at the top of the page. */
+  padding-block: var(--space-s);
+  font-size: var(--step-0);
+
+  display: flex;
+  /* ONE LINE, AT EVERY WIDTH. Chip, 2026-07-31, looking at the built bar.
+   * nowrap is the requirement, and it is the reason every rule below the
+   * tier ladder exists: once the row cannot wrap, something has to give
+   * when it runs out of width, and WHAT gives has to be authored rather
+   * than left to whatever the flex algorithm reaches for first. */
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-l);
+}
+
+/* BOTH FLEX CHILDREN ARE <p>, WHICH DRAGS IN TWO GLOBAL RULES THAT ARE
+ * WRONG HERE. The global p rule caps every paragraph at --measure, which
+ * would park the sentence off-centre in a centred row the moment the bar
+ * is wider than 50ch. And `p + p` in section 2 puts --space-s of
+ * margin-block-start on the second one: as a flex item in a ROW that is a
+ * top margin, so the countdown would sit one paragraph-gap lower than the
+ * sentence beside it. A margin on a flex item is not collapsed and not
+ * absorbed by gap, exactly as the note at line 430 records for grid. Both
+ * killed for both children, once. */
+.notice-text,
+.notice-countdown { max-width: none; margin: 0; }
+
+/* min-width: 0 is what lets a flex item shrink below its content width.
+ * Without it the date string sets a floor the row cannot get under, and a
+ * nowrap row that cannot shrink pushes the page sideways instead, which is
+ * the trade this must not make. The CTA is deliberately NOT in here: it
+ * carries flex: none further down, because a Register button squeezed to
+ * "Regis..." is worse than anything the ladder gives up. */
+.notice-text,
+.notice-countdown { min-width: 0; }
+.notice-text { white-space: nowrap; overflow: hidden; }
+
+/* THREE STATES, NOT ONE, and the layout is the same rule for all three.
+ * The bar renders as text plus countdown plus button, as text plus button
+ * once the script removes the countdown after the target passes, and as
+ * text plus button with scripts off. Nothing here counts children or
+ * targets a position, so a two-child row centres exactly like a three-child
+ * one. The same is true INSIDE the countdown: under reduced motion the
+ * script drops the seconds unit, so the row renders with three units on
+ * some machines and four on others. justify-content plus one gap value is
+ * correct at both counts. There is no nth-child and no first/last-of-type
+ * anywhere in this section, and no rule assumes four units.
+ *
+ * ================== THE ORDER OF SACRIFICE ==================
+ * One line is the requirement, so the row has to give something up as the
+ * viewport narrows. This is the authored order, cheapest first, and each
+ * tier is a real breakpoint below.
+ *
+ *   1. Gaps tighten.                    Costs nothing but air.
+ *   2. .cd-l unit labels clip away.     "53 : 08 : 41 : 02" still reads as
+ *                                       a clock. CLIPPED, not display:none,
+ *                                       so "days" and "hrs" stay in the
+ *                                       accessibility tree. Colon separators
+ *                                       come in with this tier, as generated
+ *                                       content, so they are punctuation and
+ *                                       not markup.
+ *   3. .cd-label clips away.            Same technique, same reason: the
+ *                                       prefix that names what is being
+ *                                       counted down is still announced.
+ *   4. Type steps down one rung.        --step-0 to --step--1 on the date.
+ *
+ * NOT SPENT, AND ON PURPOSE:
+ *   - The seconds unit is never hidden. Measured at 375 it is not needed:
+ *     tiers 1 to 4 bring the row to about 300px inside a 311px box. Hiding
+ *     it would also have meant a rule keyed to data-cd="seconds", and that
+ *     attribute is a script hook.
+ *   - The date is never dropped. It was the last resort in the ladder and
+ *     the measurement never reached it.
+ * Every hidden thing on this list is clipped, so NOTHING in this bar is
+ * removed from the accessibility tree at any width. */
+
+/* ---- TIER 1: gaps tighten, from 64rem down ---- */
+@media (max-width: 64rem) {
+  .notice-inner { gap: var(--space-m); }
+  .notice.is-live .notice-countdown { gap: var(--space-2xs); }
+}
+
+/* ---- TIER 2: the unit labels clip, colons arrive, from 48rem down ---- */
+/* The clip block is .vh from section 24, restated rather than reached for,
+ * because .vh is a class on an element and these elements carry .cd-l. */
+@media (max-width: 48rem) {
+  .cd-l {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0; border: 0;
+    clip-path: inset(50%);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  /* The separator goes on .cd-n, INSIDE the unit's own line box, so it
+   * cannot become a second flex item in the column and cannot push
+   * anything onto a new line. `+` means it is never on the first unit, at
+   * three units or at four, so the count is never assumed. */
+  .cd-unit + .cd-unit .cd-n::before {
+    content: ":";
+    margin-inline-end: 0.15em;
+    /* The colon is punctuation between two numbers that are already
+     * announced with their own labels, so it adds nothing for a screen
+     * reader and costs nothing either. */
+  }
+  .notice-inner { gap: var(--space-s); }
+}
+
+/* ---- TIER 3 and 4: the prefix clips, the type steps down, from 30rem ---- */
+/* 30rem is 480px, so 375, 390 and 414 are all inside this tier and all
+ * three were measured. */
+@media (max-width: 30rem) {
+  .cd-label {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0; border: 0;
+    clip-path: inset(50%);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .notice-inner { gap: var(--space-2xs); font-size: var(--step--1); }
+  .notice.is-live .notice-countdown { gap: var(--space-3xs); }
+  .cd-n { font-size: var(--step--1); }
+}
+
+/* ---- the countdown ---- */
+/* HIDDEN BY DEFAULT, AND THAT IS THE NO-JS STATE, NOT AN OVERSIGHT. Same
+ * idiom and same selector shape as section 26 (.quotes.is-live
+ * .quote-track): everything outside .is-live is the component without
+ * JavaScript, and the enhanced rules only exist once the script has
+ * confirmed it can drive the thing. The gate lives on .notice, not on the
+ * countdown itself. Never move a base rule into .is-live.
+ *
+ * display: none, NOT opacity OR visibility. The .cd-n elements ship
+ * carrying 00 and only mean anything after the first tick, so a merely
+ * transparent countdown is still a row of zeros holding a row of layout,
+ * and revealing it would reflow the whole bar sideways. Taking it out of
+ * flow entirely is the only version where the bar before the first tick
+ * and the bar with scripts off are the SAME bar. */
+.notice .notice-countdown { display: none; }
+
+.notice.is-live .notice-countdown {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--space-2xs) var(--space-s);
+  color: var(--accent-ink);
+}
+
+/* The prefix, e.g. "Congress opens in". Mono and label-cased so it reads
+ * as the clock's caption rather than as a second sentence. NOT .label:
+ * that class paints --label-ink, which is a blue, and would be blue on
+ * blue here. Same restatement .block--accent and .launcher-name make. */
+.cd-label {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  line-height: var(--lh-label);
+  color: var(--accent-ink);       /* 4.59:1 at 11px, clears the 4.5:1 floor */
+}
+
+.cd-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: var(--lh-label);
+}
+
+.cd-n {
+  font-family: var(--font-mono);
+  /* Tabular, so the digits keep one advance and the row does not shuffle
+   * sideways on every tick. The mono stack is already fixed-advance, and
+   * this is stated anyway because the fallback face at the end of that
+   * stack is only mono by name on some systems. */
+  font-variant-numeric: tabular-nums;
+  font-size: var(--step-1);
+  font-weight: 700;
+  color: var(--accent-ink);       /* 4.59:1 */
+}
+
+.cd-l {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);      /* 11px, so it needs the full 4.5:1 */
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  color: var(--accent-ink);       /* 4.59:1, clears it */
+}
+
+/* ---- the Register button ---- */
+/* THE PROBLEM: .btn--solid paints --accent on --accent. A solid accent
+ * button on the accent bar is a 1:1 rectangle, which is to say it is
+ * invisible, and the contract puts .btn--solid on this element.
+ *
+ * THE FIX IS TO INVERT IT, not to outline it. An outlined white button
+ * would have been legal (white border on blue is 4.59:1, over the 3:1
+ * boundary floor) and it would have read as the site's DEFAULT button
+ * state, which is exactly the wrong signal for the one control the bar
+ * exists to point at. A filled white box with blue type is unambiguous,
+ * uses only existing tokens, and inverts the same accent pairing rather
+ * than introducing a second one.
+ *
+ * SPECIFICITY. Written as .notice-inner a.notice-cta, which is 0,2,1.
+ * That beats both .btn--solid (0,1,0) and the existing .notice-inner a
+ * rule in section 7d (0,2,0) on weight rather than on source order, so
+ * this cannot be silently lost if the file is ever reordered. That is the
+ * failure the note at line 2074 records. */
+.notice-inner a.notice-cta {
+  background: var(--paper);       /* on --accent: 4.59:1, over the 3:1 boundary floor */
+  border-color: var(--paper);
+  color: var(--accent-text);      /* on --paper: 6.46:1 */
+  text-decoration: none;
+  /* flex: none, so the ladder above never spends the one control the bar
+   * exists to point at. A Register button squeezed to an ellipsis is worse
+   * than every tier the ladder gives up. */
+  flex: none;
+  white-space: nowrap;
+  /* TIGHTER THAN .btn, and only here. Chip, 2026-07-31. The base padding
+   * is var(--space-xs) var(--space-l), sized for a standalone button
+   * sitting in a page. In a chrome bar that reads as a slab. .btn itself is
+   * untouched: it renders on all 64 pages and this is one control on one
+   * component.
+   * VERTICAL PADDING IS NOT CUT AS FAR AS THE HORIZONTAL, deliberately. It
+   * is the only thing left setting the hit area. Measured live, the control
+   * comes out 39px tall at 375 and 41px at 1280, which is short of the 44px
+   * touch guideline and is a real, named cost of the one-line requirement.
+   * Cutting the vertical to buy width would have taken it into the twenties
+   * and made a chrome control genuinely hard to hit. The hero carries a
+   * full-size Register button to the same destination, so this bar is not
+   * the only way to reach it. */
+  padding: var(--space-2xs) var(--space-s);
+  font-size: var(--step--1);
+}
+@media (max-width: 30rem) {
+  .notice-inner a.notice-cta { padding: var(--space-2xs) var(--space-xs); }
+}
+.notice-inner a.notice-cta:hover {
+  background: var(--cool-100);    /* on --accent: 4.02:1, still over 3:1 */
+  border-color: var(--cool-100);
+  color: var(--accent-text);      /* on --cool-100: 5.67:1 */
+}
+/* :active in section 8 repaints --fg-hi, which is a light grey on the dark
+ * ground and would drop the button to near nothing for the length of the
+ * press. Held to the same inverted pair. */
+.notice-inner a.notice-cta:active {
+  background: var(--cool-100);
+  border-color: var(--cool-100);
+  color: var(--accent-text);
+}
+
+/* ================= 33. THE STICKY SECTION SUBNAV ================= */
+/* .subnav > .subnav-list > li > a. Sticks BELOW the main header.
+ *
+ * THE OFFSET, CHECKED AGAINST THE REAL RULE. .shell-header is
+ * position: sticky; top: 0 (line 645) and carries a border-bottom that is
+ * ALWAYS in the box and only changes colour, so the header's rendered
+ * height is the nav bar's min-height plus one hairline. --shell-h is
+ * declared on html in section 1 and its own comment says "constant. The
+ * bar does not resize on scroll", so the sum is exact rather than
+ * approximate: calc(var(--shell-h) + var(--rule-hair)).
+ *
+ * WITH JAVASCRIPT OFF THE OFFSET IS ZERO, and that is the correct value,
+ * not a fallback. .shell-header is a class shell.js ADDS. With scripts off
+ * it never exists, the <noscript> nav renders in normal flow, and there is
+ * no sticky bar to sit under. Offsetting anyway would leave a bar-height
+ * strip of page visible above the subnav with nothing in it. Same
+ * :has(.shell-header) idiom the photographic hero already uses at line
+ * 2978, for the same reason.
+ *
+ * The notice bar is deliberately NOT in this sum. It sits before the
+ * header in the flow and scrolls away (see buildNotice in shell.js), so
+ * adding its height would push the subnav down by a band that is not there
+ * any more by the time anything is stuck. */
+
+:root {
+  /* A floor, not a guess: .subnav-list enforces it as min-height below, so
+   * the anchor arithmetic further down can rely on it. Touch targets clear
+   * 44px inside it with room to spare. */
+  --subnav-h: 3.5rem;
+}
+
+.subnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;                    /* under .shell-header (20) and .skip (40), over the page */
+  /* Not optional, exactly as on .shell-header: a transparent sticky band
+   * lets content scroll visibly through it. --bg, so the band takes the
+   * surface it is declared on and works on all three. */
+  /* NO BAND UNTIL IT IS ACTUALLY STUCK. Chip, 2026-07-31. While the subnav
+   * is still sitting in the flow under the hero it is just a row of links
+   * on the page, and a full-width band with a rule under it there draws a
+   * horizontal line across the composition for no reason. The band is what
+   * separates it from content moving underneath, so it earns its ground at
+   * the moment it starts floating, and not before.
+   *
+   * Same mechanism as .shell-header--floating: a sentinel plus an
+   * IntersectionObserver in shell.js toggles .subnav--stuck. The base state
+   * here is therefore the UNSTUCK state, which is also the no-JS state:
+   * with scripts off nothing ever sets the class, the bar never paints, and
+   * a row of working links is exactly what remains. That is the correct
+   * degradation, not a compromise. */
+  background: transparent;
+  border-bottom: var(--rule-hair) solid transparent;
+  /* Both properties are always in the box so the band never changes height
+   * and the page never shifts by the 1px a real border would add. The same
+   * reasoning, and the same trick, as the .shell-header rule above. */
+  transition: background-color var(--t) linear, border-color var(--t) linear;
+}
+
+/* The stuck state. Ground is not optional once it floats: a transparent
+ * sticky band lets content scroll visibly through it.
+ * The rule is a UI component boundary under WCAG 1.4.11 and needs 3:1.
+ * --rule-ink-load is --cool-500 on dark (3.89:1 on --ground) and --cool-400
+ * on light and muted (3.50:1 on --paper). Both clear. */
+.subnav--stuck {
+  background: var(--bg);
+  border-bottom-color: var(--rule-ink-load);
+}
+@media (prefers-reduced-motion: reduce) {
+  .subnav { transition: none; }
+}
+body:has(.shell-header) .subnav { top: calc(var(--shell-h) + var(--rule-hair)); }
+
+/* The band paints the full width; the list takes the page container, the
+ * same way .nav-bar sits inside .shell-header. That is what keeps the
+ * subnav's first link on the site's single left edge. */
+.subnav-list {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding: 0 var(--gutter);
+  min-height: var(--subnav-h);
+  list-style: none;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-l);
+
+  /* SCROLLS RATHER THAN WRAPPING. Six or seven section names wrap to three
+   * lines at 375 and turn a 56px band into a 150px one that is stuck to the
+   * top of the screen for the whole page. A single scrolling row keeps the
+   * band one row high at every width.
+   *
+   * NO PAGE OVERFLOW: the scroller is max-width --page-max with its own
+   * padding, so it is never wider than its container and the overflow is
+   * consumed inside it. 100% is used nowhere here and 100vw nowhere at all,
+   * per the note at line 341.
+   *
+   * overscroll-behavior-x: contain is what stops a swipe that reaches the
+   * end of the row from turning into a back navigation. Same rule and same
+   * reason as .quotes.is-live .quote-track. The scrollbar is NOT hidden
+   * here: the carousel has arrow buttons as its affordance and this has
+   * none, so the bar itself is the only signal there is more to the right. */
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+}
+.subnav-list > li { flex: none; max-width: none; }   /* the global li rule caps at --measure */
+.subnav-list > li > a {
+  display: block;
+  scroll-snap-align: start;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--step--1);
+  color: var(--fg);               /* 12.58:1 dark, 17.93:1 light, 15.73:1 muted */
+  text-decoration: none;
+  white-space: nowrap;
+  padding-block: var(--space-xs);
+}
+.subnav-list > li > a:hover { color: var(--fg-hi); }   /* 15.73:1 dark, 17.93:1 light */
+
+/* THE CURRENT-SECTION AFFORDANCE, AND WHAT IT CANNOT DO WITHOUT JS.
+ * A real scroll-spy needs to know which section is in view, and CSS has no
+ * way to reach backwards from a section to a link that precedes it in the
+ * DOM. :target does not help either: it only fires on a fragment click and
+ * goes stale the moment the reader scrolls past. Scroll-driven animations
+ * could fake it and would be a moving indicator that reduced-motion has to
+ * reason about, for an affordance nobody asked for.
+ * So this styles the state and does not attempt to compute it: set
+ * aria-current="true" on the link and the rule below inks it. If nothing
+ * ever sets the attribute, the subnav still works and simply has no
+ * current marker. The inline device is the site's existing current-branch
+ * treatment, an underline drawn as a border, no fill and no pill. */
+.subnav-list > li > a[aria-current] {
+  color: var(--fg-hi);
+  border-bottom: var(--rule-med) solid var(--accent);   /* 3.91:1 on dark, 4.59:1 on paper, both over the 3:1 boundary floor */
+  padding-block-end: calc(var(--space-xs) - var(--rule-med));
+}
+
+/* THE ANCHOR OFFSET, and this is the detail that is usually missed. An
+ * in-page jump scrolls the target to y=0, which on this page is underneath
+ * two stacked sticky bars, so the heading lands hidden and the reader sees
+ * the second paragraph. scroll-margin-top pushes the resting position down
+ * by the full chrome plus one body line of air.
+ *
+ * Scoped with :has so only a page carrying a subnav pays it. [id] rather
+ * than section[id] because the fragment can legitimately target a heading
+ * or a wrapper, and a scroll-margin on an element nobody ever jumps to
+ * costs nothing. The JS-off branch drops the header term for the same
+ * reason section 33's top offset does. */
+body:has(.subnav)                      { --anchor-offset: calc(var(--subnav-h) + var(--space-m)); }
+body:has(.subnav):has(.shell-header)   { --anchor-offset: calc(var(--shell-h) + var(--rule-hair) + var(--subnav-h) + var(--space-m)); }
+body:has(.subnav) [id]                 { scroll-margin-top: var(--anchor-offset); }
+
+/* ================= 34. THE HERO SPONSOR STRIP ================= */
+/* .hero-sponsors wraps the EXISTING .proofbar and .mark components from
+ * section 25. Nothing about a mark is rebuilt here: the same masked
+ * artwork, the same --mark-cap sizing, the same centred row. This is the
+ * container and its ground, and that is all it is.
+ *
+ * THE GROUND IS THE WHOLE PROBLEM. On /congress/ the strip sits inside a
+ * photographic hero. .mark paints itself with --fg-hi through a mask, and
+ * --fg-hi over a duotone photograph has no floor that can be computed: the
+ * scrim in section 30 runs from 0.88 alpha on the left to 0.10 on the
+ * right, and what is under it is image pixels, so the right-hand marks
+ * would be light artwork on whatever the room happened to be. There is no
+ * honest ratio to write for that, which is the reason not to ship it.
+ *
+ * So under the photo hero the strip states its own ground, and it states
+ * it as --bg rather than a fixed colour, so the pairing is --fg-hi on --bg
+ * and is correct on all three surfaces by construction:
+ *   dark   --ink-hi on --ground    15.73:1
+ *   light  --ink-900 on --paper    17.93:1
+ *   muted  --ink-900 on --cool-100 15.73:1
+ * This is NOT a card. No radius, no shadow, no border except the house
+ * hairline above it, and the fill is the page's own ground, which is what
+ * the bottom of the hero has already faded to by the point the strip sits
+ * at. FOR THE MARKUP AGENT: put the strip LAST inside the hero band. Place
+ * it higher and the --bg band will read as a bar cutting across the
+ * photograph, because the fade in section 30 has not resolved yet. */
+
+/* NO RULE AND NO GROUND. Chip, 2026-07-31: the marks sit directly on
+ * whatever is behind them. The house hairline-above idiom was the wrong
+ * borrow here, because every other component that uses it (.module,
+ * .quote, .speaker-card, .gallery-figure) is a row in a LIST of siblings,
+ * where the rule is what separates one from the next. A single strip of
+ * marks has nothing to be separated from, so the rule was drawing a line
+ * under the hero copy rather than dividing anything. */
+.hero-sponsors {
+  padding-block-start: var(--space-m);
+  /* Was --space-xl. Measured: the CTA's own block-end margin and this one
+   * compounded to a 107px gap, which was the largest hole in the hero and
+   * the main reason it read too tall. */
+  margin-block-start: var(--space-m);
+}
+/* A leading label sits above the row, not beside it. */
+.hero-sponsors > .label { display: block; margin-block-end: var(--space-s); }
+
+/* Scoped: only the photographic hero needs the guaranteed ground. On an
+ * ordinary page the strip is already on the page's own ground and a second
+ * fill would be a rectangle drawn over a rectangle. */
+/* On the photo hero it keeps its stacking context, so the marks paint over
+ * the image rather than under it, but it takes NO ground. Chip's call: the
+ * strip reads as part of the photograph, not as a panel laid on top of it.
+ * The tradeoff is real and is accepted: the marks now sit on whatever the
+ * duotone happens to be behind them rather than on a guaranteed --bg, so
+ * there is no fixed contrast figure for them. The scrim in section 30 is
+ * what keeps that region dark, and the strip sits in the lower left where
+ * the scrim is heaviest. If a future hero photograph is brighter there,
+ * this is the thing that breaks first. */
+[data-hero="photo"] .hero-sponsors {
+  position: relative;
+  z-index: 1;                     /* over .hero-photo, which sits at -1 */
+  padding-block-start: var(--space-m);
+}
+
+/* ================= 35. THE IMPACT STATEMENT ================= */
+/* Full-width band under the hero, set large.
+ *
+ * TYPE STEP: --step-4, WITH --track-4. Not --step-6: that step is the hero
+ * h1 and is spent exactly once per page, and /congress/ has already spent
+ * it on the .display--hero above this band. Not --step-5 either, because
+ * that is the default h1 rank and this statement is not the page's title.
+ * --step-4 is the ladder's own mid-page voice, defined in section 2 as
+ * "below the h1, above the h2", which is precisely the job. It is the same
+ * step .display and .pull take, so this reads as a sibling of the devices
+ * already on the site rather than as a new size.
+ *
+ * COLOUR: BOTH OF CHIP'S OPTIONS, ONE RULE PAIR, PICKED BY THE MARKUP.
+ * .impact-text is the emphasis ink, .impact-em is the link blue. Wrap ONE
+ * phrase in .impact-em and you get white with the emphasis in blue. Wrap
+ * the WHOLE sentence in .impact-em and you get the all-blue version. No
+ * modifier class, no second rule to keep in sync, and the markup decides
+ * by how much it wraps.
+ *
+ * MEASURED 2026-07-31:
+ *   .impact-text  --fg-hi on --bg      15.73:1 dark, 17.93:1 light, 15.73:1 muted
+ *   .impact-em    --link on --bg        5.30:1 dark (--accent-lift),
+ *                                       6.46:1 light and 5.67:1 muted (--accent-text)
+ * --link, never --accent: the flat accent is 3.91:1 on the dark ground,
+ * which is a fill figure and fails AA as type. That is the same trap the
+ * .label comment in section 3 records. */
+
+.impact { padding-block: var(--space-3xl) 0; }
+
+.impact-text {
+  font-family: var(--font-display);
+  font-size: var(--step-4);
+  font-weight: 600;
+  letter-spacing: var(--track-4);
+  line-height: var(--lh-heading);
+  color: var(--fg-hi);
+  max-width: var(--measure-display);   /* 22ch, about 29 characters: the display measure */
+  text-wrap: balance;
+}
+
+.impact-em {
+  color: var(--link);
+  /* No weight change, no underline, no background. The colour IS the
+   * emphasis, and a second signal on top of it turns a statement into a
+   * callout. Declared explicitly because .impact-em will usually be a
+   * <strong>, and the global strong rule repaints --fg-hi and would cancel
+   * the blue. */
+  font-weight: inherit;
+}
+
+/* ================= 36. WHAT IS THE CONGRESS ================= */
+/* .whatis > .whatis-row > (.whatis-title + .whatis-body). Title left,
+ * description right, stacked on small screens.
+ *
+ * THE MEASURE AND THE BASELINE COME FROM THE EDITORIAL IDIOM, not from a
+ * second grid invented here. Section 6 puts .lede on col-start 1 / span 5
+ * and .body on col-start 8 / main-end, and aligns the two on their FIRST
+ * BASELINE rather than on their boxes, because a larger left column and a
+ * body-size right column starting at the same box top start their type a
+ * few pixels apart and that is exactly the misalignment the eye catches
+ * and the ruler does not. The same 5 / gap / 8-to-end proportion and the
+ * same align-self are reproduced here.
+ *
+ * WHY NOT LITERALLY .editorial. That grid carries two rail tracks that
+ * resolve to the page edge, which is its job as a PAGE grid. A row inside
+ * an already-wrapped section does not want a second set of rails; it wants
+ * the twelve content columns only. Twelve columns and the same column gap
+ * is the honest subset, and it lines up with the page grid because both
+ * are twelve equal tracks over the same content box. */
+
+.whatis-row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));   /* minmax(0,...): a long unbroken string cannot blow the row out */
+  column-gap: var(--space-m);                          /* --col-gap, the editorial value */
+  align-items: baseline;                               /* the editorial baseline rule, not box alignment */
+
+  /* The house component idiom again: a hairline above, no card, no radius,
+   * no shadow. Same as .module, .quote, .speaker-card, .gallery-figure. */
+  border-top: var(--rule-hair) solid var(--rule-ink);
+  padding-block: var(--space-m);
+}
+
+.whatis-title { grid-column: 1 / span 5; }
+.whatis-body  { grid-column: 8 / -1; }
+
+/* Stated rather than inherited from an element, because the contract does
+ * not say what element .whatis-title is and an h2, an h3 and a <p> would
+ * otherwise render this row at three different sizes on three pages. Same
+ * treatment .link-index a takes: display face, step-2, weight 500. The
+ * class beats any bare element selector on specificity, so an h3 here
+ * lands on the same size as a paragraph. */
+.whatis-title {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 500;
+  letter-spacing: var(--track-2);
+  line-height: var(--lh-heading);
+  color: var(--fg-hi);
+  max-width: var(--measure-lede);
+  text-wrap: balance;
+}
+
+/* --measure, the body prose value, about 66 characters. If .whatis-body is
+ * a <p> the global rule already sets it; restated so a <div> wrapper gets
+ * the same column. */
+.whatis-body { max-width: var(--measure); }
+.whatis-body > * { max-width: 100%; }
+
+/* One column below 60rem, matching where .editorial itself collapses. The
+ * column gap has nothing to sit between once there is one track, so the
+ * interval becomes a row gap instead of disappearing. */
+@media (max-width: 60rem) {
+  .whatis-row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-s);
+  }
+  .whatis-title, .whatis-body { grid-column: 1 / -1; }
+}
+
+/* ================= 37. THE OUTCOME BLOCK ================= */
+/* Six short items.
+ *
+ * IT ECHOES THE .link-index HAIRLINE ROW, AND IT DOES NOT TAKE ITS TYPE
+ * STEP. The hairline-above row is the site's list idiom and it is used by
+ * five components already, so a sixth list that opened with something else
+ * would read as an import. What .link-index does on TOP of that is set its
+ * rows at --step-2, and the comment there says why: on the router pages
+ * the destinations ARE the payload. These are not destinations and not the
+ * payload; they are six supporting statements under a heading. At step-2
+ * they would outrank the heading above them and read as a second menu.
+ * So: the rule, the rhythm and the ledger feel of .link-index, at body
+ * size, in the emphasis ink.
+ *
+ * Two columns from 60rem up. Six short items in one column is a tall thin
+ * ribbon with a lot of dead ground beside it; six in two columns of three
+ * is a block, which is what the component is called. */
+
+.outcome-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-2xl);
+}
+@media (max-width: 60rem) {
+  .outcome-list { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
+}
+
+.outcome-list > li {
+  min-width: 0;
+  max-width: none;                /* the global li rule caps at --measure and these size to the column */
+  border-top: var(--rule-hair) solid var(--rule-ink);
+  padding-block: var(--space-s);
+  color: var(--fg-hi);
+  text-wrap: pretty;
+}
+
+/* ---- the hero's two lede columns, 2026-07-31 ----------------------------
+ * Chip: side by side, one size, matched line lengths, because the stacked
+ * pair at two different sizes made the hero too tall.
+ *
+ * The wrapper takes the grid cell and subdivides it, rather than the two
+ * paragraphs each claiming their own columns off the hero grid. Two reasons.
+ * Placing them individually would have meant :nth-of-type on .hero-sub, which
+ * counts <p> siblings and would silently re-target the moment anyone adds a
+ * paragraph to the hero. And equal tracks inside one wrapper are what makes
+ * the LINE LENGTHS match, which is the thing Chip actually asked for: same
+ * measure, same wrap point. Two hero-grid spans would only match while the
+ * outer grid stayed symmetrical.
+ *
+ * max-width: none on the children is load-bearing. The global p rule caps at
+ * --measure (50ch) and .hero-sub inherits a lede measure; either would bind
+ * before the track does and the two columns would stop being equal. */
+[data-hero="photo"] .hero-subs {
+  grid-column: col-start 1 / span 10;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-l);
+  row-gap: var(--space-m);
+}
+[data-hero="photo"] .hero-subs > .hero-sub {
+  grid-column: auto;
+  max-width: none;
+  /* Zeroed because the stacking margin still applies inside a grid cell.
+   * Measured: the second paragraph sat 18px lower than the first, which is
+   * the rhythm rule's block-start margin doing exactly its job in a context
+   * that no longer wants it. Two columns of a pair are siblings across, not
+   * down, so the row-gap is what separates them when they wrap on a phone
+   * and nothing should separate them here. */
+  margin-block-start: 0;
+}
+
+/* Below the collapse the two tracks become one. Two 5-column measures at
+ * 768 are about 22ch each, which is a newspaper column, not a lede. The
+ * base rule in section 17 already sends .hero-sub to `main`; the wrapper
+ * needs the same treatment or it keeps its 10-column span inside a
+ * one-column grid, which is exactly the overflow bug measured earlier. */
+@media (max-width: 60rem) {
+  [data-hero="photo"] .hero-subs {
+    grid-column: main;
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================= 38. THE COUNTDOWN AS PROSE ================= */
+/* SUPERSEDES the widget treatment in section 31. Chip, 2026-07-31: the
+ * units must all be the same size on one line, "Opening remarks in" is
+ * gone, and the whole thing reads as a sentence.
+ *
+ * That is not a restyle of the widget, it is a different component, so
+ * the widget's assumptions are undone here rather than edited in place:
+ * its own comments and its sacrifice ladder stay readable as the record of
+ * what was tried before Chip saw it.
+ *
+ * WHAT CHANGES, and each of these was a real defect once the markup became
+ * prose rather than a clock:
+ *
+ * 1. NO FLEX, NO GAP. The separators are now real text (", " and " and ")
+ *    living in .cd-sep. With flex gap they rendered as `52 DAYS , 20 HOURS`
+ *    with the comma detached from its word, because gap inserts space
+ *    between flex items and the comma is its own item. textContent was
+ *    always right; only the painting was wrong. Inline flow puts the
+ *    spacing back where prose spacing belongs, in the text itself.
+ * 2. ONE TYPE for .cd-n, .cd-l, .cd-sep and .cd-label. The widget set the
+ *    number at --step-1 bold mono and the labels at 11px uppercase mono
+ *    with label tracking, which is exactly the two-treatment look Chip
+ *    rejected. Body face, body size, normal case, no tracking.
+ * 3. THE COLON SEPARATORS ARE CANCELLED. Tier 2 injected ":" via
+ *    .cd-unit + .cd-unit .cd-n::before for the narrow end. Real commas now
+ *    exist at every width, so the generated colons would double them.
+ * 4. .cd-l STOPS CLIPPING at the narrow end. "days" is a word in a
+ *    sentence now, not a widget caption, and clipping it would leave
+ *    "Only 52, 20, 15 and 37 away." which is not English.
+ *
+ * Tabular figures are KEPT on .cd-n. The seconds digit changes every tick
+ * and a proportional face would shuffle the whole sentence sideways. */
+
+.notice.is-live .notice-countdown {
+  display: block;
+  gap: 0;
+  max-width: none;
+  text-align: center;
+  color: var(--accent-ink);
+}
+
+.notice .cd-label,
+.notice .cd-unit,
+.notice .cd-n,
+.notice .cd-l,
+.notice .cd-sep {
+  display: inline;
+  font-family: var(--font-body);
+  font-size: inherit;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  line-height: inherit;
+  color: var(--accent-ink);       /* white on the accent bar, 4.59:1 */
+}
+.notice .cd-n { font-variant-numeric: tabular-nums; }
+
+/* Cancels the tier-2 generated colon. The commas are real text now. */
+.notice .cd-unit + .cd-unit .cd-n::before { content: none; }
+
+/* Undo the tier-2 and tier-4 clip and step-down: both were widget
+ * behaviours. The narrow-end budget is met by the bar's own type step on
+ * .notice-inner, which still applies. */
+@media (max-width: 48rem) {
+  .notice .cd-l {
+    position: static;
+    width: auto; height: auto;
+    margin: 0; clip-path: none;
+    overflow: visible;
+    white-space: normal;
+  }
+}
+@media (max-width: 30rem) {
+  .notice .cd-label {
+    position: static;
+    width: auto; height: auto;
+    margin: 0; clip-path: none;
+    overflow: visible;
+    white-space: normal;
+  }
+  .notice .cd-n { font-size: inherit; }
+}

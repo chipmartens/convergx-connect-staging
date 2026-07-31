@@ -95,21 +95,43 @@
    * measures 3.42:1 and fails, which is why --accent-ink exists as its
    * own token. Never light type on orange, anywhere, ever.
    *
-   * COPY. Their own bar shouts, in caps, with exclamation marks and a
-   * "secure your spot" line. The facts are borrowed; the voice is not.
-   * Three cleared facts and nothing else: the tenth year, the dates, the
-   * city. No attendance figure, no delegate or country count, no "limited
-   * spots", no countdown. Every scarcity device is a claim about demand
-   * that nobody has verified, and this bar renders on every page, so a
-   * soft one would be the most-repeated unverified claim on the site.
+   * COPY, rewritten by Chip 2026-07-31. Their own bar shouts, in caps,
+   * with exclamation marks and a "secure your spot" line. The facts are
+   * borrowed; the voice is not. Cleared facts and nothing else: the ten
+   * years, the dates, and the countdown below. No attendance figure, no
+   * delegate or country count, no "limited spots". Every scarcity device
+   * is a claim about demand that nobody has verified, and this bar
+   * renders on every page, so a soft one would be the most-repeated
+   * unverified claim on the site. A countdown to a published start time
+   * is not a scarcity device: it makes no claim about how many seats are
+   * left. It states an interval to an instant derived entirely from
+   * ConvergX's own published agenda.
    *
-   * LEDGER NOTE, and it needs Chip's eye. Spec 3.4 rations "the tenth
-   * year" to two instances (/congress/ and the homepage Conference
-   * section) and spec 2 keeps it out of the nav for exactly this reason:
-   * chrome renders everywhere. Chip cleared all three facts for this bar
-   * on 2026-07-28, which supersedes the ration for this component only.
-   * If the ration matters more than the hook, delete the first sentence
-   * and the bar still works on the dates alone.
+   * THE CITY CAME OUT on 2026-07-30 (Chip). The bar has one line to
+   * work with and Calgary was the least load-bearing thing on it. It is
+   * still on the Congress page, which is where somebody deciding whether
+   * to travel is actually reading.
+   *
+   * THE TEN YEARS ARE BACK, DELIBERATELY, AND THEY COST LEDGER BUDGET.
+   * This supersedes the note that stood here on 2026-07-30 saying the
+   * figure had been removed and that restoring it would be a regression.
+   * That note is wrong now. Do not act on it and do not reinstate it.
+   *
+   * The history, because the number matters. Spec 3.4 rations the tenth
+   * year figure to TWO instances. Chrome renders on 52 pages, so any
+   * chrome instance spends 52. The bar carried the figure until
+   * 2026-07-30, sat at 54 instances against a budget of 2, was cut back
+   * to exactly 2, and Chip then rewrote the line as "Celebrate 10 years
+   * of ConvergX" on 2026-07-31, which puts it back to 54. He wrote the
+   * line knowing this; it is his call and it is made.
+   *
+   * The ledger governs the FIGURE, not the literal string, so "10 years"
+   * spends the same budget "the tenth year" does. Rewording does not
+   * dodge it. The two page-copy instances still stand and are still
+   * correct: the /congress/ hero eyebrow and the homepage Conference
+   * lede. Do not remove either to "make room". If the count ever needs
+   * bringing back to budget, the bar is the instance to drop, because
+   * one bar edit recovers 52 and a page edit recovers 1.
    *
    * NOT DISMISSIBLE, deliberately. A dismiss control is persistent state:
    * storage to write, storage to read on every page, a decision about
@@ -118,10 +140,110 @@
    * chrome that scrolls away and never comes back on that screenful. It
    * is not an interstitial, so it does not need an exit. */
   var NOTICE = {
-    text: "The Congress is in its tenth year. Sep 22 to 24, 2026, Calgary.",
+    /* "ConvergX", never "Convergx". Their mark, their casing. */
+    text: "Celebrate 10 years of ConvergX, Sep 22 to 24, 2026.",
     link: "Register",
-    href: "/congress/register/"
+    /* The Congress is a one-pager as of 2026-07-30, so this points at the
+     * section rather than at the page that used to hold it. The id lives
+     * in congress/index.html; a stub still answers the old address. */
+    href: "/congress/#tickets"
   };
+
+  /* ---- THE COUNTDOWN ----
+   *
+   * THE TARGET MOVED ON 2026-07-31, and this is the most important note
+   * in the file because it supersedes a documented value.
+   *
+   * It used to be 1790172000, copied straight from their Divi module.
+   * That epoch is 08:00 Calgary on WEDNESDAY 23 September: the Welcome
+   * and Opening Remarks, which is the opening of DAY TWO. It was safe
+   * only because the label said so, "Opening remarks in".
+   *
+   * Chip's rewrite deletes that label and ends the sentence with the
+   * word "away". "Away" attaches to the event, and the event starts on
+   * the 22nd, printed in the same sentence. Pointing "away" at day two
+   * would have overstated the wait by 32 hours against a date sitting
+   * inches to its left, on 52 pages. Small, wrong, and everywhere.
+   *
+   * So the target is now the START of the Congress. It is NOT midnight
+   * on the 22nd: midnight is an instant nobody published, and inventing
+   * one to fix a copy problem is the exact move the honesty gates ban.
+   * It is 08:00 on Tuesday 22 September, the first item on the first day
+   * of ConvergX's own published agenda, `08:00 - 12:00 Executive
+   * Roundtable`. Both halves are published: the clock time is in their
+   * agenda, and the zone is proved by their own epoch, which resolves
+   * their published Wednesday `8:00` to 08:00 MDT. So agenda times are
+   * MDT, and Tuesday 08:00 MDT is 1790085600.
+   *
+   * The two epochs differ by exactly 86400. Ours is theirs minus one
+   * day: same clock time, first published day instead of second. Nothing
+   * was invented and nothing was rounded.
+   *
+   * THE COST, stated plainly: a delegate comparing the two sites sees
+   * numbers one day apart. That is accepted. An internally consistent
+   * sentence beats parity with a figure almost nobody cross-checks, and
+   * the alternative was a bar that contradicts its own dateline.
+   *
+   * THE CONNECTIVE WORDS LIVE INSIDE .notice-countdown, never in
+   * .notice-text, and that is structural rather than cosmetic. "Only"
+   * and "away." are meaningless without digits between them. When the
+   * countdown removes itself at the target, and on the no-JS run where
+   * it never exists at all, they have to leave with it. In .notice-text
+   * the bar would strand the reader on "... 2026. Only away." This
+   * matters MORE now than it did with a labelled widget: a flowing
+   * sentence breaks worse than a label when its digits vanish.
+   *
+   * ABSOLUTE ON BOTH SIDES, target minus Date.now()/1000, which is their
+   * mechanism. Every viewer sees the same remaining time in every
+   * timezone. A local-time countdown would show one number in Calgary and
+   * a different one in Halifax for the same instant, and one of them
+   * would be wrong.
+   *
+   * PROGRESSIVE ENHANCEMENT, the same idiom as the quote carousel in
+   * styles.css section 26. The base state IS the no-JS state: the bar
+   * without a countdown, which is what all 52 hardcoded copies carry.
+   * .is-live goes on .notice only once the first tick has written real
+   * digits, so the 00s below are never seen. Never move a base rule into
+   * .is-live.
+   *
+   * REDUCED MOTION. A digit changing every second is motion. Under
+   * reduce, the seconds segment is not driven at all, it is removed, and
+   * the rest ticks once a minute. Removing beats freezing: a frozen
+   * seconds box is a wrong number sitting on the page.
+   *
+   * AT ZERO it stops, clears its interval and removes itself, taking the
+   * whole second sentence with it and leaving the first one standing.
+   * It never renders a negative, never parks on zeros, and never says
+   * anything is happening now, because that is a claim about a room
+   * nobody here can see.
+   *
+   * NO ZERO PADDING, unlike the widget this replaced and unlike their
+   * own module, which pads days to three digits and renders `055`. This
+   * is prose now: "3 hours" is English and "03 hours" is a dashboard.
+   * The cost is that the line changes width as a value falls through
+   * ten, which on a centred row is a small shift. If that shimmer ever
+   * matters it is a min-width in ch on .cd-n, in the stylesheet. It is
+   * not padding here, because padding would put the widget back into the
+   * sentence. */
+  var COUNTDOWN_TARGET = 1790085600;
+  /* Read as one sentence: LEAD, the units as prose, then TAIL. */
+  var CD_LEAD = "Only";
+  var CD_TAIL = "away.";
+  var CD_UNITS = [
+    { key: "days",    one: "day",    many: "days" },
+    { key: "hours",   one: "hour",   many: "hours" },
+    { key: "minutes", one: "minute", many: "minutes" },
+    { key: "seconds", one: "second", many: "seconds" }
+  ];
+
+  /* Prose joins, not a separator glyph: commas between, "and" before the
+   * last. Computed from the LIVE unit count rather than hardcoded,
+   * because reduced motion drops seconds and the "and" has to move up to
+   * minutes on its own. A hardcoded join would read "23 hours, 15
+   * minutes and" with nothing after it. */
+  function cdSep(i, last) {
+    return i === last ? "" : i === last - 1 ? " and " : ", ";
+  }
   /* SELF-REMOVING, and this is the whole mechanism. A hardcoded date that
    * outlives its event is a false claim on every page of the site, and a
    * note asking someone to remember in September is not a mechanism. The
@@ -339,42 +461,37 @@
    * rationed figure and this component renders on every page of the
    * site, so it does not go in the nav. */
   var CONGRESS_STANDFIRST = "Sep 22 to 24, 2026. Calgary.";
+
+  /* FOUR ITEMS, TWO COLUMNS OF TWO. Chip, 2026-07-30 and confirmed
+   * 2026-07-31: the Conference menu is Overview, Agenda, Register,
+   * Sponsor and nothing else.
+   *
+   * THEY ARE ANCHORS, NOT PAGES, and that follows from the restructure.
+   * /congress/ is now a single-page Congress site, so Agenda, Register
+   * and Sponsor are SECTIONS of it. Pointing the nav at the old standalone
+   * pages would give the site two sources of truth for the same content,
+   * which is the exact defect the one-pager was built to remove. The old
+   * pages still exist and still resolve; they are simply no longer the
+   * thing the nav sends people to.
+   *
+   * The split is what-it-is / how-to-take-part, which is why Overview and
+   * Agenda sit together and Register and Sponsor sit together.
+   *
+   * Speakers, The app, Regional Xchanges and Xchange Partnerships came OUT
+   * of this panel. Speakers and the app are sections of the one-pager;
+   * the other two are still reachable from the footer. */
   var CONGRESS_PAGES = [
     { label: "Overview", href: "/congress/",
       note:  "Three days composed one introduction at a time." },
-    /* Rewritten 2026-07-29. The old line said the programme was published
-     * late. The programme IS published: the page now carries the schedule
-     * for all three days, so the old descriptor was a false claim on every
-     * page of the site. */
-    { label: "Agenda",   href: "/congress/agenda/",
-      note:  "The published schedule for all three days. The programme is the Wednesday and the Thursday." },
-    { label: "Speakers", href: "/congress/speakers/",
-      note:  "Who ConvergX has named so far. The list is not closed." },
-    /* "Attend" was REMOVED here on 2026-07-30, not renamed. Its page was
-     * merged into /congress/register/, which now opens on the published
-     * admission standard, so the row was pointing at a 404 from the mega
-     * menu on every page of the site. The note below absorbed the half of
-     * Attend's descriptor that was doing real work: this row now has to
-     * carry both jobs, who the room is for AND what a registration buys. */
-    { label: "Register", href: "/congress/register/",
-      note:  "Who the room is for, what a registration covers, and what ConvergX decides separately." },
-    { label: "Sponsor",  href: "/congress/sponsor/",
-      note:  "Visibility in the room, never a match." },
-    /* "The app" is a DESTINATION row, not a call to action. "Get the app"
-     * is unlocked and September availability is unconfirmed, so no
-     * install language, no store reference and no promise renders here. */
-    { label: "The app",  href: "/congress/the-app/",
-      note:  "Your agenda and the opportunity board, on your phone." }
+    { label: "Agenda",   href: "/congress/#agenda",
+      note:  "The published schedule for all three days, one disclosure per day." }
   ];
-  /* Labels are the two pages' own published titles, verbatim. A shorter
-   * nav word would be a name this site invented for something ConvergX
-   * already names. */
-  var CONGRESS_ELSEWHERE_LABEL = "Convening that is not the Congress.";
-  var CONGRESS_ELSEWHERE = [
-    { label: "Regional Xchanges",   href: "/congress/regional-xchanges/",
-      note:  "The buyer here is a city, not a company. A region hosts one in its own city." },
-    { label: "Xchange Partnerships", href: "/congress/partnerships/",
-      note:  "ConvergX convenes inside events it does not run. The host runs the show." }
+  var CONGRESS_TAKEPART_LABEL = "Taking part.";
+  var CONGRESS_TAKEPART = [
+    { label: "Register", href: "/congress/#tickets",
+      note:  "Who the room is for, what a registration covers, and what ConvergX decides separately." },
+    { label: "Sponsor",  href: "/congress/#sponsorship",
+      note:  "Nine published tiers. Visibility in the room, never a match." }
   ];
 
   /* The About panel, added 2026-07-29. Same shape as the Conference
@@ -643,8 +760,8 @@
       cols =
         megaCol(id + "-h", CONGRESS_STANDFIRST,
           indexList(CONGRESS_PAGES, current, ' aria-labelledby="' + id + '-h"')) +
-        megaCol(id + "-e", CONGRESS_ELSEWHERE_LABEL,
-          indexList(CONGRESS_ELSEWHERE, current, ' aria-labelledby="' + id + '-e"'),
+        megaCol(id + "-e", CONGRESS_TAKEPART_LABEL,
+          indexList(CONGRESS_TAKEPART, current, ' aria-labelledby="' + id + '-e"'),
           "mega-col--aside");
     } else if (key === "xpand") {
       cols = megaCol(id + "-h", XPAND_STANDFIRST,
@@ -699,8 +816,8 @@
       body =
         '<p class="label label--lo">' + CONGRESS_STANDFIRST + "</p>" +
         indexList(CONGRESS_PAGES, current, ' aria-label="The Conference"') +
-        '<p class="label label--lo">' + CONGRESS_ELSEWHERE_LABEL + "</p>" +
-        indexList(CONGRESS_ELSEWHERE, current, ' aria-label="' + CONGRESS_ELSEWHERE_LABEL + '"');
+        '<p class="label label--lo">' + CONGRESS_TAKEPART_LABEL + "</p>" +
+        indexList(CONGRESS_TAKEPART, current, ' aria-label="' + CONGRESS_TAKEPART_LABEL + '"');
     } else if (key === "xpand") {
       body =
         '<p class="label label--lo">' + XPAND_STANDFIRST + "</p>" +
@@ -836,13 +953,94 @@
    * lines, so it would cost a phone reader that band on every screenful
    * of every page.
    *
-   * One paragraph with one link inside it, not a flex row of two boxes:
-   * the sentence and its call are the same sentence, and a paragraph
-   * wraps correctly at every width for free. */
+   * IT IS NOW THREE THINGS, not one sentence. It was a paragraph with an
+   * inline link, which wrapped for free at every width. It rebuilt on
+   * 2026-07-30 into a centred row of three: the dates, the countdown, and
+   * a real button, because an inline link inside a sentence is the
+   * weakest possible target for the one action this bar exists to get.
+   * .notice-inner owns the centring and the wrapping; this file owns
+   * nothing about how it looks. */
+  /* Real spaces in the markup, not gaps supplied by the stylesheet. The
+   * countdown is a sentence now, and a sentence whose word spacing comes
+   * from a flex gap breaks the moment the row stops being a flex row. */
+  function cdUnits() {
+    var last = CD_UNITS.length - 1;
+    return CD_UNITS.map(function (u, i) {
+      return '<span class="cd-unit" data-cd="' + u.key + '">' +
+        '<span class="cd-n">00</span> <span class="cd-l">' + u.many + "</span>" +
+        '<span class="cd-sep">' + cdSep(i, last) + "</span>" +
+        "</span>";
+    }).join("");
+  }
+
   function buildNotice() {
     if (Date.now() >= NOTICE_UNTIL) return "";
-    return '<div class="notice"><p class="notice-inner">' + NOTICE.text +
-      ' <a href="' + NOTICE.href + '">' + NOTICE.link + "</a></p></div>";
+    return '<div class="notice"><div class="notice-inner">' +
+      '<p class="notice-text">' + NOTICE.text + "</p>" +
+      '<p class="notice-countdown" data-countdown="' + COUNTDOWN_TARGET + '">' +
+        '<span class="cd-label">' + CD_LEAD + "</span> " + cdUnits() +
+        ' <span class="cd-label">' + CD_TAIL + "</span>" +
+      "</p>" +
+      '<a class="btn btn--solid notice-cta" href="' + NOTICE.href + '">' +
+        NOTICE.link +
+      "</a>" +
+      "</div></div>";
+  }
+
+  /* ONE interval, at one second, cleared the moment the target passes. A
+   * requestAnimationFrame loop for a seconds counter would wake the page
+   * sixty times for every number it changes. See the block at
+   * COUNTDOWN_TARGET for why the label, the absolute mechanism, the
+   * .is-live gate and the removal at zero are all the way they are. */
+  function wireCountdown(notice) {
+    var el = notice.querySelector("[data-countdown]");
+    if (!el) return;
+    var target = parseInt(el.getAttribute("data-countdown"), 10);
+    if (!target) { el.remove(); return; }
+
+    var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (calm) {
+      var secs = el.querySelector('[data-cd="seconds"]');
+      if (secs) secs.remove();
+    }
+    /* Index-aligned with CD_UNITS, and stays aligned because the only
+     * segment ever dropped is the last one. */
+    var units = [].slice.call(el.querySelectorAll(".cd-unit"));
+    var timer = null;
+
+    function tick() {
+      var left = target - Math.floor(Date.now() / 1000);
+      if (left <= 0) {
+        if (timer) clearInterval(timer);
+        notice.classList.remove("is-live");
+        el.remove();
+        return;
+      }
+      var v = [
+        Math.floor(left / 86400),
+        Math.floor(left / 3600) % 24,
+        Math.floor(left / 60) % 60,
+        left % 60
+      ];
+      var last = units.length - 1;
+      units.forEach(function (unit, i) {
+        var n = v[i];
+        unit.querySelector(".cd-n").textContent = String(n);
+        unit.querySelector(".cd-l").textContent =
+          n === 1 ? CD_UNITS[i].one : CD_UNITS[i].many;
+        /* Recomputed every tick from the live count, so the "and" is
+         * already in the right place when reduced motion has dropped
+         * the seconds. */
+        unit.querySelector(".cd-sep").textContent = cdSep(i, last);
+      });
+      /* Only after real digits are in the DOM. Idempotent, so it costs
+       * nothing to leave it on the tick rather than track a flag. */
+      notice.classList.add("is-live");
+    }
+
+    tick();
+    if (!el.parentNode) return;
+    timer = setInterval(tick, calm ? 60000 : 1000);
   }
 
   /* ---- THE CTA BAR AND THE QUOTES. Chip, 2026-07-29. ----
@@ -1186,8 +1384,12 @@
       header.classList.add("shell-header");
       header.innerHTML = buildHeader(current);
       wireMega(header);
-      /* Before wireFloat, which reads the header's resting offset. */
+      /* Before wireFloat, which reads the header's resting offset, and
+       * the countdown goes live before both of them, because .is-live is
+       * what gives the bar its final height and those two measure it. */
       header.insertAdjacentHTML("beforebegin", buildNotice());
+      var notice = header.previousElementSibling;
+      if (notice && notice.classList.contains("notice")) wireCountdown(notice);
       wireFloat(header);
       measureShell(header);
     }

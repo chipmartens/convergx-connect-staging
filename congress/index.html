@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/_system/tokens.css">
 <link rel="stylesheet" href="/_system/styles.css">
 </head>
-<body data-surface="dark">
+<body data-surface="dark" data-hero="photo">
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -26,7 +26,10 @@
          The notice is hardcoded here and cannot self-remove on a no-JS run:
          sweep this block once after 2026-09-24. -->
     <div class="notice">
-      <p class="notice-inner">The Congress is in its tenth year. Sep 22 to 24, 2026, Calgary. <a href="/congress/register/">Register</a></p>
+      <div class="notice-inner">
+        <p class="notice-text">Celebrate 10 years of ConvergX, Sep 22 to 24, 2026.</p>
+        <a class="btn btn--solid notice-cta" href="/congress/#tickets">Register</a>
+      </div>
     </div>
     <nav aria-label="Primary">
       <ul>
@@ -143,142 +146,389 @@
        1. OVERVIEW. The header: dateline, the h1, the Register button
        and the room photograph.
        ============================================================ -->
-  <section id="overview" class="section--open">
+  <!-- PHOTO HERO, 2026-07-31, Chip. The room photograph moved OUT of its
+       own captioned figure and became the hero's GROUND. The header sits
+       transparent on top of it, and so does every line of hero copy.
+       Duotone in the accent blue, slightly saturated, fading to the page
+       ground at the bottom. All of that is CSS: no second file, no build
+       step, and the source stays the untouched original.
+       THE YEAR STILL HAS TO BE SAYABLE. As a captioned figure this image
+       carried "Photographed at ConvergX, 2018." Behind type there is no
+       caption, and the newest photograph ConvergX publishes anywhere is
+       from 2019, so an undated 2018 room standing in for this September is
+       a fabricated impression even with no false sentence in it. The date
+       moved into the aside as a visible provenance line. DO NOT DROP IT.
+       STILL OPEN, for a person: the two screens and the podium carry the
+       RETIRED tagline "WHERE INDUSTRY LINES DISAPPEAR", legible at full
+       size, against a ledger budget of one for the whole site on /about/.
+       Duotone and scale make it far less readable than it was as a
+       captioned figure, which lowers the exposure without settling it.
+       The clean alternative with no tagline in frame is
+       congress-signage-letters.jpg, a detail shot of letters, not a room.
+       CHOSEN FOR HAVING NOBODY IN IT. congress-room-audience-wide.jpg is
+       the better composition and has eight to ten legible faces; consent
+       to republish a paying attendee's likeness is open with Kim Van Vliet.
+       fetchpriority=high and NOT lazy: this is the largest paintable thing
+       above the fold now, and lazy on an LCP image is the classic own goal.
+       alt is empty and the layer is aria-hidden because the h1 directly
+       below already names the room. Announcing the ballroom twice is noise. -->
+  <!-- 2026-07-31, CHIP'S OVERRIDE: "use the actual text from their current
+       Congress page, since that's what's approved." The hero eyebrow, h1 and
+       body below are ConvergX's own published copy from /global-congress-2026/,
+       carried verbatim. Two changes, both forced by house rules and neither one
+       a word: their registered glyph after "ConvergX" is dropped (no such glyph
+       renders anywhere on this site), and their single paragraph with a literal
+       <br /> in it is set as the two paragraphs it already reads as.
+
+       SPELLING, and this is the rule now, not a one-off. APPROVED CONVERGX COPY
+       RETAINS US SPELLING VERBATIM on Chip's instruction, 2026-07-31.
+       Surrounding site copy remains British, which is the house style by a wide
+       margin. The split is by PROVENANCE, not by page: their sentence, their
+       spelling; our sentence, our spelling. DO NOT NORMALISE EITHER WAY.
+       On this page the US forms are "Organizations" (impact statement),
+       "organization" and "commercialization" (Speed to deal) and
+       "Commercialization" (The Outcome). Every one of them is theirs.
+
+       "This is not a traditional conference." is quarantine item 8 in
+       CONGRESS-SOURCE-2026-07-30 section 5.1. It is NOT one of the three Chip
+       named, and it ships here only because it sits inside the paragraph he
+       transcribed. See the QUARANTINE-ALSO-LISTED marker on it.
+
+       WHAT CAME OFF, and it was good site-voice copy, so it is recorded rather
+       than just deleted: "ConvergX convenes the room. Three days in Calgary."
+       as the h1, and "Two invite-only roundtables and a welcome reception open
+       it. Two full days of sessions follow." as the sub. Both are still true
+       and both are recoverable from git if the override is ever reversed.
+       THE HERO ASIDE IS GONE, Chip 2026-07-31: he wants the hero text block
+       wider and shorter, so the whole <aside> came out rather than being
+       blanked. It held "Tenth year." and the photograph's provenance line. The
+       dateline had just moved into it when the approved eyebrow took the eyebrow
+       slot, so that came out with it. NOTHING IS LOST, which is the only reason
+       this is safe: "in its tenth year" and "Sep 22 to 24, 2026, Calgary" both
+       render in the notification bar on this page and on every other page, the
+       dateline is also in the meta description, in Fig. 9's label and across
+       #agenda, and #past dates its own photographs in visible captions.
+
+       ONE --step-6 ON THE PAGE and it is this h1. ONE solid accent fill and it
+       is the Register button below it. Both unchanged. -->
+  <section id="overview" class="section--open hero-photo-band">
+    <!-- PROVENANCE, removed deliberately. Read this before restoring anything.
+         This frame is from 2018. It carried a VISIBLE provenance line, "Photo-
+         graphed at the Congress, 2018.", because an undated past frame standing
+         in for this September is a fabricated impression even when no sentence
+         on the page is false. That line was removed by Chip on 2026-07-31, on
+         two grounds: the image is now a heavily treated duotone GROUND rather
+         than a documentary photograph, and #past on this same page dates its
+         photography in visible captions that stay.
+         IF THIS IMAGE EVER RETURNS TO BEING PRESENTED AS DOCUMENTARY, whether
+         as a captioned figure, at full colour, or anywhere the treatment is
+         lifted, THE DATE HAS TO COME BACK WITH IT. That is the condition the
+         removal rests on, not a preference.
+
+         STILL OPEN, for a person, and unaffected by the above: the two screens
+         and the podium in this frame carry the RETIRED tagline "WHERE INDUSTRY
+         LINES DISAPPEAR", legible at full size, against a ledger budget of one
+         for the whole site on /about/. Duotone and scale make it far less
+         readable than it was as a captioned figure, which lowers the exposure
+         without settling it.
+         CHOSEN FOR HAVING NOBODY IN IT. congress-room-audience-wide.jpg is the
+         better composition and has eight to ten legible faces; consent to
+         republish a paying attendee's likeness is open with Kim Van Vliet.
+         fetchpriority=high and NOT lazy: this is the largest paintable thing
+         above the fold and lazy on an LCP image is the classic own goal.
+         alt is empty and the layer is aria-hidden because the h1 below already
+         names the room. -->
+    <div class="hero-photo" aria-hidden="true">
+      <img src="/assets/past/congress-2018-ballroom-set.jpg" alt=""
+           fetchpriority="high" decoding="async">
+      <span></span>
+    </div>
     <div class="editorial hero">
       <header class="hero-head">
-        <span class="label label--edge">Sep 22 to 24, 2026 / Calgary</span>
+        <!-- The eyebrow carries THREE facts, not one, and the two added on
+             2026-07-31 were both accidental losses rather than choices.
+             Removing the hero aside took "Tenth year." off this page, and
+             rebuilding the hero on ConvergX's approved copy took the dateline
+             with it, so the Congress page had stopped saying WHEN the Congress
+             is anywhere above the agenda. A reader landing here from a QR code
+             should not have to scroll to find the dates.
+             The tenth year is the ONLY cleared figure ConvergX has. The
+             verbatim ledger budgets it at two instances, this page and the
+             homepage, and it is stated here to satisfy that budget. The
+             notification bar carries it on all 52 pages ONLY because this page
+             had stopped doing so; with this line restored, that sentence can
+             come out of the bar and the bar gets its single line back.
+             Slash-separated spec metadata is the established form for this
+             label. Do not split it into three elements. -->
+        <span class="label label--edge">Global Congress 2026 / Sep 22 to 24, Calgary / Tenth year</span>
       </header>
-      <h1 class="display--hero hero-title">ConvergX convenes the room. Three days in Calgary.</h1>
-      <p class="hero-sub lede-text">Two invite-only roundtables and a welcome reception open it. Two full days of sessions follow.</p>
-      <p class="hero-cta"><a class="btn btn--solid" href="https://convergx.co/shop/" rel="noopener">Register on the ConvergX shop</a></p>
-      <aside class="hero-aside" aria-label="Standing">
-        <div class="dots dots--stagger dots--fade-right" aria-hidden="true"></div>
-        <p class="hero-category meta">Tenth year.</p>
-      </aside>
-    </div>
-
-    <!-- THE HEADER PHOTOGRAPH. Two candidates existed
-         (CONGRESS-ASSETS-2026-07-30 section 4) and this is the one with
-         NOBODY IN FRAME. The alternative, congress-room-audience-wide.jpg,
-         is a real ConvergX ballroom with eight to ten legible faces, and
-         consent to republish a paying attendee's likeness is open with Kim
-         Van Vliet. A room photograph is not worth a person's face.
-         THE YEAR IS IN THE VISIBLE CAPTION and that is not optional. The
-         newest photograph ConvergX publishes anywhere is from 2019, so a
-         past frame presented as this September would be a fabricated
-         impression even with no false sentence in it.
-         FLAG, for a person: the two screens and the podium in this frame
-         carry the RETIRED tagline "WHERE INDUSTRY LINES DISAPPEAR",
-         legible at full size. The verbatim ledger budgets that string at
-         one for the whole site, on /about/. A documentary photograph of
-         2018 signage is not the site writing the line, and the caption
-         dates it, but it is a judgement somebody other than this page
-         should confirm. The clean alternative with no tagline anywhere in
-         frame is congress-signage-letters.jpg, which is a detail shot of
-         dimensional letters rather than a room. -->
-    <!-- THE ONE INLINE STYLE ON THIS PAGE, and it is here because of a
-         source ceiling rather than a design choice. This file is 864 by
-         576 and that is the LARGEST ConvergX publishes; there is no
-         bigger original anywhere in the 2018 gallery. Without width 100%
-         the image sits at its natural 864 inside a 1280 bleed column and
-         leaves 416px of dead ground beside it, which reads as a broken
-         layout rather than a small photograph. Stretched, it upscales
-         about 1.5x on a wide desktop, which a dark low-detail frame
-         carries. The real fix is a larger file, and one does not exist.
-         If the CSS owner adds a hero-figure rule, delete this attribute. -->
-    <div class="editorial">
-      <figure class="bleed">
-        <img src="/assets/past/congress-2018-ballroom-set.jpg" alt="A hotel ballroom set with round tables before anyone has arrived. Two large screens carry the ConvergX wordmark, five national flags stand on a lit stage behind a podium, and a chandelier hangs overhead." loading="lazy" decoding="async">
-        <figcaption>The Congress room before doors. Photographed at ConvergX, 2018.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <hr class="rule-double">
-
-  <!-- ============================================================
-       2. SPONSORS.
-       ONE MARK RENDERS AND IT IS THE ONLY ONE THAT CAN. ATCO Frontec is
-       the only 2026 sponsor ConvergX names anywhere, its relationship is
-       published in ConvergX's own words ("Opening reception sponsored by
-       ATCO Frontec"), and ConvergX publishes the lockup itself at
-       /wp-content/uploads/2026/07/atco-frontec-pos-cmyk.png. That closes
-       the supply reason the logo clearance register recorded against it.
-       Section 25 of styles.css is reused as published: the mark is
-       painted with --fg-hi through a mask, so the file supplies the shape
-       and the surface supplies the ink. --mark-ratio and --mark-cap-frac
-       are MEASURED off this file's own alpha channel, not guessed:
-       400 / 71 = 5.634 for the ratio, and the ATCO capitals run rows 0 to
-       50 of a 71px box for 0.718. Re-measure if the file is replaced.
-       There is no .mark--atco class and one was not invented; the three
-       custom properties are the component's whole interface and they are
-       supplied inline.
-
-       WHAT DOES NOT RENDER HERE, and why:
-       - The eighteen-mark logo wall at the foot of ConvergX's own live
-         Congress page. It carries no heading, no year and no relationship
-         word of any kind. Rendering those marks under a heading we write
-         would invent a relationship ConvergX has not stated, and that is
-         a bigger claim than the marks. See the question below.
-       - Six of those eighteen are government or military crests. Those
-         never render, under any circumstances, and they are not on disk.
-       - The full 2019 roster, which is real and tiered on ConvergX's own
-         archived 2019 site. Eighteen individual marks are on disk as
-         research. The register clears none of them, so none renders. If
-         it is ever wanted, the year has to be in the visible copy.
-
-       OPEN, needs a person:
-       [NEEDS: the eighteen unlabelled marks at the foot of
-       /global-congress-2026/. What ARE those organisations to ConvergX,
-       and in which year? ConvergX attaches no label, so writing one would
-       invent the relationship. From Kim Van Vliet.]
-       [NEEDS: amend the logo clearance register at COMPANY-SITE-SPEC 7B.
-       It records ATCO Frontec as cleared but not rendering because "ATCO
-       publishes no separate Frontec wordmark". ATCO does not; ConvergX
-       does, on its own live sponsors page. The clearance already exists
-       and only the supply note was wrong. From whoever owns 7B.]
-       ============================================================ -->
-  <section id="sponsors" class="section--dense">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>The 2026 sponsors ConvergX has named</h2>
-        <span class="label label--lo label--edge">Sponsors</span>
+      <h1 class="display--hero hero-title">Where cross-sector Xchange becomes commercial action</h1>
+      <!-- TWO COLUMNS, ONE SIZE. Chip, 2026-07-31: side by side, same font
+           size, same line length, because stacked at two different sizes the
+           hero ran too tall. The first paragraph lost .lede-text to do it:
+           the size step was the only thing making them unequal, and a lede
+           that is the same size as the paragraph after it is not a lede.
+           26 words against 31, so two equal tracks land within a line of each
+           other. Equal tracks are also what matches the LINE LENGTHS, which
+           is what Chip actually asked for: same measure, same wrap point. -->
+      <div class="hero-subs">
+        <p class="hero-sub">The ConvergX Global Congress is the flagship event within the ConvergX Xchange portfolio, bringing together leaders responsible for solving some of industry's most pressing challenges.</p>
+        <!-- QUARANTINE-ALSO-LISTED: "This is not a traditional conference." is
+             source-capture section 5.1 item 8, a comparative against an unnamed
+             category. NOT one of the three Chip named on 2026-07-31. It ships
+             because it is inside the approved paragraph he transcribed. Needs a
+             yes or a cut of its own. -->
+        <p class="hero-sub">This is not a traditional conference. It is a curated, decision-maker-only environment designed to accelerate the adoption of proven technologies, forge strategic partnerships, and create commercial opportunities across industries.</p>
       </div>
-      <p>One so far. ConvergX publishes the opening reception as sponsored by ATCO Frontec.</p>
-      <ul class="proofbar">
-        <li><span class="mark" style="--mark-src: url('/assets/sponsors/2026-atco-frontec.png'); --mark-ratio: 5.634; --mark-cap-frac: 0.718;" role="img" aria-label="ATCO Frontec"></span></li>
-      </ul>
-      <p class="push-m"><a class="link-more" href="#sponsorship">The nine sponsorship tiers</a></p>
+      <p class="hero-cta"><a class="btn btn--solid" href="https://convergx.co/shop/" rel="noopener">Register on the ConvergX shop</a></p>
+
+      <!-- HERO SPONSOR STRIP, Chip 2026-07-31: "just show the sponsor logos in
+           the hero, similar to the homepage. You don't need any sponsorship
+           text in that area." So the standalone #sponsors section is gone and
+           its id lives here, on the strip itself. Nothing else linked to it:
+           shell.js anchors only #agenda, #tickets and #sponsorship, and the
+           nine tiers are still #sponsorship, untouched, further down the page.
+
+           ONE MARK RENDERS AND IT IS THE ONLY ONE THAT CAN. ATCO Frontec is the
+           only 2026 sponsor ConvergX names anywhere, the relationship is
+           published in ConvergX's own words ("Opening reception sponsored by
+           ATCO Frontec"), and ConvergX publishes the lockup itself. A one-logo
+           sponsor strip is honest. Padding it out with the homepage's member
+           marks, or with the eighteen unlabelled marks at the foot of
+           ConvergX's own Congress page, would invent a 2026 sponsorship nobody
+           has stated. The heading is visually hidden but it is the only thing
+           naming what the strip IS, so it must stay accurate: one sponsor, and
+           it says one.
+
+           --mark-src, --mark-ratio and --mark-cap-frac are the component's
+           whole interface and they are per-mark DATA, not styling, which is why
+           they are inline. Both numbers are MEASURED off this file's own alpha
+           channel: 400 / 71 = 5.634, and the ATCO capitals run rows 0 to 50 of
+           a 71px box for 0.718. Re-measure if the file is replaced.
+
+           Six of the eighteen marks on ConvergX's page are government or
+           military crests. Those never render, under any circumstances, and
+           they are not on disk.
+
+           [NEEDS: the eighteen unlabelled marks at the foot of
+           /global-congress-2026/. What ARE those organisations to ConvergX, and
+           in which year? ConvergX attaches no label, so writing one would
+           invent the relationship. From Kim Van Vliet.]
+           [NEEDS: amend the logo clearance register at COMPANY-SITE-SPEC 7B. It
+           records ATCO Frontec as cleared but not rendering because "ATCO
+           publishes no separate Frontec wordmark". ATCO does not; ConvergX
+           does, on its own live sponsors page. The clearance already exists and
+           only the supply note was wrong. From whoever owns 7B.] -->
+      <div class="hero-sponsors" id="sponsors">
+        <h2 class="vh">The 2026 sponsor ConvergX has named</h2>
+        <ul class="proofbar">
+          <li><span class="mark" style="--mark-src: url('/assets/sponsors/2026-atco-frontec.png'); --mark-ratio: 5.634; --mark-cap-frac: 0.718;" role="img" aria-label="ATCO Frontec"></span></li>
+        </ul>
+      </div>
+
+      <!-- The dot field and the accent rule came off on Chip's instruction.
+           Both were spending horizontal room the headline wanted, and on a
+           photographic ground a dot matrix fights the image instead of
+           terminating against it. The aside that stood here came off the same
+           way on 2026-07-31; see the section comment above for what it held and
+           where each of those facts still renders. Columns 9 to 12 are now free
+           for the text block to widen into. -->
     </div>
   </section>
 
+  <!-- STICKY SECTION SUBNAV. Sticks under the main header on scroll; the CSS
+       owner writes .subnav and .subnav-list and owns the stick offset.
+       SIX LINKS, NOT TWELVE. One line is the target and twelve labels is a
+       second navigation, not an aid. The six are the decision path a delegate
+       actually walks: what it is, who is speaking, what happens, what it costs,
+       and what sponsoring costs. Overview leads so the bar can return you to
+       the top once it is stuck.
+       DROPPED ON PURPOSE, each for a reason:
+         #sponsors   is no longer a section; it is the hero strip.
+         #past       photographs, read in passing, never navigated to.
+         #who        the approved copy's "A room of decision-makers" block now
+                     answers the who question inside #about, so a separate stop
+                     for it sends two links at one question.
+         #stay       logistics, and nobody books a hotel before deciding to go.
+         #quotes     proof, which works where it is caught rather than sought.
+         #reserve    same destination and same button as #tickets. A second link
+                     to one shop page is a duplicate, not a route.
+       Every href here resolves to an id on this page. Checked. -->
+  <nav class="subnav" aria-label="On this page">
+    <ul class="subnav-list">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#about">What it is</a></li>
+      <li><a href="#speakers">Speakers</a></li>
+      <li><a href="#agenda">Agenda</a></li>
+      <li><a href="#tickets">Tickets</a></li>
+      <li><a href="#sponsorship">Sponsorship</a></li>
+    </ul>
+  </nav>
+
   <!-- ============================================================
-       3. ABOUT. What the Congress is, built from ConvergX's own
-       published description of its own event. Their own words that are
-       cleared and carried in substance: a 2.5 day Congress, invitation
-       only, each one with its own requirements, built for leaders with
-       the authority to act.
-       NOT carried, because it is quarantined: the Outcome list, the
-       contracts line, the slogan, and "This is not a traditional
-       conference", which is a comparative against an unnamed category.
-       ONE .say ON THE WHOLE PAGE and it is here.
+       IMPACT STATEMENT. ConvergX's own published copy, verbatim, set large and
+       full width. Chip, 2026-07-31: "blue text, or white with the impact part
+       in blue." TAKEN: white with the impact part in blue, wrapped in
+       .impact-em. Two reasons. A whole paragraph at this size in the accent is
+       a contrast risk on three surfaces and the honesty gates put a hard floor
+       at 4.5:1 for normal text; and colouring the second sentence is what makes
+       it read as the turn rather than as a coloured block. The first sentence
+       is the setup, the second is what they actually come for.
+       .impact-em is COLOUR, not emphasis, so it is a span and not an <em>.
+       "Organizations" is their spelling and it stays. See the hero comment.
+       NO id ON THIS SECTION, deliberately: the twelve load-bearing ids are
+       unchanged and this is not a thirteenth destination.
+       CSS owner: .impact-em must clear 4.5:1 against the ground on all three
+       surfaces or it takes the ink colour instead. Measure it.
+       ============================================================ -->
+  <section class="impact">
+    <div class="wrap">
+      <p class="impact-text">Organizations don't attend simply to exchange ideas. <span class="impact-em">They come to solve problems, identify partners, evaluate technologies, and move opportunities forward.</span></p>
+    </div>
+  </section>
+
+  <!-- THE DOUBLE RULE THAT SAT HERE WAS REMOVED DELIBERATELY, Chip
+       2026-07-31, and this is not an oversight. Do not restore it to "fix" the
+       missing boundary. The hero above is a full-bleed photograph that FADES
+       into the page ground, and a hairline pair drawn across that seam fights
+       the fade rather than marking a boundary. The fade is the boundary there.
+       .rule-double is untouched as a component and its other instances on this
+       page and across the site all stand; this join is the only one where the
+       device is redundant.
+       SPACING NOTE for whoever owns styles.css: main > .rule-double carries
+       margin-block-start: var(--space-3xl), so removing the element removes
+       that interval. The section that follows keeps its OWN --space-3xl top
+       padding (sections are top-padded only), which is the site's standard
+       section interval, so the join holds on its own. The one thing to confirm
+       when .impact is written: .impact is a section like any other and takes no
+       block-end padding, so its last line meets the next section's 3xl. That is
+       how every other section-to-section join on this site already works. -->
+
+  <!-- ============================================================
+       WHAT IS THE CONGRESS. Rebuilt 2026-07-31 on CHIP'S OVERRIDE from
+       ConvergX's own approved published copy. This is section 3 in the
+       twelve and it keeps id="about", which is load-bearing.
+
+       THE SPONSORS SECTION THAT USED TO SIT ABOVE THIS ONE IS GONE. Chip:
+       "just show the sponsor logos in the hero, similar to the homepage.
+       You don't need any sponsorship text in that area." The prose came
+       out, the single ATCO Frontec mark moved into the hero, and
+       id="sponsors" moved with it onto the strip, so the id is still
+       present and still unique. Nothing linked to it: shell.js anchors
+       only #agenda, #tickets and #sponsorship. The nine tiers are still
+       #sponsorship and are untouched.
+
+       THREE BLOCKS, TITLE LEFT AND DESCRIPTION RIGHT, then The Outcome as
+       a fourth row in the same grid. .whatis, .whatis-row, .whatis-title,
+       .whatis-body, .outcome and .outcome-list are new names the CSS
+       owner writes. No seventh was invented.
+
+       TWO PRESENTATION DECISIONS, both reversible in one edit and neither
+       one a claim:
+       1. "and", not their ampersand, in the first title. Every other
+          compound heading on this site is written out: "Aerospace and
+          defence", "Mining and natural resources", "Breakfast and Lunch".
+       2. Sentence case on all three titles. Theirs are inconsistent, two
+          title case and one sentence case, and every other heading on
+          this page is sentence case. Preserving their casing would have
+          meant shipping their inconsistency.
+
+       THEIR TYPO IS NOT INHERITED: their source reads "challenge,and"
+       with no space. Fixed. Their registered glyph is dropped throughout.
+       US SPELLING IS THEIRS AND IT STAYS: "organization" and
+       "commercialization" below, and "Commercialization" in The Outcome.
+       See the hero comment for the provenance rule.
+
+       WHAT CAME OFF, recorded because it was strong site-voice copy and
+       it is recoverable from git: the whole previous body, including this
+       page's only .say, "ConvergX decides which two people should meet,
+       and does it while both are still in the building." THE PAGE NOW
+       CARRIES NO .say. That was not replaced with a line of ours, because
+       promoting a piece of the approved copy to display type would give
+       it emphasis ConvergX did not.
+
+       VERBS: nothing in the approved copy below reaches outside asks,
+       decides, vets, brokers, convenes. No knows, sees, verifies, checks,
+       confirms, watches, understands or has visibility into, and no
+       ConvergX staff member is given a knowledge verb either.
+       ZERO NUMBERS. There is no attendance figure in ConvergX's material.
        ============================================================ -->
   <section id="about">
     <div class="wrap">
+      <!-- Eyebrow removed on Chip's instruction 2026-07-31. It read "The
+           Congress" beside a heading reading "What the Congress is", on a page
+           called The Congress: a layout-edge label that carried no data. The
+           .sec-head wrapper stays, because the h2 still needs its rule. -->
       <div class="sec-head">
         <h2>What the Congress is</h2>
-        <span class="label label--lo label--edge">The Congress</span>
       </div>
-      <div class="editorial">
-        <div class="lede">
-          <p>A two and a half day Congress, by invitation, in its tenth year.</p>
+
+      <div class="whatis">
+        <div class="whatis-row">
+          <h3 class="whatis-title">Cross-sector adaptation and adoption</h3>
+          <div class="whatis-body">
+            <!-- QUARANTINE-ALSO-LISTED: "The next breakthrough in your industry
+                 may already exist in another." is source-capture 5.1 item 6,
+                 and the "By connecting industries that rarely share a room"
+                 sentence below is item 3. NEITHER is one of the three Chip
+                 named on 2026-07-31. Both ship because they are inside the
+                 approved copy he transcribed. Each needs a yes or a cut. -->
+            <p>The next breakthrough in your industry may already exist in another.</p>
+            <p>ConvergX brings together leaders from energy, defence, aerospace, mining, agriculture, manufacturing, construction, technology, government, Indigenous economic development, and finance to identify proven solutions that adapt across sectors.</p>
+            <p>Connecting industries that rarely share a room accelerates adoption, reduces duplication, and shortens the path from innovation to implementation.</p>
+          </div>
         </div>
-        <div class="body">
-          <p>ConvergX sets the requirements for each one and decides who is in the room.</p>
-          <p>The sessions give everybody a reason to be in the same city. What happens between them is why ConvergX runs it.</p>
-          <p class="say">ConvergX decides which two people should meet, and does it while both are still in the building.</p>
-          <p>Doing that year after year is how ConvergX ends up in the room while the work is happening, rather than reading about it afterwards.</p>
-          <p>The meetings are decided rather than bumped into, and there is a name attached to every one.</p>
+
+        <div class="whatis-row">
+          <h3 class="whatis-title">Speed to deal</h3>
+          <div class="whatis-body">
+            <p>Business moves faster when the right people are in the room. Every aspect of the Congress is designed to shorten the distance between identifying a challenge and finding the organization capable of solving it.</p>
+            <!-- QUARANTINE-ALSO-LISTED: the "Curated meetings, facilitated
+                 introductions" sentence is source-capture 5.1 item 5. NOT one
+                 of the three Chip named. It ships inside the approved copy he
+                 transcribed. Needs a yes or a cut. -->
+            <p>Curated meetings, facilitated introductions, and industry showcases create conversations that become partnerships, procurements, commercialization pathways, and investment opportunities.</p>
+            <!-- QUARANTINE-OVERRIDE: outcome claim, ConvergX's own published copy, Chip 2026-07-31 -->
+            <p>This is where conversations turn into contracts.</p>
+          </div>
+        </div>
+
+        <div class="whatis-row">
+          <h3 class="whatis-title">A room of decision-makers</h3>
+          <div class="whatis-body">
+            <p>ConvergX is built for leaders with the authority to act.</p>
+            <p>Attendees include executives, owners, operators, procurement leaders, government officials, military leadership, investors, innovators, and technology providers who influence strategy, purchasing, partnerships, and deployment.</p>
+          </div>
+        </div>
+
+        <!-- THE OUTCOME, the fourth row. It takes .whatis-row so it sits on the
+             same title-left grid as the three above it, and .outcome as its own
+             hook. The six lines are a real list, so they are a <ul>. -->
+        <div class="whatis-row outcome">
+          <h3 class="whatis-title">The Outcome</h3>
+          <div class="whatis-body">
+            <!-- QUARANTINE-OVERRIDE: outcome claim, ConvergX's own published copy, Chip 2026-07-31 -->
+            <p>Attendees leave with:</p>
+            <ul class="outcome-list">
+              <li>New customers and strategic partners</li>
+              <li>Cross-sector technology adoption opportunities</li>
+              <li>Commercialization pathways</li>
+              <li>Procurement opportunities</li>
+              <li>Investment connections</li>
+              <li>Actionable solutions to real operational challenges</li>
+            </ul>
+            <!-- QUARANTINE-ALSO-LISTED: "Because the most valuable conversations
+                 don't happen by chance." is source-capture 5.1 item 7. NOT one
+                 of the three Chip named. It ships inside the approved copy he
+                 transcribed. Needs a yes or a cut. -->
+            <p>Because the most valuable conversations don't happen by chance. They happen when the right people are intentionally brought together.</p>
+            <!-- QUARANTINE-OVERRIDE: outcome claim, ConvergX's own published copy, Chip 2026-07-31 -->
+            <!-- This line is a tricolon, the shape COPY-DIRECTION 1.14 bans
+                 outright. It is here on Chip's override and it is the ONLY one
+                 on the page. Do not add a second, and do not read this as the
+                 ban being lifted. -->
+            <p>Cross sectors. Faster decisions. Real outcomes.</p>
+          </div>
         </div>
       </div>
     </div>
