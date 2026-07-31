@@ -572,13 +572,19 @@
       { label: "How vetting works",          href: "/platform/get-discovered/how-vetting-works/" },
       { label: "Who is in the room",         href: "/platform/get-discovered/who-is-in-the-room/" }
     ]},
+    /* Agenda and Speakers point at SECTIONS of the one-pager, not at their
+     * old standalone pages. Chip, 2026-07-31: neither needs a separate page
+     * now that the full timetable and the full roster are both on /congress/.
+     * Those two files still exist and still resolve; after this nothing in
+     * the site links to them. If they are ever deleted, this is the block
+     * that already stopped pointing at them. */
     { title: "The Congress", links: [
       { label: "Overview",             href: "/congress/" },
-      { label: "Agenda",               href: "/congress/agenda/" },
-      { label: "Speakers",             href: "/congress/speakers/" },
+      { label: "Agenda",               href: "/congress/#agenda" },
+      { label: "Speakers",             href: "/congress/#speakers" },
       { label: "The app",              href: "/congress/the-app/" },
-      { label: "Register",             href: "/congress/register/" },
-      { label: "Sponsor",              href: "/congress/sponsor/" },
+      { label: "Register",             href: "/congress/#tickets" },
+      { label: "Sponsor",              href: "/congress/#sponsorship" },
       { label: "Regional Xchanges",    href: "/congress/regional-xchanges/" },
       { label: "Xchange Partnerships", href: "/congress/partnerships/" }
     ]},
@@ -1375,7 +1381,14 @@
         rect.top <= (parseFloat(getComputedStyle(nav).top) || 0) + 1
       );
 
-      var line = rect.bottom + 1;
+      /* THE DETECTION LINE IS THE BAR'S STICKY RESTING POSITION, not wherever
+       * the bar currently is. Those are the same number once it floats and
+       * wildly different before that: in flow the bar sits far down the page,
+       * so its own bottom edge sat below the top of the section AFTER it and
+       * that section was marked current at scroll 0, before the reader had
+       * reached anything. Resting offset plus the bar's height is a constant
+       * and is the line the reader actually reads against. */
+      var line = (parseFloat(getComputedStyle(nav).top) || 0) + nav.offsetHeight + 1;
       var current = pairs[0];
       for (var i = 0; i < pairs.length; i++) {
         if (pairs[i].section.getBoundingClientRect().top <= line) current = pairs[i];

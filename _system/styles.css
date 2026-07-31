@@ -3560,71 +3560,49 @@ img.launcher-logo {
   position: sticky;
   top: 0;
   z-index: 10;                    /* under .shell-header (20) and .skip (40), over the page */
-  /* Not optional, exactly as on .shell-header: a transparent sticky band
-   * lets content scroll visibly through it. --bg, so the band takes the
-   * surface it is declared on and works on all three. */
-  /* NO BAND UNTIL IT IS ACTUALLY STUCK. Chip, 2026-07-31. While the subnav
-   * is still sitting in the flow under the hero it is just a row of links
-   * on the page, and a full-width band with a rule under it there draws a
-   * horizontal line across the composition for no reason. The band is what
-   * separates it from content moving underneath, so it earns its ground at
-   * the moment it starts floating, and not before.
+
+  /* WHITE AT ALL TIMES, not only when stuck. Chip, 2026-07-31.
+   * The bar carries data-surface="light", so --bg here IS the light ground
+   * and this one declaration makes it white in flow and white floating.
    *
-   * Same mechanism as .shell-header--floating: a sentinel plus an
-   * IntersectionObserver in shell.js toggles .subnav--stuck. The base state
-   * here is therefore the UNSTUCK state, which is also the no-JS state:
-   * with scripts off nothing ever sets the class, the bar never paints, and
-   * a row of working links is exactly what remains. That is the correct
-   * degradation, not a compromise. */
-  background: transparent;
-  /* IN FLOW the bar carries a TOP rule, not a bottom one. Chip, 2026-07-31:
-   * sitting under the hero it needs separating from the sponsor marks above
-   * it, and a rule under a row of links that is not yet floating reads as an
-   * underline on the links rather than as an edge. The two swap on stick:
-   * the top rule goes, the ground and the bottom rule arrive, because once
-   * it floats the thing it must separate itself from is BELOW it. */
-  /* The top rule is drawn by .subnav-list::before, NOT here. Chip,
-   * 2026-07-31: in flow it must be the width of the CONTAINER, aligned to
-   * the site's single left edge, not a full-bleed line across the viewport.
-   * A border on .subnav would bleed; a border on .subnav-list would overhang
-   * the links by one gutter each side, because that element carries the
-   * gutter as padding. The pseudo is inset by the gutter so it starts and
-   * ends exactly where the first and last link do.
-   * The BOTTOM rule stays full bleed on purpose: once the bar is stuck it is
-   * chrome separating itself from the whole page, and a container width edge
-   * under a full width ground would read as an unfinished line. */
-  /* HAIRLINE, matching every other rule on the site. Chip, 2026-07-31: at
-   * --rule-med it read as a heavy underline rather than as an edge. The
-   * ACTIVE MARKER stays --rule-med on purpose: it is the one thing in the
-   * bar that has to be louder than the bar, and a 2px accent segment on a
-   * 1px neutral rule is what makes it read as a marker rather than as a
-   * continuation of the same line. */
+   * It was transparent in flow, which meant it took whatever sat behind it.
+   * The dark hero and the impact statement are directly above, so the bar
+   * read as dark until the instant it stuck and then flipped to white. The
+   * FLIP was the defect, not the colour.
+   *
+   * A container-width top rule used to live here too. It existed to separate
+   * a transparent bar from the sponsor marks above it; a bar with its own
+   * ground separates itself, so the rule became a line drawn across the top
+   * of a white block for no reason and went with the transparency.
+   *
+   * THREE EARLIER COMMENTS WERE DELETED WITH IT, not edited: they described
+   * a no-band-until-stuck behaviour, a top-rule-swaps-for-bottom-rule
+   * behaviour, and a full-bleed-versus-container-width argument, none of
+   * which this component does any more. Stale comments on this project have
+   * already cost real time. */
+  background: var(--bg);
+
+  /* Hairline, matching every other rule on the site. Always in the box so
+   * the bar never changes height and the page never shifts by the 1px a
+   * real border would add. Colour arrives with .subnav--stuck.
+   * The ACTIVE MARKER stays --rule-med on purpose: it is the one thing in
+   * the bar that has to be louder than the bar, and a 2px accent segment on
+   * a 1px neutral rule reads as a marker rather than as more of the line. */
   border-bottom: var(--rule-hair) solid transparent;
-  /* Both properties are always in the box so the band never changes height
-   * and the page never shifts by the 1px a real border would add. The same
-   * reasoning, and the same trick, as the .shell-header rule above. */
-  transition: background-color var(--t) linear, border-color var(--t) linear;
+  transition: border-color var(--t) linear;
 }
+
 
 /* The stuck state. Ground is not optional once it floats: a transparent
  * sticky band lets content scroll visibly through it.
  * The rule is a UI component boundary under WCAG 1.4.11 and needs 3:1.
  * --rule-ink-load is --cool-500 on dark (3.89:1 on --ground) and --cool-400
  * on light and muted (3.50:1 on --paper). Both clear. */
-/* In flow only. It goes the moment the bar sticks, because at that point the
- * full-bleed ground and the bottom rule are doing the separating. */
-.subnav-list::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: var(--gutter);
-  right: var(--gutter);
-  border-top: var(--rule-hair) solid var(--rule-ink);
-}
-.subnav--stuck .subnav-list::before { border-top-color: transparent; }
-
+/* Stuck now changes ONE thing: the bottom rule arrives. The ground is
+ * already white in flow, so there is nothing to swap. The rule is what
+ * separates the bar from content moving underneath it, which is only a
+ * thing that happens once it floats. */
 .subnav--stuck {
-  background: var(--bg);
   border-bottom-color: var(--rule-ink-load);
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3835,7 +3813,24 @@ body:has(.subnav) [id]                 { scroll-margin-top: var(--anchor-offset)
  * which is a fill figure and fails AA as type. That is the same trap the
  * .label comment in section 3 records. */
 
-.impact { padding-block: var(--space-3xl) 0; }
+/* Air on BOTH sides, Chip 2026-07-31. The section previously took the house
+ * top-padded-only rule, which is right for a section in a run of sections and
+ * wrong for this one: it is a single statement standing between a photographic
+ * hero and the light ground below it, and it needs room to be a beat rather
+ * than a heading. --space-4xl over and under, symmetrical, because there is no
+ * next-section padding underneath it to borrow from now that the band changes
+ * ground immediately after.
+ *
+ * NOT symmetrical in the stylesheet, because symmetrical is not what reads as
+ * centred here. Measured: the sponsor strip above contributes its own 71px of
+ * margin before this section even starts, so equal padding put roughly 213px
+ * over the text and 142px under it. The extra --space-xl on the bottom is that
+ * 71px paid back. Optical centring against what is actually above, which is
+ * the logo row, not the section boundary. */
+.impact { padding-block: var(--space-4xl) calc(var(--space-4xl) + var(--space-xl)); }
+@media (max-width: 60rem) {
+  .impact { padding-block: var(--space-3xl) calc(var(--space-3xl) + var(--space-m)); }
+}
 
 /* FULL WIDTH, CENTRED, AND NO MORE THAN THREE LINES. Chip, 2026-07-31.
  * --step-3, not --step-4: at step-4 across the full container this ran to
@@ -4165,3 +4160,26 @@ body:has(.subnav) [id]                 { scroll-margin-top: var(--anchor-offset)
   border-top: 0;
   padding-block-start: 0;
 }
+
+/* ---- the agenda's day headings, 2026-07-31 -----------------------------
+ * Chip: a BIG title per date, and the day opens to the full timetable.
+ * The three summaries used to carry a sentence describing the day; they are
+ * now the date alone, so the type has to do the work the sentence did.
+ *
+ * --step-2, one rung above the .faq default, and NOT larger: these sit under
+ * an h2 at --step-3 and a date that outranks the section's own heading reads
+ * as the page restarting. The measure cap on .faq summary > span comes off,
+ * because a five word date has no wrap to control and the cap was only ever
+ * there to hold a paragraph. */
+.day-title {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 500;
+  letter-spacing: var(--track-2);
+  line-height: var(--lh-heading);
+  max-width: none;
+}
+/* The affordance grows with the title so the plus does not sit small beside
+ * it, and the row gets more air now that each one is a single big line. */
+#agenda .faq summary { padding-block: var(--space-m); }
+#agenda .faq summary::after { font-size: var(--step-2); }

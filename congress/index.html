@@ -56,13 +56,9 @@
         </li>
         <li><a href="/congress/">Conference</a>
           <ul>
-            <li><a href="/congress/agenda/">Agenda</a></li>
-            <li><a href="/congress/speakers/">Speakers</a></li>
-            <li><a href="/congress/the-app/">The app</a></li>
-            <li><a href="/congress/register/">Register</a></li>
-            <li><a href="/congress/sponsor/">Sponsor</a></li>
-            <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
-            <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
+            <li><a href="/congress/#agenda">Agenda</a></li>
+            <li><a href="/congress/#tickets">Register</a></li>
+            <li><a href="/congress/#sponsorship">Sponsor</a></li>
           </ul>
         </li>
         <li><a href="/xpand/">Consulting</a>
@@ -103,7 +99,10 @@
        full timetable on ONE page is a repeat rather than a refrain.
 
        ABSORBED, not deleted: /congress/register/, /congress/sponsor/ and
-       /congress/agenda/ still exist and are still linked from the nav.
+       /congress/agenda/ still exist and still resolve, but as of 2026-07-31
+       the nav no longer points at them. It anchors into the sections here
+       instead, because two routes to the same content is two sources of
+       truth. They are reachable from the footer only.
        Their content is carried here in the sections named above.
 
        WRITING STRATEGY, per Chip, from the copy pass 4 note on
@@ -369,6 +368,7 @@
          #quotes     proof, which works where it is caught rather than sought.
          #reserve    same destination and same button as #tickets. A second link
                      to one shop page is a duplicate, not a route.
+       Every href here resolves to an id on this page. Checked. -->
   <!-- ============================================================
        IMPACT STATEMENT. ConvergX's own published copy, verbatim, set large and
        full width. Chip, 2026-07-31: "blue text, or white with the impact part
@@ -391,11 +391,17 @@
     </div>
   </section>
 
-       Every href here resolves to an id on this page. Checked. -->
-  <nav class="subnav" aria-label="On this page">
+  <!-- data-surface on the nav ITSELF, and it stays a direct child of <main>.
+       Chip, 2026-07-31: everything below the impact statement, this bar
+       included, sits on the light ground. Wrapping the bar in the same band
+       as the sections would have been the obvious move and is the wrong one:
+       a sticky element only pins inside its own containing block, so the bar
+       would have stopped sticking the moment that band ended. Declaring the
+       surface here gives it the light --bg for its stuck state while leaving
+       <main> as its containing block. -->
+  <nav class="subnav" data-surface="light" aria-label="On this page">
     <ul class="subnav-list">
       <li><a href="#overview">Overview</a></li>
-      <li><a href="#about">What it is</a></li>
       <li><a href="#speakers">Speakers</a></li>
       <li><a href="#agenda">Agenda</a></li>
       <li><a href="#tickets">Tickets</a></li>
@@ -470,6 +476,8 @@
        ConvergX staff member is given a knowledge verb either.
        ZERO NUMBERS. There is no attendance figure in ConvergX's material.
        ============================================================ -->
+  <!-- The light band opens here and runs to the end of #speakers. -->
+  <div data-surface="light">
   <section id="about">
     <div class="wrap">
       <!-- Eyebrow removed on Chip's instruction 2026-07-31. It read "The
@@ -552,58 +560,33 @@
   </section>
 
   <!-- ============================================================
-       4. PAST PHOTOGRAPHS.
-       TWO HARD CONSTRAINTS, both from CONGRESS-ASSETS-2026-07-30, and
-       neither is optional:
-
-       1. NO RECOGNISABLE FACE RENDERS. Only the files the asset capture
-          marks as having NO people in them are used. Three saved files
-          contain attendee faces (congress-room-audience-wide.jpg,
-          congress-2019-panel.jpg, congress-2018-keynote-audience.jpg) and
-          consent for those is open with Kim Van Vliet. A fourth,
-          congress-2018-room-audience.jpg, is marked "low" rather than
-          none, so it is out too.
-       2. THE YEAR IS IN THE VISIBLE CAPTION. The newest photograph
-          ConvergX publishes anywhere is from 2019. A 2018 frame presented
-          as the Congress today is a fabricated impression even if no
-          sentence is false, and naming the year costs nothing.
-
-       REJECTED HERE, and this is a find the asset capture did not carry:
-       congress-2018-awards-trophies.jpg was cleared for "no people" and
-       it is on disk, but opened at full size the four trophies are
-       engraved "SPONSORED BY WAVV" on three and "STONECRACKER" on the
-       fourth. That renders two third-party marks inside a photograph, and
-       Stonecracker is a 2019 sponsor the register clears for nothing.
-       A mark in a photograph is still a mark. Do not restore it without
-       a clearance, and it is the same test that keeps the Gurpreet Lail
-       portrait off /congress/speakers/.
-
-       FLAG, same one as the header photograph: the booth in
-       congress-2018-lounge-booth.jpg carries the RETIRED tagline "WHERE
-       INDUSTRY LINES DISAPPEAR", and it is more legible here than in the
-       header frame. The ledger budgets that string at one, on /about/.
-       Documentary photography of dated signage is not the site writing
-       the line, and the caption dates it, but somebody other than this
-       page should confirm that reading.
-
-       .gallery-grid, .gallery-figure, .gallery-img and .gallery-caption
-       are the four new class names Chip sanctioned for this section and
-       this section only. The CSS owner writes them. No fifth was invented.
-  <!-- PHOTOGRAPHS FROM PAST CONGRESSES: REMOVED on Chip's instruction,
-       2026-07-31. The section held two of ConvergX's own 2018 and 2019
-       frames with their years in visible captions.
+       PAST PHOTOGRAPHS: SECTION REMOVED, Chip 2026-07-31.
+       The section held two of ConvergX's own 2018 and 2019 frames with
+       their years in visible captions.
 
        ONE CONSEQUENCE, recorded because it is not obvious and it is now
        live: those captions were the page's only visible DATING of its own
        photography, and they were the stated reason it was acceptable to
-       drop the provenance line from the hero photograph earlier today.
-       The hero image is a 2018 frame. With this section gone, nothing on
-       the page says so. It is heavily duotoned and functions as a ground
+       drop the provenance line from the hero photograph earlier the same
+       day. The hero image is a 2018 frame. With this section gone, nothing
+       on the page says so. It is heavily duotoned and functions as a ground
        rather than as a documentary photograph, which is the argument for
        leaving it undated, but that argument now stands alone.
        If the hero photograph ever returns to reading as documentary, or a
        second real photograph is added anywhere on this page, the year has
-       to be visible again. Do not treat this as settled. -->
+       to be visible again. Do not treat this as settled.
+
+       TWO FINDINGS KEPT FROM THE REMOVED SECTION, because they outlive it:
+       1. congress-2018-awards-trophies.jpg is cleared for "no people" and
+          is on disk, but at full size the trophies are engraved "SPONSORED
+          BY WAVV" on three and "STONECRACKER" on the fourth. A mark inside
+          a photograph is still a rendered mark, and Stonecracker is cleared
+          for nothing. Do not use it. Same test that keeps the Gurpreet Lail
+          portrait off /congress/speakers/.
+       2. congress-2018-lounge-booth.jpg carries the RETIRED tagline "WHERE
+          INDUSTRY LINES DISAPPEAR" legibly. The ledger budgets that string
+          at one, on /about/.
+       ============================================================ -->
 
   <!-- ============================================================
        5. WHO IS IN THE ROOM.
@@ -730,11 +713,18 @@
        ============================================================ -->
   <section id="speakers">
     <div class="wrap">
+      <!-- Title only. Chip, 2026-07-31: eyebrow and standfirst both out.
+           WHAT WENT WITH THE STANDFIRST, recorded because it was doing a job:
+           it said several keynote and session slots still carry no name. That
+           is true and it is in ConvergX's own published agenda (Thursday's
+           keynote is "Keynote - TBA", and two lunch keynotes are unnamed), so
+           the grid is not claiming to be the complete roster. Nothing on the
+           page now says that. It is not a false claim, because the heading no
+           longer says "so far" either, but if anyone later reads this grid as
+           the finished line-up, that sentence is what stopped it. -->
       <div class="sec-head">
-        <h2>Who ConvergX has named so far</h2>
-        <span class="label label--lo label--edge">Speakers</span>
+        <h2>The Speakers</h2>
       </div>
-      <p>The names ConvergX publishes for 2026. Several keynote and session slots still carry no name.</p>
 
       <div class="speaker-grid">
         <article class="speaker-card">
@@ -789,13 +779,19 @@
         </article>
       </div>
 
-      <p class="push-m"><a class="link-more" href="/congress/speakers/">Speakers</a></p>
+      <!-- The link out to /congress/speakers/ was removed on Chip's
+           instruction, 2026-07-31: the roster is here and a second page
+           holding the same eleven names is a duplicate, not a destination.
+           The page still exists and still resolves; nothing points at it. -->
     </div>
   </section>
 
   <!-- The three table-bearing sections take the light ground, which is
        the ground the pages they were absorbed from already used. Three
        surfaces on one page is the system working, not decoration. -->
+  </div>
+  <!-- /light: about, who, speakers -->
+
   <div data-surface="light">
 
   <!-- ============================================================
@@ -830,15 +826,18 @@
        ============================================================ -->
   <section id="agenda" class="section--dense">
     <div class="wrap">
+      <!-- Title only. Chip, 2026-07-31.
+           The standfirst carried one fact worth keeping somewhere: there is no
+           Panel #1. Session #1 is ConvergX-U and their panels run #2 to #8, so
+           the numbering looks like an omission and is not. It is now a comment
+           rather than copy; if a reader ever asks, that is the answer. -->
       <div class="sec-head">
-        <h2>The three days, as ConvergX has published them</h2>
-        <span class="label label--lo label--edge">Agenda</span>
+        <h2>The Agenda</h2>
       </div>
-      <p>Open a day for every session and time. There is no Panel #1: Session #1 is ConvergX-U, and the panels run from #2 through #8.</p>
 
       <div class="mod-faq-list">
         <details class="faq">
-          <summary><span>Tuesday 22 September. Two invite-only executive roundtables, then a welcome reception at Romero Distillery from 16:00.</span></summary>
+          <summary><span class="day-title">Tuesday, September 22nd</span></summary>
           <div class="faq-a">
             <table>
               <caption class="label">Tuesday 22 September</caption>
@@ -855,7 +854,7 @@
         </details>
 
         <details class="faq">
-          <summary><span>Wednesday 23 September. Opening remarks at 08:00, State of the Union sessions on defence, energy, mining and agriculture, panels through the afternoon, then an evening reception with entertainment and a spirits tasting.</span></summary>
+          <summary><span class="day-title">Wednesday, September 23rd</span></summary>
           <div class="faq-a">
             <table>
               <caption class="label">Wednesday 23 September</caption>
@@ -882,7 +881,7 @@
         </details>
 
         <details class="faq">
-          <summary><span>Thursday 24 September. Opening remarks, a keynote ConvergX has not yet named, panels through both halves of the day, then a closing keynote and a wrap-up reception.</span></summary>
+          <summary><span class="day-title">Thursday, September 24th</span></summary>
           <div class="faq-a">
             <table>
               <caption class="label">Thursday 24 September</caption>
@@ -909,7 +908,11 @@
       </div>
 
       <p class="push-m">ConvergX publishes this schedule as subject to change. The agenda a delegate actually uses lives in the app, and it updates when the day does.</p>
-      <p><a class="link-more" href="/congress/agenda/">Agenda</a></p>
+      <!-- The link to /congress/agenda/ was removed here on Chip's
+           instruction, 2026-07-31: the full timetable is on this page now and
+           a second route to a duplicate of it is not a route. The standalone
+           page still exists and still resolves; it is simply no longer linked
+           from this section. It is now reachable only from the footer. -->
 
       <!-- THE APP BLOCK, carried whole from the 2026-07-30 rewrite. It is
            one of the four things Chip named as good and worth keeping, and
@@ -1332,11 +1335,11 @@
         <li><a href="/platform/#vetting-and-introductions">Vetting and introductions</a></li>
         <li><a href="/platform/#trust-and-security">Trust and security</a></li>
         <li><a href="/congress/">The Congress</a></li>
-        <li><a href="/congress/agenda/">Agenda</a></li>
-        <li><a href="/congress/speakers/">Speakers</a></li>
+        <li><a href="/congress/#agenda">Agenda</a></li>
+        <li><a href="/congress/#speakers">Speakers</a></li>
         <li><a href="/congress/the-app/">The app</a></li>
-        <li><a href="/congress/register/">Register</a></li>
-        <li><a href="/congress/sponsor/">Sponsor</a></li>
+        <li><a href="/congress/#tickets">Register</a></li>
+        <li><a href="/congress/#sponsorship">Sponsor</a></li>
         <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
         <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
         <li><a href="/xpand/">Consulting</a></li>
