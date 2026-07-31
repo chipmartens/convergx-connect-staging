@@ -1312,6 +1312,95 @@
    * drops by its height on its own and the hero still fills the screen.
    * Re-measured on resize because the notice wraps to two lines on a phone.
    * The CSS falls back to --shell-h when this never runs (no JS). */
+  /* ---- THE SECTION SUBNAV: stuck state, and the current-section marker ----
+   * Both are progressive enhancement and BOTH degrade to nothing. With
+   * scripts off the subnav is a row of working anchors: no band, because
+   * .subnav--stuck is never added, and no marker, because aria-current is
+   * never set. That is the correct no-JS result, not a compromise, and it
+   * is why neither state is expressed in the markup.
+   *
+   * The band is deliberately NOT painted while the bar is still in the flow
+   * under the hero. It earns its ground at the moment it starts floating,
+   * which is the same rule and the same sentinel technique as
+   * .shell-header--floating above.
+   *
+   * WHY NOT PURE CSS: a link cannot be styled from the state of a section
+   * that comes after it, and :target only fires on a click and then goes
+   * stale the moment the reader scrolls past. Neither answers "what am I
+   * looking at now", which is the only question this marker exists for. */
+  function wireSubnav() {
+    var nav = document.querySelector(".subnav");
+    if (!nav || !("IntersectionObserver" in window)) return;
+
+    var links = [].slice.call(nav.querySelectorAll('a[href^="#"]'));
+    if (!links.length) return;
+
+    /* Only links whose target actually exists. A subnav pointing at a
+     * removed section should lose its marker, not throw. */
+    var pairs = links.map(function (a) {
+      return { link: a, section: document.getElementById(a.getAttribute("href").slice(1)) };
+    }).filter(function (p) { return p.section; });
+    if (!pairs.length) return;
+
+    /* ---- the stuck band ---- */
+    var sentinel = document.createElement("div");
+    sentinel.setAttribute("aria-hidden", "true");
+    sentinel.style.cssText = "position:absolute;top:" + nav.offsetTop +
+      "px;left:0;width:1px;height:1px;pointer-events:none";
+    document.body.insertBefore(sentinel, document.body.firstChild);
+    new IntersectionObserver(function (e) {
+      nav.classList.toggle("subnav--stuck", !e[0].isIntersecting);
+    }, { threshold: 0 }).observe(sentinel);
+
+    /* ---- the current-section marker ----
+     * Recomputed from POSITIONS rather than from which sections happen to
+     * be intersecting. With a dozen short sections several are on screen at
+     * once, so "is visible" cannot pick one; "the last one whose top has
+     * passed under the bars" always can, and it is stable while scrolling
+     * in both directions. The observer is only a cheap trigger. */
+    function mark() {
+      var rect = nav.getBoundingClientRect();
+      /* The stuck band is toggled HERE as well as from the sentinel observer
+       * above. Two mechanisms for one class is deliberate, not redundancy:
+       * the observer is the cheap one and carries it during normal reading,
+       * but IntersectionObserver callbacks are throttled or dropped entirely
+       * while a document is hidden, and a reader returning to a backgrounded
+       * tab mid-page would otherwise find a floating bar with no ground under
+       * it. Comparing the bar's own top against its sticky offset costs one
+       * layout read that this function already has in hand.
+       * classList.toggle with an explicit boolean is idempotent, so the two
+       * paths cannot fight each other. */
+      nav.classList.toggle(
+        "subnav--stuck",
+        rect.top <= (parseFloat(getComputedStyle(nav).top) || 0) + 1
+      );
+
+      var line = rect.bottom + 1;
+      var current = pairs[0];
+      for (var i = 0; i < pairs.length; i++) {
+        if (pairs[i].section.getBoundingClientRect().top <= line) current = pairs[i];
+      }
+      /* The LAST section is a special case: it is usually too short to ever
+       * reach the line, so without this the final link can never light up
+       * however far the reader scrolls. */
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) {
+        current = pairs[pairs.length - 1];
+      }
+      pairs.forEach(function (p) {
+        if (p === current) p.link.setAttribute("aria-current", "true");
+        else p.link.removeAttribute("aria-current");
+      });
+    }
+
+    var io = new IntersectionObserver(mark, {
+      threshold: [0, 0.25, 0.5, 0.75, 1]
+    });
+    pairs.forEach(function (p) { io.observe(p.section); });
+    window.addEventListener("scroll", mark, { passive: true });
+    window.addEventListener("resize", mark);
+    mark();
+  }
+
   function measureShell(header) {
     var set = function () {
       var notice = document.querySelector(".notice");
@@ -1393,6 +1482,8 @@
       wireFloat(header);
       measureShell(header);
     }
+    wireSubnav();
+
     var footer = document.querySelector('[data-shell="footer"]');
     if (footer) {
       footer.classList.add("shell-footer");

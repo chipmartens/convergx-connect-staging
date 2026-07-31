@@ -3256,11 +3256,12 @@ img.launcher-logo {
  * already and a second query here would be dead weight. */
 
 .notice-inner {
-  /* Was --space-2xs and --step--1. Both up: this is now a band, not a line
-   * of fine print. --space-s block padding is the paragraph unit and reads
-   * as deliberate air at the top of the page. */
-  padding-block: var(--space-s);
-  font-size: var(--step-0);
+  /* Sized down again on 2026-07-31 after Chip saw it: --step-0 read a touch
+   * large for chrome, and --space-s block padding made the band deeper than
+   * a notification needs. --step--1 with --space-xs keeps it a band rather
+   * than fine print, without competing with the page. */
+  padding-block: var(--space-xs);
+  font-size: var(--step--1);
 
   display: flex;
   /* ONE LINE, AT EVERY WIDTH. Chip, 2026-07-31, looking at the built bar.
@@ -3272,8 +3273,21 @@ img.launcher-logo {
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: var(--space-l);
+  /* ONE SENTENCE, NOT TWO ITEMS. Chip: the countdown should align with the
+   * date line and the two should feel continuous. They are separate flex
+   * children, so the gap between them IS the space between the sentences,
+   * and at --space-l it read as two things sitting near each other. A word
+   * space is what makes prose continuous, so that is what this now is.
+   * The tier ladder tightens it further at narrow widths and still works,
+   * because this is the same property it was already stepping down. */
+  gap: var(--space-2xs);
 }
+
+/* The button is the one thing that must NOT read as part of the sentence,
+ * so it takes back the separation the row just gave up. Margin rather than
+ * a second gap value: gap is one value for the whole row and the tiers are
+ * already spending it. */
+.notice-cta { margin-inline-start: var(--space-m); }
 
 /* BOTH FLEX CHILDREN ARE <p>, WHICH DRAGS IN TWO GLOBAL RULES THAT ARE
  * WRONG HERE. The global p rule caps every paragraph at --measure, which
@@ -3563,6 +3577,28 @@ img.launcher-logo {
    * a row of working links is exactly what remains. That is the correct
    * degradation, not a compromise. */
   background: transparent;
+  /* IN FLOW the bar carries a TOP rule, not a bottom one. Chip, 2026-07-31:
+   * sitting under the hero it needs separating from the sponsor marks above
+   * it, and a rule under a row of links that is not yet floating reads as an
+   * underline on the links rather than as an edge. The two swap on stick:
+   * the top rule goes, the ground and the bottom rule arrive, because once
+   * it floats the thing it must separate itself from is BELOW it. */
+  /* The top rule is drawn by .subnav-list::before, NOT here. Chip,
+   * 2026-07-31: in flow it must be the width of the CONTAINER, aligned to
+   * the site's single left edge, not a full-bleed line across the viewport.
+   * A border on .subnav would bleed; a border on .subnav-list would overhang
+   * the links by one gutter each side, because that element carries the
+   * gutter as padding. The pseudo is inset by the gutter so it starts and
+   * ends exactly where the first and last link do.
+   * The BOTTOM rule stays full bleed on purpose: once the bar is stuck it is
+   * chrome separating itself from the whole page, and a container width edge
+   * under a full width ground would read as an unfinished line. */
+  /* HAIRLINE, matching every other rule on the site. Chip, 2026-07-31: at
+   * --rule-med it read as a heavy underline rather than as an edge. The
+   * ACTIVE MARKER stays --rule-med on purpose: it is the one thing in the
+   * bar that has to be louder than the bar, and a 2px accent segment on a
+   * 1px neutral rule is what makes it read as a marker rather than as a
+   * continuation of the same line. */
   border-bottom: var(--rule-hair) solid transparent;
   /* Both properties are always in the box so the band never changes height
    * and the page never shifts by the 1px a real border would add. The same
@@ -3575,6 +3611,18 @@ img.launcher-logo {
  * The rule is a UI component boundary under WCAG 1.4.11 and needs 3:1.
  * --rule-ink-load is --cool-500 on dark (3.89:1 on --ground) and --cool-400
  * on light and muted (3.50:1 on --paper). Both clear. */
+/* In flow only. It goes the moment the bar sticks, because at that point the
+ * full-bleed ground and the bottom rule are doing the separating. */
+.subnav-list::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--gutter);
+  right: var(--gutter);
+  border-top: var(--rule-hair) solid var(--rule-ink);
+}
+.subnav--stuck .subnav-list::before { border-top-color: transparent; }
+
 .subnav--stuck {
   background: var(--bg);
   border-bottom-color: var(--rule-ink-load);
@@ -3588,6 +3636,7 @@ body:has(.shell-header) .subnav { top: calc(var(--shell-h) + var(--rule-hair)); 
  * same way .nav-bar sits inside .shell-header. That is what keeps the
  * subnav's first link on the site's single left edge. */
 .subnav-list {
+  position: relative;
   max-width: var(--page-max);
   margin-inline: auto;
   padding: 0 var(--gutter);
@@ -3643,11 +3692,44 @@ body:has(.shell-header) .subnav { top: calc(var(--shell-h) + var(--rule-hair)); 
  * ever sets the attribute, the subnav still works and simply has no
  * current marker. The inline device is the site's existing current-branch
  * treatment, an underline drawn as a border, no fill and no pill. */
+/* The marker sits ON the bar's own bottom edge rather than floating above
+ * it. Chip, 2026-07-31. Drawn as an absolutely positioned pseudo, not a
+ * border, so the current item occupies exactly the same box as an inactive
+ * one and nothing shifts as the marker moves between links. Same technique
+ * and same reasoning as the main nav's current-branch device.
+ * The marker is --rule-med against the bar's --rule-hair, deliberately: it
+ * sits ON that edge and has to be legible as a separate mark on it. */
 .subnav-list > li > a[aria-current] {
   color: var(--fg-hi);
-  border-bottom: var(--rule-med) solid var(--accent);   /* 3.91:1 on dark, 4.59:1 on paper, both over the 3:1 boundary floor */
-  padding-block-end: calc(var(--space-xs) - var(--rule-med));
+  position: relative;
 }
+.subnav-list > li > a[aria-current]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* The list has block padding; this reaches past it to the container edge
+   * so the segment lands on the border, not above the padding. */
+  bottom: 0;
+  border-bottom: var(--rule-med) solid var(--accent);   /* 3.91:1 dark, 4.59:1 paper, over the 3:1 boundary floor */
+}
+
+/* bottom: 0 only lands on the bar's edge if the link box actually REACHES
+ * that edge. It did not: the list centres its items, so each link was a
+ * content-height box floating in the middle of the bar and the marker was
+ * measured 8px past the border, guessing at a padding value that was never
+ * there. Stretching the items and centring the text INSIDE them makes the
+ * link box the full height of the bar, so the marker's own bottom edge and
+ * the bar's bottom border are the same line by construction rather than by
+ * arithmetic. Nothing about the text position changes. */
+.subnav-list { align-items: stretch; }
+/* stretch, NOT center, on the li as well. Centring it made the <a> a 47px
+ * content box floating inside a 56px row, so the marker drawn at the link's
+ * own bottom still sat 7px short of the bar's border. The chain has to
+ * stretch the whole way down: list to li to a. The text stays centred by
+ * the flex centring INSIDE the link, which is the last step. */
+.subnav-list > li { display: flex; align-items: stretch; }
+.subnav-list > li > a { display: flex; align-items: center; }
 
 /* THE ANCHOR OFFSET, and this is the detail that is usually missed. An
  * in-page jump scrolls the target to y=0, which on this page is underneath
@@ -3755,19 +3837,34 @@ body:has(.subnav) [id]                 { scroll-margin-top: var(--anchor-offset)
 
 .impact { padding-block: var(--space-3xl) 0; }
 
+/* FULL WIDTH, CENTRED, AND NO MORE THAN THREE LINES. Chip, 2026-07-31.
+ * --step-3, not --step-4: at step-4 across the full container this ran to
+ * five lines, and the brief is three. The measure cap is removed because a
+ * 22ch display measure is what was forcing the wrap in the first place;
+ * the container is the measure here.
+ * text-wrap: balance stays and is doing real work at three lines: it evens
+ * the ragged edge instead of leaving a two word last line. */
 .impact-text {
   font-family: var(--font-display);
-  font-size: var(--step-4);
+  font-size: var(--step-3);
   font-weight: 600;
-  letter-spacing: var(--track-4);
+  letter-spacing: var(--track-3);
   line-height: var(--lh-heading);
-  color: var(--fg-hi);
-  max-width: var(--measure-display);   /* 22ch, about 29 characters: the display measure */
+  /* SWAPPED, Chip 2026-07-31: the setup sentence is now the accent and the
+   * payoff is the ink. --link, never --accent: the flat accent is 3.91:1 on
+   * the dark ground and fails as type, where --link resolves to the lifted
+   * blue at 5.30:1 dark, 6.46:1 paper, 5.67:1 muted. */
+  color: var(--link);
+  max-width: none;
+  margin-inline: auto;
+  text-align: center;
   text-wrap: balance;
 }
 
+/* Swapped with .impact-text on 2026-07-31: this is now the INK, not the
+ * accent. 15.73:1 on dark. */
 .impact-em {
-  color: var(--link);
+  color: var(--fg-hi);
   /* No weight change, no underline, no background. The colour IS the
    * emphasis, and a second signal on top of it turns a statement into a
    * callout. Declared explicitly because .impact-em will usually be a
@@ -3805,11 +3902,17 @@ body:has(.subnav) [id]                 { scroll-margin-top: var(--anchor-offset)
   /* The house component idiom again: a hairline above, no card, no radius,
    * no shadow. Same as .module, .quote, .speaker-card, .gallery-figure. */
   border-top: var(--rule-hair) solid var(--rule-ink);
-  padding-block: var(--space-m);
+  /* Asymmetric: more air UNDER each block than over it. Chip, 2026-07-31.
+   * The rule above each row already separates it at the top, so equal
+   * padding read as the text crowding the next row's rule. */
+  padding-block: var(--space-m) var(--space-xl);
 }
 
-.whatis-title { grid-column: 1 / span 5; }
-.whatis-body  { grid-column: 8 / -1; }
+/* A third and two thirds, Chip 2026-07-31. 4 and 8 of a 12 column grid is
+ * exactly that. The previous 5 / 8-to-end was neither: it left a dead two
+ * column gutter in the middle and made the title column wider than a third. */
+.whatis-title { grid-column: 1 / span 4; }
+.whatis-body  { grid-column: 5 / -1; }
 
 /* Stated rather than inherited from an element, because the contract does
  * not say what element .whatis-title is and an h2, an h3 and a <p> would
@@ -3831,8 +3934,16 @@ body:has(.subnav) [id]                 { scroll-margin-top: var(--anchor-offset)
 /* --measure, the body prose value, about 66 characters. If .whatis-body is
  * a <p> the global rule already sets it; restated so a <div> wrapper gets
  * the same column. */
-.whatis-body { max-width: var(--measure); }
-.whatis-body > * { max-width: 100%; }
+/* The COLUMN is two thirds and the text now fills it. --measure (50ch, about
+ * 66 characters) was capping the paragraph at roughly half the row, so the
+ * grid said two thirds and the eye saw half.
+ * THE TRADEOFF IS REAL AND IS CHIP'S CALL, 2026-07-31: at this row width the
+ * line runs to roughly 80 characters, which is past the 45 to 75 band the
+ * measure token exists to hold. It is acceptable HERE because these are four
+ * short blocks read one at a time, not a long article. Do not copy this
+ * override onto running body copy elsewhere. */
+.whatis-body { max-width: none; }
+.whatis-body > * { max-width: none; }
 
 /* One column below 60rem, matching where .editorial itself collapses. The
  * column gap has nothing to sit between once there is one track, so the
@@ -3863,13 +3974,40 @@ body:has(.subnav) [id]                 { scroll-margin-top: var(--anchor-offset)
  * ribbon with a lot of dead ground beside it; six in two columns of three
  * is a block, which is what the component is called. */
 
+/* ONE COLUMN, real bullets, hairlines between. Chip, 2026-07-31.
+ * Two columns made six short items read as a matrix with an implied
+ * relationship across the gutter, which there is not: it is one list.
+ * The marker is drawn rather than list-style, because list-style::marker
+ * cannot be reliably coloured separately from its text in every engine and
+ * this one has to be the accent while the text stays --fg. */
 .outcome-list {
   list-style: none;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: var(--space-2xl);
+  display: block;
+  max-width: var(--measure);
 }
+.outcome-list > li {
+  position: relative;
+  padding-inline-start: var(--space-m);
+  padding-block: var(--space-xs);
+  border-top: var(--rule-hair) solid var(--rule-ink);
+  max-width: none;
+}
+.outcome-list > li:first-child { border-top: 0; padding-block-start: 0; }
+.outcome-list > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  /* Centred on the first LINE, not on the item: a two line entry with a
+   * vertically centred dot reads as a dot floating between two lines. */
+  top: calc(var(--space-xs) + (1em * var(--lh-body) / 2));
+  width: 0.4em;
+  height: 0.4em;
+  margin-block-start: -0.2em;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.outcome-list > li:first-child::before { top: calc(1em * var(--lh-body) / 2); }
 @media (max-width: 60rem) {
   .outcome-list { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
 }
@@ -4011,4 +4149,19 @@ body:has(.subnav) [id]                 { scroll-margin-top: var(--anchor-offset)
     white-space: normal;
   }
   .notice .cd-n { font-size: inherit; }
+}
+
+
+/* ---- "What the Congress is": no rule over the heading ------------------
+ * Chip, 2026-07-31, second time of asking. The eyebrow came off this
+ * .sec-head earlier; the hairline the component draws above itself is the
+ * other half and goes now.
+ *
+ * Scoped to this one section rather than changed on .sec-head, which is
+ * used on roughly ninety headings across the site and whose rule is a real
+ * structural device everywhere else. The heading also loses the padding
+ * that only existed to hold the text off that rule. */
+#about > .wrap > .sec-head {
+  border-top: 0;
+  padding-block-start: 0;
 }
