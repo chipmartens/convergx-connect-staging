@@ -5,16 +5,20 @@
  * guidelines arrive, you change THIS FILE ONLY and the whole site re-skins.
  * No page file may ever contain a raw hex value or a font name.
  *
- * STATUS 2026-07-27: PLACEHOLDER VALUES throughout. ConvergX's real palette
- * has not been received and nothing here is approved brand. The direction is
- * DESIGN-REFERENCE-uncommon.md as constrained by DESIGN-REFERENCE-logo.md and
- * specified in DESIGN-CONSTRAINTS.md. All contrast ratios below are computed
- * against WCAG 2.1 relative luminance and re-verified 2026-07-27.
+ * STATUS 2026-07-30: the COLOURS are Webflow's, adopted as a stand-in that
+ * Chip chose. They are NOT ConvergX's approved brand: Lindsay Robertson's
+ * approved four (royal blue, light gray, ice blue, black) are still waiting
+ * on her hex codes. See the palette block below. Type, space, tracking and
+ * the dot matrix are all still the placeholder system and are unaffected.
+ * All contrast ratios are computed against WCAG 2.1 relative luminance and
+ * were re-verified 2026-07-30 for these values.
  *
- * Known: the palette is currently red-led and being expanded beyond red.
- * The accent below sits in the warm orange-red band (safety orange family),
- * which expands the red palette without reading as an alert state.
- * Known: the logo CANNOT change (Kim's hard constraint).
+ * TWO RETIRED PASSES, kept so neither gets re-proposed as new:
+ * 1. A red-led palette with a warm orange-red accent.
+ * 2. Royal/ice blue read off ConvergX's brand graphic. Chip: wrong blues.
+ *    That pass also forced a surface-scoped accent, which this one undoes.
+ * Still true: the logo CANNOT change (Kim's hard constraint), and it needs
+ * no change, because it has zero fill attributes and takes currentColor.
  */
 
 /* ---- type faces. Self-hosted only. Never an external font request. ----
@@ -42,31 +46,65 @@
 @font-face{font-family:Manrope;font-style:normal;font-weight:400 700;font-display:swap;
   src:url("../assets/fonts/Manrope-400.woff2") format("woff2")}
 
+/* ===================================================================
+   PALETTE, 2026-07-30, SECOND PASS. Sourced from Webflow's own tokens.
+
+   Chip rejected the first pass (royal/ice blue read off ConvergX's brand
+   graphic): wrong blues. He asked for Webflow's blues, keeping the dark
+   grey ground with heavy blue in areas, and the old off-white replaced by
+   Webflow's light grey. That is what this is.
+
+   PULLED, NOT EYEBALLED. Values are lifted verbatim from Webflow's live
+   stylesheet (marketing-main.webflow...opt.min.css), from their own
+   --_color--- custom properties. Their ramp is adopted whole and the
+   100..900 numbering here is theirs, so a value can always be traced back.
+
+   SIMPLER THAN THE FIRST PASS, and this is the real win. The first pass
+   had to make --accent SURFACE-SCOPED, because neither approved blue could
+   be a fill on both grounds (ice on paper 1.51:1, royal on near-black
+   2.40:1). Webflow blue does both: 3.91:1 on the dark ground, 4.59:1 on
+   paper. So the accent is ONE VALUE again, the surface-scoped override is
+   gone, and the notification bar no longer needs pinning. If a future
+   palette breaks that property, the surface-scoped pattern is in git.
+
+   STILL NOT ConvergX'S OWN APPROVED SET. Lindsay Robertson's approved four
+   are royal blue, light gray, ice blue and black, and her hex codes have
+   still not arrived. This is a deliberate stand-in Chip chose because he
+   preferred it; it is not brand. Do not present it to Kim as approved.
+   =================================================================== */
 :root {
-  /* ---- ground and ink. PLACEHOLDER. ---- */
-  --ground:   #0A0A0A;  /* never pure black: halation on OLED */
-  --panel:    #141210;  /* elevation is a lightness step, never a shadow */
-  --ink:      #A89B91;  /* body on dark.          7.32:1, clears AAA */
-  --ink-hi:   #F0EFED;  /* emphasis AND the logo. 17.23:1. See logo note below */
-  --ink-lo:   #8A7F76;  /* de-emphasis on dark.   5.07:1. NEVER body copy */
+  /* ---- ground and ink. Webflow's neutral ramp, their numbering. ---- */
+  --ground:   #171717;  /* gray-900. The dark GREY ground, not black */
+  --panel:    #222222;  /* gray-800. Elevation is a lightness step, never a shadow. 1.13:1 */
+  --ink:      #d8d8d8;  /* gray-200. body on dark.        12.58:1, clears AAA */
+  --ink-hi:   #f0f0f0;  /* gray-100. emphasis AND logo.   15.73:1. See logo note below */
+  --ink-lo:   #ababab;  /* gray-300. de-emphasis on dark.  7.81:1. NEVER body copy */
 
-  /* ---- warm ramp. Never a cool grey anywhere in the system. ---- */
-  --warm-100: #EBE6E1;  /* muted ground, and panels on paper */
-  --warm-300: #D6CFC7;  /* decorative rules on light */
-  --warm-500: #8A7F76;  /* load-bearing rules on light. 3.90:1 on paper */
-  --warm-600: #645C55;  /* load-bearing rules on dark. 3.02:1 (WCAG 1.4.11 floor).
-                           Doubles as de-emphasis TEXT on light: 6.55:1 paper, 5.29:1 muted */
-  --warm-700: #4A423B;  /* decorative rules on dark, and dot fields. 2.01:1 */
+  /* ---- the neutral ramp. Webflow's greys, their numbers, so any value
+   * here can be traced to their stylesheet. NOTE the split at 500/600:
+   * one token used to carry both the dark-surface load-bearing rule and
+   * the light-surface de-emphasis text. On the warm ramp one value did
+   * both. On this ramp it cannot: #5a5a5a is only 2.60:1 on the dark
+   * ground (fails the 3:1 non-text floor) and #757575 is only 4.04:1 as
+   * text on the muted ground (fails AA). They are two tokens now. ---- */
+  --cool-100: #f0f0f0;  /* gray-100. MUTED GROUND and panels on paper. Was the off-white */
+  --cool-300: #d8d8d8;  /* gray-200. decorative rules on light. 1.43:1 on paper */
+  --cool-400: #898989;  /* gray-400. load-bearing rules on LIGHT. 3.50:1 on paper */
+  --cool-500: #757575;  /* gray-500. load-bearing rules on DARK.  3.89:1 on ground */
+  --cool-600: #5a5a5a;  /* gray-600. de-emphasis TEXT on light. 6.90:1 paper, 6.05:1 muted */
+  --cool-700: #363636;  /* gray-700. decorative rules on dark, and dot fields. 1.48:1 */
   --paper:    #ffffff;  /* THE ONLY #ffffff IN THE PROJECT */
-  --ink-900:  #141210;  /* text on light. 18.69:1 paper, 15.07:1 muted */
+  --ink-900:  #171717;  /* gray-900. text on light. 17.93:1 paper, 15.73:1 muted */
 
-  /* ---- accent. Two tokens, not one. PLACEHOLDER. ----
-   * On dark:  --accent is safe for headings, labels, rules. Never a paragraph.
-   * On light: --accent is fills, rules, and large display type ONLY.
-   *           Small text and links on light use --accent-text. */
-  --accent:      #F2560F;  /* 5.76:1 on ground. 3.44:1 on paper (large text only) */
-  --accent-ink:  #0A0A0A;  /* type ON an orange panel. 5.76:1. NEVER light type on orange (2.99:1, fails) */
-  --accent-text: #B93A0C;  /* small text and links on light. 5.72:1 paper, 4.61:1 muted */
+  /* ---- accent. ONE value, both grounds, no surface override. ---- */
+  --accent:      #146ef5;  /* Webflow blue. FILL: 3.91:1 on ground, 4.59:1 on paper, 4.02:1 on muted */
+  --accent-ink:  #ffffff;  /* type ON the blue fill. 4.59:1. White, not near-black: the blue is dark */
+  --accent-text: #0055d4;  /* blue-600. small text and links on light. 6.46:1 paper, 5.67:1 muted */
+  --accent-lift: #3b89ff;  /* blue-400. small text and links on DARK. 5.30:1 on ground.
+                            * --accent itself is only 3.91:1 there, which is fine for a FILL
+                            * (3:1 non-text floor) and fails for 11px type and body links.
+                            * One blue cannot do both jobs on both grounds: measured, three
+                            * candidates, none clears 4.5:1 on dark AND light AND muted. */
 
   /* ---- focus. Deliberately NOT the brand colour (GOV.UK pattern):
    * one colour cannot do brand, status and focus at once. ---- */
@@ -193,14 +231,16 @@
   --fg-hi:         var(--ink-hi);
   --fg-lo:         var(--ink-lo);      /* de-emphasis only, never body */
   --block:         var(--panel);
-  --rule-ink:      var(--warm-700);    /* decorative */
-  --rule-ink-load: var(--warm-600);    /* any UI component boundary */
-  --link:          var(--accent);
+  --rule-ink:      var(--cool-700);    /* decorative */
+  --rule-ink-load: var(--cool-500);    /* any UI component boundary. 3.89:1, clears 1.4.11.
+                                        * NOT --cool-600: that is 2.60:1 here and fails. */
+  --link:          var(--accent-lift);  /* NOT --accent: 3.91:1 fails AA for body links */
+  --label-ink:     var(--accent-lift);  /* the eyebrows. 5.30:1 at 11px */
   --logo-ink:      var(--ink-hi);      /* hairline mark needs MORE contrast than body */
-  --dot-ink:       var(--warm-700);
+  --dot-ink:       var(--cool-700);
   /* The light block, on the dark ground. */
   --door-bg:       var(--paper);
-  --door-fg:       var(--warm-600);    /* 6.55:1 on paper */
+  --door-fg:       var(--cool-600);    /* 6.55:1 on paper */
   --door-fg-hi:    var(--ink-900);     /* 18.69:1 */
   /* Light type on a dark ground needs a touch more leading to hold its
    * lines apart. The body line unit never forks (1.55 everywhere); the
@@ -211,33 +251,35 @@
   --bg:            var(--paper);
   --fg:            var(--ink-900);
   --fg-hi:         var(--ink-900);
-  --fg-lo:         var(--warm-600);    /* 6.55:1 on paper */
-  --block:         var(--warm-100);
-  --rule-ink:      var(--warm-300);
-  --rule-ink-load: var(--warm-500);
+  --fg-lo:         var(--cool-600);    /* 6.55:1 on paper */
+  --block:         var(--cool-100);
+  --rule-ink:      var(--cool-300);
+  --rule-ink-load: var(--cool-400);
   --link:          var(--accent-text);
+  --label-ink:     var(--accent-text);  /* the eyebrows. 6.46:1 paper, 5.67:1 muted */
   --logo-ink:      var(--ink-900);
-  --dot-ink:       var(--warm-300);
+  --dot-ink:       var(--cool-300);
   /* On the paper ground the light block goes the OTHER way, to the greige.
      White on white is the same defect as black on black. */
-  --door-bg:       var(--warm-100);
-  --door-fg:       var(--warm-600);    /* 5.29:1 on warm-100 */
+  --door-bg:       var(--cool-100);
+  --door-fg:       var(--cool-600);    /* 5.29:1 on warm-100 */
   --door-fg-hi:    var(--ink-900);     /* 15.07:1 */
 }
 [data-surface="muted"] {
-  --bg:            var(--warm-100);
+  --bg:            var(--cool-100);
   --fg:            var(--ink-900);
   --fg-hi:         var(--ink-900);
-  --fg-lo:         var(--warm-600);    /* 5.29:1 on muted */
+  --fg-lo:         var(--cool-600);    /* 5.29:1 on muted */
   --block:         var(--paper);
-  --rule-ink:      var(--warm-300);
-  --rule-ink-load: var(--warm-500);
+  --rule-ink:      var(--cool-300);
+  --rule-ink-load: var(--cool-400);
   --link:          var(--accent-text);
+  --label-ink:     var(--accent-text);  /* the eyebrows. 6.46:1 paper, 5.67:1 muted */
   --logo-ink:      var(--ink-900);
   --dot-ink:       var(--paper);       /* white dots on greige. Use deliberately */
   /* Off-white ground, white block. */
   --door-bg:       var(--paper);
-  --door-fg:       var(--warm-600);    /* 6.55:1 on paper */
+  --door-fg:       var(--cool-600);    /* 6.55:1 on paper */
   --door-fg-hi:    var(--ink-900);     /* 18.69:1 */
 }
 
@@ -252,8 +294,9 @@
  * gets white, white page gets off-white, dark page gets white.
  * --block is the elevation step and cannot do this job: on dark it is #141210
  * against #0A0A0A, 1.06:1, correct for a panel and useless for a card.
- * The accent door is NOT in here. Orange reads on all three grounds and its
- * type is always --accent-ink, near-black. */
+ * The accent door is NOT in here. Webflow blue reads on all three grounds
+ * (3.91 ground / 4.59 paper / 4.02 muted) and its type is always
+ * --accent-ink, which is WHITE now, not near-black: the blue is dark. */
 
 /* No prefers-color-scheme anywhere: the surface is an authored decision
  * per page, not a user preference. The site ships both grounds. */

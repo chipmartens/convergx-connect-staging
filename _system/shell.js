@@ -28,12 +28,20 @@
    * exists, then that one word flips. */
   var NAV = [
     { label: "Industries",     href: "/industries/", mega: "industries", live: true },
-    { label: "The Platform",   href: "/platform/",   mega: "platform",   live: true },
+    { label: "Platform",       href: "/platform/",   mega: "platform",   live: true },
     /* Label and path differ deliberately. "The Congress" is the event's
-     * real name and a distinctive asset; "The Conference" is the plain
-     * word that tells a cold reader from another sector what the item
-     * is. The panel standfirst resolves the two. No path changes. */
-    { label: "The Conference", href: "/congress/",   mega: "congress",   live: true },
+     * real name and a distinctive asset; "Conference" is the plain word
+     * that tells a cold reader from another sector what the item is. The
+     * panel standfirst resolves the two. No path changes.
+     *
+     * 2026-07-30, Lindsay Robertson's call: the definite articles came
+     * off all three items. The reason is user feedback on ConvergX's own
+     * site, not tidiness. Readers cannot find the conference, and cannot
+     * tell Xpand from Xchange. Her line was that nobody knows what a
+     * ConvergX Xchange is. Kim keeps the X-names, so they stay on the
+     * homepage blocks and their logos; the BAR carries the plain word for
+     * the thing. Bar label and brand name are now doing separate jobs. */
+    { label: "Conference",     href: "/congress/",   mega: "congress",   live: true },
     /* Xpand takes a panel, decided 2026-07-28. The earlier reading was that
      * two pages do not earn one; what that missed is that the bar now shows
      * a panel on every other item, so the one item without one reads as the
@@ -44,8 +52,16 @@
      * Zone", is permitted ONCE and only on /xpand/. Every other item in the
      * bar is already multi-word, and one more long one is what breaks the
      * row at the narrow end of the desktop range. The ledger would not
-     * permit the repetition anyway. The full name belongs on the page. */
-    { label: "Xpand",          href: "/xpand/",     mega: "xpand",      live: true }
+     * permit the repetition anyway. The full name belongs on the page.
+     *
+     * 2026-07-30: the bar label is now "Consulting", not "Xpand". Lindsay
+     * Robertson's call: Xpand is being built as a consulting service, and
+     * a reader arriving cold cannot tell it from Xchange. Her framing was
+     * the question the reader is actually asking, are you looking for
+     * consulting or for congresses. The bar answers that question; the
+     * brand name Xpand stays on the page, the homepage block and the
+     * logo. Path unchanged, so nothing inbound breaks. */
+    { label: "Consulting",     href: "/xpand/",     mega: "xpand",      live: true }
   ];
   /* About is a UTILITY link and it now TAKES A PANEL. Chip, 2026-07-29:
    * "you probably have to add a mega menu for About so those pages are
@@ -334,10 +350,14 @@
       note:  "The published schedule for all three days. The programme is the Wednesday and the Thursday." },
     { label: "Speakers", href: "/congress/speakers/",
       note:  "Who ConvergX has named so far. The list is not closed." },
-    { label: "Attend",   href: "/congress/attend/",
-      note:  "The room is composed rather than filled, so attending starts with a request." },
+    /* "Attend" was REMOVED here on 2026-07-30, not renamed. Its page was
+     * merged into /congress/register/, which now opens on the published
+     * admission standard, so the row was pointing at a 404 from the mega
+     * menu on every page of the site. The note below absorbed the half of
+     * Attend's descriptor that was doing real work: this row now has to
+     * carry both jobs, who the room is for AND what a registration buys. */
     { label: "Register", href: "/congress/register/",
-      note:  "What a registration covers, and what ConvergX decides." },
+      note:  "Who the room is for, what a registration covers, and what ConvergX decides separately." },
     { label: "Sponsor",  href: "/congress/sponsor/",
       note:  "Visibility in the room, never a match." },
     /* "The app" is a DESTINATION row, not a call to action. "Get the app"

@@ -11,6 +11,22 @@
  * the exception, which is what makes a fill mean something.
  */
 
+/* ===================================================================
+   STALE-RATIO WARNING, added 2026-07-30 with the palette swap.
+
+   The accent was a warm orange until 2026-07-30. It is now Webflow blue,
+   #146ef5, one value on every surface (see tokens.css).
+
+   Any contrast figure written in a comment BELOW this line, and any
+   comment using the word "orange", was computed against the retired
+   orange and is STALE. The numbers are wrong now, not merely old.
+   tokens.css carries the live, re-measured figures. Trust that file.
+   These comments were left rather than mass-edited because rewriting a
+   measured claim without re-measuring it is how a wrong number gets
+   laundered into a true-looking one. Re-measure, then correct the line
+   you actually relied on.
+   =================================================================== */
+
 /* ================= 1. RESET ================= */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -48,11 +64,11 @@ body:not([data-surface]) {
   --fg-hi:         var(--ink-hi);
   --fg-lo:         var(--ink-lo);
   --block:         var(--panel);
-  --rule-ink:      var(--warm-700);
-  --rule-ink-load: var(--warm-600);
+  --rule-ink:      var(--cool-700);
+  --rule-ink-load: var(--cool-600);
   --link:          var(--accent);
   --logo-ink:      var(--ink-hi);
-  --dot-ink:       var(--warm-700);
+  --dot-ink:       var(--cool-700);
   --lh-lede:       1.40;
 }
 
@@ -192,13 +208,21 @@ strong { font-weight: 500; color: var(--fg-hi); }
   text-transform: uppercase;
   letter-spacing: var(--track-label);
   line-height: var(--lh-label);     /* was 1, which collides the moment a label wraps */
-  color: var(--fg);
+  /* BLUE, 2026-07-30, Chip's call: every eyebrow on the site is the accent.
+   * --label-ink is surface-scoped and is NOT --accent. A label is 11px, so
+   * it needs 4.5:1, and the accent blue is 3.91:1 on the dark ground and
+   * 4.02:1 on the muted one. Both fail. Measured across three candidate
+   * blues, none clears 4.5:1 on all three grounds, so the token resolves to
+   * blue-400 on dark and blue-600 on light and muted. Do not collapse it
+   * back to var(--accent): that is the thing that was measured and failed. */
+  color: var(--label-ink);
 }
 .label--hi { color: var(--fg-hi); }
-/* 500, not 400: the mono advance is identical at both weights so this
- * costs zero reflow, and a de-emphasised label on a dark ground needs
- * the weight step back. */
-.label--lo { color: var(--fg-lo); font-weight: 500; }
+/* Was --fg-lo. Now the same blue as .label: with every eyebrow on the accent,
+ * a grey one reads as broken rather than as quiet. The distinction this
+ * modifier still carries is the WEIGHT step, 500 not 400, which costs zero
+ * reflow because the mono advance is identical at both weights. */
+.label--lo { color: var(--label-ink); font-weight: 500; }
 
 /* Mandatory on any label pushed to a right or bottom edge:
  * letter-spacing adds space after the final character, and the
@@ -537,8 +561,8 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
  * above must not claim it. `.nav-links > li > a` outranks `.btn--solid` on
  * specificity and was repainting the label --fg on the orange fill: measured
  * 1.27:1, a hard contrast failure that looked merely "a bit washed out".
- * Restated here at matching specificity. Near-black on orange, never light
- * type on orange, per the contrast note in tokens.css. */
+ * Restated here at matching specificity. The ink on an accent fill is
+ * --accent-ink, white on the Webflow blue, 4.59:1. Never hardcode it. */
 .nav-links > li > a.btn--solid {
   color: var(--accent-ink);
   font-weight: 700;
@@ -710,7 +734,7 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
 
 /* ---- THE TWO DOORS, EMPHASISED. Chip, 2026-07-29. ----
  * Weight, size and a left rule. NOT a second accent colour: this column sits a
- * few hundred pixels from the header's orange CTA, and two orange things in one
+ * few hundred pixels from the header's accent CTA, and two accent things in one
  * component is the CTA losing. The rule is --rule-ink-load rather than the
  * decorative hairline because this one is carrying a hierarchy, not dividing
  * two equals.
@@ -858,7 +882,7 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
 }
 
 /* ---- 7d. THE NOTICE BAR ----
- * One line of orange above the header. It is not a surface: it carries the
+ * One line of accent blue above the header. It is not a surface: it carries the
  * accent as a fill and states its own ink, so it renders identically on the
  * dark, light and muted grounds rather than inheriting three different sets of
  * tokens and three different results. That is deliberate for a fill: the
@@ -875,6 +899,12 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
  * 2.55:1 on orange, and the --focus-bar underneath it is 5.76:1, which is the
  * part that carries it. Same composite that already carries focus on the
  * orange CTA and on every light surface. */
+/* Back to var(--accent), 2026-07-30 second pass. This was briefly pinned to
+ * a literal, because the first palette had no single colour that worked as a
+ * fill on both grounds and the accent had to be surface-scoped, which would
+ * have made this same bar two different colours across the site. Webflow blue
+ * removed that problem (3.91:1 on the dark ground, 4.59:1 on paper), so the
+ * bar is one token again. White on the blue measures 4.59:1. */
 .notice {
   background: var(--accent);
   color: var(--accent-ink);
@@ -928,7 +958,7 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
 }
 
 /* ================= 8. BUTTONS ================= */
-/* Outlined is the default. At most ONE solid orange fill per page
+/* Outlined is the default. At most ONE solid accent fill per page
  * (one filled panel or one filled button, not both). */
 
 .btn {
@@ -949,7 +979,7 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
 
 .btn--solid {
   background: var(--accent);
-  color: var(--accent-ink);     /* near-black on orange. Never light type on orange */
+  color: var(--accent-ink);     /* white on the blue fill, 4.59:1. Never hardcode it */
   border-color: var(--accent);
   font-weight: 700;
 }
@@ -977,8 +1007,8 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
   padding: var(--space-l);
 }
 
-/* The one sanctioned solid-orange panel form. Counts as the page's
- * single orange fill. Type on it is near-black, always. */
+/* The one sanctioned solid-accent panel form. Counts as the page's single
+ * accent fill. Type on it is --accent-ink, white, measured 4.59:1. */
 .block--accent {
   border: 0;
   background: var(--accent);
@@ -1234,6 +1264,12 @@ tbody th[scope="row"] {
   line-height: var(--lh-body);   /* a row header is body text, not a label */
   color: var(--fg);
   border-bottom-color: var(--rule-ink);
+  /* The UA default for a th is middle, and only `td` above restated it.
+   * A two-column table never exposed that, but the register table's third
+   * column wraps to three lines at 375 and floated the pass name to the
+   * vertical centre of its own row. A row header names the row, so it sits
+   * on the row's first line. */
+  vertical-align: top;
 }
 
 /* ================= 15. FORMS ================= */
@@ -1410,9 +1446,13 @@ section:has(.hero) { padding-block: 0; }
 .sec-head .label { white-space: nowrap; flex-shrink: 0; }
 
 /* ================= 18. FOCUS ================= */
-/* Deliberately not the brand colour (GOV.UK pattern). The bar is the
- * only permitted box-shadow in the project: it carries the indicator
- * on light surfaces where the yellow fails alone. */
+/* Deliberately not the brand colour (GOV.UK pattern). The bar is the only
+ * permitted box-shadow in the project: it carries the indicator wherever
+ * the yellow fails alone. Re-measured 2026-07-30 against the new accents
+ * and the composite still holds on both, for opposite reasons: on the ICE
+ * fill the yellow is 1.12:1 and invisible while the bar is 13.1:1; on the
+ * ROYAL fill the yellow is 6.13:1 and the bar is only 2.4:1. Neither part
+ * is redundant. Removing either one breaks focus on one of the two. */
 
 :focus-visible {
   outline: 3px solid var(--focus);
@@ -2173,7 +2213,7 @@ section:has(.hero) { padding-block: 0; }
    is a white block on a white page, which is visible and reports itself. */
 .door-block--invert {
   background: var(--door-bg, var(--paper));
-  color: var(--door-fg, var(--warm-600));
+  color: var(--door-fg, var(--cool-600));
   /* A hairline, because white on off-white is 1.19:1 and the FILL alone cannot
      draw the block's edge on the muted ground. The site's boundary device is a
      rule, never a shadow, so this is the existing idiom rather than a new one.
@@ -2638,3 +2678,206 @@ header:has(> .label:only-child) {
    slack falls below the hero where it reads as air rather than as a different
    starting position. */
 .hero { align-content: start; }
+
+/* ================= 27. THE SPEAKER GRID ================= */
+/* Same idiom as .module and .quote: a hairline above, no card, no radius,
+ * no shadow, no colour strip. The photograph is the only filled shape on
+ * the component, which is what makes a wall of them read as a grid of
+ * people rather than a grid of boxes.
+ *
+ * The portraits are DELIBERATELY inconsistent: some colour, some black
+ * and white, several different backdrop eras, and source resolutions
+ * from 340 to 600. That is Chip's call, 2026-07-30, made with the
+ * tradeoff stated. Do NOT add a greyscale or duotone filter to
+ * "unify" them, and do not add a background fill behind the shortfall.
+ *
+ * Every file is pre-cropped square at the asset level, so aspect-ratio
+ * plus cover is belt and braces against one bad file, not the crop
+ * mechanism. No width or height attributes are set in the markup because
+ * the crops changed twice; aspect-ratio reserves the box, so this still
+ * does not shift layout while the images load. */
+
+/* Explicit counts, not auto-fit. Measured: `minmax(9rem, 1fr)` resolved to
+ * ONE 311px column at 375, because two 144px tracks plus the gap need
+ * 312px and the column is 311. Ten full-bleed portraits stacked single
+ * file is a punishing scroll on the device most of this page's readers
+ * are holding. Dropping the floor to 8rem bought two columns on a phone
+ * but cost a 7-up row on desktop. Fixed counts divide the set cleanly at
+ * every width and cannot be lost to a one-pixel rounding change. */
+.speaker-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-l) var(--space-m);
+}
+@media (max-width: 60rem) {
+  .speaker-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 40rem) {
+  .speaker-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.speaker-card {
+  min-width: 0;                  /* a long unbroken name cannot widen the row */
+  border-top: var(--rule-hair) solid var(--rule-ink);
+  padding-block-start: var(--space-s);
+}
+
+.speaker-card-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 50% 30%;      /* faces sit above centre in a square crop */
+  margin-block-end: var(--space-s);
+  background: var(--block);      /* holds the box before the file lands */
+}
+
+/* Both are <p>, so the global p rule caps them at --measure. Inside a
+ * ~9rem track that never binds, but it does bind at the widest column on
+ * a large viewport, which would let a role line run wider than its own
+ * photograph. Cap to the card. */
+.speaker-card-name,
+.speaker-card-role { max-width: 100%; }
+
+.speaker-card-name {
+  color: var(--fg-hi);
+  font-size: var(--step-0);
+  font-weight: 500;
+  text-wrap: pretty;
+}
+
+.speaker-card-role {
+  margin-block-start: var(--space-3xs);
+  color: var(--fg-lo);
+  font-size: var(--step--1);
+  text-wrap: pretty;
+}
+
+/* ================= 28. THE PAST-EVENT GALLERY ================= */
+/* Documentary photographs of past Congresses. Same hairline idiom as
+ * .module, .quote and .speaker-card: a rule above, no card, no radius,
+ * no shadow.
+ *
+ * THE CAPTION IS LOAD-BEARING, NOT DECORATION. The newest photograph
+ * ConvergX publishes anywhere is from 2019, and these are 2018 and 2019.
+ * A dated photograph presented as the room today is a fabricated
+ * impression even when no sentence is false, so every caption names its
+ * year. Do not "tidy" the years out of these captions. */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-l) var(--space-m);
+}
+@media (max-width: 40rem) {
+  .gallery-grid { grid-template-columns: 1fr; }
+}
+
+.gallery-figure {
+  min-width: 0;
+  margin: 0;
+  border-top: var(--rule-hair) solid var(--rule-ink);
+  padding-block-start: var(--space-s);
+}
+
+/* 4:3 is the source shape: every usable frame ConvergX publishes is
+ * 864x576 or narrower. Reserving it stops the caption jumping when a
+ * lazy image lands, and cover absorbs the one frame that is not 3:2. */
+.gallery-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--block);
+}
+
+/* The global figcaption is FIGURE metadata: mono, with its own hairline
+ * above. Both are wrong inside a card that already opens on a rule, and
+ * a second rule here would double it. Same reset .quote figcaption makes,
+ * and for the same reason. */
+.gallery-caption {
+  margin-block-start: var(--space-s);
+  padding-block-start: 0;
+  border-top: 0;
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  color: var(--fg-lo);
+  text-wrap: pretty;
+}
+
+/* A full-bleed figure's image fills its column. The global img rule sets
+ * max-width, which lets a small source sit at natural size and leave dead
+ * ground beside it; a bleed figure is the one place that reads as broken
+ * rather than as restraint. This replaces an inline width on the Congress
+ * header, whose source is 864px against a 1280px bleed. */
+.bleed > img { width: 100%; }
+
+/* ================= 29. THE HOMEPAGE LAUNCHERS ================= */
+/* Three doors: Conference, Consulting, Platform. Same hairline idiom as
+ * .module, .quote, .speaker-card and .gallery-figure. No cards, no
+ * radius, no shadow, no per-door colour. They are siblings and must read
+ * as siblings: the moment one gets a fill, it reads as the recommended
+ * one, and the whole point is that the reader picks. */
+
+.launchers {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl) var(--space-l);
+}
+@media (max-width: 60rem) {
+  .launchers { grid-template-columns: 1fr; }
+}
+
+.launcher {
+  min-width: 0;
+  max-width: none;              /* the global li rule caps at --measure */
+  border-top: var(--rule-med) solid var(--rule-ink-load);
+  padding-block-start: var(--space-m);
+}
+
+/* The reserved mark slot. It holds its height with NOTHING in it, on
+ * purpose: the three logo files do not exist yet, and a placeholder box
+ * or a wordmark set in type would be a fabricated brand asset. An empty
+ * reserved band reads as air; a grey rectangle reads as a broken image.
+ * When the files land, swap the span for an <img> and delete nothing:
+ * the height is already the right height. */
+.launcher-logo {
+  display: block;
+  height: 2.5rem;
+  margin-block-end: var(--space-m);
+}
+img.launcher-logo {
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* No colour of its own: it is a .label and takes --label-ink with every
+ * other eyebrow on the site. It carried --fg-lo until 2026-07-30, which
+ * left the three X-names as the only grey eyebrows on the page. */
+.launcher-name {
+  margin-block-end: var(--space-2xs);
+}
+
+.launcher-title {
+  font-size: var(--step-2);
+  margin: 0;
+}
+/* The whole title is the target, and the link paints --fg-hi rather than
+ * --link. Three accent-coloured headings in a row would read as three
+ * warnings, and the row's job is calm parity between the doors. */
+.launcher-title a {
+  color: var(--fg-hi);
+  text-decoration: none;
+}
+.launcher-title a:hover { text-decoration: underline; }
+
+.launcher-desc {
+  margin-block-start: var(--space-s);
+  max-width: none;
+  color: var(--fg);
+  font-size: var(--step--1);
+  text-wrap: pretty;
+}
