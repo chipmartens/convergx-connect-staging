@@ -2812,52 +2812,91 @@ header:has(> .label:only-child) {
 .bleed > img { width: 100%; }
 
 /* ================= 29. THE HOMEPAGE LAUNCHERS ================= */
-/* Three doors: Conference, Consulting, Platform. Same hairline idiom as
- * .module, .quote, .speaker-card and .gallery-figure. No cards, no
- * radius, no shadow, no per-door colour. They are siblings and must read
- * as siblings: the moment one gets a fill, it reads as the recommended
- * one, and the whole point is that the reader picks. */
+/* Three doors: Conference, Consulting, Platform. Filled blue boxes on
+ * Chip's instruction, 2026-07-30.
+ *
+ * THIS DELIBERATELY BREAKS THE ONE-ACCENT-FILL RULE and it should be
+ * breached knowingly, not quietly. Section 8 says at most ONE solid
+ * accent fill per page. The homepage now carries four: these three plus
+ * the hero Request access button, and the nav CTA above them. The rule
+ * exists so the accent stays a signal rather than decoration, and four
+ * fills genuinely does spend some of that. Chip's call, and the tradeoff
+ * was stated. If the accent later stops reading as a signal on this page,
+ * this row is the first thing to reconsider, not the hero button.
+ *
+ * Still true and not negotiable: they are SIBLINGS and must read as
+ * siblings. Identical fill, identical padding, no per-door hue, no
+ * "recommended" one. The whole point is that the reader picks. */
 
 .launchers {
   list-style: none;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-xl) var(--space-l);
+  gap: var(--space-l);
 }
 @media (max-width: 60rem) {
   .launchers { grid-template-columns: 1fr; }
 }
 
+/* Air under the row before the next band. Chip asked for it explicitly:
+ * three filled boxes butting into the following section reads as a stack
+ * rather than as a set of doors. --space-dense above is the section's own
+ * top padding, so only the bottom is added here. */
+.launchers-band { padding-block-end: var(--space-3xl); }
+@media (max-width: 60rem) {
+  .launchers-band { padding-block-end: var(--space-2xl); }
+}
+
 .launcher {
   min-width: 0;
   max-width: none;              /* the global li rule caps at --measure */
-  border-top: var(--rule-med) solid var(--rule-ink-load);
-  padding-block-start: var(--space-m);
+  /* Column flex so the CTA can be pushed to the bottom. The three
+   * descriptions run to different line counts (2 and 3), which left the
+   * three CTAs on three different baselines. On a row of siblings that
+   * reads as sloppy rather than as variety. */
+  display: flex;
+  flex-direction: column;
+  background: var(--accent);
+  color: var(--accent-ink);
+  /* EVEN on all four sides, Chip's call 2026-07-30 looking at the built
+   * thing. This went 35/35/53 asymmetric first, on the theory that a
+   * filled box reads bottom-tight because descenders sit near the edge.
+   * That theory is sound in general and wrong here: the CTA is underlined,
+   * and the underline already adds visual weight below the last baseline,
+   * so the optical compensation was being paid twice. One value. */
+  padding: var(--space-l);
 }
 
-/* The reserved mark slot. It holds its height with NOTHING in it, on
- * purpose: the three logo files do not exist yet, and a placeholder box
- * or a wordmark set in type would be a fabricated brand asset. An empty
- * reserved band reads as air; a grey rectangle reads as a broken image.
- * When the files land, swap the span for an <img> and delete nothing:
- * the height is already the right height. */
-.launcher-logo {
+/* The mark slot, and it NO LONGER RESERVES HEIGHT WHILE EMPTY.
+ * It did until 2026-07-30, on the reasoning that dropping the three logo
+ * files in later should cost no reflow. Measured against what a reader
+ * actually sees, that was the wrong trade: an empty 40px band plus its
+ * 27px margin put 67px of nothing above the first line of every box, and
+ * it read as a padding bug rather than as considered space. Reflow when
+ * the marks arrive is cheaper than a row that looks broken until then.
+ *
+ * The placeholder is a <span> and collapses. A real <img class="launcher-logo">
+ * renders, because the rules are split by element. Swap the span for an
+ * img and nothing else changes. On the blue fill the mark has to be a
+ * reversed/white version; a dark lockup will disappear into the box. */
+span.launcher-logo { display: none; }
+
+img.launcher-logo {
   display: block;
   height: 2.5rem;
-  margin-block-end: var(--space-m);
-}
-img.launcher-logo {
   width: auto;
   max-width: 100%;
   object-fit: contain;
   object-position: left center;
+  margin-block-end: var(--space-m);
 }
 
-/* No colour of its own: it is a .label and takes --label-ink with every
- * other eyebrow on the site. It carried --fg-lo until 2026-07-30, which
- * left the three X-names as the only grey eyebrows on the page. */
+/* Every child inherits --accent-ink from the box. The label rule paints
+ * --label-ink, which is a BLUE and would be invisible here, so it is
+ * restated. Same reason .block--accent restates it. */
 .launcher-name {
+  color: var(--accent-ink);
   margin-block-end: var(--space-2xs);
 }
 
@@ -2865,11 +2904,8 @@ img.launcher-logo {
   font-size: var(--step-2);
   margin: 0;
 }
-/* The whole title is the target, and the link paints --fg-hi rather than
- * --link. Three accent-coloured headings in a row would read as three
- * warnings, and the row's job is calm parity between the doors. */
 .launcher-title a {
-  color: var(--fg-hi);
+  color: var(--accent-ink);
   text-decoration: none;
 }
 .launcher-title a:hover { text-decoration: underline; }
@@ -2877,7 +2913,28 @@ img.launcher-logo {
 .launcher-desc {
   margin-block-start: var(--space-s);
   max-width: none;
-  color: var(--fg);
+  color: var(--accent-ink);
   font-size: var(--step--1);
   text-wrap: pretty;
 }
+
+/* A named destination with a text glyph, never a verb phrase, per the
+ * locked tertiary-link rule. Underlined by default rather than on hover:
+ * on a filled panel there is no second safe ink, so colour cannot be what
+ * marks it as a link. Same reasoning as the notification bar. */
+.launcher-cta {
+  /* auto, not a fixed step: this is what lands all three CTAs on one
+   * baseline whatever the description above it does. The margin below is
+   * the box's own bottom padding. */
+  margin-block-start: auto;
+  padding-block-start: var(--space-m);
+  max-width: none;
+}
+.launcher-cta a {
+  color: var(--accent-ink);
+  font-weight: 700;
+  font-size: var(--step--1);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.launcher-cta a:hover { text-decoration-thickness: 2px; }

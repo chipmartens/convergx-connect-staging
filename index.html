@@ -424,12 +424,15 @@
        NO FOURTH BLOCK. "Capital" was floated on the call. COMPANY-SITE-SPEC
        section 7A: ConvergX Capital exists, is not launchable, appears
        nowhere, and takes no "coming soon". Three is the correct count. -->
-  <section class="section--dense" aria-labelledby="launch-h">
+  <section class="section--dense launchers-band" aria-labelledby="launch-h">
     <div class="wrap">
-      <div class="sec-head">
-        <h2 id="launch-h">Three things ConvergX runs</h2>
-        <span class="label label--lo label--edge">Start here</span>
-      </div>
+      <!-- The visible h2 and the "Start here" eyebrow came off on Chip's
+           instruction, 2026-07-30. The heading is NOT deleted, it is .vh:
+           removing it outright would leave this section as an unnamed
+           region and drop a level out of the document outline, which is a
+           screen-reader cost for a purely visual change. Same treatment
+           the proofbar band already uses. -->
+      <h2 id="launch-h" class="vh">Three things ConvergX runs</h2>
       <ul class="launchers">
         <li class="launcher">
           <!-- TODO: ConvergX Xchange mark. Drop the file in and replace this
@@ -438,6 +441,7 @@
           <p class="label launcher-name">ConvergX Xchange</p>
           <h3 class="launcher-title"><a href="/congress/">Conference</a></h3>
           <p class="launcher-desc">Three days in Calgary, September 22 to 24, 2026. The room is composed rather than filled.</p>
+          <p class="launcher-cta"><a href="/congress/#agenda">Agenda <span aria-hidden="true">&#8594;</span></a></p>
         </li>
         <li class="launcher">
           <!-- TODO: ConvergX Xpand mark. Same treatment. -->
@@ -445,6 +449,7 @@
           <p class="label launcher-name">ConvergX Xpand</p>
           <h3 class="launcher-title"><a href="/xpand/">Consulting</a></h3>
           <p class="launcher-desc">Commercialisation work on a horizon longer than one introduction and one week.</p>
+          <p class="launcher-cta"><a href="/xpand/what-xpand-does/">What Xpand does <span aria-hidden="true">&#8594;</span></a></p>
         </li>
         <li class="launcher">
           <!-- TODO: ConvergX Connect mark. Same treatment. -->
@@ -452,6 +457,7 @@
           <p class="label launcher-name">ConvergX Connect</p>
           <h3 class="launcher-title"><a href="/platform/">Platform</a></h3>
           <p class="launcher-desc">The software behind the vetting and the introductions. Fifteen modules, in five groups.</p>
+          <p class="launcher-cta"><a href="/platform/#modules">All modules <span aria-hidden="true">&#8594;</span></a></p>
         </li>
       </ul>
     </div>
