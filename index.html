@@ -411,11 +411,19 @@
        eyebrow above the plain word where they can be learned, rather than
        standing alone where they have to be decoded. Same split as the nav.
 
-       LOGO SLOTS ARE DELIBERATELY EMPTY. Chip asked for a large mark in
-       each block. None of the three files is in the repo: Lindsay's action
-       item to send the approved "X" logo page had not landed when this
-       shipped. The slot reserves the space so dropping the files in is a
-       one-line change per block and nothing reflows. A substitute mark, a
+       LOGO SLOTS: XPAND FILLED, THE OTHER TWO STILL DELIBERATELY EMPTY.
+       Chip asked for a large mark in each block. Lindsay's action item to
+       send the approved "X" logo page had not landed when this shipped,
+       so none of the three files was in the repo at first.
+       2026-08-03: an Xpand mark (white line art, transparent) turned up
+       already in the repo's own asset set, at assets/sponsors/convergx-xpand.png
+       (ConvergX Xpand appears as a sponsor of its own congress, which is
+       how their real mark got pulled in during sponsor-logo collection).
+       That is ConvergX's own asset, not a fabrication, so it is now also
+       copied to assets/logo/convergx-xpand.png and used below. Xchange and
+       Connect have no equivalent file anywhere in the repo. Those two
+       slots still reserve the space so dropping Lindsay's files in is a
+       one-line change each and nothing reflows. A substitute mark, a
        wordmark set in type, or a grey box would each be a fabricated brand
        asset, so there is none. The blocks read correctly without them.
 
@@ -447,8 +455,7 @@
           <p class="launcher-cta"><a href="/congress/#agenda">Agenda <span aria-hidden="true">&#8594;</span></a></p>
         </li>
         <li class="launcher">
-          <!-- TODO: ConvergX Xpand mark. Same treatment. -->
-          <span class="launcher-logo" aria-hidden="true"></span>
+          <img class="launcher-logo" src="/assets/logo/convergx-xpand.png" alt="ConvergX Xpand mark">
           <p class="label launcher-name">ConvergX Xpand</p>
           <h3 class="launcher-title"><a href="/xpand/">Consulting</a></h3>
           <p class="launcher-desc">Commercialisation work on a horizon longer than one introduction and one week.</p>
