@@ -28,7 +28,7 @@
     <div class="notice">
       <div class="notice-inner">
         <p class="notice-text">Celebrate 10 years of ConvergX, Sep 22 to 24, 2026.</p>
-        <a class="btn btn--solid notice-cta" href="/congress/#tickets">Register</a>
+        <a class="btn btn--solid notice-cta" href="/congress/register/">Register</a>
       </div>
     </div>
     <nav aria-label="Primary">
@@ -57,21 +57,25 @@
         <li><a href="/congress/">Conference</a>
           <ul>
             <li><a href="/congress/#agenda">Agenda</a></li>
-            <li><a href="/congress/#tickets">Register</a></li>
-            <li><a href="/congress/#sponsorship">Sponsor</a></li>
+            <li><a href="/congress/#speakers">Speakers</a></li>
+            <li><a href="/congress/the-app/">The app</a></li>
+            <li><a href="/congress/register/">Register</a></li>
+            <li><a href="/congress/sponsor/">Sponsor</a></li>
+            <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
+            <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
           </ul>
         </li>
         <li><a href="/xpand/">Consulting</a>
           <ul>
-            <li><a href="/xpand/what-xpand-does/">What Xpand does</a></li>
-            <li><a href="/xpand/what-readiness-means/">What readiness means</a></li>
+            <li><a href="/xpand/#what-xpand-does">What Xpand does</a></li>
+            <li><a href="/xpand/#what-readiness-means">What readiness means</a></li>
           </ul>
         </li>
         <li><a href="/about/">About</a>
           <ul>
-            <li><a href="/about/how-we-vet/">How we vet</a></li>
-            <li><a href="/about/leadership/">Leadership</a></li>
-            <li><a href="/about/network/">Who we convene</a></li>
+            <li><a href="/about/#how-we-vet">How we vet</a></li>
+            <li><a href="/about/#leadership">Leadership</a></li>
+            <li><a href="/about/#who-we-convene">Who we convene</a></li>
           </ul>
         </li>
         <li><a href="/access/request/">Request access</a></li>
@@ -119,12 +123,102 @@
       <div class="body">
         <p>It is an engagement, and ConvergX is inside it.</p>
         <p>That is what separates Xpand from everything else ConvergX does, and it is the only separation that matters.</p>
-        <p><a class="link-more" href="/xpand/what-xpand-does/">What Xpand does</a></p>
+        <p><a class="link-more" href="#what-xpand-does">What Xpand does</a></p>
       </div>
     </div>
   </section>
 
-  <hr class="rule-double">
+  <!-- STICKY SECTION SUBNAV. Same markup and same behaviour as the one on
+       /congress/, which is the pattern this page was rebuilt against.
+       wireSubnav() in shell.js finds .subnav and marks a[href^="#"] on its
+       own, so nothing in the script changed and nothing here is script-only:
+       with JavaScript off this is a row of working anchors, no band and no
+       marker, which is the correct no-JS result rather than a compromise.
+
+       IT SITS DIRECTLY UNDER THE HERO AND ADDRESSES ONLY WHAT IS BELOW IT.
+       That is the lesson /congress/ paid for: a bar stuck under a hero
+       cannot usefully point at the hero, because the anchor throws the
+       reader back past the bar to the top of the document. Every href below
+       resolves to an id on this page and every one of those ids is under
+       this bar. Checked.
+
+       FOUR LINKS, IN PAGE ORDER, and the order is not decorative: it is the
+       order a reader walks. Where Xpand sits against the other two things
+       ConvergX runs, who it is for, what it actually is, and the readiness
+       floor. Keep the order matching the page top to bottom.
+       The last two labels are the mega menu's own labels for the two pages
+       absorbed here, so the menu item and the section head read the same.
+
+       THE DOUBLE RULE THAT SAT HERE CAME OFF. It was the boundary device
+       between the hero and the body; the bar is that boundary now, and a
+       hairline pair drawn immediately above a bar with its own ground is a
+       line for the sake of a line. .rule-double is untouched as a component.
+
+       data-surface ON THE NAV ITSELF, and it stays a direct child of <main>.
+       Everything below the hero on this page is the light ground, this bar
+       included. Wrapping the bar inside the light band would be the obvious
+       move and is the wrong one: a sticky element only pins inside its own
+       containing block, so the bar would stop sticking the moment that band
+       ended. Declaring the surface here gives it the light --bg for its
+       stuck state while leaving <main> as its containing block. -->
+  <nav class="subnav" data-surface="light" aria-label="On this page">
+    <ul class="subnav-list">
+      <li><a href="#where-it-sits">Where it sits</a></li>
+      <li><a href="#who-it-is-for">Who it is for</a></li>
+      <li><a href="#what-xpand-does">What Xpand does</a></li>
+      <li><a href="#what-readiness-means">What readiness means</a></li>
+    </ul>
+  </nav>
+
+  <!-- THE LIGHT GROUND OPENS HERE and runs to the end of the page. The hero
+       above keeps the dark ground the page has always carried; everything
+       under the bar takes the ground the two absorbed pages already used,
+       which is the same surface split /congress/ runs. Two surfaces on one
+       page is the system working, not decoration.
+       This div is <main>'s last child, so it takes the closing padding from
+       main > [data-surface]:last-child and the band shuts under its own last
+       line rather than ending flush against it. -->
+  <div data-surface="light">
+
+  <!-- ============================================================
+       RESTRUCTURED 2026-08-03 into a SINGLE-PAGE Consulting section, on
+       Chip's instruction, following /congress/. One long page, the mega
+       menu items become anchors into it.
+
+       FOUR IDS, and every one is load-bearing because the menu anchors to
+       it: #where-it-sits #who-it-is-for #what-xpand-does
+       #what-readiness-means
+
+       ABSORBED, not deleted: /xpand/what-xpand-does/ and
+       /xpand/what-readiness-means/ still exist and still resolve. Their
+       copy is carried here whole. Nothing was rewritten, trimmed or
+       summarised in the move: every argument, every claim row, every
+       table and every open question came across as written. What changed
+       is the outline. Each absorbed page's h1 is now the h2 of its
+       section, and each of its own h2s stepped down to h3.
+       ONE h1 ON THE PAGE and it is the hero's.
+
+       WHAT CAME OFF IN THE MERGE, all four recorded rather than quietly
+       dropped, and none of them a word of argument:
+         1. the two absorbed heroes' <hr class="rule-double">. That rule is
+            the boundary between a page's hero and its body. Neither block
+            is a hero any more and each section head already draws its own
+            hairline.
+         2. the "What readiness means" link at the foot of the What Xpand
+            does copy. Its destination is now the very next section on this
+            page. THE SENTENCE IT SAT UNDER IS KEPT VERBATIM and now reads
+            as the bridge into that section, which is what it always was.
+         3. nothing else.
+       TWO CLOSERS NOW STACK, and this is flagged rather than fixed: the
+       two-path chooser that closed /xpand/what-readiness-means/ and the
+       Request access block that closed /xpand/. Both are kept because
+       cutting one is a copy decision, not a structural one. See the
+       comment at the chooser.
+
+       VERBS: the licensed five are asks, decides, vets, brokers,
+       convenes. Nothing carried here reaches outside them, and nothing
+       written here does either.
+       ============================================================ -->
 
   <!-- S2. The page's real job: a reader who cannot tell Xpand, the
        Congress and the platform apart has been failed, and "another
@@ -133,7 +227,7 @@
        attached to any of the three. "Three days" is the Congress's
        published shape, not a claim about Xpand.
        Claim rows rather than a table: three peers, one clause each. -->
-  <section>
+  <section id="where-it-sits">
     <div class="wrap">
       <div class="sec-head">
         <h2>Three days, one requirement, one problem</h2>
@@ -173,7 +267,7 @@
        The cross-sector claim itself belongs to /platform/get-discovered/
        and the industry pages. It appears here in one clause and hands
        off, so nothing on this page restates it as its own. -->
-  <section>
+  <section id="who-it-is-for">
     <div class="wrap">
       <div class="sec-head">
         <h2>Two sides, and ConvergX names both</h2>
@@ -186,10 +280,305 @@
         <div class="body">
           <p>On the first side, ConvergX names established companies, governments, investors and industry leaders.</p>
           <p>On the second, a company whose solution already works in one industry and is being taken into another.</p>
-          <p>Whether a company sits inside the platform's floor is a separate question, and it has a separate answer. <a class="link-more" href="/xpand/what-readiness-means/">What readiness means</a></p>
+          <p>Whether a company sits inside the platform's floor is a separate question, and it has a separate answer. <a class="link-more" href="#what-readiness-means">What readiness means</a></p>
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- ============================================================
+       WHAT XPAND DOES. Absorbed 2026-08-03 from /xpand/what-xpand-does/,
+       which was built 2026-07-29 against /where-we-excel/ and
+       /convergx-xpand/, captured in
+       _reference/CONVERGX-CO-2026-07-29.md sections 3.10 and 3.14.
+       That page replaced the retired /xpand/streams/, which described a
+       Stream Lead accountability model appearing on no ConvergX page. The
+       stream premise is struck and does not come back in any softened form.
+
+       ITS h1 IS NOW THIS SECTION'S h2 and its three h2s stepped to h3. Not
+       one word of copy changed in the move.
+
+       THE LIMIT BEFORE THE CAPABILITY, per voice rule 1.7. ConvergX names
+       three things under Xpand and one of them is not running, so that is
+       the first sentence rather than a footnote at the bottom.
+       Their own page is titled "Where we excel" and opens on a fourth item,
+       "commercialization 101", which then has no section. It is not carried
+       here: an offering named once with nothing behind it is not an
+       offering, and inventing what it covers is the exact move the gates
+       forbid.
+       Xpand Prep takes voice rule 1.12 pattern C, "the intent is X, it is
+       not built". No date, no "coming soon", no notification list. Their
+       own line, "email Carrie to get on the notification list for when
+       Xpand Prep goes live", is a coming-soon with a contact attached and
+       does not render here in any form.
+       ============================================================ -->
+  <section id="what-xpand-does">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Three things sit under Xpand, and one of them is not running.</h2>
+        <span class="label label--lo label--edge">What Xpand does</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <p class="lede-text">Consulting, access to testing and validation, and a vendor programme called Xpand Prep.</p>
+        </div>
+        <div class="body">
+          <p>Consulting is the bulk of it, and it is the part ConvergX describes in most detail.</p>
+          <p>Xpand Prep is the one that is not running.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Consulting, written as the sequence of things ConvergX asks
+         rather than as a service description. Every row has ConvergX as the
+         subject of a licensed verb: asks, decides, vets, brokers, convenes.
+         The unlicensed verbs, knowing and seeing and finding and verifying
+         and checking and confirming, are the subject of no sentence here.
+         Their own summary of the work, "Every opportunity is assessed for
+         technical fit, operational readiness and commercial viability", is
+         not carried as written: assessed has no actor and reads as a
+         process claim. The three subjects are kept, the actor is restored.
+         NEEDS: what deployment and procurement support actually covers in
+         an Xpand engagement, from Kim Van Vliet. ConvergX names it in one
+         clause on /where-we-excel/ and defines it nowhere. -->
+    <section>
+      <div class="wrap">
+        <div class="sec-head">
+          <h3>One problem, asked across industries</h3>
+          <span class="label label--lo label--edge">Consulting</span>
+        </div>
+        <div class="editorial">
+          <div class="lede">
+            <p>ConvergX states the work as four things it does, in this order.</p>
+          </div>
+          <div class="body">
+            <div class="claim">
+              <p><strong>It asks what the problem actually is.</strong> The operational requirement and the constraints around it, before anything is searched for.</p>
+            </div>
+            <div class="claim">
+              <p><strong>It asks across industries, including ones you do not recruit from.</strong> Why a capability sits invisible in another sector is its own argument. <a class="link-more" href="/platform/get-discovered/">Get discovered</a></p>
+            </div>
+            <div class="claim">
+              <p><strong>Where no single company answers it, ConvergX asks more than one.</strong> Their words for that are complementary expertise combined into a best-fit solution.</p>
+            </div>
+            <div class="claim">
+              <p><strong>Procurement and deployment support sits inside the same engagement.</strong> ConvergX names it as part of the scope.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testing and validation. The honest half is the gap: ConvergX
+         names no facility and no centre of excellence anywhere on its site,
+         so this page names none either, and says so rather than writing
+         around it. That inversion is the same move
+         /platform/trust-and-security/ opens on and it is the reason this
+         section is credible at four sentences.
+         NEEDS: whether any testing or validation partner may be named, from
+         Kim Van Vliet. -->
+    <section>
+      <div class="wrap">
+        <div class="sec-head">
+          <h3>Somewhere to prove it in the new industry</h3>
+          <span class="label label--lo label--edge">Testing and validation</span>
+        </div>
+        <div class="editorial">
+          <div class="lede">
+            <p>A solution that works in one operating environment has proved nothing about the next one.</p>
+          </div>
+          <div class="body">
+            <p>ConvergX states that it holds arrangements with testing and validation facilities and with centres of excellence, and that it brokers access to them for the companies in an engagement.</p>
+            <p>It names none of them publicly. Neither does this page.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Xpand Prep. Pattern C and nothing else. The intent is stated
+         because a reader arriving from ConvergX's own site will have seen
+         the name and would otherwise find a gap where the third offering
+         should be. What is not stated: any date, any availability, any
+         route in, any "soon", and any implication that a reader can join a
+         list. It is not running, the sentence ends there, and there is no
+         CTA attached to it.
+         NEEDS: whether Xpand Prep may be named on our site at all before it
+         runs, from Kim Van Vliet. -->
+    <section>
+      <div class="wrap">
+        <div class="sec-head">
+          <h3>Xpand Prep is not running</h3>
+          <span class="label label--lo label--edge">Xpand Prep</span>
+        </div>
+        <div class="editorial">
+          <div class="body">
+            <p>The intent is a programme that prepares a company for an industry it has not sold into: what that industry buys on, how it procures, and who inside it will take a meeting.</p>
+            <p>It is not running.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE BRIDGE. This was the closing block of /xpand/what-xpand-does/
+         and it carried a "What readiness means" link under it. THE LINK IS
+         GONE and the sentence is verbatim: its destination is the very next
+         section on this page, and a link that points at the paragraph
+         immediately below it is a defect rather than a route. The sentence
+         was always the bridge; it is now doing that job alone.
+         The solid fill for this stretch was spent on the hero, and this
+         block asks for reading rather than for access: a reader who has just
+         been told one of three things is not running is not the reader to
+         push at a door. -->
+    <section class="section--dense">
+      <div class="wrap">
+        <div class="editorial">
+          <div class="claim">
+            <p>Which companies an Xpand engagement is open to is stated as a readiness level, and it is not the same floor the platform uses.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============================================================
+       WHAT READINESS MEANS. Absorbed 2026-08-03 from
+       /xpand/what-readiness-means/, built 2026-07-29 from ConvergX's own
+       /xpand-trl-approach/, captured in
+       _reference/CONVERGX-CO-2026-07-29.md section 3.11. That is the
+       closest thing to a methodology statement ConvergX publishes.
+
+       ITS h1 IS NOW THIS SECTION'S h2 and its two h2s stepped to h3. Not
+       one word of copy changed in the move.
+
+       THE NUMBER IS THE CONCLUSION, so it leads. TRL 7 and above is theirs,
+       published, and it is stated here as the scope they state, never as an
+       achievement or a result. NASA TRL, Commercial Readiness Level and
+       Manufacturing Readiness Level are named because ConvergX names them;
+       all three are external frameworks cited neutrally as market context,
+       exactly as the industry pages cite published policy.
+       STRUCK and not restored in any form: "solve a cross-sector problem in
+       12-18 months", which sits one paragraph below TRL 7+ on their page.
+       It is an outcome promise with a date attached. The scope survives
+       without it and this page carries no duration of any kind. The 12 to 18
+       month figure appears on this site only on /industries/energy/, where
+       it is a published equipment lead time and nothing to do with ConvergX.
+       The same strike covers "transaction readiness and deal execution in 12
+       to 18 months", which is the same claim in their older wording.
+       ============================================================ -->
+  <section id="what-readiness-means">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>The scale ConvergX states for Xpand starts at TRL 7.</h2>
+        <span class="label label--lo label--edge">What readiness means</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <p class="lede-text">Technology Readiness Level 7 and above. ConvergX publishes that as the scope of an Xpand engagement.</p>
+        </div>
+        <div class="body">
+          <p>TRL is NASA's scale, one to nine, and the question it asks is whether the thing works.</p>
+          <p>ConvergX states that its own emphasis is a different question, which is whether the thing will be adopted and will scale. It names the Commercial Readiness Level scale, one to nine, for that one, and it acknowledges Manufacturing Readiness Level as the framework some industries use instead.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The collision, handled rather than resolved. The positioning
+         pack puts companies below TRL 8 permanently outside the platform
+         and sends them to a separate ConvergX arm; ConvergX now publishes
+         TRL 7+ for Xpand. Those two do not obviously agree, and picking one
+         would either contradict the positioning pack or contradict their
+         live site.
+         They are held apart instead, because they are floors on two
+         different things: one is who the platform admits, the other is the
+         scope of a consulting engagement. Both sentences stay true and
+         neither is softened. The unanswered part is stated as unanswered
+         rather than papered over.
+         NEEDS, and it is the top of the handoff: whether Xpand is the
+         separate ConvergX arm that /platform/get-discovered/how-it-works/
+         and the How we vet section on /about/ send a below-TRL-8 company
+         to. If it is, that sentence gets written here and the two floors are
+         one route. If it is not, this section is already right. From Kim Van
+         Vliet, and nothing here changes until it answers. -->
+    <section>
+      <div class="wrap">
+        <div class="sec-head">
+          <h3>Two floors, and they are not the same door</h3>
+          <span class="label label--lo label--edge">Scope</span>
+        </div>
+        <table>
+          <caption class="label">The two stated floors, and what each one is a floor on</caption>
+          <thead>
+            <tr><th scope="col">Stated for</th><th scope="col">The floor</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>The platform</td>
+              <td>Commercialised, TRL 8 to 9, in service with a customer, and being redeployed into a context it was not built for. That is who ConvergX admits.</td>
+            </tr>
+            <tr>
+              <td>An Xpand engagement</td>
+              <td>TRL 7 and above, with research and development complete and the technology often already commercialised in one industry. That is the scope of the work.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="push-l">A company can sit inside one and outside the other. TRL 7 is not a lower bar on the same door.</p>
+        <p>Which arm of ConvergX takes a company below the platform's floor is not published, and this page does not fill the gap in.</p>
+        <p><a class="link-more" href="/platform/get-discovered/how-it-works/">How it works</a></p>
+      </div>
+    </section>
+
+    <!-- Two sentences, and the reason this block is ConvergX-shaped
+         rather than an entry on a readiness scale. The core message belongs
+         to /platform/find-capability/what-vetting-means/ and its ledgered
+         string is at budget, so it is not written here and not paraphrased
+         into a fourth instance. This block depends on it and hands off.
+         No score, no rating, no claim that a level is wrong. -->
+    <section>
+      <div class="wrap">
+        <div class="editorial">
+          <div class="lede">
+            <p>A readiness level describes a technology.</p>
+          </div>
+          <div class="body">
+            <p>It settles nothing about the company standing behind it, which is a separate set of questions and a separate review. <a class="link-more" href="/about/#how-we-vet">How we vet</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The two-path chooser. It closed /xpand/what-readiness-means/ and it
+         is kept whole.
+         DEVIATION, stated rather than buried: spec 1.5 gives Xpand the
+         single Request access door. That was written when Xpand was two
+         pages and this content did not exist. Sending a capability holder to
+         the problem holder's door on the one block that is about their own
+         maturity is a real defect, so the existing chooser is used. It adds
+         no third path and no new door, which is what 1.5 actually guards.
+         Open question 9, whether Xpand needs a door of its own, is
+         untouched by this.
+         TWO CLOSERS NOW STACK, FLAGGED AND NOT FIXED. This chooser and the
+         Request access block below it are both closing moves, and on one
+         page they read as the corridor POLISH-SPEC 2.1 bans. Cutting either
+         one is a copy decision rather than a structural one, so both are
+         here and neither was quietly dropped. Needs a call. -->
+    <section class="section--dense">
+      <div class="wrap">
+        <div class="sec-head">
+          <h3>Start on the side you are on</h3>
+          <span class="label label--lo label--edge">Two paths</span>
+        </div>
+        <div class="two-path">
+          <a href="/platform/find-capability/">
+            <span class="label">I need a capability</span>
+            <span class="link-more">Find capability</span>
+          </a>
+          <a href="/platform/get-discovered/">
+            <span class="label">I have a capability</span>
+            <span class="link-more">Get discovered</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </section>
 
   <!-- S4. The closing move, per POLISH-SPEC 2.1: a single CTA block, not
@@ -206,38 +595,14 @@
     </div>
   </section>
 
+  </div>
+  <!-- /light: everything under the subnav -->
+
 </main>
 <footer data-shell="footer">
   <noscript>
     <nav aria-label="Footer">
       <ul>
-        <li><a href="/platform/find-capability/">Find capability</a></li>
-        <li><a href="/platform/find-capability/how-it-works/">How it works</a></li>
-        <li><a href="/platform/find-capability/what-vetting-means/">What vetting means</a></li>
-        <li><a href="/platform/find-capability/confidentiality/">Confidentiality</a></li>
-        <li><a href="/platform/get-discovered/">Get discovered</a></li>
-        <li><a href="/platform/get-discovered/how-it-works/">How it works</a></li>
-        <li><a href="/platform/get-discovered/how-vetting-works/">How vetting works</a></li>
-        <li><a href="/platform/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
-        <li><a href="/platform/">Platform</a></li>
-        <li><a href="/platform/#modules">Modules</a></li>
-        <li><a href="/platform/#vetting-and-introductions">Vetting and introductions</a></li>
-        <li><a href="/platform/#trust-and-security">Trust and security</a></li>
-        <li><a href="/congress/">The Congress</a></li>
-        <li><a href="/congress/#agenda">Agenda</a></li>
-        <li><a href="/congress/#speakers">Speakers</a></li>
-        <li><a href="/congress/the-app/">The app</a></li>
-        <li><a href="/congress/#tickets">Register</a></li>
-        <li><a href="/congress/#sponsorship">Sponsor</a></li>
-        <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
-        <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
-        <li><a href="/xpand/">Consulting</a></li>
-        <li><a href="/xpand/what-xpand-does/">What Xpand does</a></li>
-        <li><a href="/xpand/what-readiness-means/">What readiness means</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/about/how-we-vet/">How we vet</a></li>
-        <li><a href="/about/leadership/">Leadership</a></li>
-        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/industries/">Industries</a></li>
         <li><a href="/industries/aerospace-defence/">Aerospace and defence</a></li>
         <li><a href="/industries/agriculture/">Agriculture</a></li>
@@ -247,6 +612,33 @@
         <li><a href="/industries/military/">Military</a></li>
         <li><a href="/industries/mining-natural-resources/">Mining and natural resources</a></li>
         <li><a href="/industries/technology/">Technology</a></li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/platform/#modules">All modules</a></li>
+        <li><a href="/platform/#vetting-and-introductions">Vetting and introductions</a></li>
+        <li><a href="/platform/#trust-and-security">Trust and security</a></li>
+        <li><a href="/platform/find-capability/">Find capability</a></li>
+        <li><a href="/platform/find-capability/how-it-works/">How Find capability works</a></li>
+        <li><a href="/platform/find-capability/what-vetting-means/">What vetting means</a></li>
+        <li><a href="/platform/find-capability/confidentiality/">Confidentiality</a></li>
+        <li><a href="/platform/get-discovered/">Get discovered</a></li>
+        <li><a href="/platform/get-discovered/how-it-works/">How Get discovered works</a></li>
+        <li><a href="/platform/get-discovered/how-vetting-works/">How vetting works</a></li>
+        <li><a href="/platform/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
+        <li><a href="/congress/">The Conference</a></li>
+        <li><a href="/congress/#agenda">Agenda</a></li>
+        <li><a href="/congress/#speakers">Speakers</a></li>
+        <li><a href="/congress/the-app/">The app</a></li>
+        <li><a href="/congress/register/">Register</a></li>
+        <li><a href="/congress/sponsor/">Sponsor</a></li>
+        <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
+        <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
+        <li><a href="/xpand/">Consulting</a></li>
+        <li><a href="/xpand/#what-xpand-does">What Xpand does</a></li>
+        <li><a href="/xpand/#what-readiness-means">What readiness means</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/about/#how-we-vet">How we vet</a></li>
+        <li><a href="/about/#leadership">Leadership</a></li>
+        <li><a href="/about/#who-we-convene">Who we convene</a></li>
         <li><a href="/access/">Access</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>

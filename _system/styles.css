@@ -6269,3 +6269,23 @@ body:has(.shell-header) .pfig {
     background: color-mix(in srgb, var(--ground) 74%, transparent);
   }
 }
+
+/* ---- a band that closes the page behind fixed-position siblings -----------
+ * /about/ only, in practice. Added 2026-08-03 when Leadership merged into it.
+ *
+ * THE DEFECT. A closing band normally gets its bottom padding from a
+ * :last-child rule. On /about/ the muted two-path band IS the last thing a
+ * reader sees, but it is not the last child of <main>: ten .bio-overlay
+ * elements sit after it. They are position: fixed and carry zero flow height,
+ * so they are invisible to layout and invisible to a reader, and entirely
+ * visible to :last-child. The band closed 35px under its last line instead of
+ * --space-3xl, which read as a page that had been cut off.
+ *
+ * The selector says "the last band that is not followed by anything except
+ * overlays", which is the real condition. Keyed on .bio-overlay specifically
+ * rather than on position: fixed, because CSS cannot select on a computed
+ * value and a generic rule here would catch the next fixed component someone
+ * adds for an unrelated reason. */
+main > [data-surface]:not(:has(~ :not(.bio-overlay))) {
+  padding-block-end: var(--space-3xl);
+}

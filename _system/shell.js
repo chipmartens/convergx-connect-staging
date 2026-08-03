@@ -532,11 +532,11 @@
   var ABOUT_PAGES = [
     { label: "Overview",       href: "/about/",
       note:  "It does not manufacture, supply or bid, and has no side in the work it introduces." },
-    { label: "How we vet",     href: "/about/how-we-vet/",
+    { label: "How we vet",     href: "/about/#how-we-vet",
       note:  "Two sets of questions. One a file can answer, one it cannot." },
-    { label: "Leadership",     href: "/about/leadership/",
+    { label: "Leadership",     href: "/about/#leadership",
       note:  "The people ConvergX names, with roles as ConvergX publishes them." },
-    { label: "Who we convene", href: "/about/network/",
+    { label: "Who we convene", href: "/about/#who-we-convene",
       note:  "Nothing about this room accumulated. Both sides were composed, company by company." }
   ];
 
@@ -558,13 +558,25 @@
    * it: "stream", "Stream Lead" and "stream owner" appear zero times across
    * every live page. Xpand is a consulting practice. Do not restore the
    * stream rows. Capture: _reference/CONVERGX-CO-2026-07-29.md */
+  /* THE ROWS ARE ANCHORS NOW, not pages. Chip, 2026-08-03: "updating the
+   * Consulting and About pages to be a similar single page design as the
+   * Conference page. The mega-menu bar links can just link to the scroll
+   * elements on the pages. I just feel like it's maybe silly to have so many
+   * pages."
+   * Same move the Conference panel made on 2026-07-31 and for the same reason:
+   * pointing the nav at a standalone page whose content now also lives in a
+   * section gives the site two sources of truth for one argument. The old
+   * pages still exist and still resolve; nothing links to them.
+   * The ids are the contract. They are declared on /xpand/ and /about/ and
+   * listed in this file's sibling comment on ABOUT_PAGES. Rename a section id
+   * and these rows break silently, because a bad fragment does not 404. */
   var XPAND_STANDFIRST = "A consulting practice. One problem, asked across industries.";
   var XPAND_PAGES = [
     { label: "Overview",             href: "/xpand/",
       note:  "Where a consulting engagement sits next to the platform and the Congress." },
-    { label: "What Xpand does",      href: "/xpand/what-xpand-does/",
+    { label: "What Xpand does",      href: "/xpand/#what-xpand-does",
       note:  "Consulting, access to testing and validation, and the one that is not running." },
-    { label: "What readiness means", href: "/xpand/what-readiness-means/",
+    { label: "What readiness means", href: "/xpand/#what-readiness-means",
       note:  "The scale ConvergX states for an engagement, and why it is not the platform's floor." }
   ];
 
@@ -637,14 +649,14 @@
     ]},
     { title: "Consulting", links: [
       { label: "Overview",             href: "/xpand/" },
-      { label: "What Xpand does",      href: "/xpand/what-xpand-does/" },
-      { label: "What readiness means", href: "/xpand/what-readiness-means/" }
+      { label: "What Xpand does",      href: "/xpand/#what-xpand-does" },
+      { label: "What readiness means", href: "/xpand/#what-readiness-means" }
     ]},
     { title: "About", links: [
       { label: "Overview",       href: "/about/" },
-      { label: "How we vet",     href: "/about/how-we-vet/" },
-      { label: "Leadership",     href: "/about/leadership/" },
-      { label: "Who we convene", href: "/about/network/" },
+      { label: "How we vet",     href: "/about/#how-we-vet" },
+      { label: "Leadership",     href: "/about/#leadership" },
+      { label: "Who we convene", href: "/about/#who-we-convene" },
       { label: "Access",         href: "/access/" },
       { label: "Request access", href: "/access/request/" },
       { label: "Apply to join",  href: "/access/apply/" }
