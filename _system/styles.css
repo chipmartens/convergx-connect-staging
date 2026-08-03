@@ -1063,7 +1063,23 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
  * Three rows instead of two: portrait, name, role.
  *
  * ONE size for all ten, founder included, and no hover, no lightbox, no
- * expand, no per-person link, no bio, no honorific. THAT is what holds the
+ * expand, no per-person link, no bio, no honorific.
+ *
+ * PARTLY REVERSED 2026-07-31 ON CHIP'S INSTRUCTION, and the reversal is
+ * recorded here rather than by rewriting the line above, so nobody
+ * re-derives the old rule from a comment that no longer matches the page.
+ * What changed: every name is now a link opening a full-page overlay
+ * (component at section 39). What did NOT change, and what still holds the
+ * roster: ONE size for all ten, the founder included, in ConvergX's own
+ * published order, with the same trigger, the same overlay and the same
+ * fields on every one of them. NO BIOGRAPHY IS RENDERED FOR ANY TEAM
+ * MEMBER. _reference/CONVERGX-CO-2026-07-29.md section 3.13 captures only
+ * excerpted fragments of their bios, labelled "verbatim or near", and
+ * assembling prose out of those would be writing a biography rather than
+ * quoting one. The overlay carries photograph, name, role and the entity
+ * ConvergX attributes them to. Nothing else, and nothing invented.
+ *
+ * THAT is what holds the
  * page to a roster rather than a founder and some staff, and it holds at
  * any size. An earlier pass here capped the frame at --space-4xl on the
  * theory that small portraits read as an index and large ones read as a
@@ -1753,7 +1769,41 @@ section:has(.hero) { padding-block: 0; }
 .hero-vert-rule { border-inline-start: 2px solid var(--accent); }
 
 /* Focal points, POLISH-SPEC section 5. A header image is cropped tall at
- * desktop, so each frame names the subject that must survive the crop. */
+ * desktop, so each frame names the subject that must survive the crop.
+ *
+ * THESE FOUR VALUES WERE DERIVED FOR A CROP THAT NO LONGER EXISTS, and they
+ * are kept anyway. Read this before re-deriving any of them.
+ *
+ * They were authored against .hero-vert-media: a TALL, NARROW box, five of
+ * twelve columns wide and the full height of the band. On 2026-08-03 the four
+ * sector pages that carry a photograph moved to the full-bleed hero in section
+ * 45, where the same frames are cropped WIDE and SHORT instead: the full page
+ * width against roughly 36rem of height. A crop that is wide where it used to
+ * be narrow keeps far more of the horizontal frame and far less of the
+ * vertical, so a horizontal percentage that used to pull a subject into view
+ * may now be doing nothing, and a vertical one that used to be safe may now be
+ * cutting.
+ *
+ * WHAT EACH ONE WAS PROTECTING, so the intent survives the re-derive:
+ *   machinist  the operator sits centre-right of frame.
+ *   long-lead  the small figure at FAR LEFT. That figure is the entire scale
+ *              argument of the energy page. A crop that loses it breaks the
+ *              image, and this is the one value that must never be relaxed
+ *              toward centre without checking the left edge first.
+ *   gear-face  the open planetary gear face, centred.
+ *   rotor      crops the tool-strewn floor out of the bottom.
+ *
+ * NOT RETUNED NOW, deliberately. New commissioned photographs are being shot
+ * for these four slots and every number here is a property of the frame, not
+ * of the layout. Re-deriving against images that are about to be replaced is
+ * work thrown away twice. All four remain legal object-position values and all
+ * four still apply, so nothing renders wrong in the meantime; they are simply
+ * no longer known to be optimal. RE-DERIVE ALL FOUR AGAINST THE WIDE CROP THE
+ * DAY THE NEW FILES LAND, using the subjects listed above as the test.
+ *
+ * STILL LIVE ON THE OLD COMPONENT TOO: .hero-vert-media has not been deleted
+ * and these rules are not scoped to either hero, so they govern whichever
+ * component the class is written on. */
 .focal--machinist { object-position: 65% 45%; }
 .focal--long-lead { object-position: 30% 50%; }  /* the small figure at far left IS the scale argument */
 .focal--gear-face { object-position: 40% 50%; }
@@ -2448,7 +2498,13 @@ section:has(.hero) { padding-block: 0; }
   max-width: 72ch;
 }
 .faq { border-top: 0; border-bottom: var(--rule-hair) solid var(--rule-ink); }
-.faq summary {
+/* DIRECT CHILD, not descendant, throughout this block. #agenda nests a second
+ * <details class="sess"> inside each day's <details class="faq">, and with a
+ * descendant selector every rule below landed on those too: session titles
+ * rendered at --step-2, took --space-l of vertical padding, and grew a second
+ * plus marker. A session is a line in a timetable, not a day heading. The >
+ * is the whole fix and it changes nothing for the day rows themselves. */
+.faq > summary {
   cursor: pointer; list-style: none;
   display: flex; align-items: baseline; justify-content: space-between;
   gap: var(--space-l);
@@ -2456,17 +2512,17 @@ section:has(.hero) { padding-block: 0; }
   font-size: var(--step-1); line-height: var(--lh-heading);
   color: var(--fg-hi);
 }
-.faq summary > span { max-width: var(--measure); }
-.faq summary::-webkit-details-marker { display: none; }
+.faq > summary > span { max-width: var(--measure); }
+.faq > summary::-webkit-details-marker { display: none; }
 /* A text affordance rather than an icon, matching the nav caret. */
-.faq summary::after {
+.faq > summary::after {
   content: "+"; flex: none; color: var(--fg-lo);
   font-size: var(--step-1); line-height: 1;
 }
-.faq[open] summary::after { content: "\2212"; color: var(--fg-hi); }
-.faq[open] summary { padding-block-end: var(--space-s); }
-.faq summary:hover { color: var(--link); }
-.faq summary:hover::after { color: var(--link); }
+.faq[open] > summary::after { content: "\2212"; color: var(--fg-hi); }
+.faq[open] > summary { padding-block-end: var(--space-s); }
+.faq > summary:hover { color: var(--link); }
+.faq > summary:hover::after { color: var(--link); }
 .faq-a { padding-block-end: var(--space-l); }
 .faq-a p { max-width: var(--measure); color: var(--fg); }
 
@@ -3049,14 +3105,63 @@ img.launcher-logo {
  * is still true. This only removes the fill while the bar is sitting on
  * the photograph; the moment shell.js marks it floating it takes the
  * ground back and behaves exactly like every other page. */
-[data-hero="photo"] .shell-header {
+/* SHARED WITH [data-hero="veil"], AND THIS IS THE ONE THING THE TWO HEROES
+ * DELIBERATELY DO SHARE. The heroes themselves are separate components (see
+ * the top of section 45 for why), but the header is CHROME: it is not part of
+ * either hero, it renders on all 64 pages, and "the bar has no fill while it
+ * is sitting on a photograph, and takes one back the moment it is used" is a
+ * single behaviour with a single reason. Forking it into two identical copies
+ * is how the keyboard case or the open-panel case gets fixed in one and not
+ * the other. Adding the second attribute to these four selectors is the whole
+ * change; every word of reasoning below still applies verbatim to both. */
+[data-hero="photo"] .shell-header,
+[data-hero="veil"] .shell-header {
   background: transparent;
   /* The base rule only transitions border-color. Without background here
    * the bar would snap between transparent and grey on hover, which reads
    * as a flicker rather than as a surface arriving. */
   transition: border-color var(--t) linear, background-color var(--t) linear;
 }
-[data-hero="photo"] .shell-header--floating { background: var(--bg); }
+[data-hero="photo"] .shell-header--floating,
+[data-hero="veil"] .shell-header--floating { background: var(--bg); }
+
+/* THE INK HAS TO FOLLOW THE FILL, AND ON THE SECTOR PAGES ONLY. This is the
+ * one place [data-hero="veil"] genuinely cannot share the Congress behaviour,
+ * and it is a real defect that was measured rather than a tidiness pass.
+ *
+ * /congress/ carries data-surface="dark" on the <body>, so its nav ink is
+ * already the light ink and a transparent bar over a dark photograph reads
+ * fine. The eight sector pages are data-surface="light" pages with ONE dark
+ * band at the top. Taking the fill off that bar left near-black nav labels
+ * sitting on a near-black photograph: measured at 1.02:1 against the composite
+ * on /industries/energy/, which is not "low contrast", it is invisible. The
+ * logo and the bar's hairline had the same problem.
+ *
+ * ONLY THE FOUR TOKENS THE BAR ACTUALLY PAINTS WITH ARE MOVED. The nav items
+ * take --fg, their hover and current states --fg-hi, the wordmark --logo-ink,
+ * the bottom hairline --rule-ink. --bg is deliberately NOT touched: the
+ * grounded states below paint background: var(--bg) and that has to stay the
+ * page's own paper, or a bar that takes its ground back would come back dark
+ * on a light page.
+ *
+ * THE REVERT IS THE ABSENCE OF THE RULE, which is why this is one selector and
+ * not two. Every grounded state is excluded with :not(), so the moment the bar
+ * has a fill the rule stops matching, the four tokens fall back to the
+ * light-surface values inherited from <body>, and the bar is an ordinary
+ * light-page bar again. Restating the light values in a second rule would work
+ * today and drift the day [data-surface="light"] is edited.
+ *   --floating       scroll state, the bar has taken its ground back.
+ *   :hover           pointer.
+ *   :focus-within    the same case for a keyboard, which hover never covers.
+ *   :has(.mega...)   an open panel.
+ * The four match the grounded selectors below exactly. If one is ever added
+ * there, add it here in the same edit or the ink and the fill disagree. */
+[data-hero="veil"] .shell-header:not(.shell-header--floating):not(:hover):not(:focus-within):not(:has(.mega:not([hidden]))) {
+  --fg:        var(--ink);
+  --fg-hi:     var(--ink-hi);
+  --logo-ink:  var(--ink-hi);
+  --rule-ink:  var(--cool-700);
+}
 
 /* THE BAR TAKES ITS GROUND BACK WHENEVER IT IS BEING USED. Chip, 2026-07-31.
  * Transparent is right while the bar is just sitting on the photograph; the
@@ -3074,7 +3179,10 @@ img.launcher-logo {
  * Deliberately NOT --floating: that one is scroll state and already handled. */
 [data-hero="photo"] .shell-header:hover,
 [data-hero="photo"] .shell-header:focus-within,
-[data-hero="photo"] .shell-header:has(.mega:not([hidden])) {
+[data-hero="photo"] .shell-header:has(.mega:not([hidden])),
+[data-hero="veil"] .shell-header:hover,
+[data-hero="veil"] .shell-header:focus-within,
+[data-hero="veil"] .shell-header:has(.mega:not([hidden])) {
   background: var(--bg);
 }
 
@@ -3161,8 +3269,26 @@ img.launcher-logo {
  * there has to be real height under the last line for it to land in.
  * --space-3xl is 96 to 108px, which is more than the fade needs and is a
  * line-commensurate step, so the rhythm rules in 6b still hold. */
+/* THE FOOTPRINT IS NOW A CONTRACT, NOT A NUMBER, and that is the only reason
+ * it moved out of the rule below. Section 45 builds a second photographic hero
+ * for the eight sector pages and its brief is that it occupy the SAME vertical
+ * footprint as this one. Two components carrying the same handwritten
+ * `min(36rem, calc(...))` would agree until the day somebody tuned one of them,
+ * and then they would disagree silently, on eight pages nobody was looking at.
+ * One custom property, read by both, is the difference between "they match"
+ * and "they cannot drift apart".
+ *
+ * WHAT THE EXPRESSION MEANS, unchanged from when it was written inline:
+ * 36rem is the authored height. The calc caps it at whatever is actually left
+ * of the viewport under the chrome, so a short landscape phone never gets a
+ * hero taller than its own screen. --shell-total is measured by shell.js and
+ * includes the notice bar; --shell-h is the bar alone and is the no-JS
+ * fallback, which is why the fallback is inside the var() and not a separate
+ * rule. Changing this value changes BOTH heroes. That is the point. */
+:root { --hero-photo-h: min(36rem, calc(100svh - var(--shell-total, var(--shell-h)))); }
+
 [data-hero="photo"] .hero {
-  min-height: min(36rem, calc(100svh - var(--shell-total, var(--shell-h))));
+  min-height: var(--hero-photo-h);
   /* Was --space-3xl, 107px, measured as dead space below the sponsor strip.
    * --space-2xl still clears what the fade needs: the gradient starts at 45%
    * of the photo box and must resolve to --bg by 100%, and at this hero
@@ -3724,6 +3850,25 @@ body:has(.subnav)                      { --anchor-offset: calc(var(--subnav-h) +
 body:has(.subnav):has(.shell-header)   { --anchor-offset: calc(var(--shell-h) + var(--rule-hair) + var(--subnav-h) + var(--space-m)); }
 body:has(.subnav) [id]                 { scroll-margin-top: var(--anchor-offset); }
 
+/* SMOOTH SCROLLING, Chip 2026-07-31. The resting position was already right,
+ * courtesy of the scroll-margin above; what was missing was the travel, so a
+ * subnav click teleported and the reader lost their place on the page.
+ *
+ * ON html, NOT body. scroll-behavior only does anything on the element that
+ * actually scrolls, which is the document element; set on body it silently
+ * does nothing in every browser that matters.
+ *
+ * SCOPED WITH :has, the same way the offset above is scoped, so only a page
+ * carrying a subnav pays for it. That is /congress/ today and it is the page
+ * Chip asked for. It deliberately does NOT apply site wide: the skip link and
+ * the FAQ disclosures also move the viewport, and animating those is a
+ * different decision that nobody has asked for.
+ *
+ * REDUCED MOTION IS ALREADY HANDLED, at section 17, which forces
+ * scroll-behavior: auto !important on everything. Do not add a second
+ * override here; one is enough and two drift apart. */
+html:has(.subnav) { scroll-behavior: smooth; }
+
 /* ================= 34. THE HERO SPONSOR STRIP ================= */
 /* .hero-sponsors wraps the EXISTING .proofbar and .mark components from
  * section 25. Nothing about a mark is rebuilt here: the same masked
@@ -4181,5 +4326,1946 @@ body:has(.subnav) [id]                 { scroll-margin-top: var(--anchor-offset)
 }
 /* The affordance grows with the title so the plus does not sit small beside
  * it, and the row gets more air now that each one is a single big line. */
-#agenda .faq summary { padding-block: var(--space-m); }
-#agenda .faq summary::after { font-size: var(--step-2); }
+#agenda .faq > summary { padding-block: var(--space-m); }
+#agenda .faq > summary::after { font-size: var(--step-2); }
+
+/* ---- Congress page: bare section titles, and a full-width agenda --------
+ * Chip, 2026-07-31.
+ *
+ * 1. THE TWO BARE TITLES GO UP A RUNG. #speakers and #agenda lost their
+ *    eyebrows and their standfirsts, so the heading is the only thing
+ *    introducing each section and --step-3 was carrying a job it used to
+ *    share. --step-4, not higher: the h1 is --step-6 and stays the page's
+ *    one dominant, and --step-5 is h1 rank.
+ *    SCOPED to those two on purpose. #about keeps --step-3 because it still
+ *    has four subheadings under it; a section head that outranks its own
+ *    children reads as the page restarting.
+ *
+ * 2. THE AGENDA RUNS THE FULL COLUMN. .mod-faq-list carries a max-width
+ *    (measured at 781px inside a 1109px column) because on a module page it
+ *    holds prose answers that need a reading measure. Here it holds a
+ *    TIMETABLE, where the constraint was squeezing three-column rows into
+ *    two thirds of the available width for no legibility gain. */
+/* ---- REVISED 2026-07-31, Chip: all four section titles are one thing ----
+ * "The 'Questions' title should be the same size as The Speakers and The
+ * Agenda... you should also use the same styling for that title... I'd be OK
+ * if these titles were even larger and you had more white space on top of
+ * each of them... none of them need a top border over the titles."
+ *
+ * SO #about AND #faq JOIN THE SET. Note 1 above scoped this to two sections
+ * and reasoned that #about had to stay at --step-3 because it carries four
+ * .whatis-title subheadings and a head that outranks its own children reads
+ * as the page restarting. That reasoning does not survive contact with the
+ * built page: .whatis-title is --step-2, so --step-4 over it is an ordinary
+ * two-step gap, exactly the gap every other h2 on the site has over its own
+ * subheads. The rule was solving a problem that was not there.
+ *
+ * THE RULE IS GONE, not overridden. A section heading on this page is one
+ * size, full stop, and there is no longer a list of exceptions to keep in
+ * sync. #about's heading also changed text, from "What the Congress is" to
+ * "Congress overview", on the same instruction.
+ *
+ * NO TOP BORDER on any of the four. The hairline was the site's device for
+ * separating a section from the one before it, and on a page whose sections
+ * are now introduced by a 57px title it is doing that job twice. The space
+ * below is the separation.
+ *
+ * MORE AIR ABOVE. --space-4xl replaces the section default. The border came
+ * off, so the interval has to carry the boundary on its own, and Chip asked
+ * for it directly. Bottom padding is untouched: sections on this site are
+ * top-padded only and that is what keeps one interval between any two. */
+#about  .sec-head h2,
+#speakers .sec-head h2,
+#agenda .sec-head h2,
+#faq    .sec-head h2 {
+  font-size: var(--step-4);
+  letter-spacing: var(--track-4);
+}
+#about  .sec-head,
+#speakers .sec-head,
+#agenda .sec-head,
+#faq    .sec-head {
+  border-top: 0;
+  padding-block-start: 0;
+}
+#about, #speakers, #agenda, #faq { padding-block-start: var(--space-4xl); }
+/* #agenda and #faq carry .section--dense, which sets a SMALLER top padding
+ * and would otherwise win on source order. Restated at the same specificity
+ * so the four really do land on one interval. */
+#agenda.section--dense,
+#faq.section--dense { padding-block-start: var(--space-4xl); }
+/* THE ONE SECTION ON THIS PAGE WITH BOTTOM PADDING, and it is an exception to
+ * a rule, not a relaxing of it. Sections here are TOP padded only, which is
+ * what keeps exactly one interval between any two of them however they are
+ * ordered. That works while neighbours share a ground: the interval is one
+ * undivided piece of the page and it does not matter which side owns it.
+ * #faq now paints its own light ground (data-surface="muted"), so the boundary
+ * is a visible seam and the whole interval sits INSIDE the grey. The agenda's
+ * last line ended hard against that seam with nothing under it while the grey
+ * carried the lot. This splits the interval across the seam.
+ * SCOPED TO #agenda DELIBERATELY. It is not a licence to bottom pad sections
+ * generally, and doing that would double every interval on the page. The test
+ * for another exception is the same one: does this section's neighbour paint a
+ * different ground. */
+#agenda { padding-block-end: var(--space-3xl); }
+/* Same cap, same reason, both released: .mod-faq-list carries a reading
+ * measure for prose answers on a module page. The agenda holds a timetable
+ * and the FAQ holds three grouped columns of questions; neither gains
+ * anything from being squeezed to two thirds of the column. */
+#agenda .mod-faq-list,
+#faq .mod-faq-list { max-width: none; }
+
+/* The group headings. Small, quiet, and the thing that makes this read as
+ * three decisions rather than one long list. */
+.faq-group {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  line-height: var(--lh-label);
+  color: var(--fg-lo);
+  margin-block: var(--space-xl) var(--space-s);
+}
+.faq-group:first-of-type { margin-block-start: var(--space-m); }
+#agenda .faq-a table  { width: 100%; }
+
+/* ---- the agenda timetable, 2026-07-31 ---------------------------------
+ * 1. THE TIME NEVER WRAPS. "07:30 to 08:00" was breaking across two lines
+ *    and turning every row into a two line row for no reason.
+ * 2. THE TIME COLUMN IS THE SAME WIDTH ON ALL THREE DAYS. It was auto
+ *    sized per table, so Tuesday, whose session names are short, gave the
+ *    column far more room than it needed and Wednesday, whose names are
+ *    long, squeezed it until it wrapped. width: 1% with nowrap is the
+ *    standard shrink-to-content idiom: the browser gives the column
+ *    exactly its content width and hands the rest to the session column,
+ *    and because every cell holds the same "HH:MM to HH:MM" shape the
+ *    result is identical on all three days without a magic number.
+ * 3. The visible date caption inside each day was a repeat of the heading
+ *    the reader just opened. It is .vh now rather than deleted, because a
+ *    caption is the table's accessible NAME and three tables called
+ *    nothing is a worse outcome than one duplicated line. */
+#agenda .faq-a table th[scope="row"] {
+  white-space: nowrap;
+  width: 1%;
+  padding-inline-end: var(--space-l);
+}
+
+/* ==========================================================================
+   39. THE PERSON BIO OVERLAY. 2026-07-31.
+   Used by /congress/#speakers and /about/leadership/. Appended at the END of
+   the file for the reason recorded at section 26's tail: anything added from
+   here on wins on source order rather than on specificity.
+
+   THE BASE IS :target AND IT IS THE WHOLE COMPONENT.
+   Same discipline as the quote carousel at section 26. Everything above the
+   `.has-bio-open` rule works with JavaScript fully disabled: a card is a link
+   to `#bio-<slug>`, the overlay is a normal element that :target reveals, and
+   the close control is a link back to the card's own id, which both clears the
+   target and returns the reader to the card they left. That is a working modal
+   with zero script. <dialog> was rejected outright: showModal() needs JS and
+   the no-JS run would get an inert element and nothing else.
+   NEVER move a base rule into a script-gated class.
+
+   WHAT THE SCRIPT ADDS, additively: Escape, focus into the panel on open and
+   back to the trigger on close, a focus trap, and the scroll lock below.
+
+   CONTRAST, computed against WCAG 2.1 relative luminance for the overlay's
+   own ground, which is --ground #171717 (the panel declares
+   data-surface="dark" so all six tokens below resolve there):
+     --fg-hi   #f0f0f0  name          15.73:1   clears AAA
+     --fg      #d8d8d8  bio prose     12.58:1   clears AAA
+     --fg-lo   #ababab  title line     7.81:1   clears AAA
+     --rule-ink-load #757575 head rule and close boundary
+                                       3.89:1   clears 1.4.11's 3:1 UI floor
+     close glyph stroke, --fg-hi      15.73:1   graphical object, floor is 3:1
+   NOT USED, and this is the trap the brief names: --accent #146ef5 measures
+   3.91:1 on this ground. That is a legal FILL and an illegal piece of type.
+   --link resolves to --accent-lift #3b89ff, 5.30:1, and is the only blue that
+   may carry type here. Nothing in this component is accent-coloured.
+
+   MOTION: the fade is the only transition, it is one --t (120ms), and the
+   global prefers-reduced-motion block at section 19 already zeroes it. No
+   second reduced-motion query is written here, because a duplicate would be a
+   second place to keep in step.
+   ========================================================================== */
+
+/* A column, not a scroll box. The head holding the close control does not
+ * scroll and the body does, so the X is still in the top right at the bottom
+ * of a 354-word bio. A single overflow:auto box loses it off the top. */
+.bio-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;                  /* over .skip at 40, which is the site's ceiling */
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+  /* THE CLOSED OVERLAY MUST NOT HIT-TEST, and opacity alone does not stop it.
+   * The close transition holds visibility: visible for --t before flipping it,
+   * so for 120ms after a close this fixed inset:0 element is invisible and
+   * still swallows every click landing on it. A reader who closes one bio and
+   * immediately clicks the next card loses that click.
+   * Worse under prefers-reduced-motion: the global reduce block zeroes
+   * transition-DURATION but not transition-DELAY, so the fade is instant and
+   * the dead zone is not, leaving no visual cue that anything is in the way. */
+  pointer-events: none;
+  opacity: 0;
+  /* visibility is delayed OUT so the fade is visible, and switched IN with no
+   * delay so the panel is never a click target before it is drawn. */
+  transition: opacity var(--t) linear, visibility 0s linear var(--t);
+}
+.bio-overlay:target {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity var(--t) linear, visibility 0s linear 0s;
+}
+
+.bio-head {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: var(--rule-hair) solid var(--rule-ink-load);
+}
+
+/* The body is the scroll container, and overscroll-behavior is load-bearing
+ * rather than polish: it is what stops a wheel or a swipe at the end of a bio
+ * from chaining into the page underneath. With the script off that is the only
+ * thing holding the background still, since the class-based lock below never
+ * gets applied. */
+.bio-scroll {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-block: var(--space-xl) var(--space-3xl);
+}
+
+/* A real 4rem target, not a glyph with padding. The accessible name is the
+ * .vh "Close" inside it; the SVG is two lines and is aria-hidden, so a screen
+ * reader never reads a multiplication sign as a word. */
+.bio-close {
+  display: grid;
+  place-items: center;
+  inline-size: var(--space-2xl);
+  block-size: var(--space-2xl);
+  color: var(--fg-hi);
+  text-decoration: none;
+  border-inline-start: var(--rule-hair) solid var(--rule-ink-load);
+}
+.bio-close svg {
+  inline-size: var(--space-m);
+  block-size: var(--space-m);
+  display: block;
+}
+.bio-close:hover { background: var(--block); }
+
+/* Photograph and text. minmax(0, …) on both tracks so a long unbroken string
+ * in a bio cannot widen the row and start a horizontal page scroll. The photo
+ * track tops out at 18rem (288px), which sits under the smallest source file
+ * in either set (Tracy LaTourette's, 340px square), so nothing is ever
+ * upscaled by CSS at any viewport. */
+.bio-figure {
+  display: grid;
+  grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+  gap: var(--space-l) var(--space-xl);
+  align-items: start;
+}
+@media (max-width: 48rem) {
+  .bio-figure { grid-template-columns: minmax(0, 1fr); }
+  .bio-photo  { max-inline-size: 18rem; }
+}
+
+/* aspect-ratio holds the box before the file lands, so opening an overlay
+ * never reflows the panel. Every file in both sets is already square at the
+ * asset level; cover is insurance against one future non-square file, not the
+ * crop mechanism. */
+.bio-photo {
+  display: block;
+  inline-size: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: var(--block);
+}
+
+.bio-name {
+  color: var(--fg-hi);
+  font-size: var(--step-2);
+  letter-spacing: var(--track-2);
+}
+/* The title-and-employer line. --fg-lo is de-emphasis and never body copy;
+ * this is metadata about the person, which is the job it is for. */
+.bio-role {
+  margin-block-start: var(--space-2xs);
+  color: var(--fg-lo);
+  font-size: var(--step--1);
+  text-wrap: pretty;
+}
+.bio-text > p + p { margin-block-start: var(--space-s); }
+.bio-prose { margin-block-start: var(--space-m); }
+
+/* THE TRIGGER. A real link carrying the person's name as its accessible name,
+ * with a stretched pseudo-element so the whole card is the hit area.
+ * Deliberately NOT a wrapping <a> around the card: on /about/leadership/ the
+ * card is a subgrid item spanning three rows and a wrapper would collapse it
+ * to one, and using display:contents to dodge that drops the link out of the
+ * accessibility tree in shipping browsers. One idiom serves both pages. */
+.speaker-card,
+.modules--people > .module { position: relative; }
+
+.bio-trigger {
+  color: inherit;
+  text-decoration-thickness: var(--rule-hair);
+  text-underline-offset: 0.18em;
+}
+.bio-trigger::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.bio-trigger:hover { text-decoration-thickness: var(--rule-med); }
+/* The focus ring is drawn on the link's own text box, which is a few words
+ * inside a tall card. Without this the ring is legible but does not tell the
+ * reader which card is about to open. */
+.speaker-card:has(.bio-trigger:focus-visible),
+.modules--people > .module:has(.bio-trigger:focus-visible) {
+  outline: var(--rule-med) solid var(--focus);
+  outline-offset: var(--space-3xs);
+}
+
+/* ---- the script-gated state, and it is one rule ---- */
+/* shell.js sets this while an overlay is open and records the scroll offset so
+ * it can put it back. With the script absent the class is never applied and
+ * the overscroll-behavior above is what holds the background. */
+.has-bio-open, .has-bio-open body { overflow: hidden; }
+
+/* ================= 40. THE STOREFRONT ================= */
+/* 2026-07-31, CHIP'S CALL: "build these pages as if they are the actual
+ * stores." /congress/register/ and /congress/sponsor/ ONLY. Nothing else on
+ * the site sells anything, and nothing else may borrow these classes.
+ *
+ * WHAT CHANGED, AND WHY IT IS NOT A REVERSAL. Both pages previously carried
+ * their products as table rows with a single CTA at the foot, under a rule
+ * that read "tiers are rows, never columns, no per-row action." That rule was
+ * written to stop a comparison matrix with a Buy button on every line, which
+ * is a pricing-page pattern that manufactures urgency. What is built here is
+ * the other thing: one product, one price, one list of what is in it, one way
+ * to buy it. The parts of that rule that were about pressure rather than
+ * about layout ALL STILL HOLD and are enforced below in the negative:
+ *   no badge, no ribbon, no "most popular", no highlighted or scaled row,
+ *   no strike-through, no countdown, no seat or stock count, no "from",
+ *   no savings maths, no per-item urgency of any kind.
+ * If a future pass wants any of those, that is a Chip decision, not a CSS one.
+ *
+ * NOT CARDS IN THE DECORATIVE SENSE, which is why --radius stays 0 and no
+ * shadow appears anywhere here. On the muted ground --block resolves to
+ * --paper, so an item is a white field on light grey: the elevation is a
+ * lightness step, the same device section 9 already uses. Consistent with
+ * the house rule that a container earns its keep by separating data, not by
+ * decorating it. */
+
+.store {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-m);
+}
+/* Two up before one up. Nine sponsorship tiers at one column is a very long
+ * scroll on a tablet, and the inclusion lists stay readable at half width. */
+@media (max-width: 68rem) {
+  .store { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 44rem) {
+  .store { grid-template-columns: 1fr; }
+}
+
+/* Column flex for the same reason .launcher uses it: the inclusion lists run
+ * to wildly different lengths (nine deliverables at the top tier, three at
+ * the bottom) and the actions have to land on one baseline per row anyway. */
+.store-item {
+  min-width: 0;
+  max-width: none;                     /* the global li rule caps at --measure */
+  display: flex;
+  flex-direction: column;
+  background: var(--block);
+  border: var(--rule-hair) solid var(--rule-ink-load);
+  padding: var(--space-m);
+}
+
+/* The head: name, then price. Name first in the DOM and in reading order,
+ * because the price is meaningless until you know what it is the price of. */
+.store-name {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+  letter-spacing: var(--track-1);
+  line-height: var(--lh-heading);
+  margin: 0;
+  max-width: none;
+}
+
+/* The figure. --step-2 rather than --step-3: at 43px a five-digit
+ * sponsorship price is the loudest thing on the page, which puts the money
+ * above the deliverable and is exactly the emphasis these two pages exist to
+ * avoid. 32px is unmissable without shouting. */
+.store-price {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 600;
+  letter-spacing: var(--track-2);
+  line-height: var(--lh-heading);
+  font-variant-numeric: tabular-nums;
+  margin-block-start: var(--space-2xs);
+  max-width: none;
+}
+/* Currency rides at body size so it reads as a unit on the number rather
+ * than as part of it. --fg-lo is de-emphasis, which is correct for a unit
+ * and is NOT body copy, so the never-body rule is not being broken. */
+.store-cur {
+  font-size: var(--step--1);
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--fg-lo);
+}
+
+/* The qualifier that travels with the price. ConvergX publishes an admin-fee
+ * and tax line on every registration product and it sits HERE, directly under
+ * the figure, never in a footnote. A delegate who reaches checkout and meets
+ * a higher number than this page showed is the worst failure on the money
+ * path. Verbatim, per product, never flattened into one blanket line. */
+.store-qual {
+  font-size: var(--step--1);
+  color: var(--fg-lo);
+  margin-block-start: var(--space-2xs);
+  max-width: none;
+  text-wrap: pretty;
+}
+
+.store-desc {
+  margin-block-start: var(--space-s);
+  font-size: var(--step--1);
+  max-width: none;
+  text-wrap: pretty;
+}
+
+/* The inclusions, as hairline-separated rows. This is the spec-sheet
+ * treatment section 11 already uses for the module index, not a bulleted
+ * list: a deliverable per line, scannable down the column, and it stays
+ * legible when one tier carries nine and its neighbour carries three.
+ * No checkmark glyphs. A tick is a persuasion device and it also implies a
+ * comparison against some other tier's absence of one. */
+.store-includes {
+  list-style: none;
+  padding: 0;
+  margin-block-start: var(--space-m);
+  border-top: var(--rule-hair) solid var(--rule-ink);
+}
+.store-includes > li {
+  max-width: none;
+  font-size: var(--step--1);
+  line-height: var(--lh-body);
+  padding-block: var(--space-2xs);
+  border-bottom: var(--rule-hair) solid var(--rule-ink);
+}
+
+/* Pinned to the bottom so every action in a row shares one baseline however
+ * long the list above it ran. Full-bleed inside the item's padding box: a
+ * store's action is the width of the thing it buys. */
+.store-act {
+  margin-block-start: auto;
+  padding-block-start: var(--space-m);
+  max-width: none;
+}
+.store-act .btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* The handoff line. Says where the money is actually taken, once per item,
+ * at the point of the click rather than buried at the foot of the page. This
+ * is the honesty condition on the whole storefront: the pages present the
+ * products, and they never pretend to be the checkout. */
+.store-away {
+  font-size: var(--step--2);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--fg-lo);
+  margin-block-start: var(--space-2xs);
+  max-width: none;
+}
+
+/* Two side-by-side blocks. Added for the two hotel booking-step lists on
+ * /congress/register/, which are siblings of equal weight and read badly
+ * stacked: the second one looks like a continuation of the first. No
+ * two-column utility existed and .two-path is a chooser with its own
+ * dividers and hover, so it was the wrong thing to borrow. */
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-m);
+}
+@media (max-width: 44rem) {
+  .pair { grid-template-columns: 1fr; }
+}
+.pair > * { min-width: 0; max-width: none; }
+/* Numbered steps inside a block. The global ol rule caps at --measure,
+ * which is wider than half the page, so the marker would sit outside the
+ * block's padding without this. */
+.pair ol { margin: var(--space-s) 0 0; padding-inline-start: var(--space-m); max-width: none; }
+.pair ol li { max-width: none; font-size: var(--step--1); padding-block: var(--space-3xs); }
+
+/* ---- the session disclosure, nested inside a day ---- */
+/* WRITTEN FOR /congress/ #agenda AND NOW USED ON THE HOMEPAGE TOO, inside the
+ * "What is ConvergX" primer, where three supports collapse to three openable
+ * lines so the diagram is not pushed a screen down. Nothing had to change to
+ * do that: every rule below is written unscoped (.sess > summary, never
+ * #agenda .sess), so the component was already portable. It is the .faq rules
+ * that carry #agenda overrides, which is the other half of why .faq was the
+ * wrong pick for that job. KEEP THESE SELECTORS UNSCOPED.
+ * On the homepage each one is wrapped in a .claim for the hairline and the
+ * padding this deliberately does not carry; see the note there.
+ *
+ * The day-level .faq keeps its full treatment (a
+ * 32px marker, generous padding, a hairline per row); a session sits INSIDE
+ * a table cell one level down and cannot take any of that, or the timetable
+ * turns into a stack of accordions.
+ *
+ * So it reads as a line of text that happens to open. No hairline (the table
+ * already rules every row), no padding (the cell owns it), and the marker is
+ * a small caret carried on the summary rather than the ::after plus sign the
+ * day rows use, because at row size a plus reads as a bullet. */
+.sess > summary {
+  list-style: none;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  padding-inline-end: var(--space-m);
+}
+.sess > summary::-webkit-details-marker { display: none; }
+/* THE SAME +/- DEVICE THE DAY ROWS USE, at body size. A rotated angle
+ * quotation mark was tried first and rendered as a hairline tick at this
+ * size: too thin to read as a control, and nothing else on the site draws an
+ * affordance that way. One device, two scales, is the right answer. */
+.sess > summary::after {
+  content: "+";
+  position: absolute;
+  inset-inline-end: 0;
+  top: 0;
+  color: var(--fg-lo);
+  line-height: inherit;
+  transition: color var(--t) linear;
+}
+.sess[open] > summary::after { content: "\2212"; color: var(--fg-hi); }
+.sess > summary:hover,
+.sess > summary:hover::after { color: var(--link); }
+.sess > p {
+  margin-block-start: var(--space-2xs);
+  max-width: var(--measure);
+  color: var(--fg-lo);
+  font-size: var(--step--1);
+}
+
+/* A note that belongs to the whole row of products, sitting under it as a
+ * direct child of the wrap. The unwrap rule gives it the page content box,
+ * but .meta carries a --measure cap that wins against that width, and the
+ * auto inline margins then CENTRE the short line instead of starting it on
+ * the store's left edge. Measured at 450 against the store's 101. */
+.store-note { max-width: none; }
+
+/* ================= 41. THE FLOW ================= */
+/* /congress/ only, between the impact statement and the subnav. Page comment
+ * carries the brief and the history.
+ *
+ * ONE INDUSTRY AT A TIME, and this is the whole idea of the component.
+ * Chip, 2026-07-31: "What I essentially want to show is aerospace and defense
+ * lighting up at the same time as ConvergX and then from ConvergX, three nodes
+ * light up. And then military lights up with ConvergX and connects to five
+ * different spots, and then energy... What I want to show is one industry
+ * problem at a time with ConvergX and that remains lit up while ConvergX makes
+ * the connections in their network around the globe to those NATO-aligned
+ * countries. So it should show that that's like an active relationship going
+ * on at that time."
+ * It used to be eight industries firing on scattered --d delays across one 16s
+ * cycle, which read as a busy scatter rather than as one relationship. That is
+ * gone. Do not put --d back on a sector.
+ *
+ * ONE CLOCK, AND IT IS NOW ONE SLOT LONG. --cycle is 6s and it is the length
+ * of a SINGLE industry's turn, not the whole loop; the loop is eight slots,
+ * 48s. Every keyframe percentage below is therefore a percentage of one
+ * industry's relationship, which is what lets the four status lines sit on
+ * four clean quarters of it.
+ * WHY 6s AND NOT 4s. The four status lines have to be readable, and four lines
+ * in a 4s slot is 1s each including the fade, which is under a comfortable
+ * read. 6s gives each line 1.5s. Shorten the slot and the status track has to
+ * lose lines.
+ *
+ * WHO DRIVES WHAT. _system/flow.js owns the SEQUENCE: which industry is up,
+ * how many globe connections this slot gets (three to five, randomised), and
+ * every piece of geometry that has to follow the turning globe. It expresses
+ * all of that by toggling .is-live and rewriting path data, nothing else.
+ * CSS owns the LOOK: the resting strokes, the glow, the travelling pulses, and
+ * what lit means. The split matters because a keyframe cannot express "three
+ * to five, chosen fresh each slot" and a script should not be re-implementing
+ * a dash animation. If you find yourself adding a keyframe that needs to know
+ * which industry is up, it belongs in flow.js instead.
+ * --d survives on the FAN elements only, as a small stagger inside one slot.
+ *
+ * THE STAGE IS 1600 x 540, WIDE AND SHORT. Chip, 2026-07-31: "the graphic is
+ * too TALL now but not wide enough." It was 1200 x 620, which at 1920 rendered
+ * 1776 x 918 and stood taller than a laptop viewport. 1600 x 540 renders
+ * 1776 x 600 at the same width. Eight sector rows in 540 is 67.5 units a row,
+ * which is comfortable at every width the band renders at.
+ * CHANGING THE VIEWBOX INVALIDATES EVERY NUMBER IN THE ART. The hub, the feed
+ * origins, the fan, the output node, both node radii and the globe placement
+ * below were all re-solved together for it. If you change it again, re-solve
+ * all of them again; there is no partial edit that leaves this correct.
+ *
+ * THE GLOBE GEOMETRY IS SOLVED, NOT EYEBALLED, and this is the one thing in
+ * the component that will silently break if edited carelessly. The plate is a
+ * 1600x700 viewBox with its globe at cx 1130, cy 350, r 265. It is placed so
+ * that globe lands at stage coordinates (1400, 270) with r 260:
+ *     scale      = 260 / 265                   = 0.98113
+ *     svg width  = 1600 * 0.98113 / 1600 stage = 98.113%
+ *     svg left   = (1400 - 1130 * 0.98113) / 1600 =  18.208%
+ *     svg top    = ( 270 -  350 * 0.98113) /  540 = -13.592%
+ * That puts the disc at x 1140 to 1660 and y 10 to 530: it bleeds 60 units off
+ * the right edge, as before, and clears the top and bottom by 10.
+ * Every one of those is a PERCENTAGE OF THE STAGE, and the stage holds a fixed
+ * aspect-ratio, so the whole figure scales as one thing and the globe lands at
+ * the same stage coordinates at any stage width. That is what let the stage
+ * get wider in July without re-solving anything.
+ *
+ * THE FAN NO LONGER TERMINATES ON SOLVED POINTS. It used to: eight endpoints
+ * at 0.72r around that centre, computed in the generator, which is why the
+ * numbers above once had to be edited in pairs. Since 2026-07-31 there are
+ * three to five endpoints and _system/flow.js moves them every frame to follow
+ * the turning globe, reading the registration back out of the DOM with
+ * getScreenCTM instead of retyping the percentages. So these four numbers now
+ * control only where the globe sits, and the lines follow it wherever it goes.
+ * The markup still carries three solved points as the no-script fallback;
+ * those ARE still tied to the numbers above.
+ *
+ * THE FEED ORIGINS ARE MEASURED, NOT TYPED, for the same reason. Chip wanted
+ * each line to leave from the end of its own word, so the origin moves with
+ * the label's length and the type scale. flow.js measures each row's dot and
+ * writes the eight feed paths from that. The markup's eight are a snapshot
+ * taken at 1280 for the no-script view; they will not match a different width
+ * exactly, and they do not need to. */
+
+.flow-band { padding-block: var(--space-2xl) var(--space-4xl); }
+
+/* THE BAND'S OWN BLOCK-END PADDING IS FOR /congress/, where it is a direct
+ * child of <main> and the thing after it is a sticky nav carrying no top
+ * padding of its own, so this padding IS that join.
+ * WHERE THE BAND CLOSES OUT A SURFACE, it must not spend it. Section 6b's law
+ * is that a section owns the air ABOVE its content and nothing below, and every
+ * other band on the site closes FLUSH on its last line and lets the next band's
+ * section padding be the single interval. Keeping --space-4xl here would put
+ * 288px of dead ground between the diagram and the muted band that follows it
+ * on the homepage, which is a summed boundary and the thing that law exists to
+ * prevent. On /congress/ the band is not a surface child, so this does not
+ * match and that page is untouched.
+ * ONE LINE, NOT ZERO, and the difference is that this band's last thing is a
+ * BOX rather than a line of type. Every other band closes flush because a text
+ * line box already carries descender space under its baseline, so flush still
+ * reads as air. .flow-stage is a bare aspect-ratio box: measured at 1280, zero
+ * put the ground boundary exactly on the stage edge with the status track 23px
+ * off it. --space-m is the one-line step from section 6b, so the closing
+ * interval stays commensurate and the next band's --space-4xl is still the
+ * boundary doing the work. */
+/* RAISED FROM --space-m TO --space-2xl, 2026-07-31. Chip: "There needs to be
+ * more padding below the graphic." Measured at 1440 the old value left 27px
+ * between the stage and the ground change, with the whole 163px interval
+ * living on the far side of the seam, so the diagram read as jammed against
+ * the bottom edge of its own band.
+ * THE ANTI-SUMMING REASONING ABOVE STILL HOLDS and is why this is not
+ * --space-4xl: that would have made 144 plus 163, a summed boundary. At
+ * --space-2xl the closing interval matches the band's OWN top padding, so the
+ * stage sits centred in its ground, and the total to the next heading comes to
+ * 235px, which is one generous boundary rather than two stacked. */
+[data-surface] > .flow-band:last-child { padding-block-end: var(--space-2xl); }
+
+/* ---- THE COMPONENT ON A LIGHT GROUND ---- */
+/* ONE VARIABLE, NOT A SECOND COPY OF THE COMPONENT. The band was drawn on the
+ * dark ground and porting it to paper is a contrast problem, not a layout one.
+ * --accent-lift (#3b89ff) is the DARK-surface blue: 5.30:1 on the ground and
+ * 2.40:1 on paper, where it fails as text AND fails the 3:1 floor for a graphic
+ * that carries meaning. It was doing four jobs here: the travelling pulse, the
+ * lit sector dot, the lit node fill and the status track.
+ *
+ * --flow-ink is the one lit-graphic ink for the whole component. It defaults to
+ * the dark value, so /congress/ renders byte-identically to before, and it is
+ * redeclared on the two light grounds as --accent (#146ef5): 4.59:1 on paper
+ * and 4.02:1 on the muted ground, both clear of the 3:1 graphic floor.
+ *
+ * THE STATUS TRACK IS NOT A GRAPHIC. It is 11px type, so it needs 4.5:1, and
+ * there is already a token for exactly that job on every surface: --label-ink,
+ * "the eyebrows", which resolves to --accent-lift on dark (5.30:1) and
+ * --accent-text on light and muted (6.46:1 and 5.67:1). It gets that rather
+ * than a second component variable, because inventing one would be a private
+ * copy of a surface decision the token system already makes.
+ *
+ * SCOPED AS A DESCENDANT, which is how the rest of this file scopes a surface:
+ * a section declares data-surface and everything inside inherits (tokens.css,
+ * "the surface system"). The band never declares its own surface, so it reads
+ * the one it is dropped into, and a third instance on a muted ground would need
+ * no further edit. The alternative was .app-band's technique, a component
+ * redeclaring the whole token set on itself, and that is the right pattern for
+ * a band that PAINTS its own ground. This one does not paint anything. */
+.flow-band { --flow-ink: var(--accent-lift); }
+[data-surface="light"] .flow-band,
+[data-surface="muted"] .flow-band { --flow-ink: var(--accent); }
+
+/* ---- the stage stays inside the container ---- */
+/* THE BAND HAS NO LAYOUT RULES OF ITS OWN. It is a plain .wrap like every
+ * other section, so the stage's left and right edges land on the same content
+ * edge as the section headings and the subnav. That is deliberate and it was
+ * arrived at the hard way, so read the next paragraph before changing it.
+ *
+ * "WIDER" AND "INSIDE THE CONTAINER" ARE NOT IN CONFLICT, though the two notes
+ * from Chip look like they are. First: "it could be a bit wider to take up more
+ * space on the screen." That was answered by breaking the stage out of the wrap
+ * with a full-width band and re-centred type, and the answer was wrong: "a bit
+ * too wide now. It's outside of the main container."
+ * What was actually wrong was the SHAPE, not the container. The stage was
+ * 1200 x 620, which rendered 1776 x 918 at 1920 and read as a tall block. It is
+ * now 1600 x 540 and renders about 1109 x 374 inside the container: shorter,
+ * and proportionally far wider than anything before it. The aspect ratio
+ * delivers the feeling of width; the breakout only delivered overhang.
+ * SO DO NOT RE-ADD THE BREAKOUT. There is no --flow-edge, no full-width wrap
+ * and no negative margin on the stage, and their absence is the fix. If the
+ * band ever needs to feel wider again, change the viewBox and the aspect ratio
+ * together, and re-solve the globe placement below with them. */
+
+/* ---- the title row ---- */
+/* Heading left, the sector sentence right, which is the shape Chip asked for.
+ * The eight industries in that sentence are the only links in the component:
+ * the diagram's own labels are plain text, because a label that lights up is
+ * a state readout and making it a link as well gives one word two jobs. */
+.flow-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--space-l);
+  align-items: end;
+  margin-block-end: var(--space-2xl);
+}
+.flow-intro h2 {
+  font-size: var(--step-4);
+  letter-spacing: var(--track-4);
+  color: var(--fg-hi);
+  margin: 0;
+}
+.flow-intro-desc { max-width: none; color: var(--fg); margin: 0; }
+
+.flow { margin: 0; }
+
+/* ---- the two column heads ---- */
+/* A row above the stage rather than absolute pins on its corners. They carry
+ * real copy now (an eyebrow in the nav's own language, then a sentence), and
+ * a two line block hanging off a corner by a transform is a layout waiting to
+ * collide with the first chip. */
+.flow-heads {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2xl);
+  margin-block-end: var(--space-xl);
+}
+.flow-head > .label { margin-block-end: var(--space-2xs); }
+.flow-head > p { max-width: 42ch; font-size: var(--step--1); color: var(--fg); text-wrap: pretty; }
+.flow-head--right { justify-self: end; text-align: end; }
+.flow-head--right > p { margin-inline-start: auto; }
+
+.flow-stage {
+  /* One industry's turn. flow.js reads this to know how long a slot is, so the
+   * script and the keyframes cannot drift apart; change it here only. */
+  --cycle: 6s;
+  /* How long an industry and the hub take to come up and go down. Long enough
+   * to read as a relationship opening rather than a switch flipping, short
+   * enough to be finished well inside the slot's first quarter. There is no
+   * duration token in tokens.css, so this is component scoped next to --cycle
+   * rather than invented as a global. */
+  --lit-fade: 420ms;
+  position: relative;
+  display: grid;
+  grid-template-columns: 30% 40% 30%;
+  aspect-ratio: 1600 / 540;
+}
+
+/* ---- the globe, behind everything ---- */
+/* Lifted from the homepage and reparented. It keeps data-globe, so globe.js
+ * turns it and runs its own converging-network arcs with no work from here.
+ * FADED RIGHT AND DOWN, per Chip. The mask uses currentColor rather than a
+ * colour keyword deliberately: a mask reads the ALPHA channel and throws the
+ * hue away, so currentColor is fully opaque and carries no palette decision.
+ * Two ramps intersected, so the globe dissolves into the ground on both edges
+ * instead of ending on a line.
+ * THESE FOUR PERCENTAGES ARE COPIED INTO _system/flow.js. That file picks the
+ * three sites the fan lands on, and it has to refuse any point where this mask
+ * has taken the globe to nothing, or a connector ends in empty space. The art
+ * layer is not masked, so it cannot work this out for itself. EDIT THE RAMPS
+ * HERE AND EDIT MASK_X0/X1/Y0/Y1 THERE, in the same commit. There is a note on
+ * the other side saying the same thing.
+ * The right ramp moved from 42% to 61% when the stage went from 1200 to 1600
+ * wide. That is not a taste change: both numbers put the fade at the same
+ * distance from the globe measured in RADII (opaque until 1.62r left of
+ * centre, gone by 0.54r right of it), which is what keeps the dissolve looking
+ * identical at the new proportions. Solve it that way again if it moves. */
+.flow-globe {
+  /* What .fig-globe used to supply and the only thing worth keeping from it:
+   * the plate's paths inherit this through currentColor. */
+  color: var(--rule-ink-load);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask-image: linear-gradient(to right, currentColor 0 61%, transparent 96%),
+                      linear-gradient(to bottom, currentColor 0 58%, transparent 100%);
+          mask-image: linear-gradient(to right, currentColor 0 61%, transparent 96%),
+                      linear-gradient(to bottom, currentColor 0 58%, transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
+}
+
+/* THE PLATE READS TOO FAINT ON PAPER, and this was looked at rather than
+ * assumed. --rule-ink-load resolves to --cool-500 (#757575) on the dark ground
+ * and --cool-400 (#898989) on light, which are 3.89:1 and 3.50:1: close on a
+ * meter and not close to the eye, because a mid grey line gains against a
+ * near-black surround and loses against paper. Rendered at 1280 the limb, the
+ * land and the graticule all dissolved, and the plate stopped reading as a
+ * globe behind the diagram.
+ * ONE STEP UP THE SAME RAMP, to --cool-500 (4.76:1 on paper), which is the
+ * value the dark ground is already using. It is a ramp token rather than one of
+ * the surface set, and that is deliberate: this is a surface-specific
+ * correction, which is the same job --flow-ink above is doing. The mask ramps
+ * were the other candidate and they are NOT touched, because they are
+ * transcribed into flow.js as MASK_X0/X1/Y0/Y1 and the two have to move
+ * together; the fade was never the problem, the line tone was. */
+[data-surface="light"] .flow-band .flow-globe,
+[data-surface="muted"] .flow-band .flow-globe { color: var(--cool-500); }
+
+.flow-globe svg {
+  position: absolute;
+  left: 18.208%;
+  top: -13.592%;
+  width: 98.113%;
+  height: auto;
+  /* THE RESET CLAMPS EVERY svg TO max-width: 100% (section 2, line 56) and it
+   * silently capped this one at the stage width. Measured before the fix: the
+   * globe rendered at r 171 where the fan paths expect 258, so every line
+   * ended in empty space short of it. This plate is DELIBERATELY wider than
+   * its box, because it bleeds off the right edge. */
+  max-width: none;
+}
+
+.flow-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  z-index: 1;
+}
+
+/* ---- the resting network ---- */
+.flow-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: calc(var(--rule-hair) * 2);
+  opacity: 0.22;
+}
+.flow-node,
+.flow-out {
+  fill: var(--bg);
+  stroke: var(--accent);
+  stroke-width: calc(var(--rule-hair) * 2);
+  opacity: 0.5;
+}
+
+/* ---- the travelling pulse ---- */
+/* pathLength="100" is what lets one dash pattern work on a 240 unit feed line
+ * and a 600 unit fan line: the dash is 14 percent of whatever the path is, so
+ * the comet reads the same length everywhere.
+ * THE GLOW IS ON THE PULSE, not on the line. Chip: "I wish that it was just
+ * like glowing... almost like they had a matching blue outer glow when you're
+ * lighting them up." drop-shadow on an SVG stroke is the only thing that gives
+ * a real bloom; a second fatter stroke underneath reads as a fatter stroke. */
+.flow-pulse {
+  fill: none;
+  stroke: var(--flow-ink);
+  stroke-width: calc(var(--rule-hair) * 3);
+  stroke-linecap: round;
+  stroke-dasharray: 14 86;
+  opacity: 0;
+  filter: drop-shadow(0 0 6px var(--flow-ink));
+}
+
+/* ---- LIT: what an active relationship looks like ---- */
+/* THE STATE IS A CLASS, NOT A KEYFRAME, and that is the load-bearing change.
+ * The pair has to hold for a whole slot and the slot belongs to whichever
+ * industry flow.js has up, which no keyframe can know. flow.js puts .is-live
+ * on one .flow-sector and on .flow-hub for the same span, and takes it off
+ * both at the same moment. A transition does the fade, so the handoff from one
+ * industry to the next crosses over instead of snapping.
+ * NOTHING ELSE MAY SET .is-live. It is the one signal that says which
+ * relationship is open, and two writers would let two industries light. */
+.flow-dot {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: 50%;
+  flex: none;
+  background: var(--rule-ink-load);
+  transition: background var(--lit-fade) linear,
+              box-shadow var(--lit-fade) linear,
+              transform  var(--lit-fade) linear;
+}
+.flow-sector.is-live .flow-dot {
+  background: var(--flow-ink);
+  box-shadow: 0 0 14px 3px var(--flow-ink);
+  transform: scale(1.7);
+}
+.flow-sector-name { transition: color var(--lit-fade) linear; }
+.flow-sector.is-live .flow-sector-name { color: var(--fg-hi); }
+
+/* The live row's own feed line lifts out of the resting set, so the eye can
+ * see which of the eight is the one currently feeding the hub. Same stroke,
+ * more of it; a second colour here would compete with the pulse. */
+.flow-feed { transition: opacity var(--lit-fade) linear; }
+.flow-feed.is-live { opacity: 0.6; }
+
+/* ---- 1. a requirement is submitted ---- */
+/* ONE pulse element, not eight. flow.js re-points it at the live row's
+ * geometry each slot, which is why it carries no --d: there is only ever one
+ * requirement travelling and it belongs to whichever industry is up. */
+.flow-feed-pulse {
+  animation: flow-feed-run var(--cycle) linear infinite;
+}
+@keyframes flow-feed-run {
+  0%,  3%  { stroke-dashoffset: 100; opacity: 0; }
+  5%       { opacity: 1; }
+  15%      { opacity: 1; }
+  17%      { stroke-dashoffset: 0;   opacity: 0; }
+  100%     { stroke-dashoffset: 0;   opacity: 0; }
+}
+
+/* ---- 2. ConvergX asks the companies it has vetted ---- */
+/* GLOW, NOT A RING. The expanding square outline that used to leave this box
+ * is gone on Chip's instruction and must not come back. The hub blooms in
+ * place: the border lifts to --flow-ink and a box-shadow opens and closes
+ * around it. box-shadow spread is the whole effect and it costs no element. */
+.flow-hub {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  max-width: none;
+  z-index: 2;
+  /* The hub's own ground hides every path end. Feed lines run to x=600 and fan
+   * lines start there, dead centre under this box, so a pulse disappears as it
+   * arrives and reappears as it leaves. That is why no path has to terminate
+   * on a measured edge. */
+  /* A FILLED BLUE BOX WITH A WHITE MARK, Chip's own suggestion 2026-07-31:
+   * "I wonder if it would look better if it was blue with the logo in white."
+   * It does, and it also fixes what he was actually reacting to. The outlined
+   * version needed a large glow to read as lit at all, and a large glow on a
+   * pale ground blooms. A filled box IS lit, so the glow drops to a hint.
+   * IT STILL HIDES THE PATH ENDS, which is the load-bearing job of this
+   * background: feed lines run to the hub centre and fan lines start there, so
+   * a pulse disappears as it arrives and reappears as it leaves. An opaque
+   * fill of any colour does that; a transparent one would break it.
+   * One fill works on BOTH grounds, which an outline could not: white on
+   * --accent measures 4.59:1 on dark and on light alike. */
+  background: var(--accent);
+  border: var(--rule-med) solid var(--accent);
+  padding: var(--space-s) var(--space-m);
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+  letter-spacing: var(--track-1);
+  line-height: 1;
+  color: var(--accent-ink);
+  white-space: nowrap;
+  /* THE ONE ROUNDED CORNER IN THE PROJECT, on Chip's instruction 2026-07-31.
+   * --radius stays 0 and is still marked structural: this is a local value on
+   * one element, not a change to the token, so nothing else softens. Do not
+   * promote it to --radius, and do not copy it onto another component without
+   * asking. */
+  border-radius: 10px;
+  /* Lit by class, for exactly as long as its industry is. See the LIT block
+   * above; the keyframe that used to run this on the cycle is gone, because
+   * the hub now has to hold for a whole slot and release with its partner. */
+  transition: border-color var(--lit-fade) linear,
+              box-shadow   var(--lit-fade) linear;
+}
+/* THE LIT STATE IS NOW A HINT, NOT A FLARE. Chip: "the glow on the convergex
+ * logo is TOO bright." It was 44px of blur and 6px of spread, sized for an
+ * outlined box that had nothing else to signal with. The box is filled now, so
+ * the glow only has to say "this one is active", and a filled blue box on
+ * paper reads that at a fraction of the intensity. Spread comes off entirely:
+ * spread on a pale ground paints a hard second edge around the box. */
+.flow-hub.is-live {
+  box-shadow: 0 0 20px 0 var(--accent);
+}
+/* The mark, swapped in by shell.js. --accent-ink, not --fg-hi: the box is a
+ * blue fill now, so the mark reverses out of it on both grounds and needs no
+ * separate reversed asset. Measured 4.59:1. */
+.flow-hub .logo-art {
+  display: block;
+  inline-size: clamp(7rem, 11vw, 9.5rem);
+  block-size: auto;
+  color: var(--accent-ink);
+  /* fill AS WELL AS color. The source paths carry no fill attribute, so they
+   * take the SVG default of black unless something says otherwise; the header
+   * lockup gets its fill from its own rule, which does not reach here. Setting
+   * color alone left the mark rendering black on a near-black ground. */
+  fill: currentColor;
+}
+/* ---- 3. vetted companies answer ---- */
+/* --d survives HERE and only here: a small stagger so the three to five
+ * connections leave the hub in quick succession rather than as one thick
+ * flash. It is a few hundredths of a second, well inside the beat. */
+.flow-fan-pulse {
+  animation: flow-fan-run var(--cycle) linear infinite;
+  animation-delay: var(--d);
+}
+@keyframes flow-fan-run {
+  0%, 26%  { stroke-dashoffset: 100; opacity: 0; }
+  28%      { opacity: 1; }
+  41%      { opacity: 1; }
+  43%      { stroke-dashoffset: 0;   opacity: 0; }
+  100%     { stroke-dashoffset: 0;   opacity: 0; }
+}
+.flow-node {
+  animation: flow-node-run var(--cycle) linear infinite;
+  animation-delay: var(--d);
+}
+/* Lit from the moment the outbound pulse lands until the introduction leaves,
+ * which is most of beats three and four. These are the companies answering, so
+ * they stay up while that is what the status line says. */
+@keyframes flow-node-run {
+  0%, 41%   { fill: var(--bg);        opacity: 0.5; filter: none; }
+  45%       { fill: var(--flow-ink);  opacity: 1;   filter: drop-shadow(0 0 8px var(--flow-ink)); }
+  78%       { fill: var(--flow-ink);  opacity: 1;   filter: drop-shadow(0 0 8px var(--flow-ink)); }
+  84%, 100% { fill: var(--bg);        opacity: 0.5; filter: none; }
+}
+/* The same paths run backwards. dashoffset 0 to 100 instead of 100 to 0 is the
+ * entire difference, which is why the return needed no second geometry. */
+.flow-return-pulse {
+  animation: flow-return-run var(--cycle) linear infinite;
+  animation-delay: var(--d);
+}
+@keyframes flow-return-run {
+  0%, 54%  { stroke-dashoffset: 0;   opacity: 0; }
+  56%      { opacity: 1; }
+  68%      { opacity: 1; }
+  70%      { stroke-dashoffset: 100; opacity: 0; }
+  100%     { stroke-dashoffset: 100; opacity: 0; }
+}
+
+/* ---- 4. one introduction is brokered ---- */
+/* ONE STRAIGHT DROP, not two strands meeting. Chip, 2026-07-31: "Instead of
+ * the U shape here, just do a straight line to the result that ConvergX is
+ * spitting out." Two curves used to swing out to x 470 and x 730 and meet
+ * under the hub, which read as two more things arriving rather than as one
+ * result leaving. The second path is deleted, not hidden. Nothing here changed
+ * with it: same class, same timing, same node. */
+.flow-conv-pulse {
+  animation: flow-conv-run var(--cycle) linear infinite;
+  animation-delay: var(--d);
+}
+@keyframes flow-conv-run {
+  0%, 76%  { stroke-dashoffset: 100; opacity: 0; }
+  78%      { opacity: 1; }
+  86%      { opacity: 1; }
+  88%      { stroke-dashoffset: 0;   opacity: 0; }
+  100%     { stroke-dashoffset: 0;   opacity: 0; }
+}
+.flow-out { animation: flow-out-run var(--cycle) linear infinite; }
+/* Back to resting BEFORE the slot ends, so the next industry does not inherit
+ * a lit output node from the last one's introduction. */
+@keyframes flow-out-run {
+  0%, 84%   { fill: var(--bg);        opacity: 0.5; filter: none; }
+  88%       { fill: var(--flow-ink);  opacity: 1;   filter: drop-shadow(0 0 12px var(--flow-ink)); }
+  96%       { fill: var(--flow-ink);  opacity: 1;   filter: drop-shadow(0 0 12px var(--flow-ink)); }
+  99%, 100% { fill: var(--bg);        opacity: 0.5; filter: none; }
+}
+
+/* ---- the status track ---- */
+/* Four lines in ONE grid cell, so the box is the height of the tallest and the
+ * layout never jumps as they swap. Each fades in over the beat it names.
+ * --s is the beat number, 1 to 4, and the delay is derived from it rather than
+ * typed per line: one quarter of the cycle each, offset back by the length of
+ * the fade-in so a line is fully up when its beat starts. */
+.flow-status {
+  position: absolute;
+  left: 50%;
+  top: 92%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  max-width: none;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+.flow-status > span {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  line-height: var(--lh-label);
+  /* 11px type, so this is the 4.5:1 job and not the 3:1 one. --label-ink is
+   * the token for exactly that on every surface: --accent-lift on dark
+   * (5.30:1) and --accent-text on light and muted (6.46:1 and 5.67:1). It is
+   * NOT --flow-ink, which is the graphic ink and lands at 4.59:1 on paper. */
+  color: var(--label-ink);
+  opacity: 0;
+  animation: flow-status-run var(--cycle) linear infinite;
+  animation-delay: calc((var(--s) - 1) * var(--cycle) / 4 + var(--cycle) * 0.02);
+}
+@keyframes flow-status-run {
+  0%      { opacity: 0; }
+  3%, 22% { opacity: 1; }
+  25%     { opacity: 0; }
+  100%    { opacity: 0; }
+}
+
+/* ---- the sectors column ---- */
+/* Eight equal rows is not a style choice, it is the registration contract:
+ * chip i is centred at (i + 0.5)/8 of the stage height and the eight feed
+ * paths leave at exactly those eight numbers. Add a ninth industry and the
+ * path data has to be regenerated. */
+.flow-sectors {
+  grid-column: 1;
+  grid-row: 1;
+  z-index: 2;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-rows: repeat(8, 1fr);
+}
+/* THE DOT IS THE ORIGIN, and that is now literal: flow.js measures each dot's
+ * centre off the DOM and starts that row's feed path exactly there. Nothing
+ * about the feed geometry is typed any more, which is what lets the labels sit
+ * wherever the type scale puts them.
+ *
+ * LEFT ALIGNED. Chip, 2026-07-31: "The industries on the left just seemed far
+ * away. They could almost be left-aligned and the nodes going to the
+ * industries could be a bit more random where they connect to them, at the end
+ * of the word." So the rows start at the column's left edge and each line
+ * leaves from the end of its own word, which means the eight origins are
+ * ragged by construction. That raggedness IS the randomness he asked for; it
+ * is not decoration added on top.
+ * It was right aligned for one day, when the column was a fixed 30% and the
+ * feed paths were typed at a single x. Both of those are gone.
+ *
+ * --g is the gap between a word and its dot, set per row in the markup. It
+ * varies the origins a little further so the eight do not resolve into a neat
+ * diagonal following label length alone. Small values only: the dot has to
+ * still read as belonging to that word. */
+.flow-sector {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--g, var(--space-s));
+  max-width: none;
+  min-width: 0;
+}
+.flow-sector-name { font-size: var(--step--1); line-height: var(--lh-label); color: var(--fg-lo); }
+
+/* ---- reduced motion ---- */
+/* EVERY animation stops and the diagram is left in ONE HELD MOMENT, the same
+ * one the no-script view shows: the first industry and the hub lit together,
+ * their connections drawn to real points on the globe, nothing travelling.
+ * That is a legible still of exactly what the component is about, which a bare
+ * unlit network would not have been.
+ * The page-level reduce block zeroes duration, which is undefined behaviour on
+ * an infinite loop rather than a stop, so it is named explicitly here.
+ * TRANSITIONS TOO, not just animations. .is-live is a transition now, and a
+ * running transition is motion whatever it is attached to. The lit state still
+ * applies, it just arrives instantly.
+ * flow.js holds up its end: it stops advancing the slot under the same query,
+ * so nothing ever removes .is-live from the industry the markup shipped lit.
+ * The globe stops as well; globe.js checks the same query itself. */
+@media (prefers-reduced-motion: reduce) {
+  .flow-stage *,
+  .flow-stage *::before,
+  .flow-stage *::after { animation: none !important; transition: none !important; }
+  .flow-pulse    { opacity: 0; }
+  .flow-status > span:not([style*="--s:1"]) { opacity: 0; }
+  .flow-status > span[style*="--s:1"] { opacity: 1; }
+}
+
+/* ---- narrow ---- */
+/* THE WHOLE BAND COMES OFF. Chip, 2026-07-31: "Probably don't need to see any
+ * of this on the smaller mobile sizes, just desktop."
+ *
+ * IT WAS A DEGRADED FALLBACK AND THAT IS GONE TOO. The art and the globe came
+ * off and the eight labels wrapped into a list under a static hub and a static
+ * status line, which was three animation beats' worth of markup rendering as a
+ * plain list of industries. Those rules are deleted rather than left orphaned;
+ * recoverable from git.
+ *
+ * NO CONTENT IS LOST ON A PHONE, and this was checked before it was agreed.
+ * The band's only unique claim is the answer to "who attends", and the FAQ
+ * further down this page carries "Who attends the Congress?" as its own
+ * question with the same answer in prose. The eight industries are also links
+ * in the intro sentence, which is inside this band, but every one of them is
+ * reachable from the industries index in the footer and the subnav. So this is
+ * a decoration that stops rendering, not a section that disappears. Do not
+ * restore the band for a phone thinking a reader lost something. */
+@media (max-width: 60rem) {
+  .flow-band { display: none; }
+}
+
+/* ================= 42. THE CONGRESS APP BAND ================= */
+/* /congress/ #app only. Chip, 2026-07-31: "make that a full blue background
+ * with the screenshot on the right and the info on the left."
+ *
+ * THE TOKENS ARE REMAPPED, NOTHING IS HAND-COLOURED. Same technique as the
+ * three data-surface blocks: the band redeclares the component variables and
+ * every child (.sec-head, .link-more, .mod-shot-frame) keeps working with no
+ * knowledge of where it is. Hand-painting each child would have left the next
+ * component dropped in here rendering dark-on-blue.
+ *
+ * ONE INK, AND IT IS NOT A SHORTCUT. --fg, --fg-hi and --fg-lo all resolve to
+ * --accent-ink here, which measures 4.59:1 on --accent. There is no dimmer
+ * white available: anything stepped down from #ffffff on this blue falls under
+ * 4.5:1 and stops being legible body copy. So the band has no de-emphasis
+ * layer, which is why nothing inside it uses a caption or a muted note. Do not
+ * introduce one by adding a --fg-lo shade, and do not put an 11px .label in
+ * here for the same reason.
+ *
+ * THE PAGE'S ONE FULL-BLEED ACCENT, and it is the last band before the footer.
+ * That position is deliberate: an accent field this size anywhere above the
+ * hero photograph would compete with it. */
+.app-band {
+  --bg:            var(--accent);
+  --fg:            var(--accent-ink);
+  --fg-hi:         var(--accent-ink);
+  --fg-lo:         var(--accent-ink);
+  --block:         var(--accent);
+  --rule-ink:      var(--accent-ink);
+  --rule-ink-load: var(--accent-ink);
+  --link:          var(--accent-ink);
+  --label-ink:     var(--accent-ink);
+  background: var(--bg);
+  color: var(--fg);
+  padding-block: var(--space-4xl);
+}
+/* The heading joins the four-title set. Restated rather than added to that
+ * selector list because those four sit on the page ground and this one does
+ * not, so if the group ever gains a colour this one must not inherit it. */
+.app-band .sec-head h2 {
+  font-size: var(--step-4);
+  letter-spacing: var(--track-4);
+}
+.app-band .sec-head {
+  border-top: 0;
+  padding-block-start: 0;
+}
+
+/* Copy left, screenshot right. Same 5/6 split .mod-feature-inner uses, and
+ * for the same reason: a phone screenshot wants the wider half. */
+.app-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: var(--space-2xl);
+  align-items: start;
+  margin-block-start: var(--space-xl);
+}
+@media (max-width: 60rem) {
+  .app-inner { grid-template-columns: 1fr; gap: var(--space-xl); }
+}
+
+/* The subhead Chip asked for: what the old h3 said, one rung under the h2 and
+ * above the description rather than beside it. A <p>, not a heading, because
+ * the section already has its heading and a second one would put a rank in
+ * the outline that the content does not have. */
+.app-sub {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 500;
+  letter-spacing: var(--track-2);
+  line-height: var(--lh-heading);
+  max-width: 22ch;
+  margin: 0 0 var(--space-m);
+}
+.app-copy p { max-width: var(--measure); }
+
+/* The empty screenshot frame inherits --rule-ink-load, which is white in this
+ * band, so its border would have been a solid white box. Held back to the
+ * hairline weight it has everywhere else and let it read as a placeholder. */
+.app-band .mod-shot-frame { border-color: var(--accent-ink); }
+
+/* ---- the subnav's page-link group ---- */
+/* Everything left of this moves you down the page, everything right of it
+ * leaves the page. auto margin on the first of the two opens the gap; there
+ * is no separator glyph, because the gap IS the separator.
+ * The two are real links to real pages and carry no aria-current: wireSubnav()
+ * collects a[href^="#"] only, so they are outside the marker by construction.
+ * On a narrow screen the bar is already a horizontal scroller, and an auto
+ * margin inside an overflowing flex row resolves to zero, so the group simply
+ * falls in at the end of the run. That is correct and needs no query. */
+.subnav-list > li.subnav-end { margin-inline-start: auto; }
+
+/* ================= 43. THE HOMEPAGE PRIMER ================= */
+/* index.html, the "What is ConvergX" section that introduces the flow band
+ * directly under it. Three changes Chip asked for on 2026-07-31, all of them
+ * about this section reading as one thing with the diagram rather than as a
+ * generic section that happens to sit above it. */
+
+/* NO RULE ABOVE THE HEADING. Every other .sec-head on the site carries a
+ * hairline that separates it from the section before it. This one opens a
+ * band on a new ground, so the ground change IS the separation and the rule
+ * was drawing a line inside a boundary that already existed. */
+[aria-labelledby="whatcx-h"] .sec-head {
+  border-top: 0;
+  padding-block-start: 0;
+}
+
+/* THE SAME SIZE AS THE CONGRESS PAGE TITLES. Chip: "Make What is ConvergX
+ * bigger, like the titles on the Conference page." That is --step-4 with
+ * --track-4, the size Congress Overview, The Speakers, The Agenda, Questions
+ * and The Congress App all share. Stated here rather than added to that
+ * selector list because those four are scoped to /congress/ ids. */
+[aria-labelledby="whatcx-h"] .sec-head h2 {
+  font-size: var(--step-4);
+  letter-spacing: var(--track-4);
+}
+
+/* The core message, moved out of the right rail so only the three disclosures
+ * live there. Body size, not the lede's --step-1: it follows a lede, and
+ * repeating that scale would turn the whole left column into one
+ * undifferentiated block with no way in. */
+.whatcx-say {
+  margin-block-start: var(--space-m);
+  max-width: var(--measure);
+  color: var(--fg);
+}
+.whatcx-say:first-of-type { margin-block-start: var(--space-l); }
+
+/* AIR UNDER THE DIAGRAM is handled at the :last-child rule in section 41, not
+ * here. A surface-scoped rule was written at this point first and never won:
+ * [data-surface] > .flow-band:last-child is (0,3,0) against its (0,2,0), so
+ * the value that actually governs is that one. Fixing it at the source beats
+ * escalating specificity to beat a rule that was already correct in shape. */
+
+/* ================= 44. THE PLATFORM PROCESS FIGURE ================= */
+/* /platform/ #modules only. Chip, 2026-07-31: "what if we came up with a really
+ * cool dynamic graphic that evolves as you scroll down the page. The content on
+ * the left scrolls, but the graphic kind of stays the same but evolves through
+ * the process that you see in the menu bar eyebrows for the platform.
+ * Companies stating their requirements on the opportunity board, then rfp
+ * scraping, etc etc... then to the deciding who should meet part and scoring,
+ * the matching engine and configerable scoring... , then through the
+ * introduction, etc etc... then also the reference modules... finally, the
+ * Congress parts at the end."
+ *
+ * NOTHING NEW IS INVENTED HERE. The five stages ARE the five module groups
+ * this page already ships, in the order it already ships them, with their
+ * headings, their eyebrows and their fifteen modules untouched. The figure
+ * illustrates copy that already cleared; it does not add any.
+ *
+ * ONE DIAGRAM, FIVE STATES, and the states ACCUMULATE. Chip's word is
+ * "evolves", so stage 4 is stages 1 to 3 still on the plate with the Congress
+ * added under them, not a fourth picture swapped in. That is the whole reason
+ * the reveal is written as "hide everything after the current group" rather
+ * than "show the current group": accumulation is the default and the script
+ * only ever takes the future away.
+ *
+ * THE LINE LANGUAGE IS SECTION 41'S AND SECTION 20'S, not a third one. The
+ * plate reuses .fig-solid, .fig-dash and .fig-dot verbatim, exactly as the
+ * fifteen .grp-icon marks beside it do, and the pulse is section 41's
+ * pathLength="100" comet with its drop-shadow bloom and its 14/86 dash. This
+ * is the same system the reader has already met on the homepage and on
+ * /congress/, seen from the inside. If you find yourself inventing a stroke
+ * weight, a dash pattern or a glow here, take section 41's instead.
+ *
+ * THE HONESTY BURDEN IS THE HARD PART, and it is why the gate exists.
+ * This page's own h1 is "No part of this software decides who meets.", it
+ * carries a section called "Where it stops", and the vetting part is headed
+ * "The gate is on the introduction." A diagram of an automatic pipeline
+ * running end to end would contradict the page it sits in, so the plate is
+ * built to make that impossible to read:
+ *   1. the gate is the only --rule-med stroke on the plate and the only
+ *      element that spans it edge to edge,
+ *   2. every candidate line STOPS on it. Nothing crosses. The stopping is
+ *      geometry, not opacity: the paths genuinely end at the gate's y,
+ *   3. the person is the only ringed mark in the figure,
+ *   4. no pulse ever travels through the gate. Stage 2's comets run into it
+ *      and die there; the single line below it belongs to stage 3 and is
+ *      drawn only once a person has been shown making the call,
+ *   5. exactly ONE line leaves the gate where four arrived.
+ * The figcaption is this page's own h2, character for character. DO NOT
+ * "improve" any of the five above into an automatic-looking flow. */
+
+/* ---- the two columns ---- */
+/* 7/5 and not 8/4: at 1280 that gives the left column about 610px, which is
+ * two module columns at a comfortable width, and the right column about 435px,
+ * which is the smallest the plate reads at. The gap is --space-2xl, the
+ * horizontal step, per section 6b. */
+.pflow {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+/* The five groups, spaced by row-gap rather than by five section paddings.
+ * --space-xl is exactly what .section--dense spent above each of them before
+ * they were wrapped, so the interval between groups is unchanged; the mobile
+ * value below matches section 6b's mobile .section--dense the same way. */
+.pflow-groups {
+  display: grid;
+  row-gap: var(--space-xl);
+  min-width: 0;
+}
+
+/* TWO MODULE COLUMNS IN THIS COLUMN, not the page's three. Section 11 pins
+ * .modules to repeat(3, 1fr) at desktop against the FULL content width; inside
+ * a 7/12 column that resolves to about 185px a module, which breaks
+ * "Procurement Workflow Engine" over three lines. Two columns land at about
+ * 290px, above section 11's own 16rem minimum, and the taller left column is
+ * also what gives the pinned plate a scroll run to hold against. */
+@media (min-width: 60.0625rem) {
+  .pflow .modules { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---- the pinned plate ---- */
+/* THE OFFSET IS DERIVED THE WAY SECTION 33'S IS, not typed. The chrome this
+ * page carries is the sticky .shell-header, --shell-h tall plus the hairline
+ * it always reserves, and the plate then wants one body line of air under it,
+ * which is --space-m. That is the same three terms and the same reasoning as
+ * the --anchor-offset pair at the end of section 33, minus the subnav term,
+ * because this page has no subnav.
+ * THE HEADER TERM IS SCOPED WITH :has FOR THE SAME REASON THE PHOTO HERO'S IS
+ * (section 30): .shell-header is a class shell.js ADDS. With scripts off it
+ * never exists, the <noscript> nav renders in normal flow, there is no sticky
+ * bar to clear, and the plate pins against one line of air instead. The notice
+ * bar is not in either number on purpose: it sits ABOVE the header and scrolls
+ * away, so it is never overlapping anything by the time this pins. */
+.pfig {
+  --pfig-top: var(--space-m);
+  /* One beat of the pulse. Component scoped next to the stage transition for
+   * the same reason section 41 scopes --cycle: there is no duration token. */
+  --pfig-cycle: 2.6s;
+  --pfig-fade: 420ms;
+  position: sticky;
+  top: var(--pfig-top);
+  min-width: 0;
+}
+body:has(.shell-header) .pfig {
+  --pfig-top: calc(var(--shell-h) + var(--rule-hair) + var(--space-m));
+}
+
+/* THE PLATE NEVER OUTGROWS THE VIEWPORT IT IS PINNED IN. Without this a 660
+ * unit plate in a 435px column stands 513px tall, which clears a laptop but
+ * clips its own bottom on a 700px viewport once the offset is spent. svh, not
+ * vh, so a phone browser's collapsing toolbar cannot push it out either, and
+ * --space-xl leaves the caption room under it. preserveAspectRatio does the
+ * rest: the plate scales down inside the box and stays centred. */
+.pfig-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+  max-block-size: calc(100svh - var(--pfig-top) - var(--space-xl));
+  color: var(--fg-lo);
+  overflow: visible;
+}
+
+/* ---- the resting plate, and what lit means ---- */
+/* ONE INK FOR THE LIT STATE, taken the way section 41 takes --flow-ink: the
+ * component states a variable, the surface decides its value. This page is
+ * data-surface="muted", so it resolves to --accent (4.02:1 on the muted
+ * ground, clear of the 3:1 floor for a graphic that carries meaning). The
+ * dark-ground branch exists so the plate is portable, not because it is used
+ * today. */
+.pfig { --pfig-ink: var(--accent); }
+[data-surface="dark"] .pfig { --pfig-ink: var(--accent-lift); }
+
+/* A STAGE IS A <g>, AND THE FIVE ARE IN ORDER. That ordering is a contract,
+ * not tidiness: the reveal below counts children, so moving a group in the
+ * markup moves it in the sequence. */
+.pfig-art > g {
+  transition: opacity var(--pfig-fade) linear, color var(--pfig-fade) linear;
+}
+
+/* THE REVEAL, AND WHY IT IS WRITTEN INSIDE OUT.
+ * Four selectors hide everything AFTER the current stage. Written the other
+ * way round, as "show stages 1 to n", it would have been fifteen selectors and
+ * the no-JS case would have been wrong: with no data-stage attribute NOTHING
+ * matches here, so nothing is hidden and the reader gets the complete figure,
+ * every stage drawn, which is exactly the finished state a scriptless page
+ * should show. The progressive enhancement is free rather than bolted on.
+ * Stage 5 is absent from this list because at stage 5 there is nothing left
+ * to hide. */
+.pfig[data-stage="1"] > .pfig-art > g:nth-child(n+2),
+.pfig[data-stage="2"] > .pfig-art > g:nth-child(n+3),
+.pfig[data-stage="3"] > .pfig-art > g:nth-child(n+4),
+.pfig[data-stage="4"] > .pfig-art > g:nth-child(n+5) { opacity: 0; }
+
+/* THE LIVE STAGE, and .is-live is written from ONE place in platform.js, the
+ * same discipline section 41 states for the flow band: one writer, so two
+ * stages can never be lit at once. Colour alone, plus a bloom on the strokes,
+ * which is the section 41 vocabulary. The earlier stages stay in the resting
+ * ink and read as settled, which is the point: they already happened. */
+.pfig-art > g.is-live { color: var(--pfig-ink); }
+.pfig-art > g.is-live .fig-solid,
+.pfig-art > g.is-live .fig-dot {
+  filter: drop-shadow(0 0 5px var(--pfig-ink));
+}
+
+/* THE GATE. The one --rule-med stroke on the plate and the widest thing on it,
+ * so it reads as a bar across the process rather than as another connector. It
+ * holds --fg-hi at every stage, lit or not, because the human decision is not
+ * a phase that passes. */
+.pfig-gate {
+  fill: none;
+  stroke: var(--fg-hi);
+  stroke-width: var(--rule-med);
+}
+/* The person on the gate. The only ringed mark in the figure, and the ring is
+ * what stops it reading as one more node in a chain. --fg-hi, not the accent:
+ * the accent is what the SOFTWARE does, and this mark is deliberately not
+ * that. */
+.pfig-person      { fill: var(--fg-hi); stroke: none; }
+.pfig-person-ring { fill: none; stroke: var(--fg-hi); stroke-width: var(--rule-med); }
+
+/* ---- the travelling pulse ---- */
+/* Section 41's comet, verbatim in every respect that matters: pathLength="100"
+ * on the path so one 14/86 dash reads the same length on a short feed and a
+ * long fan, round cap, and the glow on the PULSE rather than on the line,
+ * because drop-shadow on the stroke is the only thing that blooms.
+ *
+ * IT RUNS ONLY WHEN THE STAGE IS LIVE AND THE FIGURE IS ON SCREEN, and both
+ * classes come from platform.js. That is the off-screen pause: a CSS animation
+ * on a scrolled-past element keeps ticking, and .is-seen is what stops it. It
+ * is also why the no-JS plate has no motion at all, which is correct: neither
+ * class is ever added, so the pulses hold at opacity 0 and the figure is a
+ * finished still. */
+.pfig-pulse {
+  fill: none;
+  stroke: var(--pfig-ink);
+  stroke-width: calc(var(--rule-hair) * 3);
+  stroke-linecap: round;
+  stroke-dasharray: 14 86;
+  opacity: 0;
+  filter: drop-shadow(0 0 6px var(--pfig-ink));
+}
+.pfig.is-seen > .pfig-art > g.is-live .pfig-pulse {
+  animation: pfig-run var(--pfig-cycle) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes pfig-run {
+  0%       { stroke-dashoffset: 100; opacity: 0; }
+  6%       { opacity: 1; }
+  62%      { opacity: 1; }
+  70%      { stroke-dashoffset: 0;   opacity: 0; }
+  100%     { stroke-dashoffset: 0;   opacity: 0; }
+}
+
+/* ---- the stage readout ---- */
+/* Five lines in ONE grid cell, so the box is the height of the tallest and
+ * nothing shifts as they swap. Section 41's status track, same technique.
+ * THE STRINGS ARE THE FIVE GROUP HEADINGS, character for character, and there
+ * is no sixth line and no invented one. aria-hidden because each one restates
+ * an <h2> sitting a few hundred pixels to its left; a screen reader should not
+ * hear the group names twice. Same reasoning as .grp-icon in section 26.
+ * 11px type, so this is the 4.5:1 job: --label-ink, not --pfig-ink. */
+.pfig-read {
+  display: grid;
+  place-items: start;
+  margin-block-start: var(--space-s);
+}
+.pfig-read > span {
+  grid-area: 1 / 1;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  line-height: var(--lh-label);
+  color: var(--label-ink);
+  opacity: 0;
+  transition: opacity var(--pfig-fade) linear;
+}
+/* With no data-stage nothing matches, so no line shows and the caption alone
+ * names the plate. That is the right scriptless result: a readout is a state
+ * readout, and with no script there is no state to read. */
+.pfig[data-stage="1"] .pfig-read > span:nth-child(1),
+.pfig[data-stage="2"] .pfig-read > span:nth-child(2),
+.pfig[data-stage="3"] .pfig-read > span:nth-child(3),
+.pfig[data-stage="4"] .pfig-read > span:nth-child(4),
+.pfig[data-stage="5"] .pfig-read > span:nth-child(5) { opacity: 1; }
+
+/* ---- reduced motion ---- */
+/* THE STAGE STILL CHANGES, IT JUST ARRIVES. Everything here is a transition or
+ * an animation, and none of it carries information the reader would lose:
+ * data-stage is still written, the correct stages are still drawn, the live
+ * one is still inked. Only the fade between them and the comets go.
+ * Named explicitly rather than left to the page-level reduce block, for the
+ * same reason section 41 names its own: zeroing the duration of an infinite
+ * animation is undefined behaviour, not a stop.
+ * platform.js re-checks the query at runtime, the way globe.js does, so a
+ * reader who turns the preference on mid-page gets this immediately. */
+@media (prefers-reduced-motion: reduce) {
+  .pfig *,
+  .pfig *::before,
+  .pfig *::after { animation: none !important; transition: none !important; }
+  .pfig-pulse { opacity: 0; }
+}
+
+/* ---- narrow ---- */
+/* THE PLATE COMES OFF AND THE GROUPS STACK EXACTLY AS THEY DID. A sticky
+ * two-column has nothing to pin against once it is one column, and the plate
+ * would then be a 435px block sitting between two module groups on a phone.
+ * NO CONTENT IS LOST, and that is checkable rather than asserted: the figure
+ * carries no claim, no number and no word that is not already an <h2> or a
+ * <figcaption> in the same section, so a phone reader gets the identical five
+ * headings and identical fifteen modules. The grid collapses to one column and
+ * the row-gap steps down to the mobile .section--dense interval from section
+ * 6b, so the spacing between groups is what it was before this component
+ * existed. */
+@media (max-width: 60rem) {
+  .pflow { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .pflow-groups { row-gap: var(--space-l); }
+  .pfig { display: none; }
+}
+
+/* ---- the modules take a surface of their own, /platform/ only ---------------
+ * Chip, 2026-08-01: "on the light grey background, you could use white
+ * background for the modules to make them pop a bit more."
+ *
+ * WHY THEY NEEDED ONE. The module row is authored for a page ground: a hairline
+ * above each one, transparent behind it, which reads as a list when the ground
+ * is doing nothing else. Here the ground is muted grey and a pinned diagram is
+ * working three hundred pixels to the right, so fifteen transparent blocks read
+ * as loose text drifting on the same field the figure sits on. A surface makes
+ * each one an object, and the eye can then tell the reading column from the
+ * diagram column without being told.
+ *
+ * --block, NOT --paper. The semantic token already resolves to white on the
+ * muted ground and to the panel step on every other surface, so this rule keeps
+ * working if the section's surface is ever changed. Naming the literal would
+ * silently produce white-on-white the day someone sets this band to light.
+ *
+ * STILL NOT CARDS, and section 9's rule holds without exception: no shadow, no
+ * radius, no colour strip, no hover lift. A surface plus a hairline plus real
+ * padding is the whole treatment. --radius stays 0 and stays structural.
+ *
+ * THE HAIRLINE MOVES rather than disappearing: it was a top rule separating one
+ * transparent block from the next, and it becomes an outline that closes the
+ * box. Dropping it entirely would leave white shapes floating with no edge,
+ * which on a ground this close in value reads as a rendering fault.
+ *
+ * SCOPED TO .pflow. The same .module component renders on the homepage and in
+ * the module index elsewhere on their own grounds, where the authored
+ * treatment is correct and must not change. */
+.pflow-group .modules {
+  gap: var(--space-s);
+}
+.pflow-group .module {
+  background: var(--block);
+  border: var(--rule-hair) solid var(--rule-ink);
+  border-top: var(--rule-hair) solid var(--rule-ink);
+  padding: var(--space-m);
+}
+/* The icon sat on the block's own top edge when the block had no padding.
+ * Inside a padded box it needs to start at the padding, not above it. */
+.pflow-group .module .grp-icon { margin-block-start: 0; }
+
+/* ================= 45. THE VEILED PHOTOGRAPHIC HERO ================= */
+/* The eight sector pages. Opt in per page with [data-hero="veil"] on <body>
+ * plus .hero-veil-band on the section, exactly the way section 30 opts in.
+ *
+ * WHY THIS IS NOT .hero-photo-band, WHICH IS THE FIRST QUESTION ANYONE WILL
+ * ASK. Both components put a photograph behind hero copy and there the
+ * agreement ends. They are siblings, not one component with a variant, and
+ * folding them together would mean a rule that immediately has to fork:
+ *
+ *   TREATMENT   /congress/ is a DUOTONE. Section 30 flattens the frame to
+ *               luminance, pushes a blue through it on a `color` blend and
+ *               rebuilds the saturation. The sector heroes take NO filter and
+ *               NO tint: the photograph keeps its own colour and a neutral
+ *               dark veil sits over it. This is the whole brief, and it is the
+ *               opposite instruction, not a parameter.
+ *   SCRIM AXIS  /congress/ washes LEFT TO RIGHT, heaviest under a copy column
+ *               that ends around 79% across, clearing to 0.14 so the room
+ *               stays visible. This one washes TOP DOWN, heaviest at the top
+ *               where the sticky bar sits, clearing toward the bottom.
+ *               A gradient direction is not a value you tune, it is a
+ *               different composition.
+ *   BOTTOM EDGE /congress/ resolves its frame into --bg with a second
+ *               gradient, because the photograph and the page below it share a
+ *               ground and any seam would read as a rendering fault. The
+ *               sector band is a DARK band on a LIGHT page: its bottom edge is
+ *               a deliberate surface change that has been there since the band
+ *               was two columns, so there is nothing to fade into and section
+ *               45 has no equivalent of that layer.
+ *   POPULATION  one page against eight. A shared rule would carry a
+ *               [data-hero="photo"] exception in almost every declaration.
+ *
+ * WHAT THEY DO SHARE IS SHARED PROPERLY, in one place each, rather than by
+ * copy: the header-transparency behaviour is chrome and lives in section 30
+ * with both attributes on its selectors, and the vertical footprint is
+ * --hero-photo-h, declared once in section 31 and read by both. Those are the
+ * two things that genuinely must not drift. Everything else must.
+ *
+ * WHAT IT REPLACED. Section 21's .hero-vert: type in a seven-column track,
+ * photograph in a five-column track beside it, one accent rule on the seam.
+ * That component is NOT deleted and is still live, because /industries/
+ * manufacturing/ and /industries/military/ render it with the copy column and
+ * no photograph while they wait for theirs to be shot.
+ *
+ * PROGRESSIVE ENHANCEMENT. Nothing here needs JavaScript. The photograph is an
+ * <img> in the markup, the veil is a <span> painted by CSS, and the layer sits
+ * at top: 0 by default so that with scripts off, where shell.js never runs and
+ * the <noscript> nav renders in normal flow, the frame starts at the top of
+ * the band instead of being dragged up over the bottom of that nav list. The
+ * climb behind the bar is gated on :has(.shell-header), a class only the real
+ * shell adds. Same mechanism and same reasoning as section 30. */
+
+.hero-veil-band {
+  position: relative;
+  isolation: isolate;   /* the veil's stacking context stops at the band */
+  padding-block: 0;     /* the band's edges are the photograph's edges */
+}
+
+/* THE PHOTOGRAPH LAYER. Pulled up behind the nav bar by exactly one bar
+ * height, and only once the real shell exists. See the no-JS note above: the
+ * zero is the fallback, not an oversight. */
+/* z-index 0, NOT the -1 section 30 uses, and the difference is the section's
+ * own background. THIS COST A RENDER AND IS WORTH WRITING DOWN. /congress/
+ * carries data-surface on the <body>, so .hero-photo-band paints no ground of
+ * its own and a layer at -1 shows through it to the page behind. These sector
+ * bands carry data-surface="dark" on the SECTION, because the page around them
+ * is light and only the band inverts, so the section DOES paint --ground. A
+ * child at -1 paints behind its own parent's background and the photograph
+ * disappeared completely: a flat dark band, no error, nothing in the console.
+ *
+ * The attribute has to stay where it is. It is what resolves --ink, --fg-hi
+ * and the rest for every piece of copy in the band, and moving it would relight
+ * the whole page. So the layer climbs above the background instead of hiding
+ * under it, and .hero-veil-band > .editorial takes an explicit layer above
+ * that. Both are stated rather than left to source order, because "it works
+ * because the markup happens to be in this order" is the next silent break. */
+[data-hero="veil"] .hero-veil {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-veil-band > .editorial { position: relative; z-index: 1; }
+[data-hero="veil"]:has(.shell-header) .hero-veil {
+  top: calc(-1 * var(--shell-h));
+}
+
+/* NO FILTER, AND THAT IS THE COMPONENT. Section 30's img rule carries
+ * grayscale, contrast, brightness and saturate to build the duotone. There is
+ * deliberately no filter property here at all: the frames are colour
+ * photographs and they stay colour photographs. If anyone ever adds a
+ * brightness() here to "help the text", the veil below is the thing to deepen
+ * instead, because that is the layer whose contribution is measurable.
+ *
+ * NO object-position EITHER, AND THAT IS LOAD-BEARING. Every image in this
+ * component carries a .focal--* class, and those rules are specificity 0,1,0.
+ * A default stated here would be 0,2,1 and would BEAT all four of them,
+ * silently discarding the art direction the classes exist to carry. The
+ * initial value for object-fit: cover is a centre crop, which is a sane
+ * fallback for any frame that arrives without a focal class. See the section
+ * 21 comment for what each focal value is protecting and why they need
+ * re-deriving against this wide crop once the new files land. */
+[data-hero="veil"] .hero-veil img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* THE VEIL. A SEPARATE ELEMENT, not a pseudo, and not because a pseudo could
+ * not paint it. It is separate because it is the thing that has to be tuned:
+ * eight photographs will pass under it, they are not equally dark, and a layer
+ * you can point at in the markup is a layer somebody can reason about and
+ * measure. Chip asked for it as its own object and he is right.
+ *
+ * TOP DOWN, HEAVIEST AT THE TOP:
+ *   0%    0.86. The sticky header sits here. This stop is a UI legibility
+ *         floor for nav labels over an arbitrary frame, not a text floor,
+ *         and it is the heaviest number in the gradient for that reason.
+ *   45%   0.80. Still carrying most of its weight. The eyebrow and the whole
+ *         --step-6 headline land above this, and a gradient that has already
+ *         started clearing under the headline is a gradient that fails on
+ *         whichever of the eight photographs happens to be bright there.
+ *   100%  0.58. The clear-off, and it is SHALLOWER THAN IT LOOKS. See below.
+ *
+ * WHY THE FADE DOES NOT RUN TO ZERO, WHICH IS THE ONE THING ABOUT THIS
+ * COMPONENT THAT LOOKS LIKE A COMPROMISE AND IS NOT. The first version ran
+ * 0.90 down to 0.26, on the assumption that the copy occupied the top two
+ * thirds of the band and the bottom third was free photograph. MEASURED, that
+ * assumption is false, and false structurally rather than by accident. The
+ * band has no authored height: it is --hero-offset plus the copy plus
+ * --space-2xl, so the copy ALWAYS ends about one --space-2xl above the bottom
+ * edge, whatever the page and whatever the viewport. On /industries/energy/ at
+ * 1280 the last lede runs from 82.3% to 92.6% of the veil box. There is no
+ * free bottom third to fade into on any of these pages, and against the
+ * photographs in place at the time the deep version measured that lede at
+ * 1.70:1, which is not text.
+ *
+ * WHAT WAS REJECTED, so it is not re-proposed: padding the band out at the
+ * bottom to manufacture a fade zone. That buys the gradient room by inventing
+ * height the design did not ask for and pushes the band past the Congress
+ * footprint it is supposed to match. Section 31 makes the same call in the
+ * other direction and is worth reading: starving the copy to fit a gradient is
+ * the wrong half of that trade. The gradient serves the copy.
+ *
+ * THESE THREE NUMBERS ARE MEASURED, NOT CHOSEN. Re-measured 2026-08-03 against
+ * the current photographs, all eight pages, at 1280 and 1920, sampling the
+ * real composited pixels behind each text element rather than an average of
+ * the frame. Reported figure is the WORST SINGLE PIXEL under the eyebrow, the
+ * h1, the lede, the nav and the wordmark, which is the strictest reading
+ * available and the only one that survives a photograph with a highlight in it.
+ *
+ *   veil            worst case, all 8 pages, 1280 and 1920
+ *   0.90/0.87/0.70  8.41:1
+ *   0.86/0.80/0.58  6.89:1   <- shipped
+ *   0.82/0.74/0.50  5.99:1
+ *   0.78/0.68/0.42  5.21:1
+ *
+ * /industries/construction/ at 1920 is the binding page in every row, and
+ * /industries/agriculture/ is within a tenth of it. Both put open overcast sky
+ * across the top of the frame, directly under the header. Every row above
+ * clears the 4.5:1 text floor and the 3:1 UI floor, so the choice was not
+ * legibility against failure, it was how much photograph to give back.
+ *
+ * WHY NOT THE LIGHTEST ROW, since it also passes. Two reasons and the second
+ * is the real one. It leaves a 16 percent margin over the floor, and a margin
+ * that thin is one photograph away from being wrong. And every one of these
+ * eight files is a GENERATED PLACEHOLDER: the commissioned frames have not
+ * been shot, their tonality is unknown, and a veil tuned to the exact edge of
+ * the stand-ins would have to be re-tuned the day the real ones land. 0.86 is
+ * the setting that gives the photograph back without spending the headroom
+ * that absorbs the next image.
+ *
+ * RE-MEASURE WHEN THE COMMISSIONED FRAMES LAND. Start with
+ * /industries/construction/ at 1920, then /industries/agriculture/. If either
+ * fails, deepen this gradient rather than filtering the image: the veil is the
+ * layer whose contribution is measurable.
+ *
+ * TOKEN-DERIVED, NOT A LITERAL, and this is the one place it differs from
+ * section 30 on purpose. That section wrote rgba() literals and said plainly
+ * why: a wash compositing against image pixels cannot resolve through a
+ * surface token, because there is no surface under it to resolve against.
+ * That reasoning is about which GROUND the wash sits on and it is correct.
+ * It is not a reason the wash's own colour has to be a hand-typed number.
+ * color-mix against --ground gives the identical near-black neutral, keeps the
+ * value traceable to the palette, and means a palette change carries here
+ * instead of leaving a stale hard-coded grey behind. --ground is the dark grey
+ * ground rather than a true black, which is what keeps this reading as a veil
+ * over a photograph and not as a black sheet.
+ * SUPPORT: color-mix is the same generation as the :has() this file already
+ * depends on in section 30 and above, so it introduces no new floor.
+ *
+ * NEUTRAL, AND THAT IS THE POINT. No hue, no blend mode, no tint. The
+ * photograph's own colour survives underneath. Anything that shifts hue here
+ * is the Congress treatment arriving by the back door. */
+[data-hero="veil"] .hero-veil > span {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom,
+    color-mix(in srgb, var(--ground) 86%, transparent) 0%,
+    color-mix(in srgb, var(--ground) 80%, transparent) 45%,
+    color-mix(in srgb, var(--ground) 58%, transparent) 100%);
+}
+
+/* THE FOOTPRINT, and it is read, never retyped. --hero-photo-h is declared in
+ * section 31 next to the Congress hero it was extracted from, so the two
+ * heroes occupy the same vertical space by construction rather than by
+ * agreement. The bottom pad matches too: the copy is top-aligned and the slack
+ * falls below it, so without a pad the last line of the lede would sit against
+ * the band's bottom edge on the pages whose copy runs short. */
+.hero-veil-band > .editorial {
+  min-height: var(--hero-photo-h);
+  padding-block: var(--hero-offset) var(--space-2xl);
+}
+
+/* THE COPY COLUMN. Eight of twelve rather than section 21's seven: the
+ * photograph no longer occupies a track of its own, so the copy is not being
+ * held off anything, and a --step-6 headline in a narrow track is what was
+ * driving the old band to four lines. It stays a COLUMN rather than going full
+ * width because a headline that runs the whole page has no shape, and because
+ * the right third of the frame is where the photograph is still legible under
+ * the veil. Every declaration below is section 21's .hero-vert-copy, restated
+ * rather than inherited: the two components must be able to move apart. */
+.hero-veil-copy {
+  grid-column: main-start / span 8;
+  align-self: start;
+  display: grid;
+  justify-items: start;
+  row-gap: var(--gap-under-heading);
+}
+/* Same law as every other hero: the h1 owns its lede, and the label above it
+ * is a separate idea and gets the wider interval. */
+.hero-veil-copy h1 { margin-block-start: var(--space-xl); }
+/* The eyebrow wrapper is a bare <header> holding one inline label. Section 26
+ * already matches `header:has(> .label:only-child)` and gives it the label's
+ * own leading, so the eyebrow lands on --hero-offset here like everywhere
+ * else. Nothing needs restating for it; this note exists so the next person
+ * does not add a rule that is already being applied. */
+
+/* THE EYEBROW INK, AND IT HAS TO MOVE. On the dark ground --label-ink is
+ * --accent-lift, a blue that measures 5.30:1 against that ground. Over a
+ * VEILED PHOTOGRAPH there is no ground: the blue composites against whatever
+ * the frame is doing, and on a frame lit warm and orange, which every one of
+ * these specs asks for, blue-on-warm at 11px is the first thing to fail.
+ * Lifted to the emphasis ink and let the veil carry it, which is exactly the
+ * call section 30 made for the same reason on the Congress eyebrow. Scoped to
+ * this hero alone; every other eyebrow on all 64 pages is untouched. */
+[data-hero="veil"] .hero-veil-copy .label { color: var(--ink-hi); }
+
+/* NARROW WIDTHS. The band keeps its full-bleed photograph, unlike section 21,
+ * which dropped its image below the copy at 16:10. There is nothing to drop
+ * here: the photograph IS the ground, and a ground does not reflow.
+ *
+ * THE COLUMN HAS TO BE RESTATED OR IT OVERFLOWS. .hero-veil-copy is
+ * `main-start / span 8` at specificity 0,1,0, and there is no lower-specificity
+ * collapse rule that beats it, so at 375px the span-8 placement would survive
+ * into a grid whose content columns are far narrower and the copy would run
+ * off the edge. Section 31 records the same trap being hit and caught by
+ * measuring scrollWidth rather than by reading the rule. Restated here.
+ *
+ * THE VEIL GOES FLAT. A top-down wash still works on a phone, but the copy
+ * occupies proportionally far more of a short band, so the stretch that could
+ * afford to clear no longer exists. This keeps a single weight across the whole
+ * frame. It is stated at the SAME specificity as the base rule and sits later
+ * in the file, so it wins; it is inside a max-width query, so it cannot leak up
+ * to desktop.
+ *
+ * 0.74 IS MEASURED, and it is close to the desktop gradient's own average
+ * (0.86, 0.80 and 0.58 average to about 0.75), which is what a flat stand-in
+ * for that gradient should be. Sampled 2026-08-03 at 375 on the two binding
+ * pages, worst single pixel under any text:
+ *   flat 0.82  9.60:1     flat 0.74  8.29:1   <- shipped
+ *   flat 0.78  8.93:1     flat 0.70  7.68:1
+ * Narrow widths run FAR safer than desktop, and the reason is the crop, not
+ * luck: at 375 the box is tall and narrow, so cover takes a centre slice of a
+ * 16:9 frame and most of the open sky that makes /industries/construction/ and
+ * /industries/agriculture/ hard at 1920 is cropped away. Do not assume that
+ * relationship holds for a differently composed photograph. Re-measure at both
+ * ends when the commissioned frames land. */
+@media (max-width: 60rem) {
+  .hero-veil-copy { grid-column: main; }
+  .hero-veil-band > .editorial { padding-block: var(--hero-offset) var(--space-xl); }
+  [data-hero="veil"] .hero-veil > span {
+    background: color-mix(in srgb, var(--ground) 74%, transparent);
+  }
+}

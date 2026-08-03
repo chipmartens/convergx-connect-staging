@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/_system/tokens.css">
 <link rel="stylesheet" href="/_system/styles.css">
 </head>
-<body data-surface="light">
+<body data-surface="light" data-hero="veil">
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -28,7 +28,7 @@
     <div class="notice">
       <div class="notice-inner">
         <p class="notice-text">Celebrate 10 years of ConvergX, Sep 22 to 24, 2026.</p>
-        <a class="btn btn--solid notice-cta" href="/congress/#tickets">Register</a>
+        <a class="btn btn--solid notice-cta" href="/congress/register/">Register</a>
       </div>
     </div>
     <nav aria-label="Primary">
@@ -57,8 +57,12 @@
         <li><a href="/congress/">Conference</a>
           <ul>
             <li><a href="/congress/#agenda">Agenda</a></li>
-            <li><a href="/congress/#tickets">Register</a></li>
-            <li><a href="/congress/#sponsorship">Sponsor</a></li>
+            <li><a href="/congress/#speakers">Speakers</a></li>
+            <li><a href="/congress/the-app/">The app</a></li>
+            <li><a href="/congress/register/">Register</a></li>
+            <li><a href="/congress/sponsor/">Sponsor</a></li>
+            <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
+            <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
           </ul>
         </li>
         <li><a href="/xpand/">Consulting</a>
@@ -90,14 +94,84 @@
        practice, 12 to 18 months) may be cited here with attribution in
        the same sentence, or whether the one-figure rule holds. Chip,
        with Kim Van Vliet on clearance. Written figure-free until then. -->
-  <!-- The header band, POLISH-SPEC section 3: type left, photograph right,
-       one accent rule between them. It is the page's ONE grid break and its
+  <!-- SUPERSEDED 2026-08-03 BY THE BLOCK BELOW, and kept because the rest of
+       it is still the reason the mid-page photograph section is gone. What is
+       no longer true is only the first sentence: the band was POLISH-SPEC
+       section 3, type left, photograph right, one accent rule between them. It is the page's ONE grid break and its
        ONE surface change, which is why the mid-page photograph section that
        used to sit under 01 is gone. The image moved up here; nothing was
        duplicated. The band holds label, h1 and lede only. -->
-  <section class="hero-vert" data-surface="dark">
+  <!-- FULL BLEED AS OF 2026-08-03, Chip: the band takes the same vertical
+       footprint as the Congress hero, the photograph runs the full width
+       behind the copy, and a dark veil fades top down over it so the header
+       nav and the copy both stay readable. Component and reasoning: styles.css
+       section 45. NOT the Congress treatment: no duotone, no tint, no hue
+       shift. The photograph keeps its own colour.
+
+       THE ACCENT RULE CAME OFF THE IMAGE WITH THE LAYOUT. .hero-vert-rule
+       painted a 2px accent edge on the seam between the copy track and the
+       media track, and in full bleed there is no seam. POLISH-SPEC permits
+       this page two orange rules and a permission is a ceiling, not a quota.
+
+       THE LAYER IS DECORATIVE, aria-hidden with an empty alt, and the call was
+       re-made after the swap rather than carried over. As the veiled ground the
+       frame is texture and the h1 and the two lede lines carry the argument;
+       and the file is a GENERATED PLACEHOLDER, so a confident alt describing a
+       fabrication hall would assert to the one reader who cannot check it that
+       this page shows a real one. An empty alt on a decorative layer says
+       nothing. A descriptive alt on a stand-in says something false.
+
+       ONE THING GENUINELY CHANGED HERE AND IT IS WORTH KNOWING. The retired
+       photograph carried the page's scale argument in the picture: a single
+       small figure at the far end of a rotor, which is what made the component
+       read as enormous rather than as an object. Its alt was the only place
+       that argument was stated in words. The placeholder has two figures
+       walking past a vessel and they read as incidental staffage, not as a
+       ruler. NOTHING IS LOST FROM THE PAGE, because the argument the page
+       actually makes is in the h1 and the lede and never depended on the
+       photograph. But if the commissioned frame is shot to the spec below, the
+       scale figure comes back and it is load-bearing again, and at that point
+       both the focal class and the decorative call need re-making.
+
+       fetchpriority=high and NOT lazy: this is now the largest paintable thing
+       above the fold. -->
+  <section class="hero-veil-band" data-surface="dark">
+    <div class="hero-veil" aria-hidden="true">
+      <!-- THE COMMISSIONED ART DIRECTION, VERBATIM, AND IT IS STILL THE TARGET.
+           It was an attribute on the old <img> and is a comment now, because an
+           attribute on this element would read as a description of THIS file
+           and it is not one. The shoot has not happened.
+           SPEC: "Photograph, 1600x1000, 16:10. One long-lead component under
+           fabrication: a rotor, a transformer core, a pressure vessel shell, on
+           the shop floor, at a scale that reads against a human figure. Dark
+           surround, warm orange rim light. No refinery, no golden hour, no
+           aerial, no logos, no operator identifiable. Source: commissioned at a
+           Canadian fabrication shop, or a cleared supplier-site library. Header
+           crop: .focal--long-lead exists to keep the small figure at far left
+           in frame. That figure is the entire scale argument. If a future crop
+           loses it, the image stops working."
+
+           CURRENT FILE IS A GENERATED PLACEHOLDER, placed 2026-08-03. It is the
+           CLOSEST of the eight to its spec: a large pressure vessel on the shop
+           floor with human figures in frame, which is the shape the spec asks
+           for. What it does not do is the spec's real point, a scale that reads
+           against the figure, and it is lit cool and even rather than dark with
+           a warm rim. Closest is not shot.
+
+           .focal--long-lead CAME OFF THIS ELEMENT, deliberately, and this is
+           the removal to look at hardest. That rule is object-position: 30% 50%
+           and it exists to hold a figure at the FAR LEFT of a DIFFERENT frame.
+           On this placeholder the composition is inverted: the vessel is left
+           and the two people are right, so a 30% horizontal anchor crops the
+           people out, which is the exact failure the spec warns about, achieved
+           by preserving the rule rather than by dropping it. The rule is
+           untouched in styles.css section 21. Re-derive it against the
+           commissioned frame and check the left edge first. -->
+      <img src="/assets/industries/energy-hero.jpg" width="2000" height="1126" alt="" fetchpriority="high" decoding="async">
+      <span></span>
+    </div>
     <div class="editorial">
-      <div class="hero-vert-copy">
+      <div class="hero-veil-copy">
         <header><span class="label label--edge">Energy</span></header>
         <h1 class="display--hero">One qualified vendor owns the schedule.</h1>
         <!-- RHYTHM 4.26: lede split at the sentence, R4 breach. Both paragraphs keep
@@ -106,8 +180,6 @@
         <p class="lede-text">Long-lead packages are committed during engineering, before construction drawings exist.</p>
         <p class="lede-text">If one vendor clears qualification, the schedule and the sanction economics both belong to that vendor.</p>
       </div>
-      <img class="hero-vert-media hero-vert-rule focal--long-lead" src="/assets/img/long-lead-component-fabrication.jpg" width="1600" height="1000" alt="A turbine rotor many times the height of a person lying on stands in a dark fabrication hall, its blade rows picked out by a warm orange light, with one small figure standing at the far end for scale." data-spec="Photograph, 1600x1000, 16:10. One long-lead component under fabrication: a rotor, a transformer core, a pressure vessel shell, on the shop floor, at a scale that reads against a human figure. Dark surround, warm orange rim light. No refinery, no golden hour, no aerial, no logos, no operator identifiable. Source: commissioned at a Canadian fabrication shop, or a cleared supplier-site library. Header crop: .focal--long-lead exists to keep the small figure at far left in frame. That figure is the entire scale argument. If a future crop loses it, the image stops working.">
-      <!-- TODO: replace with the commissioned 1600x1000 photograph once cleared by Kim Van Vliet. Working image in place; do NOT render that note as copy, a reader should never be told the asset is provisional. -->
     </div>
   </section>
 
@@ -234,33 +306,6 @@
   <noscript>
     <nav aria-label="Footer">
       <ul>
-        <li><a href="/platform/find-capability/">Find capability</a></li>
-        <li><a href="/platform/find-capability/how-it-works/">How it works</a></li>
-        <li><a href="/platform/find-capability/what-vetting-means/">What vetting means</a></li>
-        <li><a href="/platform/find-capability/confidentiality/">Confidentiality</a></li>
-        <li><a href="/platform/get-discovered/">Get discovered</a></li>
-        <li><a href="/platform/get-discovered/how-it-works/">How it works</a></li>
-        <li><a href="/platform/get-discovered/how-vetting-works/">How vetting works</a></li>
-        <li><a href="/platform/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
-        <li><a href="/platform/">Platform</a></li>
-        <li><a href="/platform/#modules">Modules</a></li>
-        <li><a href="/platform/#vetting-and-introductions">Vetting and introductions</a></li>
-        <li><a href="/platform/#trust-and-security">Trust and security</a></li>
-        <li><a href="/congress/">The Congress</a></li>
-        <li><a href="/congress/#agenda">Agenda</a></li>
-        <li><a href="/congress/#speakers">Speakers</a></li>
-        <li><a href="/congress/the-app/">The app</a></li>
-        <li><a href="/congress/#tickets">Register</a></li>
-        <li><a href="/congress/#sponsorship">Sponsor</a></li>
-        <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
-        <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
-        <li><a href="/xpand/">Consulting</a></li>
-        <li><a href="/xpand/what-xpand-does/">What Xpand does</a></li>
-        <li><a href="/xpand/what-readiness-means/">What readiness means</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/about/how-we-vet/">How we vet</a></li>
-        <li><a href="/about/leadership/">Leadership</a></li>
-        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/industries/">Industries</a></li>
         <li><a href="/industries/aerospace-defence/">Aerospace and defence</a></li>
         <li><a href="/industries/agriculture/">Agriculture</a></li>
@@ -270,6 +315,33 @@
         <li><a href="/industries/military/">Military</a></li>
         <li><a href="/industries/mining-natural-resources/">Mining and natural resources</a></li>
         <li><a href="/industries/technology/">Technology</a></li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/platform/#modules">All modules</a></li>
+        <li><a href="/platform/#vetting-and-introductions">Vetting and introductions</a></li>
+        <li><a href="/platform/#trust-and-security">Trust and security</a></li>
+        <li><a href="/platform/find-capability/">Find capability</a></li>
+        <li><a href="/platform/find-capability/how-it-works/">How Find capability works</a></li>
+        <li><a href="/platform/find-capability/what-vetting-means/">What vetting means</a></li>
+        <li><a href="/platform/find-capability/confidentiality/">Confidentiality</a></li>
+        <li><a href="/platform/get-discovered/">Get discovered</a></li>
+        <li><a href="/platform/get-discovered/how-it-works/">How Get discovered works</a></li>
+        <li><a href="/platform/get-discovered/how-vetting-works/">How vetting works</a></li>
+        <li><a href="/platform/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
+        <li><a href="/congress/">The Conference</a></li>
+        <li><a href="/congress/#agenda">Agenda</a></li>
+        <li><a href="/congress/#speakers">Speakers</a></li>
+        <li><a href="/congress/the-app/">The app</a></li>
+        <li><a href="/congress/register/">Register</a></li>
+        <li><a href="/congress/sponsor/">Sponsor</a></li>
+        <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
+        <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
+        <li><a href="/xpand/">Consulting</a></li>
+        <li><a href="/xpand/what-xpand-does/">What Xpand does</a></li>
+        <li><a href="/xpand/what-readiness-means/">What readiness means</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/about/leadership/">Leadership</a></li>
+        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/access/">Access</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>

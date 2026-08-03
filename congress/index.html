@@ -28,7 +28,7 @@
     <div class="notice">
       <div class="notice-inner">
         <p class="notice-text">Celebrate 10 years of ConvergX, Sep 22 to 24, 2026.</p>
-        <a class="btn btn--solid notice-cta" href="/congress/#tickets">Register</a>
+        <a class="btn btn--solid notice-cta" href="/congress/register/">Register</a>
       </div>
     </div>
     <nav aria-label="Primary">
@@ -57,8 +57,12 @@
         <li><a href="/congress/">Conference</a>
           <ul>
             <li><a href="/congress/#agenda">Agenda</a></li>
-            <li><a href="/congress/#tickets">Register</a></li>
-            <li><a href="/congress/#sponsorship">Sponsor</a></li>
+            <li><a href="/congress/#speakers">Speakers</a></li>
+            <li><a href="/congress/the-app/">The app</a></li>
+            <li><a href="/congress/register/">Register</a></li>
+            <li><a href="/congress/sponsor/">Sponsor</a></li>
+            <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
+            <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
           </ul>
         </li>
         <li><a href="/xpand/">Consulting</a>
@@ -279,7 +283,17 @@
              yes or a cut of its own. -->
         <p class="hero-sub">This is not a traditional conference. It is a curated, decision-maker-only environment designed to accelerate the adoption of proven technologies, forge strategic partnerships, and create commercial opportunities across industries.</p>
       </div>
-      <p class="hero-cta"><a class="btn btn--solid" href="https://convergx.co/shop/" rel="noopener">Register on the ConvergX shop</a></p>
+      <!-- REPOINTED 2026-07-31 from convergx.co/shop to /congress/register/, the
+           same change made at #reserve and for the same reason. The hero button
+           used to throw a first-time reader straight out to a WooCommerce index
+           before they had read a single line about who the room is for. It now
+           lands on the storefront, which states the admission standard and the
+           boundary, shows the three passes with ConvergX's own admin-fee and tax
+           qualifiers, and hands off to the product pages from there.
+           THIS PAGE NOW HAS ZERO EXTERNAL LINKS. Every route to money runs
+           through /congress/register/ or /congress/sponsor/, which is one place
+           to check when the shop changes rather than five. -->
+      <p class="hero-cta"><a class="btn btn--solid" href="/congress/register/">Register for the Congress</a></p>
 
       <!-- HERO SPONSOR STRIP, Chip 2026-07-31: "just show the sponsor logos in
            the hero, similar to the homepage. You don't need any sponsorship
@@ -391,6 +405,509 @@
     </div>
   </section>
 
+  <!-- ============================================================
+       THE FLOW. Rebuilt 2026-07-31 from Chip's sketch and three rounds of his
+       notes. It replaced the #who section and sits between the impact
+       statement and the subnav, the last of the dark ground.
+
+       WHAT IT NARRATES, and this is the whole brief: "a problem is being
+       submitted on the left hand side when it lights up, then a connection is
+       being made to the trusted network when it hits ConvergX, then trusted
+       partners are being contacted on the right hand side."
+       That is four beats and the .flow-status track NAMES each one as it
+       happens, on the same clock as the animation. A diagram that needs a
+       caption to be understood is a failed diagram; a diagram that says out
+       loud what it is doing while it does it is a better one. The status
+       track is the second kind. Its four lines are the only running text in
+       the component and every verb in them is licensed: a requirement is
+       SUBMITTED (by the company), ConvergX ASKS, companies ANSWER, and an
+       introduction is BROKERED. No knowledge verb appears anywhere.
+
+       THE RIGHT HAND SIDE IS THE HOMEPAGE GLOBE, lifted verbatim from
+       index.html and reparented. Chip: "what if we did like the same globe as
+       we have on the homepage but it was kind of like faded out to the right
+       and maybe the bottom and the nodes actually connect to multiple places
+       on the globe. as things light up, the globe spins and you make those
+       connections on the globe."
+       It is the same asset and the same _system/globe.js, so it turns and
+       runs its own converging-network arcs for free, and three fan lines from
+       ConvergX land ON its near face.
+       THOSE THREE ENDPOINTS ARE LIVE, NOT SOLVED, as of 2026-07-31. Chip:
+       "What if the nodes on the right weren't pre set. After a problem seeds
+       into the ConvergX in the center, 3 random nodes extend to 3 locations
+       that track on the globe... They should still be NATO alliance countries
+       that are lighting up." _system/flow.js picks three fresh NATO member
+       sites once per cycle and rewrites the three lines and their nodes every
+       frame so they follow the spin and drop out round the back. It was eight
+       fixed points solved once against the globe's resting longitude, which is
+       recoverable from git and must not come back: a fixed point cannot follow
+       a turning globe. The registration is now MEASURED at runtime through
+       getScreenCTM rather than retyped, so moving the globe no longer makes
+       the lines miss it. The placement arithmetic in styles.css section 41 is
+       still the thing that puts the globe where it is.
+       ONE THING CHANGED IN THE LIFTED MARKUP, and only one: the clipPath id
+       became cx-flow-limb, because the homepage's cx-globe-limb would collide
+       if both ever rendered on one page. Do not hand edit anything else in
+       that block; it is generated by _reference/globe-build/globe_build.py.
+
+       THE ORDER IS SCRAMBLED ON PURPOSE. Chip: "I want it to be a bit more
+       random, like not an array, but like aerospace lights up and then mining
+       and then agriculture and it's kind of random jumping all over the
+       place." The list stays alphabetical in the DOM, which is how a reader
+       scans it; each row carries its own --d delay and those are what
+       scatter. Visual order is aerospace, mining, agriculture, technology,
+       energy, construction, military, manufacturing, with uneven gaps so it
+       does not resolve into a rhythm. Change a delay, not the list order.
+
+       NO EXPANDING BOX. It was a square ring scaling out of the hub and Chip
+       killed it: "I don't like the square box that goes out of convergex, I
+       wish that it was just like glowing." Everything that lights now lights
+       by glow. Do not reintroduce a scaling outline.
+
+       THE LEGEND AND THE CLOSING CLAIM CAME OFF, 2026-07-31, Chip: "you could
+       probably remove all of this stuff here." Both said what the two column
+       heads now say in half the space. Recoverable from git.
+
+       HOW IT IS BUILT, for whoever touches it next. The words are HTML and
+       only the connective tissue is SVG, so type reflows and rescales like any
+       other type on the site. The two layers stay registered by arithmetic
+       rather than by script: the art is preserveAspectRatio="none" over a
+       1200x620 viewBox and the stage carries the same aspect-ratio, every
+       stroke is vector-effect="non-scaling-stroke", the chips sit in eight
+       equal grid rows and the feed paths leave at (i + 0.5)/8 of the height.
+       Every path is pathLength="100", so the dash animations are written in
+       percentages and no geometry has to be measured.
+       SCRIPT DRIVES EXACTLY ONE THING, the three fan endpoints, because they
+       have to follow a turning globe and nothing static can. Every other beat
+       in the diagram is still CSS on one --cycle. With scripts off the globe
+       is a finished static plate and the three fan lines sit on the fallback
+       geometry written into the markup, which is a finished figure too. Do not
+       move another beat into script.
+       ============================================================ -->
+  <section class="flow-band" aria-labelledby="flow-title">
+    <div class="wrap">
+      <div class="flow-intro">
+        <h2 id="flow-title">Who attends the Congress</h2>
+        <p class="flow-intro-desc">ConvergX convenes leaders from <a href="/industries/energy/">energy</a>, <a href="/industries/aerospace-defence/">defence</a>, <a href="/industries/aerospace-defence/">aerospace</a>, <a href="/industries/mining-natural-resources/">mining</a>, <a href="/industries/agriculture/">agriculture</a>, <a href="/industries/manufacturing/">manufacturing</a>, <a href="/industries/construction/">construction</a>, <a href="/industries/technology/">technology</a>, government, Indigenous economic development and finance.</p>
+      </div>
+
+      <figure class="flow">
+        <div class="flow-heads">
+          <div class="flow-head">
+            <p class="label">Find capability</p>
+            <p>Companies bring ConvergX a problem, or an RFP their own supply base cannot answer.</p>
+          </div>
+          <div class="flow-head flow-head--right">
+            <p class="label">Get discovered</p>
+            <p>ConvergX goes out to companies it has already vetted, in whatever industry and wherever they are.</p>
+          </div>
+        </div>
+
+        <div class="flow-stage">
+        <!-- NOT .fig-globe. The lifted markup carried that class and it has to
+               come off: .fig-globe and its :not(--crop):not(--bleed) responsive
+               variants size the plate for the HOMEPAGE HERO, at higher
+               specificity than anything scoped here, and they were overriding
+               this component's width. Measured before the fix: the globe landed
+               at r 171 where the fan paths expected 258, so every line missed
+               it. The only thing that class was contributing is a `color` for
+               the paths to inherit, and .flow-globe sets that itself. The inner
+               .fig-globe-* classes are untouched and still do their own work. -->
+          <div class="flow-globe" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700"
+                 preserveAspectRatio="xMidYMid meet" data-globe="" aria-hidden="true" focusable="false">
+
+              <!-- Hero plate: a converging network on a turning globe. Decorative
+                   geometry. No figure number, no caption, no aria-label, no labels of any
+                   kind, no numbers. See the notes file beside this one.
+
+                   WHAT YOU ARE LOOKING AT IS FRAME ZERO, RENDERED STATICALLY. Everything
+                   below is a complete, correct orthographic projection at the plate's
+                   resting longitude. With scripts disabled this is the whole figure and it
+                   is finished. _system/globe.js takes these same elements over and rewrites
+                   their d attributes to turn the globe; it adds no elements and removes
+                   none. Both sides are generated from one build script, so the resting
+                   frame and the live frame zero are the same arithmetic.
+
+                   Land: Natural Earth 110m admin 0, public domain, simplified and embedded
+                   in globe.js. Nothing is fetched at runtime, ever. -->
+
+              <defs>
+                <clipPath id="cx-flow-limb"><circle cx="1130" cy="350" r="265"/></clipPath>
+              </defs>
+
+              <g clip-path="url(#cx-flow-limb)">
+
+                <!-- Graticule. Clipped to the near hemisphere: the globe is
+                     solid, so you do not see through it. -->
+                <g class="fig-globe-grat" data-globe-graticule="">
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 1141 85 L 1149 86 L 1158 89 L 1166 95 L 1175 102 L 1183 111 L 1191 121 L 1198 134 L 1205 148 L 1211 164"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 1015 111 L 1029 106 L 1044 102 L 1060 100 L 1076 99 L 1093 101 L 1110 105 L 1127 110 L 1144 118 L 1161 127 L 1178 137 L 1195 150 L 1211 164"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 884 251 L 886 247 L 894 231 L 903 217 L 915 203 L 928 190 L 943 178 L 959 168 L 976 159 L 995 152 L 1014 146 L 1035 141 L 1056 139 L 1078 137 L 1100 138 L 1122 140 L 1145 144 L 1167 149 L 1189 156 L 1211 164"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 880 439 L 879 435 L 875 420 L 874 404 L 874 389 L 876 373 L 881 356 L 887 340 L 895 324 L 904 308 L 916 292 L 929 277 L 944 262 L 960 248 L 977 235 L 996 223 L 1015 211 L 1035 201 L 1057 192 L 1078 184 L 1100 177 L 1123 172 L 1145 168 L 1167 165 L 1189 164 L 1211 164"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 949 544 L 948 542 L 942 535 L 939 527 L 936 517 L 935 506 L 936 494 L 938 481 L 942 467 L 947 451 L 953 436 L 961 419 L 970 402 L 980 384 L 991 367 L 1004 349 L 1017 331 L 1031 313 L 1046 296 L 1062 279 L 1078 262 L 1095 247 L 1111 231 L 1128 217 L 1145 204 L 1162 192 L 1179 181 L 1195 172 L 1211 164"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 1027 594 L 1028 593 L 1029 591 L 1032 586 L 1035 580 L 1038 572 L 1043 562 L 1048 551 L 1053 538 L 1060 524 L 1066 508 L 1074 491 L 1081 473 L 1090 455 L 1098 435 L 1107 415 L 1115 394 L 1124 373 L 1133 351 L 1142 330 L 1151 309 L 1160 288 L 1168 268 L 1176 248 L 1184 229 L 1192 211 L 1198 194 L 1205 178 L 1211 164"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 1119 615 L 1120 615 L 1130 614 L 1139 611 L 1148 606 L 1157 599 L 1165 591 L 1174 580 L 1182 568 L 1190 554 L 1197 538 L 1204 521 L 1210 503 L 1216 484 L 1221 463 L 1225 442 L 1229 420 L 1231 397 L 1233 374 L 1235 351 L 1235 328 L 1235 305 L 1234 283 L 1232 261 L 1229 239 L 1225 219 L 1221 199 L 1216 181 L 1211 164"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 1245 589 L 1245 589 L 1259 581 L 1271 572 L 1283 560 L 1293 548 L 1302 534 L 1310 518 L 1316 501 L 1321 483 L 1325 464 L 1327 444 L 1327 424 L 1326 402 L 1324 381 L 1320 359 L 1314 337 L 1307 315 L 1299 294 L 1290 273 L 1279 252 L 1267 232 L 1255 214 L 1241 196 L 1226 179 L 1211 164"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 1376 449 L 1380 436 L 1385 419 L 1387 401 L 1387 383 L 1386 364 L 1382 346 L 1376 327 L 1369 309 L 1360 291 L 1349 273 L 1336 256 L 1322 240 L 1306 225 L 1289 210 L 1271 197 L 1252 184 L 1232 173 L 1211 164"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 1380 261 L 1376 251 L 1368 238 L 1359 225 L 1348 214 L 1336 203 L 1322 194 L 1306 185 L 1289 178 L 1271 173 L 1252 168 L 1232 165 L 1211 164"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 1311 156 L 1306 152 L 1298 148 L 1289 146 L 1278 145 L 1266 146 L 1254 148 L 1240 152 L 1226 157 L 1211 164"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 1233 106 L 1233 106 L 1233 107 L 1232 110 L 1230 114 L 1228 121 L 1224 129 L 1221 139 L 1216 151 L 1211 164"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 877 429 L 879 435 L 885 449 L 892 463 L 901 477 L 912 491 L 923 504 L 936 517 L 950 530 L 966 541 L 982 552 L 999 563 L 1016 572 L 1035 580 L 1053 587 L 1072 593 L 1091 598 L 1110 602 L 1129 605 L 1148 606 L 1166 606 L 1183 605 L 1200 603 L 1216 599 L 1231 594 L 1245 589 L 1245 589"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 887 245 L 886 247 L 881 261 L 878 276 L 878 292 L 879 308 L 882 324 L 887 340 L 893 357 L 902 373 L 912 389 L 924 405 L 938 421 L 953 436 L 969 450 L 987 463 L 1005 476 L 1025 488 L 1045 499 L 1066 508 L 1088 516 L 1110 524 L 1132 529 L 1154 534 L 1176 537 L 1197 538 L 1218 538 L 1238 537 L 1258 534 L 1276 530 L 1294 525 L 1310 518 L 1325 510 L 1338 501 L 1350 490 L 1360 479 L 1368 466 L 1373 455"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 1015 111 L 1002 118 L 990 126 L 980 136 L 972 146 L 964 156 L 959 168 L 955 180 L 952 193 L 952 206 L 953 220 L 955 234 L 960 248 L 966 263 L 973 277 L 982 291 L 992 305 L 1004 318 L 1017 331 L 1031 343 L 1046 355 L 1062 366 L 1079 376 L 1097 386 L 1115 394 L 1134 401 L 1153 407 L 1172 412 L 1191 416 L 1210 419 L 1229 420 L 1247 420 L 1264 419 L 1281 417 L 1297 413 L 1312 408 L 1326 402 L 1339 395 L 1350 387 L 1360 378 L 1369 368 L 1376 357 L 1382 346 L 1386 334 L 1388 321 L 1389 307 L 1388 294 L 1385 280 L 1383 271"/>
+                  <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 1166 95 L 1156 95 L 1146 95 L 1136 97 L 1127 99 L 1118 101 L 1110 105 L 1103 109 L 1096 113 L 1090 119 L 1085 124 L 1081 131 L 1078 137 L 1075 144 L 1074 152 L 1074 160 L 1074 168 L 1076 176 L 1078 184 L 1082 192 L 1086 200 L 1091 208 L 1097 216 L 1104 224 L 1111 231 L 1120 239 L 1128 245 L 1138 252 L 1147 258 L 1158 263 L 1168 268 L 1179 272 L 1190 275 L 1201 278 L 1212 281 L 1223 282 L 1234 283 L 1244 283 L 1254 282 L 1264 281 L 1273 279 L 1282 276 L 1290 273 L 1297 269 L 1304 264 L 1310 259 L 1315 253 L 1319 247 L 1322 240 L 1324 233 L 1326 226 L 1326 218 L 1326 210 L 1324 202 L 1322 194 L 1318 185 L 1314 177 L 1309 169 L 1303 161 L 1296 153 L 1289 146 L 1280 139 L 1272 132 L 1262 126 L 1252 120 L 1242 114 L 1232 110 L 1221 105 L 1210 102 L 1199 99 L 1188 97 L 1177 95 L 1166 95"/>
+                </g>
+
+                <!-- Land. Outlined in the cage tone, filled with the page
+                     ground, which is what makes the sphere read as solid: the
+                     fill occludes the graticule behind it. -->
+                <g data-globe-land="">
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1320 515 L 1328 517 L 1321 531 L 1308 542 L 1298 539 L 1309 521 L 1314 518 L 1320 515 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1194 427 L 1192 435 L 1179 432 L 1170 451 L 1152 449 L 1193 427 L 1194 427 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1033 137 L 1045 128 L 1062 123 L 1068 124 L 1090 118 L 1098 113 L 1135 122 L 1128 133 L 1110 146 L 1114 154 L 1108 167 L 1117 168 L 1121 164 L 1130 165 L 1111 178 L 1124 177 L 1122 183 L 1115 186 L 1110 181 L 1085 176 L 1071 177 L 1064 184 L 1063 206 L 1050 219 L 1057 219 L 1064 212 L 1075 214 L 1082 205 L 1097 199 L 1102 214 L 1094 225 L 1106 224 L 1093 263 L 1079 262 L 1067 249 L 1046 250 L 1065 255 L 1056 266 L 1065 276 L 1044 270 L 1053 269 L 1047 263 L 1052 252 L 1039 254 L 1010 237 L 1024 228 L 1030 208 L 1031 142 L 1033 137 Z M 1140 179 L 1143 177 L 1145 179 L 1142 182 L 1140 179 L 1140 179 Z M 1143 170 L 1153 161 L 1151 174 L 1147 176 L 1144 171 L 1143 170 Z M 1091 266 L 1084 269 L 1089 277 L 1083 287 L 1072 272 L 1093 265 L 1091 266 Z M 1104 185 L 1101 193 L 1095 183 L 1105 184 L 1104 185 Z M 1139 181 L 1139 194 L 1135 199 L 1132 198 L 1132 210 L 1123 212 L 1123 204 L 1117 215 L 1113 209 L 1109 217 L 1106 194 L 1123 196 L 1129 186 L 1126 171 L 1132 169 L 1139 170 L 1141 172 L 1136 174 L 1143 175 L 1136 179 L 1139 181 Z M 1140 164 L 1140 168 L 1130 165 L 1139 163 L 1140 164 Z M 1143 142 L 1137 146 L 1128 138 L 1133 136 L 1140 139 L 1143 139 L 1143 142 Z M 1146 153 L 1143 154 L 1140 149 L 1145 145 L 1148 153 L 1146 153 Z M 1134 154 L 1118 159 L 1114 146 L 1121 142 L 1122 147 L 1124 142 L 1127 144 L 1132 143 L 1134 150 L 1128 152 L 1134 153 L 1134 154 Z M 1132 159 L 1138 162 L 1128 163 L 1126 162 L 1133 157 L 1132 159 Z M 1151 160 L 1143 161 L 1149 157 L 1150 160 L 1151 160 Z M 1169 161 L 1173 163 L 1165 168 L 1159 164 L 1167 161 L 1169 161 Z M 1175 163 L 1187 176 L 1168 173 L 1166 175 L 1154 174 L 1152 167 L 1158 167 L 1158 170 L 1161 167 L 1165 168 L 1169 166 L 1171 169 L 1174 164 L 1175 163 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1033 137 L 1030 208 L 1024 228 L 1010 237 L 1053 256 L 1047 265 L 1037 261 L 1030 268 L 1020 260 L 1004 266 L 1010 260 L 999 272 L 975 269 L 957 290 L 967 265 L 954 236 L 940 238 L 958 198 L 965 170 L 975 158 L 1000 142 L 1031 134 L 1025 139 L 1029 138 L 1033 137 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1352 221 L 1365 249 L 1370 255 L 1369 266 L 1373 288 L 1366 286 L 1357 292 L 1356 299 L 1363 312 L 1358 317 L 1351 310 L 1352 303 L 1349 297 L 1346 305 L 1338 302 L 1337 282 L 1348 268 L 1344 266 L 1340 257 L 1339 240 L 1345 238 L 1342 229 L 1351 232 L 1351 221 L 1352 221 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1363 312 L 1356 299 L 1357 292 L 1366 286 L 1371 290 L 1371 277 L 1374 277 L 1375 293 L 1379 302 L 1363 302 L 1364 310 L 1363 312 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 922 514 L 911 493 L 918 481 L 928 491 L 942 513 L 939 515 L 948 523 L 953 523 L 954 527 L 946 524 L 943 524 L 942 529 L 948 538 L 932 525 L 937 531 L 935 529 A 265 265 0 0 1 922 514 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 915 505 L 910 461 L 911 460 L 916 482 L 911 493 L 922 514 A 265 265 0 0 1 915 505 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1301 533 L 1298 542 L 1292 546 L 1285 555 L 1285 557 L 1266 561 L 1271 551 L 1254 557 L 1254 552 L 1238 554 L 1255 546 L 1281 514 L 1315 503 L 1316 509 L 1303 529 L 1301 533 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1339 503 L 1344 489 L 1373 434 L 1363 464 L 1340 501 L 1339 503 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1328 517 L 1320 515 L 1327 498 L 1332 491 L 1338 492 L 1347 484 L 1339 503 L 1330 515 L 1328 517 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1302 497 L 1297 483 L 1312 442 L 1345 425 L 1349 439 L 1332 482 L 1331 471 L 1325 482 L 1306 489 L 1300 496 L 1302 497 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1307 454 L 1306 470 L 1297 483 L 1299 488 L 1268 509 L 1268 483 L 1281 457 L 1279 447 L 1295 450 L 1307 454 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 955 340 L 960 334 L 965 348 L 955 340 L 955 340 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1285 135 L 1293 143 L 1301 150 L 1311 157 L 1328 176 L 1335 191 L 1342 199 L 1345 207 L 1352 221 L 1351 232 L 1342 229 L 1345 238 L 1339 240 L 1340 257 L 1344 266 L 1348 268 L 1337 282 L 1335 292 L 1338 302 L 1345 305 L 1346 305 L 1346 316 L 1353 328 L 1336 331 L 1328 328 L 1326 306 L 1308 305 L 1307 298 L 1300 290 L 1294 290 L 1286 272 L 1286 260 L 1269 240 L 1270 232 L 1285 235 L 1287 242 L 1279 244 L 1291 252 L 1288 247 L 1292 237 L 1284 229 L 1287 228 L 1292 233 L 1290 219 L 1295 215 L 1290 210 L 1299 206 L 1288 201 L 1282 192 L 1287 195 L 1298 200 L 1306 206 L 1300 199 L 1287 194 L 1282 190 L 1287 192 L 1285 185 L 1278 183 L 1256 160 L 1256 153 L 1264 156 L 1251 142 L 1252 136 L 1240 130 L 1240 131 L 1238 131 L 1214 118 L 1211 114 L 1181 109 L 1175 102 L 1179 101 L 1172 98 L 1202 100 L 1205 99 L 1201 97 L 1214 99 L 1218 102 L 1202 102 L 1210 102 L 1217 106 L 1221 105 L 1249 117 L 1268 125 L 1254 117 L 1258 118 A 265 265 0 0 1 1285 135 Z M 1251 161 L 1253 160 L 1257 163 L 1251 161 L 1251 161 Z M 1274 205 L 1266 187 L 1273 200 L 1279 207 L 1286 210 L 1280 213 L 1274 205 L 1274 205 Z M 1253 115 L 1250 115 L 1250 115 L 1248 113 A 265 265 0 0 1 1253 115 Z M 1170 105 L 1160 104 L 1161 101 L 1174 103 L 1175 102 L 1181 109 L 1176 107 L 1170 105 Z M 1320 329 L 1327 327 L 1322 335 L 1321 329 L 1320 329 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1232 200 L 1238 201 L 1240 210 L 1231 203 L 1231 200 L 1232 200 Z M 1270 233 L 1256 243 L 1254 264 L 1257 287 L 1246 289 L 1243 274 L 1254 244 L 1259 231 L 1267 232 L 1270 233 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1193 181 L 1204 183 L 1207 187 L 1200 187 L 1212 193 L 1206 196 L 1208 197 L 1206 201 L 1206 208 L 1202 209 L 1203 218 L 1194 223 L 1197 231 L 1190 230 L 1196 233 L 1160 238 L 1138 252 L 1136 232 L 1143 218 L 1155 213 L 1150 211 L 1157 211 L 1155 204 L 1159 202 L 1163 195 L 1165 177 L 1174 180 L 1175 177 L 1183 177 L 1192 182 L 1193 181 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1221 599 L 1203 605 L 1207 601 L 1208 600 L 1220 597 L 1229 592 L 1230 593 L 1269 574 L 1256 583 L 1262 580 L 1258 582 A 265 265 0 0 1 1221 599 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 965 170 L 958 198 L 949 211 L 950 219 L 941 239 L 929 246 L 920 269 L 936 283 L 927 289 L 920 280 L 919 287 L 912 287 L 912 264 L 918 233 L 929 221 L 958 183 L 961 177 L 955 181 L 929 210 L 961 173 L 965 170 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 943 524 L 954 536 L 956 540 L 944 531 L 942 525 L 943 524 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 956 540 L 954 536 L 943 524 L 954 525 L 948 511 L 942 505 L 943 489 L 924 455 L 926 450 L 912 440 L 913 434 L 906 425 L 911 413 L 919 419 L 927 400 L 938 416 L 946 418 L 945 408 L 959 416 L 958 434 L 980 449 L 988 446 L 985 461 L 990 471 L 1037 515 L 1033 526 L 1015 529 L 999 545 L 974 537 L 958 541 L 956 540 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 914 441 L 926 450 L 924 455 L 943 489 L 942 500 L 931 488 L 928 492 L 914 480 L 911 460 L 915 448 L 914 441 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 919 419 L 906 416 L 915 448 L 911 460 L 897 432 L 895 382 L 897 392 L 912 389 L 921 414 L 918 416 L 919 419 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 934 411 L 927 400 L 919 419 L 921 414 L 906 371 L 914 370 L 922 353 L 942 358 L 932 364 L 931 376 L 941 393 L 935 406 L 934 411 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 922 353 L 918 356 L 919 346 L 913 348 L 911 337 L 914 334 L 922 351 L 922 353 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 914 334 L 911 336 L 910 322 L 913 318 L 914 331 L 914 334 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 915 325 L 914 306 L 925 314 L 915 324 L 915 325 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 925 314 L 915 308 L 915 296 L 921 296 L 926 312 L 925 314 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 912 287 L 919 287 L 920 280 L 924 286 L 920 296 L 912 290 L 912 287 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 959 416 L 945 408 L 946 418 L 935 414 L 941 393 L 931 373 L 935 361 L 942 362 L 936 371 L 946 365 L 947 375 L 965 394 L 967 408 L 958 412 L 959 416 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 967 439 L 957 431 L 958 412 L 967 408 L 972 424 L 966 434 L 967 439 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 974 444 L 967 439 L 967 426 L 982 433 L 976 443 L 974 444 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 987 445 L 974 444 L 982 433 L 987 443 L 987 445 Z M 1252 331 L 1257 333 L 1252 344 L 1257 355 L 1254 360 L 1230 360 L 1231 347 L 1222 333 L 1242 323 L 1251 331 L 1252 331 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 911 389 L 899 392 L 896 386 L 903 370 L 911 386 L 911 389 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 948 291 L 955 325 L 947 315 L 948 294 L 941 287 L 948 291 L 948 291 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1269 574 L 1262 577 L 1262 573 L 1280 563 L 1286 560 L 1275 571 L 1269 574 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1264 577 L 1245 587 L 1227 594 L 1247 579 L 1262 573 L 1264 576 L 1264 577 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1229 592 L 1220 597 L 1208 600 L 1216 583 L 1262 573 L 1247 579 L 1236 587 L 1229 592 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1144 479 L 1141 473 L 1154 469 L 1164 488 L 1142 483 L 1156 482 L 1148 480 L 1144 479 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1164 488 L 1167 476 L 1194 480 L 1200 440 L 1237 467 L 1231 481 L 1197 488 L 1186 500 L 1164 489 L 1164 488 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1152 449 L 1170 451 L 1179 432 L 1192 435 L 1193 428 L 1206 441 L 1200 440 L 1194 480 L 1164 479 L 1148 469 L 1154 451 L 1152 449 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1217 517 L 1214 501 L 1227 497 L 1219 511 L 1217 517 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1279 447 L 1281 457 L 1269 490 L 1237 488 L 1227 497 L 1216 486 L 1231 481 L 1237 467 L 1269 446 L 1276 450 L 1279 447 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1217 517 L 1228 493 L 1237 488 L 1267 486 L 1270 492 L 1239 521 L 1228 524 L 1221 517 L 1217 517 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1271 488 L 1264 528 L 1240 530 L 1238 522 L 1254 512 L 1270 489 L 1271 488 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1211 499 L 1210 518 L 1195 522 L 1199 499 L 1210 499 L 1211 499 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1176 499 L 1198 504 L 1192 521 L 1170 520 L 1175 499 L 1176 499 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1155 486 L 1174 490 L 1175 505 L 1167 509 L 1163 498 L 1152 500 L 1147 490 L 1155 487 L 1155 486 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1142 483 L 1155 486 L 1147 490 L 1142 484 L 1142 483 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1171 508 L 1170 520 L 1157 509 L 1165 504 L 1170 508 L 1171 508 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1152 500 L 1163 498 L 1165 504 L 1157 509 L 1152 503 L 1152 500 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1188 500 L 1197 488 L 1217 484 L 1220 497 L 1189 501 L 1188 500 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1308 504 L 1281 514 L 1265 526 L 1262 519 L 1268 509 L 1299 488 L 1308 503 L 1308 504 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1276 520 L 1255 546 L 1238 552 L 1240 545 L 1252 541 L 1254 528 L 1264 528 L 1273 520 L 1276 520 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1247 529 L 1257 531 L 1254 539 L 1237 549 L 1232 540 L 1245 533 L 1247 529 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1298 542 L 1303 542 L 1294 553 L 1267 571 L 1256 575 L 1261 565 L 1268 563 L 1272 558 L 1285 557 L 1290 548 L 1297 542 L 1298 542 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1303 541 L 1300 550 L 1293 556 L 1293 553 L 1303 542 L 1303 541 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1303 544 L 1321 531 L 1312 541 L 1285 564 L 1276 571 L 1260 581 L 1269 574 L 1287 560 L 1284 560 L 1294 553 L 1293 557 L 1301 547 L 1303 544 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1238 555 L 1254 552 L 1254 557 L 1271 551 L 1266 561 L 1272 559 L 1268 563 L 1261 565 L 1256 575 L 1216 583 L 1235 568 L 1237 555 L 1238 555 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1316 539 L 1317 538 L 1327 527 A 265 265 0 0 1 1316 539 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1263 418 L 1257 405 L 1260 388 L 1269 387 L 1264 417 L 1263 418 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1193 428 L 1195 422 L 1225 409 L 1224 396 L 1260 388 L 1257 401 L 1264 423 L 1260 436 L 1269 446 L 1233 467 L 1206 441 L 1193 428 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1339 384 L 1345 375 L 1347 379 L 1342 397 L 1339 398 L 1339 387 L 1339 384 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1375 387 L 1381 370 L 1382 374 L 1381 386 L 1375 388 L 1375 387 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1347 379 L 1348 359 L 1353 349 L 1367 371 L 1360 382 L 1350 379 L 1347 379 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1381 385 L 1382 374 L 1386 375 L 1385 393 L 1378 412 L 1377 406 L 1381 395 L 1382 386 L 1381 385 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1351 220 L 1345 207 L 1342 199 L 1335 191 L 1328 176 L 1312 159 L 1318 163 L 1310 156 L 1346 197 L 1357 216 L 1353 221 L 1351 220 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1395 353 L 1394 343 L 1394 351 L 1392 348 L 1393 337 L 1391 333 L 1386 299 L 1384 297 L 1382 282 L 1387 292 L 1387 290 L 1389 297 L 1388 290 A 265 265 0 0 1 1395 353 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1388 290 L 1389 292 L 1389 297 L 1387 288 L 1386 281 A 265 265 0 0 1 1388 290 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1382 282 L 1384 297 L 1386 299 L 1391 333 L 1393 337 L 1387 360 L 1387 349 L 1383 344 L 1387 331 L 1381 294 L 1382 285 L 1382 282 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1378 304 L 1377 290 L 1380 293 L 1380 284 L 1381 294 L 1386 316 L 1386 338 L 1383 344 L 1378 331 L 1377 322 L 1377 304 L 1378 304 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1379 302 L 1375 293 L 1373 282 L 1375 290 L 1376 280 L 1380 283 L 1380 293 L 1377 290 L 1379 301 L 1379 302 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1371 277 L 1370 255 L 1376 280 L 1375 290 L 1374 277 L 1371 277 L 1371 277 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1358 317 L 1364 310 L 1363 302 L 1377 302 L 1378 321 L 1370 322 L 1367 332 L 1361 324 L 1362 316 L 1360 319 L 1358 317 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1367 371 L 1358 361 L 1349 342 L 1356 334 L 1366 337 L 1370 322 L 1375 319 L 1383 344 L 1387 349 L 1387 360 L 1382 368 L 1367 369 L 1367 371 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1339 383 L 1338 364 L 1349 354 L 1349 367 L 1342 383 L 1339 383 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1257 287 L 1254 268 L 1255 246 L 1258 240 L 1264 244 L 1269 251 L 1265 268 L 1266 274 L 1271 279 L 1270 298 L 1264 302 L 1260 293 L 1257 287 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1294 290 L 1307 298 L 1307 309 L 1292 314 L 1289 304 L 1293 293 L 1294 290 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1308 305 L 1326 306 L 1329 313 L 1324 328 L 1316 328 L 1311 337 L 1312 331 L 1307 325 L 1292 329 L 1292 314 L 1306 306 L 1308 305 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1289 304 L 1293 326 L 1273 321 L 1270 307 L 1288 302 L 1289 304 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1280 334 L 1276 342 L 1262 341 L 1280 332 L 1280 334 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1292 329 L 1286 343 L 1279 339 L 1280 334 L 1292 330 L 1292 329 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1303 326 L 1312 330 L 1310 337 L 1304 326 L 1303 326 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1310 337 L 1313 336 L 1313 344 L 1302 348 L 1290 341 L 1303 326 L 1309 335 L 1310 337 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1292 294 L 1289 304 L 1281 296 L 1289 293 L 1292 294 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1290 285 L 1294 290 L 1292 294 L 1281 296 L 1281 287 L 1289 286 L 1290 285 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1269 309 L 1273 321 L 1267 326 L 1270 338 L 1256 339 L 1257 333 L 1251 328 L 1252 312 L 1255 305 L 1267 308 L 1269 309 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1298 347 L 1313 344 L 1313 352 L 1301 360 L 1297 349 L 1298 347 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1301 360 L 1310 356 L 1301 365 L 1305 382 L 1295 371 L 1301 360 L 1301 360 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1309 355 L 1316 354 L 1311 362 L 1310 356 L 1309 355 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1296 364 L 1294 370 L 1291 359 L 1295 363 L 1296 364 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1281 341 L 1289 345 L 1280 349 L 1288 358 L 1274 349 L 1279 343 L 1281 341 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1262 339 L 1264 344 L 1256 348 L 1252 344 L 1259 338 L 1262 339 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1251 325 L 1247 329 L 1242 323 L 1250 324 L 1251 325 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1252 312 L 1251 325 L 1244 323 L 1250 312 L 1252 312 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1205 363 L 1213 366 L 1205 387 L 1201 377 L 1205 365 L 1205 363 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1206 385 L 1213 366 L 1204 358 L 1243 363 L 1225 389 L 1210 387 L 1206 385 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1219 309 L 1217 316 L 1208 317 L 1210 308 L 1217 308 L 1219 309 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1386 282 L 1387 290 L 1376 280 L 1371 256 L 1370 255 L 1365 249 L 1351 220 L 1358 222 L 1357 216 L 1338 185 L 1329 175 L 1311 156 L 1317 163 L 1307 154 L 1301 150 L 1291 141 L 1285 135 A 265 265 0 0 1 1386 282 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1264 342 L 1273 342 L 1271 354 L 1290 369 L 1285 369 L 1283 381 L 1281 371 L 1265 356 L 1257 357 L 1254 347 L 1264 344 L 1264 342 Z M 1280 380 L 1281 387 L 1273 384 L 1277 381 L 1280 380 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1227 312 L 1220 296 L 1227 289 L 1225 293 L 1230 293 L 1227 300 L 1239 316 L 1239 322 L 1219 326 L 1226 321 L 1221 318 L 1223 311 L 1227 312 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1206 251 L 1207 257 L 1196 261 L 1187 250 L 1203 250 L 1206 251 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1350 328 L 1358 327 L 1359 338 L 1356 334 L 1354 340 L 1348 333 L 1349 329 L 1350 328 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1336 331 L 1350 328 L 1346 335 L 1337 332 L 1336 331 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1268 237 L 1286 260 L 1286 272 L 1279 278 L 1271 267 L 1273 254 L 1258 240 L 1267 234 L 1268 237 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1273 321 L 1284 326 L 1280 331 L 1268 329 L 1272 321 L 1273 321 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1342 456 L 1349 439 L 1358 450 L 1345 455 L 1342 456 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d=""/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 941 500 L 942 505 L 952 519 L 948 523 L 939 515 L 942 513 L 928 492 L 931 488 L 941 499 L 941 500 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1377 406 L 1377 419 L 1362 446 L 1358 448 L 1360 431 L 1368 426 L 1372 414 L 1377 406 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1339 398 L 1347 379 L 1368 377 L 1376 391 L 1381 385 L 1381 395 L 1359 437 L 1339 400 L 1339 398 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1224 396 L 1225 409 L 1195 422 L 1162 449 L 1153 447 L 1170 429 L 1192 417 L 1199 402 L 1211 392 L 1222 396 L 1224 396 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1345 425 L 1312 442 L 1312 401 L 1337 391 L 1338 406 L 1332 400 L 1345 425 L 1345 425 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1312 442 L 1307 454 L 1283 445 L 1276 450 L 1260 436 L 1270 404 L 1294 412 L 1299 400 L 1311 400 L 1313 427 L 1312 442 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1364 457 L 1347 484 L 1333 493 L 1328 486 L 1346 451 L 1353 449 L 1356 461 L 1363 459 L 1364 457 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1320 515 L 1307 523 L 1318 503 L 1328 499 L 1322 511 L 1320 515 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1289 358 L 1280 349 L 1289 347 L 1289 355 L 1289 358 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1287 342 L 1298 346 L 1297 357 L 1290 353 L 1288 344 L 1287 342 Z"/>
+                  <path class="fig-globe-land" vector-effect="non-scaling-stroke" d="M 1317 505 L 1300 496 L 1306 489 L 1325 482 L 1332 470 L 1328 486 L 1332 491 L 1318 503 L 1317 505 Z"/>
+                </g>
+
+                <!-- The deal cycle. Fixed element pools, never added to and
+                     never removed from: a slot that holds no deal this frame
+                     carries an empty d and zero opacity. A holder is a filled
+                     accent dot, a provider an unfilled accent circle. The accent
+                     lives here and nowhere else, and a dormant site is not drawn
+                     at all, which is what keeps the plate from reading as
+                     confetti. -->
+                <g data-globe-routes="">
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1297 358 L 1289 352" opacity="0.00"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1297 358 L 1289 354" opacity="0.00"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1297 358 L 1296 356" opacity="0.00"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1297 358 L 1298 355" opacity="0.00"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1297 358 L 1296 358" opacity="0.00"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1268 353 L 1261 340 L 1255 327 L 1247 314 L 1239 301 L 1230 288 L 1221 275 L 1211 262 L 1200 249 L 1189 237 L 1178 225 L 1166 213 L 1154 202 L 1143 192 L 1131 183 L 1119 174 L 1107 167 L 1096 160 L 1084 154 L 1074 149 L 1063 145 L 1053 142 L 1044 140 L 1035 139 L 1027 139" opacity="0.50"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1268 353 L 1268 351 L 1268 349 L 1268 347 L 1268 346 L 1267 344 L 1267 342 L 1266 340 L 1265 338 L 1264 336 L 1263 334 L 1262 332 L 1260 331 L 1258 329 L 1256 327 L 1254 325 L 1251 324 L 1249 322 L 1246 320 L 1244 319 L 1241 317 L 1238 316 L 1235 315 L 1232 313 L 1229 312" opacity="0.50"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1268 353 L 1270 348 L 1272 344 L 1274 340 L 1275 335 L 1277 331 L 1278 326 L 1280 321 L 1281 317 L 1282 312 L 1282 307 L 1282 303 L 1283 298 L 1282 294 L 1282 289 L 1281 285 L 1280 281 L 1279 277 L 1278 273 L 1277 270 L 1275 266 L 1273 263 L 1271 260 L 1269 257 L 1267 254" opacity="0.50"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="" opacity="0.00"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="" opacity="0.00"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1190 257 L 1184 248 L 1178 240 L 1171 231 L 1164 223 L 1157 215 L 1150 207 L 1142 199 L 1135 191 L 1127 184 L 1119 177 L 1112 171 L 1104 165 L 1096 160 L 1089 155 L 1081 151 L 1074 148 L 1067 145 L 1061 142 L 1054 140 L 1048 139 L 1042 138 L 1037 138 L 1032 138 L 1027 139" opacity="0.94"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1190 257 L 1182 251 L 1174 245 L 1165 239 L 1156 233 L 1147 227 L 1138 221 L 1128 216 L 1119 211 L 1109 206 L 1099 202 L 1090 198 L 1080 194 L 1071 191 L 1061 188 L 1052 186 L 1044 185 L 1035 183 L 1027 183 L 1020 182 L 1012 182 L 1006 183 L 999 184 L 993 185 L 988 186" opacity="0.94"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1190 257 L 1195 256 L 1199 255 L 1204 255 L 1209 254 L 1214 254 L 1218 253 L 1223 253 L 1228 253 L 1232 253 L 1237 253 L 1241 254 L 1245 254 L 1249 255 L 1252 256 L 1256 257 L 1259 258 L 1262 259 L 1265 261 L 1267 262 L 1270 264 L 1272 265 L 1274 267 L 1275 269 L 1277 270" opacity="0.94"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1190 257 L 1192 260 L 1193 264 L 1195 267 L 1196 271 L 1198 275 L 1199 279 L 1201 284 L 1202 288 L 1203 293 L 1204 297 L 1205 302 L 1206 307 L 1206 312 L 1207 317 L 1207 323 L 1207 328 L 1208 333 L 1208 338 L 1207 343 L 1207 348 L 1207 353 L 1207 357 L 1206 362 L 1206 366" opacity="0.94"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="" opacity="0.00"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1268 353 L 1262 340 L 1255 327 L 1248 314 L 1240 301 L 1232 288 L 1223 275 L 1213 262 L 1203 249 L 1193 236 L 1182 224 L 1171 213 L 1160 202 L 1148 192 L 1136 182 L 1125 173 L 1113 166 L 1102 159 L 1091 153 L 1081 148 L 1070 144 L 1061 141 L 1051 138 L 1043 137 L 1034 136" opacity="0.80"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1268 353 L 1261 347 L 1253 342 L 1246 337 L 1237 331 L 1229 326 L 1220 320 L 1210 315 L 1200 309 L 1190 304 L 1179 298 L 1169 293 L 1158 288 L 1147 283 L 1136 279 L 1125 274 L 1114 270 L 1104 266 L 1093 263 L 1083 260 L 1073 257 L 1064 254 L 1055 252 L 1046 250 L 1037 248" opacity="0.80"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="" opacity="0.00"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="" opacity="0.00"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="" opacity="0.00"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1190 257 L 1188 247 L 1186 237 L 1184 228 L 1181 218 L 1179 208 L 1176 199 L 1173 189 L 1170 180 L 1167 172 L 1163 163 L 1160 156 L 1156 148 L 1153 142 L 1149 135 L 1146 130 L 1142 125 L 1138 120 L 1135 117 L 1131 113 L 1127 111 L 1124 109 L 1121 107 L 1117 106 L 1114 106" opacity="0.98"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="M 1190 257 L 1193 258 L 1197 260 L 1200 261 L 1203 263 L 1207 265 L 1210 267 L 1213 269 L 1216 271 L 1219 274 L 1222 276 L 1225 279 L 1228 282 L 1230 285 L 1232 288 L 1235 291 L 1237 294 L 1238 297 L 1240 300 L 1241 304 L 1243 307 L 1244 310 L 1245 313 L 1246 316 L 1247 320" opacity="0.98"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="" opacity="0.00"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="" opacity="0.00"/>
+                  <path class="fig-dash fig-globe-link" vector-effect="non-scaling-stroke" d="" opacity="0.00"/>
+                </g>
+
+                <g data-globe-sites="">
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1022" cy="240" r="6" opacity="0.00"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1030" cy="263" r="6" opacity="0.00"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1229" cy="312" r="6" opacity="0.00"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1285" cy="290" r="6" opacity="0.00"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1239" cy="358" r="6" opacity="0.00"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1027" cy="139" r="6" opacity="0.50"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1229" cy="312" r="6" opacity="0.50"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1267" cy="254" r="6" opacity="0.50"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1130" cy="350" r="6" opacity="0.00"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1130" cy="350" r="6" opacity="0.00"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1027" cy="139" r="6" opacity="0.94"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="988" cy="186" r="6" opacity="0.94"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1277" cy="270" r="6" opacity="0.94"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1206" cy="366" r="6" opacity="0.94"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1130" cy="350" r="6" opacity="0.00"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1034" cy="136" r="6" opacity="0.80"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1037" cy="248" r="6" opacity="0.80"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1130" cy="350" r="6" opacity="0.00"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1130" cy="350" r="6" opacity="0.00"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1130" cy="350" r="6" opacity="0.00"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1114" cy="106" r="6" opacity="0.98"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1247" cy="320" r="6" opacity="0.98"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1130" cy="350" r="6" opacity="0.00"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1130" cy="350" r="6" opacity="0.00"/>
+                  <circle class="fig-globe-site" vector-effect="non-scaling-stroke" cx="1130" cy="350" r="6" opacity="0.00"/>
+                </g>
+
+                <g data-globe-holders="">
+                  <circle class="fig-dot fig-globe-node" cx="1297" cy="358" r="6" opacity="0.00"/>
+                  <circle class="fig-dot fig-globe-node" cx="1268" cy="353" r="6" opacity="0.50"/>
+                  <circle class="fig-dot fig-globe-node" cx="1190" cy="257" r="6" opacity="0.94"/>
+                  <circle class="fig-dot fig-globe-node" cx="1268" cy="353" r="6" opacity="0.80"/>
+                  <circle class="fig-dot fig-globe-node" cx="1190" cy="257" r="6" opacity="0.98"/>
+                </g>
+              </g>
+
+              <!-- The limb, outside the clip: it is the edge, not the contents. -->
+              <circle class="fig-solid" vector-effect="non-scaling-stroke" cx="1130" cy="350" r="265"/>
+            </svg>
+            </div>
+        <svg class="flow-art" viewBox="0 0 1600 540" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <!-- FEED. A requirement leaving an industry for ConvergX. EIGHT
+               RESTING LINES, ONE TRAVELLING PULSE. There is only ever one
+               requirement in flight, because only one industry is up at a time,
+               so flow.js re-points the single pulse at the live row rather than
+               the markup shipping eight pulses that mostly sit at zero.
+               THE ORIGINS BELOW ARE A SNAPSHOT, measured at 1280 and written
+               down for the no-script view. flow.js measures each row's dot for
+               real and overwrites all eight, because the end of a word moves
+               with the label and the type scale. Do not treat these as solved
+               numbers and do not try to keep them in sync by hand. -->
+          <path class="flow-line flow-feed is-live" pathLength="100" vector-effect="non-scaling-stroke" d="M 316 34 C 534 34 582 270 800 270"/>
+          <path class="flow-line flow-feed" pathLength="100" vector-effect="non-scaling-stroke" d="M 218 101 C 480 101 538 270 800 270"/>
+          <path class="flow-line flow-feed" pathLength="100" vector-effect="non-scaling-stroke" d="M 232 169 C 488 169 544 270 800 270"/>
+          <path class="flow-line flow-feed" pathLength="100" vector-effect="non-scaling-stroke" d="M 156 236 C 446 236 510 270 800 270"/>
+          <path class="flow-line flow-feed" pathLength="100" vector-effect="non-scaling-stroke" d="M 252 304 C 499 304 553 270 800 270"/>
+          <path class="flow-line flow-feed" pathLength="100" vector-effect="non-scaling-stroke" d="M 174 371 C 456 371 518 270 800 270"/>
+          <path class="flow-line flow-feed" pathLength="100" vector-effect="non-scaling-stroke" d="M 404 439 C 583 439 621 270 800 270"/>
+          <path class="flow-line flow-feed" pathLength="100" vector-effect="non-scaling-stroke" d="M 208 506 C 474 506 534 270 800 270"/>
+          <path class="flow-pulse flow-feed-pulse" pathLength="100" vector-effect="non-scaling-stroke" d="M 316 34 C 534 34 582 270 800 270"/>
+          <!-- FAN. ConvergX reaching out, landing on the globe. FIVE SLOTS, of
+               which flow.js draws three to five each slot, the count picked
+               fresh: Chip asked for "3-5 random parts on the globe in NATO
+               allianced countries", varying per industry. Any slot it does not
+               use this time is emptied for the slot's duration.
+               THEY MOVE: flow.js rewrites the d of each triple and the cx/cy of
+               its node every frame, so the far end follows the site it is
+               attached to as the globe turns, and goes out when that site goes
+               round the back. See that file for which sites and why.
+               ALL FIVE SHIP WITH REAL GEOMETRY, not three real and two empty.
+               With scripts off five connections render and the figure is
+               finished; empty elements in the markup would be a placeholder
+               waiting for a script, which is the thing this component does not
+               do. The five sit at 0.72r around the globe's centre at stage
+               (1400, 270), spread so no two crowd and all five clear the mask.
+               THE FIVE ARE INDEX ALIGNED across line, outbound pulse, return
+               pulse and node. flow.js walks them by class in document order and
+               refuses to run if any of the four counts is not five. -->
+          <path class="flow-line flow-fan" pathLength="100" vector-effect="non-scaling-stroke" d="M 800 270 C 945 270 1111 254 1214 254"/>
+          <path class="flow-pulse flow-fan-pulse" pathLength="100" vector-effect="non-scaling-stroke" style="--d:0.0s" d="M 800 270 C 945 270 1111 254 1214 254"/>
+          <path class="flow-line flow-fan" pathLength="100" vector-effect="non-scaling-stroke" d="M 800 270 C 956 270 1135 377 1247 377"/>
+          <path class="flow-pulse flow-fan-pulse" pathLength="100" vector-effect="non-scaling-stroke" style="--d:0.08s" d="M 800 270 C 956 270 1135 377 1247 377"/>
+          <path class="flow-line flow-fan" pathLength="100" vector-effect="non-scaling-stroke" d="M 800 270 C 964 270 1151 138 1268 138"/>
+          <path class="flow-pulse flow-fan-pulse" pathLength="100" vector-effect="non-scaling-stroke" style="--d:0.16s" d="M 800 270 C 964 270 1151 138 1268 138"/>
+          <path class="flow-line flow-fan" pathLength="100" vector-effect="non-scaling-stroke" d="M 800 270 C 982 270 1191 440 1321 440"/>
+          <path class="flow-pulse flow-fan-pulse" pathLength="100" vector-effect="non-scaling-stroke" style="--d:0.24s" d="M 800 270 C 982 270 1191 440 1321 440"/>
+          <path class="flow-line flow-fan" pathLength="100" vector-effect="non-scaling-stroke" d="M 800 270 C 988 270 1202 94 1336 94"/>
+          <path class="flow-pulse flow-fan-pulse" pathLength="100" vector-effect="non-scaling-stroke" style="--d:0.32s" d="M 800 270 C 988 270 1202 94 1336 94"/>
+          <path class="flow-pulse flow-return-pulse" pathLength="100" vector-effect="non-scaling-stroke" style="--d:0.0s" d="M 800 270 C 945 270 1111 254 1214 254"/>
+          <path class="flow-pulse flow-return-pulse" pathLength="100" vector-effect="non-scaling-stroke" style="--d:0.08s" d="M 800 270 C 956 270 1135 377 1247 377"/>
+          <path class="flow-pulse flow-return-pulse" pathLength="100" vector-effect="non-scaling-stroke" style="--d:0.16s" d="M 800 270 C 964 270 1151 138 1268 138"/>
+          <path class="flow-pulse flow-return-pulse" pathLength="100" vector-effect="non-scaling-stroke" style="--d:0.24s" d="M 800 270 C 982 270 1191 440 1321 440"/>
+          <path class="flow-pulse flow-return-pulse" pathLength="100" vector-effect="non-scaling-stroke" style="--d:0.32s" d="M 800 270 C 988 270 1202 94 1336 94"/>
+          <!-- CONVERGE, then the introduction. ONE STRAIGHT DROP from the hub's
+               bottom edge to the output node, on Chip's instruction 2026-07-31:
+               "Instead of the U shape here, just do a straight line to the
+               result that ConvergX is spitting out." It was two curves swinging
+               out to x 470 and x 730 and meeting underneath, which read as two
+               more inputs arriving rather than as one result leaving. Do not
+               reintroduce the second strand. -->
+          <path class="flow-line flow-conv" pathLength="100" vector-effect="non-scaling-stroke" d="M 800 270 L 800 454"/>
+          <path class="flow-pulse flow-conv-pulse" pathLength="100" vector-effect="non-scaling-stroke" style="--d:0.0s" d="M 800 270 L 800 454"/>
+          <circle class="flow-node" style="--d:0.0s" cx="1214" cy="254" r="9" vector-effect="non-scaling-stroke"/>
+          <circle class="flow-node" style="--d:0.08s" cx="1247" cy="377" r="9" vector-effect="non-scaling-stroke"/>
+          <circle class="flow-node" style="--d:0.16s" cx="1268" cy="138" r="9" vector-effect="non-scaling-stroke"/>
+          <circle class="flow-node" style="--d:0.24s" cx="1321" cy="440" r="9" vector-effect="non-scaling-stroke"/>
+          <circle class="flow-node" style="--d:0.32s" cx="1336" cy="94" r="9" vector-effect="non-scaling-stroke"/>
+          <circle class="flow-out" cx="800" cy="454" r="15" vector-effect="non-scaling-stroke"/>
+        </svg>
+
+          <!-- THE LIST STAYS ALPHABETICAL, which is how a reader scans it. The
+               ORDER THINGS LIGHT UP IN is a separate thing and it lives in
+               flow.js: aerospace, military, energy, construction, technology,
+               agriculture, mining, manufacturing, which is the run Chip
+               described. It is fixed, not reshuffled per loop; he wants a
+               legible rotation, not noise.
+               --d IS GONE FROM THESE ROWS. It scattered eight simultaneous
+               animations; there is now one industry at a time and a class says
+               which. Putting a delay back here would light a second one.
+               --g is the gap between a word and its dot, varied per row so the
+               eight feed origins do not line up on a neat diagonal. The dot is
+               where that row's line starts, and flow.js measures it. -->
+          <ul class="flow-sectors">
+          <li class="flow-sector is-live" style="--g:0.75rem"><span class="flow-sector-name">Aerospace and defence</span><span class="flow-dot" aria-hidden="true"></span></li>
+          <li class="flow-sector" style="--g:1.5rem"><span class="flow-sector-name">Agriculture</span><span class="flow-dot" aria-hidden="true"></span></li>
+          <li class="flow-sector" style="--g:1rem"><span class="flow-sector-name">Construction</span><span class="flow-dot" aria-hidden="true"></span></li>
+          <li class="flow-sector" style="--g:2rem"><span class="flow-sector-name">Energy</span><span class="flow-dot" aria-hidden="true"></span></li>
+          <li class="flow-sector" style="--g:1.25rem"><span class="flow-sector-name">Manufacturing</span><span class="flow-dot" aria-hidden="true"></span></li>
+          <li class="flow-sector" style="--g:0.5rem"><span class="flow-sector-name">Military</span><span class="flow-dot" aria-hidden="true"></span></li>
+          <li class="flow-sector" style="--g:1.75rem"><span class="flow-sector-name">Mining and natural resources</span><span class="flow-dot" aria-hidden="true"></span></li>
+          <li class="flow-sector" style="--g:0.875rem"><span class="flow-sector-name">Technology</span><span class="flow-dot" aria-hidden="true"></span></li>
+          </ul>
+
+          <!-- THE MARK, NOT THE WORD, and the word is the fallback. Chip asked
+               for the real logo here. shell.js already inlines the lockup once
+               per page as <defs id="cx-logo"> and already has logoSvg(); this
+               slot reuses both rather than shipping a second copy of 36 paths
+               into this file. With scripts off the reader gets "ConvergX" set
+               in the display face, which is correct rather than degraded.
+               NOT an <img> of assets/brand/convergx-logo-black-tag.svg: that
+               asset is black (invisible on this ground) and carries the
+               RETIRED tagline, which is on the ledger and must not render. -->
+          <!-- SHIPS LIT, paired with the first sector, which also ships lit.
+               That is the no-script view and it is the point of the component
+               rendered as one held moment: an industry and ConvergX up together
+               with the connections drawn. flow.js takes .is-live over from here
+               and moves it down the rotation; under reduced motion it leaves it
+               exactly where the markup put it. -->
+          <p class="flow-hub is-live"><span data-logo-slot>ConvergX</span></p>
+
+          <!-- THE STATUS TRACK. Four lines, one box, one clock. Each fades in
+               over the beat it names and out again, so at any moment the
+               diagram is captioned by what it is doing. They are stacked in a
+               single grid cell rather than positioned, which is what keeps the
+               box the height of the tallest line and stops the layout jumping
+               as they swap. -->
+          <p class="flow-status" aria-hidden="true">
+            <span style="--s:1">A requirement is submitted</span>
+            <!-- NOT "its vetted network". The word invites a size comparison
+                 ConvergX loses, which is the same reason /about/network/ is
+                 titled "Who we convene". What ConvergX has is a set of
+                 companies it has vetted, and that is what this says. -->
+            <span style="--s:2">ConvergX asks the companies it has vetted</span>
+            <span style="--s:3">Vetted companies answer</span>
+            <span style="--s:4">One introduction is brokered</span>
+          </p>
+        </div>
+      </figure>
+    </div>
+  </section>
+
   <!-- data-surface on the nav ITSELF, and it stays a direct child of <main>.
        Chip, 2026-07-31: everything below the impact statement, this bar
        included, sits on the light ground. Wrapping the bar in the same band
@@ -400,12 +917,35 @@
        surface here gives it the light --bg for its stuck state while leaving
        <main> as its containing block. -->
   <nav class="subnav" data-surface="light" aria-label="On this page">
+    <!-- FIVE ANCHORS, THEN TWO PAGE LINKS, and the split is why .subnav-end
+         exists. Chip, 2026-07-31: "right align those items in the sub menu to
+         make them click through to their respective standalone pages."
+         Register and Sponsor are no longer sections of this page, so they
+         cannot take a marker and must not look like they could. Pushing them
+         to the far end is the signal: everything left of the gap moves you
+         down this page, everything right of it leaves it.
+         wireSubnav() only ever collects a[href^="#"], so the two page links
+         are invisible to the marker by construction rather than by exception.
+         Order matches the page top to bottom. Keep it that way. -->
     <ul class="subnav-list">
-      <li><a href="#overview">Overview</a></li>
+      <!-- OVERVIEW POINTS AT #about, NOT AT #overview. Chip, 2026-07-31:
+           "clicking the sub menu Overview link jumps to the top of the page,
+           instead of its respective section."
+           It was doing exactly what it said: #overview is the hero, and the
+           hero sits ABOVE this bar, so the anchor threw the reader back past
+           the bar to the top of the document. A bar that is sticky below a
+           hero can only usefully address what is below it.
+           #about is the first section under this bar and its heading reads
+           "Congress Overview", so the label needs no change. #overview keeps
+           its id: the hero is still a section and the skip link and the
+           document outline both still want it. -->
+      <li><a href="#about">Overview</a></li>
       <li><a href="#speakers">Speakers</a></li>
       <li><a href="#agenda">Agenda</a></li>
-      <li><a href="#tickets">Tickets</a></li>
-      <li><a href="#sponsorship">Sponsorship</a></li>
+      <li><a href="#faq">Questions</a></li>
+      <li><a href="#app">The App</a></li>
+      <li class="subnav-end"><a href="/congress/register/">Register</a></li>
+      <li><a href="/congress/sponsor/">Sponsor</a></li>
     </ul>
   </nav>
 
@@ -485,7 +1025,7 @@
            called The Congress: a layout-edge label that carried no data. The
            .sec-head wrapper stays, because the h2 still needs its rule. -->
       <div class="sec-head">
-        <h2>What the Congress is</h2>
+        <h2>Congress Overview</h2>
       </div>
 
       <div class="whatis">
@@ -588,102 +1128,18 @@
           at one, on /about/.
        ============================================================ -->
 
-  <!-- ============================================================
-       5. WHO IS IN THE ROOM.
-       The sector list is ConvergX's own, published on
-       /global-congress-2026/, and it is the most concrete thing on their
-       page. Carried as a list of who ConvergX convenes, which is a
-       licensed verb and their own assertion about their own room. No
-       count is typed: another sector would make one stale.
-       The two-row table is carried from /congress/register/ unchanged.
-       ConvergX publishes eight sector cards of its own on Who Attends and
-       they are NOT reproduced here, because this site already has one
-       industry taxonomy and a second one that disagrees with it is worse
-       than none. The row hands off to /industries/ instead.
-       The admission standard is NOT here. It leads #tickets, which is
-       where /congress/register/ leads with it, and one page carries it
-       once.
-       ============================================================ -->
-  <section id="who">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Who is in the room</h2>
-        <span class="label label--lo label--edge">The room</span>
-      </div>
-      <div class="editorial">
-        <div class="lede">
-          <p>ConvergX convenes leaders from energy, defence, aerospace, mining, agriculture, manufacturing, construction, technology, government, Indigenous economic development and finance.</p>
-        </div>
-        <div class="body">
-          <p>Two kinds of people are in the room, and each one is there because of what they carry.</p>
-          <table>
-            <caption class="label">Who is considered, and on what basis</caption>
-            <thead>
-              <tr>
-                <th scope="col">Who</th>
-                <th scope="col">What they carry</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>People with a requirement</td>
-                <td>A live requirement their own supply base cannot fill, and a date somebody reports against.</td>
-              </tr>
-              <tr>
-                <td>People with a capability</td>
-                <td>A capability that is already commercialised and already sold to a customer. Not a concept, and not a prototype.</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="claim">
-            <p>The two are rarely in the same industry, which is the whole reason the room is worth composing. <a class="link-more" href="/industries/">Industries</a></p>
-          </div>
-        </div>
-
-        <!-- Fig. 9, inlined from /assets/fig/fig-9-three-days.svg.
-             Inlined rather than referenced: the ink is currentColor taken
-             from the surface, so an <img> would never reach the .fig-*
-             rules or the reveal.
-             grid-column: main by inheritance from .editorial > *, never
-             bleed: this page's one grid break is spent on the header
-             photograph. The seven paths, three dots and three columns are
-             structure, never a count. The dates are the only permitted
-             figure inside it. -->
-        <figure class="fig" data-fig>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Diagram: seven dashed paths converge from the left into a rectangular frame divided into three columns, one for each day of the Congress, September 22 to 24. Three dots inside the frame mark meetings.">
-            <!-- The window and its two dividers are drawn as path rather than rect
-                 and line: identical geometry, and pathLength is honoured on a path
-                 in every browser, which the draw-on depends on. On basic shapes it
-                 is not, and where it is ignored the window would render as a
-                 1-unit dotted outline instead of a solid one. -->
-
-            <!-- The window: three columns, three days. -->
-            <path class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" d="M 980 110 H 1440 V 590 H 980 Z"/>
-            <path class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" d="M 1133 110 V 590"/>
-            <path class="fig-solid" pathLength="1" vector-effect="non-scaling-stroke" d="M 1287 110 V 590"/>
-
-            <!-- Seven routes in, each cropped by the frame edge it enters from, every
-                 one terminating on the window's left edge at x 980. -->
-            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 0 60 C 400 100, 700 180, 980 240"/>
-            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 0 200 C 350 230, 680 260, 980 290"/>
-            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 0 340 C 350 345, 680 348, 980 340"/>
-            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 0 480 C 350 460, 680 420, 980 390"/>
-            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 0 620 C 400 580, 700 500, 980 440"/>
-            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 240 0 C 500 160, 760 220, 980 265"/>
-            <path class="fig-dash" vector-effect="non-scaling-stroke" d="M 240 700 C 500 560, 760 470, 980 415"/>
-
-            <!-- One meeting in each column. -->
-            <circle class="fig-dot" cx="1057" cy="300" r="6"/>
-            <circle class="fig-dot" cx="1210" cy="350" r="6"/>
-            <circle class="fig-dot" cx="1363" cy="400" r="6"/>
-
-            <text class="fig-label" x="980" y="80">Sep 22 to 24, Calgary</text>
-          </svg>
-          <figcaption>Fig. 9. Many paths, one window. Separate industries, and the room ConvergX puts them in.</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
+  <!-- SECTION 5, WHO IS IN THE ROOM, WAS DELETED 2026-07-31 on Chip's
+       instruction: "I want it to replace the who's in the room section. So you
+       could erase the who's in the room section." Everything it said is now in
+       the .flow-band above the subnav, which is where he asked for it and is
+       the last of the dark ground.
+       NOTHING WAS LOST EXCEPT THE ELEVEN SECTOR LEDE, and the flow band's
+       comment records why that one went. Its two table rows are the legend,
+       its closing claim closes the band, and its h2 survives as the band's
+       accessible name.
+       THE id="who" WENT WITH IT and that is checked, not assumed: nothing in
+       shell.js, the subnav or any page linked to it. The subnav is Overview,
+       Speakers, Agenda, Tickets and Sponsorship. Do not reintroduce the id. -->
 
   <!-- ============================================================
        6. SPEAKERS. Carried from the 2026-07-30 rewrite unchanged.
@@ -727,54 +1183,54 @@
       </div>
 
       <div class="speaker-grid">
-        <article class="speaker-card">
+        <article class="speaker-card" id="speaker-kimberley-van-vliet">
           <img class="speaker-card-photo" src="/assets/speakers/kimberley-van-vliet.jpg" alt="Photograph of Dame Kimberley Van Vliet." loading="lazy" decoding="async">
-          <p class="speaker-card-name">Dame Kimberley Van Vliet</p>
+          <p class="speaker-card-name"><a class="bio-trigger" href="#bio-kimberley-van-vliet">Dame Kimberley Van Vliet</a></p>
           <p class="speaker-card-role">Founder and CEO, WaVv and ConvergX</p>
         </article>
-        <article class="speaker-card">
+        <article class="speaker-card" id="speaker-tracy-latourette">
           <img class="speaker-card-photo" src="/assets/speakers/tracy-latourette.jpg" alt="Photograph of Tracy LaTourette." loading="lazy" decoding="async">
-          <p class="speaker-card-name">Tracy LaTourette</p>
+          <p class="speaker-card-name"><a class="bio-trigger" href="#bio-tracy-latourette">Tracy LaTourette</a></p>
           <p class="speaker-card-role">Opening keynote</p>
         </article>
-        <article class="speaker-card">
+        <article class="speaker-card" id="speaker-david-perry">
           <img class="speaker-card-photo" src="/assets/speakers/david-perry.jpg" alt="Photograph of Dr. David Perry." loading="lazy" decoding="async">
-          <p class="speaker-card-name">Dr. David Perry</p>
+          <p class="speaker-card-name"><a class="bio-trigger" href="#bio-david-perry">Dr. David Perry</a></p>
           <p class="speaker-card-role">President, Canadian Global Affairs Institute</p>
         </article>
-        <article class="speaker-card">
+        <article class="speaker-card" id="speaker-susan-skone">
           <img class="speaker-card-photo" src="/assets/speakers/susan-skone.jpg" alt="Photograph of Dr. Susan Skone." loading="lazy" decoding="async">
-          <p class="speaker-card-name">Dr. Susan Skone</p>
+          <p class="speaker-card-name"><a class="bio-trigger" href="#bio-susan-skone">Dr. Susan Skone</a></p>
           <p class="speaker-card-role">Professor of Geomatics Engineering and AVP Research, University of Calgary</p>
         </article>
-        <article class="speaker-card">
+        <article class="speaker-card" id="speaker-chris-lohmann">
           <img class="speaker-card-photo" src="/assets/speakers/chris-lohmann.jpg" alt="Photograph of Chris Lohmann." loading="lazy" decoding="async">
-          <p class="speaker-card-name">Chris Lohmann</p>
+          <p class="speaker-card-name"><a class="bio-trigger" href="#bio-chris-lohmann">Chris Lohmann</a></p>
           <p class="speaker-card-role">Innovation and Market Development, Aerospace Energy Systems and Sustainability, Boeing Canada</p>
         </article>
-        <article class="speaker-card">
+        <article class="speaker-card" id="speaker-joy-romero">
           <img class="speaker-card-photo" src="/assets/speakers/joy-romero.jpg" alt="Photograph of Joy Romero." loading="lazy" decoding="async">
-          <p class="speaker-card-name">Joy Romero</p>
+          <p class="speaker-card-name"><a class="bio-trigger" href="#bio-joy-romero">Joy Romero</a></p>
           <p class="speaker-card-role">Executive Advisor, Innovation, Canadian Natural Resources Limited</p>
         </article>
-        <article class="speaker-card">
+        <article class="speaker-card" id="speaker-jonathan-morris">
           <img class="speaker-card-photo" src="/assets/speakers/jonathan-morris.jpg" alt="Photograph of Dr. Jonathan M. Morris." loading="lazy" decoding="async">
-          <p class="speaker-card-name">Dr. Jonathan M. Morris</p>
+          <p class="speaker-card-name"><a class="bio-trigger" href="#bio-jonathan-morris">Dr. Jonathan M. Morris</a></p>
           <p class="speaker-card-role">Professor, Mayo Clinic</p>
         </article>
-        <article class="speaker-card">
+        <article class="speaker-card" id="speaker-emma-spanswick">
           <img class="speaker-card-photo" src="/assets/speakers/emma-spanswick.jpg" alt="Photograph of Dr. Emma Spanswick." loading="lazy" decoding="async">
-          <p class="speaker-card-name">Dr. Emma Spanswick</p>
+          <p class="speaker-card-name"><a class="bio-trigger" href="#bio-emma-spanswick">Dr. Emma Spanswick</a></p>
           <p class="speaker-card-role">Associate Professor and Canada Research Chair, University of Calgary</p>
         </article>
-        <article class="speaker-card">
+        <article class="speaker-card" id="speaker-joshua-potter">
           <img class="speaker-card-photo" src="/assets/speakers/joshua-potter.jpg" alt="Photograph of Joshua J. Potter." loading="lazy" decoding="async">
-          <p class="speaker-card-name">Joshua J. Potter</p>
+          <p class="speaker-card-name"><a class="bio-trigger" href="#bio-joshua-potter">Joshua J. Potter</a></p>
           <p class="speaker-card-role">CEO, Kalashnikov USA</p>
         </article>
-        <article class="speaker-card">
+        <article class="speaker-card" id="speaker-rob-huebert">
           <img class="speaker-card-photo" src="/assets/speakers/rob-huebert.jpg" alt="Photograph of Rob Huebert Ph.D." loading="lazy" decoding="async">
-          <p class="speaker-card-name">Rob Huebert Ph.D.</p>
+          <p class="speaker-card-name"><a class="bio-trigger" href="#bio-rob-huebert">Rob Huebert Ph.D.</a></p>
           <p class="speaker-card-role">Professor, Political Science, University of Calgary</p>
         </article>
       </div>
@@ -835,12 +1291,35 @@
         <h2>The Agenda</h2>
       </div>
 
+      <!-- SESSION TITLES ONLY, WITH THE DETAIL BEHIND A DISCLOSURE. Chip,
+           2026-07-31: "use only the title in the view, but for the panels that
+           have descriptions, allow the users to expand to see more details."
+
+           A <details> NESTED INSIDE THE DAY'S <details>, which is legal and
+           needs no script: the day opens, the sessions read as one title per
+           row, and the four panels and four housekeeping rows that carry more
+           than a title open on click. With scripts off both levels still work,
+           because this is the element's own behaviour rather than an
+           enhancement layered on top.
+
+           WHICH ROWS GOT ONE, and the rule is mechanical rather than a
+           judgement call: any row whose published cell held MORE than the
+           session title. Everything that was only ever a title (Breakfast,
+           Break, the receptions, Panels #2, #4, #6, #7 and #8) stays a plain
+           cell, because wrapping a bare title in a disclosure that opens onto
+           nothing is a control that lies about having content behind it.
+
+           NOT A CONTENT CHANGE. Every word below was already on this page.
+           Two ampersands became "and" where a title was split from its
+           detail, and "Four State of the Union slots:" lost its colon when it
+           stopped being a lead-in. No session, time, name, role or employer
+           was added, dropped or altered. -->
       <div class="mod-faq-list">
         <details class="faq">
           <summary><span class="day-title">Tuesday, September 22nd</span></summary>
           <div class="faq-a">
             <table>
-              <caption class="label">Tuesday 22 September</caption>
+              <caption class="label vh">Tuesday 22 September</caption>
               <thead>
                 <tr><th scope="col">Time</th><th scope="col">Session</th></tr>
               </thead>
@@ -857,23 +1336,23 @@
           <summary><span class="day-title">Wednesday, September 23rd</span></summary>
           <div class="faq-a">
             <table>
-              <caption class="label">Wednesday 23 September</caption>
+              <caption class="label vh">Wednesday 23 September</caption>
               <thead>
                 <tr><th scope="col">Time</th><th scope="col">Session</th></tr>
               </thead>
               <tbody>
                 <tr><th scope="row">07:30 to 08:00</th><td>Breakfast</td></tr>
-                <tr><th scope="row">08:00 to 08:15</th><td>Welcome &amp; Opening Remarks. Kimberley Van Vliet.</td></tr>
-                <tr><th scope="row">08:15 to 08:45</th><td>Welcome from the Province. Opening Keynote, Tracy LaTourette, "Building Resilience to Perform in the Storm".</td></tr>
-                <tr><th scope="row">08:45 to 10:00</th><td>Session #1. ConvergX-U. Four State of the Union slots: Defence, Dr. David Perry, President, Canadian Global Affairs Institute. Energy, Gurpreet Lail, President, Enserva. Mining and Agriculture, speakers not named.</td></tr>
+                <tr><th scope="row">08:00 to 08:15</th><td><details class="sess"><summary>Welcome and Opening Remarks</summary><p>Kimberley Van Vliet.</p></details></td></tr>
+                <tr><th scope="row">08:15 to 08:45</th><td><details class="sess"><summary>Welcome from the Province, and Opening Keynote</summary><p>Tracy LaTourette, "Building Resilience to Perform in the Storm".</p></details></td></tr>
+                <tr><th scope="row">08:45 to 10:00</th><td><details class="sess"><summary>Session #1. ConvergX-U</summary><p>Four State of the Union slots. Defence, Dr. David Perry, President, Canadian Global Affairs Institute. Energy, Gurpreet Lail, President, Enserva. Mining and Agriculture, speakers not named.</p></details></td></tr>
                 <tr><th scope="row">10:00 to 10:15</th><td>Break</td></tr>
                 <tr><th scope="row">10:15 to 11:30</th><td>Panel #2. The Convergence Reckoning: What Worked, What's Buying Now</td></tr>
                 <tr><th scope="row">11:30 to 12:00</th><td>Pre-Lunch Reception &amp; Networking</td></tr>
-                <tr><th scope="row">12:00 to 13:30</th><td>Lunch &amp; Keynote Speaker. Speaker not named.</td></tr>
-                <tr><th scope="row">13:30 to 14:45</th><td>Panel #3. Industrial Sovereignty and the Commercialization Engine: Defence and Commercial Scale. Covers the sectors where defence and commercial buyers draw on the same factories, supply chains and workforces.</td></tr>
+                <tr><th scope="row">12:00 to 13:30</th><td><details class="sess"><summary>Lunch and Keynote Speaker</summary><p>Speaker not named.</p></details></td></tr>
+                <tr><th scope="row">13:30 to 14:45</th><td><details class="sess"><summary>Panel #3. Industrial Sovereignty and the Commercialization Engine: Defence and Commercial Scale</summary><p>Covers the sectors where defence and commercial buyers draw on the same factories, supply chains and workforces.</p></details></td></tr>
                 <tr><th scope="row">14:45 to 15:15</th><td>Break</td></tr>
                 <tr><th scope="row">15:15 to 16:30</th><td>Panel #4. Extreme Environments as Commercialization Accelerators</td></tr>
-                <tr><th scope="row">16:30 to 16:45</th><td>Announcements and housekeeping for Day 2 and Evening Reception</td></tr>
+                <tr><th scope="row">16:30 to 16:45</th><td><details class="sess"><summary>Announcements and housekeeping</summary><p>For Day 2 and the Evening Reception.</p></details></td></tr>
                 <tr><th scope="row">16:45 to 20:00</th><td>Evening Networking Reception, Entertainment and Spirits Tasting</td></tr>
               </tbody>
             </table>
@@ -884,19 +1363,19 @@
           <summary><span class="day-title">Thursday, September 24th</span></summary>
           <div class="faq-a">
             <table>
-              <caption class="label">Thursday 24 September</caption>
+              <caption class="label vh">Thursday 24 September</caption>
               <thead>
                 <tr><th scope="col">Time</th><th scope="col">Session</th></tr>
               </thead>
               <tbody>
                 <tr><th scope="row">07:30 to 08:00</th><td>Breakfast</td></tr>
-                <tr><th scope="row">08:00 to 08:15</th><td>Welcome &amp; Opening Remarks. Kimberley Van Vliet.</td></tr>
-                <tr><th scope="row">08:15 to 08:45</th><td>Keynote. Speaker to be announced.</td></tr>
-                <tr><th scope="row">08:45 to 10:00</th><td>Panel #5. Integrated Resource Security and Commercial Resilience. Covers energy, food and public health systems, and the satellite, IoT, AI, biosensing and edge computing capabilities underneath them.</td></tr>
+                <tr><th scope="row">08:00 to 08:15</th><td><details class="sess"><summary>Welcome and Opening Remarks</summary><p>Kimberley Van Vliet.</p></details></td></tr>
+                <tr><th scope="row">08:15 to 08:45</th><td><details class="sess"><summary>Keynote</summary><p>Speaker to be announced.</p></details></td></tr>
+                <tr><th scope="row">08:45 to 10:00</th><td><details class="sess"><summary>Panel #5. Integrated Resource Security and Commercial Resilience</summary><p>Covers energy, food and public health systems, and the satellite, IoT, AI, biosensing and edge computing capabilities underneath them.</p></details></td></tr>
                 <tr><th scope="row">10:00 to 10:15</th><td>Break</td></tr>
                 <tr><th scope="row">10:15 to 11:30</th><td>Panel #6. AI, Autonomy, and Human Performance at the Edge</td></tr>
                 <tr><th scope="row">11:30 to 12:00</th><td>Pre-Lunch Reception &amp; Networking</td></tr>
-                <tr><th scope="row">12:00 to 13:30</th><td>Lunch &amp; Keynote Speaker. Speaker not named.</td></tr>
+                <tr><th scope="row">12:00 to 13:30</th><td><details class="sess"><summary>Lunch and Keynote Speaker</summary><p>Speaker not named.</p></details></td></tr>
                 <tr><th scope="row">13:30 to 14:45</th><td>Panel #7. Capital, Competition, and the Geopolitics of Convergence</td></tr>
                 <tr><th scope="row">14:45 to 15:15</th><td>Break</td></tr>
                 <tr><th scope="row">15:15 to 16:30</th><td>Panel #8. Convergence as Commercial Opportunity</td></tr>
@@ -914,407 +1393,503 @@
            page still exists and still resolves; it is simply no longer linked
            from this section. It is now reachable only from the footer. -->
 
-      <!-- THE APP BLOCK, carried whole from the 2026-07-30 rewrite. It is
-           one of the four things Chip named as good and worth keeping, and
-           it sits here rather than in a thirteenth section because this is
-           the section that already hands the reader to it: the schedule
-           above is subject to change, and the app is where a changed
-           schedule actually lands.
-           Chip, 2026-07-30: link the Platform module pages from here.
-           No download promise, no store name, and push is qualified as
-           Android in the same sentence it appears in. Both are standing
-           rules and neither is a footnote. -->
-      <div class="block block--panel push-m">
-        <p class="label">The app delegates run the Congress from</p>
-        <p>The agenda, the sessions and the opportunity board sit on the phone of everybody in the room. A requirement that comes up in a hallway conversation goes on the board there and then, instead of waiting until somebody finds a laptop.</p>
-        <p>Push notifications reach Android. Availability for September is not confirmed, and nothing here promises a download.</p>
-        <ul class="link-index">
-          <li>
-            <a href="/platform/modules/congress-app/">Congress App</a>
-            <span class="descriptor">The agenda, the sessions and the board, on the phone already in your pocket.</span>
-          </li>
-          <li>
-            <a href="/platform/modules/opportunity-board/">Opportunity Board</a>
-            <span class="descriptor">Post the requirement without your name on it, and a person at ConvergX decides who should answer.</span>
-          </li>
-        </ul>
-      </div>
     </div>
   </section>
 
-  <!-- ============================================================
-       8. TICKETS. Carried from /congress/register/.
-       ORDER IS THE WHOLE POINT and it is what stops this from becoming a
-       ticket section. The admission standard leads, the boundary between
-       paying and being decided on comes next, and only then the prices.
-       Never reorder so a price appears above the standard.
-       The admission standard is quoted verbatim from ConvergX's own
-       published copy and attributed as their standard, not paraphrased
-       into a claim of ours. Zero words changed, none may be cut.
-       No urgency, no seat count, no deadline, no comparison matrix, no
-       per-row action. No attendance figure exists anywhere in ConvergX's
-       material.
-       ============================================================ -->
-  <section id="tickets">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>ConvergX vets every attendee. VP is the floor.</h2>
-        <span class="label label--lo label--edge">Tickets</span>
-      </div>
-      <div class="editorial">
-        <div class="block block--panel">
-          <p class="label">The published admission standard</p>
-          <p>All attendees are individually vetted, VP level or higher decision makers.</p>
-          <p>Proof of ability to directly influence business direction and lead partnerships and investment is required to be considered to join ConvergX.</p>
-        </div>
-      </div>
-      <div class="editorial">
-        <div class="lede">
-          <p>A registration buys a seat in the building.</p>
-          <p>It does not buy vetted standing, an introduction, or a place on the opportunity board.</p>
-        </div>
-        <div class="body">
-          <p>ConvergX decides those, one request at a time, and it decides them separately.</p>
-          <p>A registration is admission for the three days. It puts you in the same building as everyone else who is there, which is the part every conference sells.</p>
-          <p>Who you are put in front of, and whether an introduction is made at all, is decided by a person at ConvergX against the room being composed for September.</p>
-
-          <!-- The third column is ConvergX's own admin-fee and tax
-               qualifier, published on every one of the three products.
-               A delegate who reaches the shop and meets a higher number
-               than this page showed is the worst failure available on the
-               money path, so the qualifier travels with the price rather
-               than sitting under it in small type. Their exact words, and
-               the treatment DIFFERS by pass: Standard excludes admin fees
-               and tax, Government and Military exclude admin fees and
-               carry a tax-exemption note. Do not flatten the three into
-               one blanket line, do not move it to a footnote, do not
-               soften it, and do not add a word of our own to it.
-               NOT inherited: all three of their product descriptions say
-               September 22-24, 2025. The event is 2026 and the dateline
-               in this caption is correct. -->
-          <table class="edge-accent">
-            <caption class="label">Congress registration, Sep 22 to 24, 2026</caption>
-            <thead>
-              <tr>
-                <th scope="col">Pass</th>
-                <th scope="col" class="num">Price, USD</th>
-                <th scope="col">Admin fees and tax</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Standard</th>
-                <td class="num">2,000</td>
-                <td>Price does not include Admin Fees + Tax</td>
-              </tr>
-              <tr>
-                <th scope="row">Government</th>
-                <td class="num">1,000</td>
-                <td>Price does not include Admin Fees. Tax is not applicable to this registration.</td>
-              </tr>
-              <tr>
-                <th scope="row">Military</th>
-                <td class="num">400</td>
-                <td>Price does not include Admin Fees. Tax is not applicable to this registration.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- [NEEDS: confirmed admission process, who issues the decision, and the response window, from ConvergX operations via Kim Van Vliet. This section states the shape of the decision and no timing at all, which is true today.] -->
-
-  <!-- ============================================================
-       9. STAY. The treatment is carried from /congress/register/ intact,
-       and the treatment IS the point: the shape of the published list
-       ships, the names do not.
-       ConvergX publishes four Calgary hotels and one booking code.
-       Naming another organisation is a claim class and it is not made
-       here without clearance. The four hotel photographs on disk are
-       owned by Marriott, Westin and Fairmont, ConvergX republishing them
-       is not a licence that travels, and none exceeds 535px anyway, so
-       none renders here.
-       The venue is genuinely absent. ConvergX publishes no venue on any
-       Congress page. Romero Distillery is the only cleared venue string
-       on the whole project, because it sits in their own agenda title,
-       and it is used in #agenda where it belongs.
-       No price, no fee, no deadline: this is the shape of a published
-       list, never a booking instruction.
-       [NEEDS: clearance to name the four hotels and publish the rate
-       code, and a confirmed venue, from Kim Van Vliet.]
-       [NEEDS: separately, permission to render hotel exterior
-       photography, which belongs to the hotel brands and not to
-       ConvergX. From the brands, or from Kim.]
-       ============================================================ -->
-  <section id="stay" class="section--dense">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Where you stay, and where it happens</h2>
-        <span class="label label--lo label--edge">Accommodation</span>
-      </div>
-      <div class="editorial">
-        <div class="lede">
-          <p>ConvergX publishes a hotel list for September on its own site, and a corporate rate code that covers part of it.</p>
-        </div>
-        <div class="body">
-          <p>No venue is published anywhere alongside it, and nothing here names one before ConvergX does.</p>
-          <p>Book to land before the Tuesday reception opens at 16:00, and to leave after the Thursday close at 17:45.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   </div><!-- /light -->
 
-  <div data-surface="muted">
-
   <!-- ============================================================
-       10. QUOTES. Section 26 of styles.css, reused as published. Its
-       no-JavaScript base state is a wrapped grid holding every quote,
-       all readable, nothing clipped and no scroll of any kind, so this
-       renders complete with JavaScript off. No second carousel was
-       built.
+       FAQ. Chip, 2026-07-31: five named questions plus three to five more,
+       and "not a simple FAQ".
 
-       THERE ARE NINE TESTIMONIALS, NOT TEN. Both earlier captures say
-       ten in prose and then itemise nine. Nine is what renders on
-       ConvergX's page.
+       WHAT MAKES IT NOT SIMPLE: it is grouped into three decisions a reader
+       actually arrives with (attending, sponsoring, practicalities) rather
+       than being one flat list, and every answer that has a fuller version
+       elsewhere on the page ends by pointing at that section.
 
-       THREE ARE QUARANTINED OUTRIGHT and appear here in no form,
-       softened or attributed, because each carries an outcome claim:
-         Blaire Lancaster, for "in terms of number of deals done". That
-           clause is hearsay inside a testimonial about an unnamed past
-           year and it is the single most dangerous string in their
-           material. It may never be lifted, paraphrased or summarised.
-         Stephan King, for "enables broader markets and accelerates the
-           introduction of solutions into practical use".
-         Jeff LaFrenz, for "provides real value" and "drive actionable
-           outcomes".
+       THE DUPLICATION RULE THIS SECTION FOLLOWS, and it matters more than
+       the format: #tickets, #stay and #sponsorship already answer most of
+       this. Restating their tables here would put the same numbers in two
+       places, and the first future edit would update one of them. So each
+       answer is the SHORT form, it is true standing alone, and it links to
+       the long form. The prices appear with their admin-fee and tax
+       qualifier attached, because a price without it is wrong on its own.
 
-       TWO MORE ARE REFUSED HERE, on top of the three:
-         Cam MacDonald, for the superlative "the most professional I've
-           attended in the last 10 years". Experience description and
-           superlative are different tests and it fails the second.
-         Gary Biermann, for "As a leading global technology company,
-           Lockheed Martin". That is a superlative about Lockheed Martin,
-           by Lockheed Martin's own person, and the asset capture is
-           explicit that it is still not ours to carry. Naming Lockheed
-           Martin is cleared; carrying their superlative is not. Trimming
-           it out would be an edit to somebody's words, which is its own
-           decision and not this page's.
+       THREE ANSWERS ARE "NOT PUBLISHED", and that is the honest answer, not
+       a gap: the venue, any refund or transfer policy, and the route to
+       speaking. All three are on the NOT PUBLISHED list in
+       CONGRESS-SOURCE-2026-07-30 section 7. Do not invent them, and do not
+       soften them into "contact us" either.
 
-       FOUR RUN, all four classed as experience descriptions.
-       ATTRIBUTION IS EXACTLY AS CONVERGX PUBLISHES IT. Chip asked for
-       name, title and company on each; ConvergX publishes no title and no
-       company for Rochette or Bean, so their attribution line is the name
-       alone. That is a finding, not a gap. Carpentier and Hardin carry
-       their command and department in the attribution line itself.
-       NO CREST AND NO LOGO RENDERS ANYWHERE IN THIS SECTION. Carpentier
-       is Joint Task Force North and Hardin is the Department of National
-       Defence. Those crests never render, under any circumstances. The
-       quotes may run with full attribution; that is the standing rule and
-       it is not a clearance that arrives later.
-       Their typos are preserved inside the quotes and never silently
-       corrected: "currentand" in Bean, "participant's" in Hardin, and
-       "Convergx" is their own casing of their own brand inside a quote
-       body. Curly quotes, the registered glyph and the ellipsis character
-       in their source are converted, and no word is altered doing it.
-
-       [NEEDS: consent to republish any of the nine testimonials at all.
-       This is site-wide open question 7 and it is unchanged. From Kim Van
-       Vliet. The six experience descriptions are the ones worth asking
-       about; the three outcome claims should not be asked for at all.
-       Until it is answered these four are shipped on Chip's instruction
-       to build all twelve sections, and they come down on one word.]
-       ============================================================ -->
-  <section id="quotes" class="quotes section--dense">
+       No outcome claims. Nothing here promises an introduction, a meeting,
+       a deal or a download. -->
+  <section id="faq" class="section--dense" data-surface="muted">
     <div class="wrap">
       <div class="sec-head">
-        <h2>What attendees wrote afterwards</h2>
-        <span class="label label--lo label--edge">In their words</span>
+        <h2>Questions</h2>
       </div>
-      <p class="quotes-note">Published by ConvergX on its own site. All are undated, and all of them describe a past Congress.</p>
-      <ul class="quote-track">
-        <li class="quote">
-          <figure>
-            <blockquote><p>I'm very happy to be here and I'm impressed with the group of people that you've brought together for this forum. It's great to see experts dealing with the facts and trying to get to the core of the matter of operating in the North. The North is not separate from the rest of the globe, and is being impacted by the same global trends that are impacting the world.</p></blockquote>
-            <figcaption>BGen Carpentier, Commander Joint Task Force North</figcaption>
-          </figure>
-        </li>
-        <li class="quote">
-          <figure>
-            <blockquote><p>This is a very impressive gathering of partnerships and I'm impressed with the diversity of the participant's backgrounds, the expertise at this conference, and your care of the Arctic. Conferences like this are valuable because it gives us a deeper understanding of who the key players are in the Arctic. Every opportunity like this, improves my education and gives me a deeper understanding of what kind of resources are available right here in Canada.</p></blockquote>
-            <figcaption>BGen Hardin, Department of National Defence</figcaption>
-          </figure>
-        </li>
-        <li class="quote">
-          <figure>
-            <blockquote><p>Convergx is a fantastic event. I meet key people and the lectures are eye opening and focus on currentand important topics. I wouldn't miss it.</p></blockquote>
-            <figcaption>Chuck Bean</figcaption>
-          </figure>
-        </li>
-        <li class="quote">
-          <figure>
-            <blockquote><p>It was an honor to present at your conference. Let me know if I can help for your next year event.</p></blockquote>
-            <figcaption>Claude Rochette</figcaption>
-          </figure>
-        </li>
-      </ul>
+
+      <h3 class="faq-group">Attending</h3>
+      <div class="mod-faq-list">
+        <details class="faq">
+          <summary><span>How much does it cost to attend?</span></summary>
+          <div class="faq-a">
+            <p>Three passes are published, in US dollars: Standard 2,000, Government 1,000 and Military 400. None of the three includes admin fees. Tax is added to the Standard pass and is not applicable to the Government and Military passes.</p>
+            <p><a class="link-more" href="/congress/register/">Register</a></p>
+          </div>
+        </details>
+        <!-- "Who is the Congress for?" was REPLACED by these two on Chip's
+             instruction, 2026-07-31, rather than added alongside: it and
+             "Who attends" were the same question with two labels, and the
+             composition answer is the more useful of the two.
+             THE VETTING ANSWER IS WRITTEN AGAINST THE VERB GATE. ConvergX
+             asks, decides, vets, brokers and convenes. It never verifies,
+             checks or confirms, so this describes a STANDARD and a decision
+             and not a set of verification steps, which is the shape that
+             would overclaim. -->
+        <details class="faq">
+          <summary><span>Who attends the Congress?</span></summary>
+          <div class="faq-a">
+            <p>Executives, owners, operators, procurement leaders, government officials, military leadership, investors, innovators and technology providers, all of them people who influence strategy, purchasing, partnerships and deployment.</p>
+            <p><a class="link-more" href="#about">What the Congress is</a></p>
+          </div>
+        </details>
+        <details class="faq">
+          <summary><span>What is the vetting process?</span></summary>
+          <div class="faq-a">
+            <p>ConvergX vets every attendee, and VP is the floor. It asks for proof of ability to directly influence business direction and lead partnerships and investment.</p>
+            <p>Admission is a decision ConvergX makes, one request at a time, rather than a form you pass. A registration does not stand in for it and no sponsorship tier reaches it.</p>
+            <p><a class="link-more" href="/about/how-we-vet/">How we vet</a></p>
+          </div>
+        </details>
+        <details class="faq">
+          <summary><span>Does a registration get me an introduction?</span></summary>
+          <div class="faq-a">
+            <p>No. A registration buys a seat in the building. It does not buy vetted standing, an introduction, or a place on the opportunity board. ConvergX decides those separately, one request at a time.</p>
+          </div>
+        </details>
+        <details class="faq">
+          <summary><span>Can I get a refund, or transfer my registration?</span></summary>
+          <div class="faq-a">
+            <p>ConvergX publishes no refund, transfer or cancellation policy. There is nothing to quote here, so nothing is stated.</p>
+          </div>
+        </details>
+      </div>
+
+      <h3 class="faq-group">Sponsoring</h3>
+      <div class="mod-faq-list">
+        <details class="faq">
+          <summary><span>Can I sponsor the event?</span></summary>
+          <div class="faq-a">
+            <p>Yes. Nine tiers are published and are bought on the ConvergX shop, the same place registrations are.</p>
+            <p>Sponsorship buys visibility in the room. It never buys a match: who is introduced to whom is decided by a person at ConvergX against the requirement on the table, and no tier reaches that decision or stands in for vetting.</p>
+            <p><a class="link-more" href="/congress/sponsor/">Sponsor</a></p>
+          </div>
+        </details>
+        <details class="faq">
+          <summary><span>How much do sponsorships cost?</span></summary>
+          <div class="faq-a">
+            <p>The nine published tiers run from 7,500 to 50,000 US dollars.</p>
+            <p><a class="link-more" href="/congress/sponsor/">Sponsor</a></p>
+          </div>
+        </details>
+        <details class="faq">
+          <summary><span>What do sponsors receive?</span></summary>
+          <div class="faq-a">
+            <p>Inclusions are published per tier and differ at every level. Delegate passes are the one thing every tier carries, from six at the top to one at the entry tier. The full inclusions sit beside each tier.</p>
+            <p><a class="link-more" href="/congress/sponsor/">Sponsor</a></p>
+          </div>
+        </details>
+      </div>
+
+      <h3 class="faq-group">Practicalities</h3>
+      <div class="mod-faq-list">
+        <details class="faq">
+          <summary><span>Where is everyone staying?</span></summary>
+          <div class="faq-a">
+            <p>ConvergX publishes a hotel list for September on its own site, along with a corporate rate code that covers part of it.</p>
+            <p>No venue is published anywhere alongside it, and nothing here names one before ConvergX does.</p>
+          </div>
+        </details>
+        <details class="faq">
+          <summary><span>When should I arrive, and when can I leave?</span></summary>
+          <div class="faq-a">
+            <p>The Tuesday welcome reception opens at 16:00 and the Thursday programme closes at 17:45. Booking to land before the first and leave after the second covers all three days.</p>
+            <p><a class="link-more" href="#agenda">The Agenda</a></p>
+          </div>
+        </details>
+        <details class="faq">
+          <summary><span>Is there an app?</span></summary>
+          <div class="faq-a">
+            <p>Yes. The agenda, the sessions and the opportunity board sit on it.</p>
+            <p>Push notifications reach Android. Availability for September is not confirmed, and nothing here promises a download.</p>
+            <p><a class="link-more" href="/platform/modules/congress-app/">Congress App</a></p>
+          </div>
+        </details>
+      </div>
     </div>
   </section>
 
   <!-- ============================================================
-       11. RESERVE. The closing Register call to action.
-       NO FORM. Both existing access forms on this site submit nowhere,
-       which Chip settled on 2026-07-29 as acceptable for a demo site, and
-       a third one here would fracture the money path away from the shop
-       that actually takes payment.
-       OUTLINED, NOT SOLID. The page's one solid orange fill is spent on
-       the hero Register button in #overview. Same destination, same
-       intent, and a reader who scrolls this far has already seen it.
-       ============================================================ -->
-  <section id="reserve" class="section--dense">
-    <div class="wrap">
-      <div class="editorial">
-        <div class="sec-head">
-          <h2>Registration is handled on the ConvergX shop</h2>
-          <span class="label label--lo label--edge">Register</span>
-        </div>
-        <p class="lede-text">Payment happens there, on ConvergX's own site, not on this one.</p>
-        <p><a class="btn" href="https://convergx.co/shop/" rel="noopener">Register on the ConvergX shop</a></p>
-        <p class="meta">Opens convergx.co, away from ConvergX Connect.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       12. SPONSORSHIP. Carried from /congress/sponsor/.
-       Every figure here is cleared the same way: it is already public on
-       ConvergX's own shop. That covers the nine prices and the
-       delegate-pass counts inside the inclusions, and it covers nothing
-       else.
-       Tiers are rows, never columns. No badges, no highlighted row, no
-       "most popular", no per-row action, no urgency. That last one is why
-       the "[1 Available]" ConvergX prints on the Opening Reception
-       product is NOT reproduced, and it is also a contradiction: their
-       own sponsors page already names that reception as sponsored by ATCO
-       Frontec.
-       Left out of the inclusions on purpose, so nobody reads the gaps as
-       an oversight: the per-tier "Ideal for" targeting lists, which sell
-       a buyer profile rather than state a deliverable, and the tier
-       taglines, same reason.
-       ONE INCLUSION IS NOT VERBATIM, deliberately, decided 2026-07-29.
-       Gold reads on their site: "Ability to activate ConvergX Xpand
-       modules to deepen connections and drive post-event outcomes (add-on
-       cost)." Two problems, both inherited. "Drive post-event outcomes"
-       is an outcome promise, and attributing it does not launder it
-       because it still renders here. And "modules" on this site means the
-       platform modules specifically, so borrowing the word for Xpand
-       asserts a link that does not exist. Reduced to the deliverable
-       actually sold. Do not restore the original wording on the grounds
-       that it is what ConvergX publishes.
-       Two characters changed elsewhere, both forced by house rules and
-       neither one a price, a count or an inclusion: the en dash in
-       "2-3 minutes" is written "2 to 3 minutes", and the trademark glyph
-       ConvergX prints on "ConvergX Xpand" is dropped.
-       ============================================================ -->
-  <section id="sponsorship" class="section--dense">
+       THE CONGRESS APP, promoted to a section of its own 2026-07-31. Chip:
+       "make that a full blue background with the screenshot on the right and
+       the info on the left. Give it a title to match the others that just
+       says The Congress App with no eyebrow, then have the sub head below it
+       with the description."
+       IT WAS A BLOCK INSIDE #agenda until now, which is why it had an eyebrow
+       and an h3: it was a feature sitting under someone else's heading. As a
+       section it takes the same h2 treatment as Congress Overview, The
+       Speakers, The Agenda and Questions, the eyebrow comes off because the
+       heading now says the same thing, and the old h3 becomes the subhead.
+       THE BLUE IS THE PAGE'S ONE FULL-BLEED ACCENT and it is the last band on
+       the page, which is what stops it competing with the hero. .app-band
+       remaps the surface tokens rather than hand-colouring anything, so every
+       component inside it keeps working. Type is --accent-ink at 4.59:1.
+       STANDING RULES, both kept and neither footnoted: push reaches ANDROID
+       and that is qualified in the same sentence it appears in, and September
+       availability is unconfirmed so nothing here promises a download or names
+       a store.
+       THE SCREENSHOT FRAME IS EMPTY ON PURPOSE, the same component the module
+       pages use. Inventing product UI for the Congress app is the one thing
+       this site cannot do and no real capture exists yet
+       (_reference/QUEUED-JARVIS-SCREENSHOTS.md). Drop an <img> inside and the
+       aspect-ratio rule stands down on its own.
+       THE OPPORTUNITY BOARD stays out. It has its own module page and the
+       platform nav reaches it; it is not a second competing link in a block
+       whose job is one destination. -->
+  <section id="app" class="app-band">
     <div class="wrap">
       <div class="sec-head">
-        <h2>Sponsorship buys visibility. It never buys a match.</h2>
-        <span class="label label--lo label--edge">Sponsorship</span>
+        <h2>The Congress App</h2>
       </div>
-      <div class="editorial">
-        <div class="lede">
-          <p>Your name goes in front of the room.</p>
+      <div class="app-inner">
+        <div class="app-copy">
+          <p class="app-sub">Carry the three days on the phone already in your pocket</p>
+          <p>The agenda, the sessions and the opportunity board sit on the phone of everybody in the room, so a schedule that changed on Tuesday is not still wrong on a printout in somebody's bag. A requirement raised in a hallway goes on the board there and then, instead of waiting until somebody finds a laptop.</p>
+          <p>Push notifications reach Android. Availability for September is not confirmed, and nothing here promises a download.</p>
+          <p class="push-s"><a class="link-more" href="/platform/modules/congress-app/">Congress App</a></p>
         </div>
-        <div class="body">
-          <p>Who is introduced to whom is decided by a person at ConvergX, against the requirement on the table, and no tier reaches that decision.</p>
-          <p>Vetting stays where it is. No tier moves a company through it faster, and no tier stands in for it.</p>
-          <p>Introductions stay where they are. ConvergX decides who should meet, and both sides consent before anyone is put in front of anyone. A sponsor is on the same footing there as a delegate who paid for one seat.</p>
-          <p>The opportunity board stays where it is. A post gets onto it because ConvergX decided it belongs there, not because of what the poster spent.</p>
-          <p>That is the whole trade, stated up front. What sponsorship buys is the room knowing your name before you say it.</p>
-        </div>
-      </div>
-
-      <table class="edge-accent">
-        <caption class="label">Congress sponsorship, Sep 22 to 24, 2026</caption>
-        <thead>
-          <tr>
-            <th scope="col">Tier</th>
-            <th scope="col" class="num">Price, USD</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><th scope="row">Presenting Partner (exclusive)</th><td class="num">50,000</td></tr>
-          <tr><th scope="row">Cross-Sector / Innovation</th><td class="num">35,000</td></tr>
-          <tr><th scope="row">Industry Partner Platinum</th><td class="num">25,000</td></tr>
-          <tr><th scope="row">Awards Reception</th><td class="num">20,000</td></tr>
-          <tr><th scope="row">Gold</th><td class="num">15,000</td></tr>
-          <tr><th scope="row">Breakfast and Lunch</th><td class="num">10,500</td></tr>
-          <tr><th scope="row">Silver</th><td class="num">10,000</td></tr>
-          <tr><th scope="row">Opening Reception</th><td class="num">10,000</td></tr>
-          <tr><th scope="row">Networking Break</th><td class="num">7,500</td></tr>
-        </tbody>
-      </table>
-
-      <p class="push-end-l push-m">Published on the ConvergX shop, and reproduced here in the words used there.</p>
-      <table>
-        <caption class="label">Sponsorship inclusions, as ConvergX publishes them</caption>
-        <thead>
-          <tr>
-            <th scope="col">Tier</th>
-            <th scope="col">What ConvergX publishes as included</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Presenting Partner (exclusive)</th>
-            <td>Opening keynote (exclusive). Naming rights: ConvergX 2026 presented by [Sponsor]. Premium branding across all event assets (stage, website, email, badges). Top-tier logo placement (exclusive at this level). 6 full-access delegate passes. 1 hosted VIP roundtable (invite-only, curated). Year-round convening branding at ConvergX activations. Priority access and preferred pricing for ConvergX Xpand consulting. Additional passes available at preferred sponsor rate.</td>
-          </tr>
-          <tr>
-            <th scope="row">Cross-Sector / Innovation</th>
-            <td>Mainstage session (fireside or innovation briefing). 5 delegate passes. Hosted roundtable (curated guest list). Premium logo placement (stage + website). Priority access and preferred pricing for ConvergX Xpand consulting. Any NATO or defence-related messaging is subject to venue, partner and policy approvals.</td>
-          </tr>
-          <tr>
-            <th scope="row">Industry Partner Platinum</th>
-            <td>Panel speaking opportunity. 4 delegate passes. Prominent logo placement across core event assets. Verbal recognition during programming and reception. Priority access and preferred pricing for ConvergX Xpand consulting.</td>
-          </tr>
-          <tr>
-            <th scope="row">Awards Reception</th>
-            <td>Naming rights for Awards Reception. Stage presence and the option to present an award. Premium branding throughout reception. Four delegate passes.</td>
-          </tr>
-          <tr>
-            <th scope="row">Gold</th>
-            <td>Session introduction opportunity. 3 delegate passes. Logo placement across event signage and website. Verbal recognition during programming. ConvergX Xpand available as an add-on, at additional cost.</td>
-          </tr>
-          <tr>
-            <th scope="row">Breakfast and Lunch</th>
-            <td>Sponsored table and signage during meals. Welcome remarks. Two delegate passes.</td>
-          </tr>
-          <tr>
-            <th scope="row">Silver</th>
-            <td>2 delegate passes. Logo placement on select event signage. Recognition in program materials.</td>
-          </tr>
-          <tr>
-            <th scope="row">Opening Reception</th>
-            <td>Naming rights for Opening Reception. Branded activation space. Welcome remarks (2 to 3 minutes). Premium signage. 2 delegate passes.</td>
-          </tr>
-          <tr>
-            <th scope="row">Networking Break</th>
-            <td>Branded coffee and networking stations. Branded signage during breaks. One delegate pass.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="editorial">
-        <p class="push-m"><a class="btn" href="https://convergx.co/shop/" rel="noopener">Sponsor on the ConvergX shop</a></p>
-        <p class="meta">Opens convergx.co, away from ConvergX Connect.</p>
+        <figure class="mod-shot-frame mod-shot--empty"
+                data-spec="Screenshot: the Congress app agenda or board view. Scrubbed or synthetic data, no real attendee or company names">
+          <figcaption>Congress App</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  </div><!-- /muted -->
+
+
+  <!-- SECTIONS 9, 11 AND 12 WERE DELETED 2026-07-31, and the whole muted band
+       with them. Chip: "You can remove the Tickets and Sponsorship blocks from
+       the page content and right align those items in the sub menu to make
+       them click through to their respective standalone pages."
+       WHAT WENT: #tickets (the admission standard and the boundary), #reserve
+       (the closing Register call to action) and #sponsorship (the
+       visibility-never-a-match argument).
+       NOTHING WAS LOST. Every one of those three is now the OPENING of its own
+       standalone page: /congress/register/ leads with the admission standard
+       and the boundary, /congress/sponsor/ leads with the visibility line.
+       Both are storefronts and carry the prices, inclusions, fees and hotels,
+       none of which was ever on this page. The subnav sends readers straight
+       there.
+       THE ANCHORS WENT WITH THEM. Every remaining #tickets and #sponsorship
+       reference on this page, all four inside FAQ answers, was repointed to
+       the two pages in the same pass. Do not reintroduce either id: a subnav
+       item and an anchor of the same name pointing at two different things is
+       the defect this removes. -->
+
+
+
+  <!-- ============================================================
+       6b. THE SPEAKER BIO OVERLAYS. Added 2026-07-31 on Chip's instruction.
+
+       THIS REVERSES A DELIBERATE RULE AND THE REVERSAL IS RECORDED HERE SO
+       NOBODY RE-DERIVES THE OLD ONE AND STRIPS THE BIOGRAPHIES AGAIN.
+       The deleted /congress/speakers/ page carried an explicit NO-BIOGRAPHY
+       rule covering all eleven named people: name, title and organisation
+       only, and nothing else, applied on purpose and documented in the
+       comment block at the top of that page.
+       _reference/SPEAKERS-2026-07-30.md restates it in its own second note
+       ("nothing here is cleared to be rewritten yet"). Chip's instruction of
+       2026-07-31 supersedes both. Bios now render, VERBATIM AND IN FULL.
+       If a future pass finds the old rule in a reference file and reads it
+       as still binding, it is not. Ask before removing these.
+
+       SOURCE, and the only one: _reference/SPEAKERS-2026-07-30.md, which
+       captured them from ConvergX's own 2026 Congress speakers page on
+       2026-07-30. Every bio below is that capture verbatim: not trimmed, not
+       reordered, not softened, not summarised. The long one is long, the
+       jokey one is jokey, and the one that is a five-line credential list
+       rather than prose is rendered as five lines.
+       CHANGED FROM THE SOURCE, and this is the whole list: banned dash
+       glyphs were already converted to commas AT CAPTURE TIME, counted per
+       speaker in that file so the original stays traceable, and no word was
+       altered doing it. Nothing else differs.
+
+       TITLES are the capture's verbatim title-and-employer line, which is
+       longer than the abbreviated role on the card above for six of the ten.
+       Both are correct: the card is a billing and this is the attribution.
+       TRACY LATOURETTE CARRIES NO TITLE LINE. ConvergX publishes no title
+       and no employer for her anywhere. Nothing is substituted and no
+       placeholder is written; the field is simply absent, which is the
+       honest render. Her card above keeps "Opening keynote", which is a real
+       billing from their agenda and was already on this page.
+
+       PORTRAITS are cleared (register at the top of the capture file).
+       EMPLOYER MARKS ARE NOT, for any of them, and none renders here.
+       A bio naming an employer is attribution and is not logo permission.
+       GOVERNMENT AND MILITARY CRESTS NEVER RENDER. Several bios name them.
+       The words run in an attributed bio; the crest does not appear, and no
+       image, SVG, icon or background anywhere in this section is anything
+       other than the speaker's own photograph. Each affected bio carries a
+       CREST-WORDS-ONLY marker naming the bodies it mentions.
+
+       GURPREET LAIL IS STILL NOT HERE, for the reason in section 6 above:
+       no cleared portrait exists. Her bio is now solved, from Enserva's own
+       site, so if a portrait arrives she gets a card and an overlay in
+       agenda position after Rob Huebert. Note when that happens that the
+       Enserva bio is her EMPLOYER's copy, a different provenance from every
+       other bio here, and its figures are Enserva's claims.
+
+       MECHANICS: these are :target overlays and they open and close with
+       JavaScript fully disabled. Component and contrast ratios are section
+       39 of styles.css; the script-only extras are wireBios in shell.js.
+       ============================================================ -->
+  <div class="bio-overlay" id="bio-kimberley-van-vliet" data-surface="dark" role="dialog" aria-modal="true" aria-labelledby="bio-kimberley-van-vliet-name">
+    <div class="bio-head">
+      <a class="bio-close" href="#speaker-kimberley-van-vliet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M4 4 L20 20 M20 4 L4 20"></path></svg><span class="vh">Close</span></a>
+    </div>
+    <div class="bio-scroll">
+      <div class="wrap">
+        <div class="bio-figure">
+          <img class="bio-photo" src="/assets/speakers/kimberley-van-vliet.jpg" alt="Photograph of Dame Kimberley Van Vliet." loading="lazy" decoding="async">
+          <div class="bio-text">
+            <h2 class="bio-name" id="bio-kimberley-van-vliet-name">Dame Kimberley Van Vliet</h2>
+            <p class="bio-role">Founder &amp; CEO, WaVv and ConvergX</p>
+            <!-- CREST-WORDS-ONLY: NATO, NATO Industrial Advisory Group (NIAG), Allied Command Transformation (ACT), NATO SPACENET. Named in the bio below as published. No crest, mark, flag or insignia is rendered. -->
+            <div class="bio-prose">
+              <!-- UNCLEARED-AFFILIATION: NATO advisory role, COPY-DIRECTION 1041, shipped on Chip's 2026-07-31 instruction -->
+              <p>Dame of the Order of St George;<br>
+              CDN Del NATO Industrial Advisory Group (NIAG);<br>
+              Co-Chair CoI NIAG-ACT(Innovation,C4ISR,L&amp;S,MDO, DT);<br>
+              NATO SPACENET;<br>
+              Governor General's Canadian Leadership Congress 2022 Alumni</p>
+              <!-- /UNCLEARED-AFFILIATION -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bio-overlay" id="bio-tracy-latourette" data-surface="dark" role="dialog" aria-modal="true" aria-labelledby="bio-tracy-latourette-name">
+    <div class="bio-head">
+      <a class="bio-close" href="#speaker-tracy-latourette"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M4 4 L20 20 M20 4 L4 20"></path></svg><span class="vh">Close</span></a>
+    </div>
+    <div class="bio-scroll">
+      <div class="wrap">
+        <div class="bio-figure">
+          <img class="bio-photo" src="/assets/speakers/tracy-latourette.jpg" alt="Photograph of Tracy LaTourette." loading="lazy" decoding="async">
+          <div class="bio-text">
+            <h2 class="bio-name" id="bio-tracy-latourette-name">Tracy LaTourette</h2>
+            <!-- No title line. ConvergX publishes no title and no employer
+                 for her. Omitted rather than filled. -->
+            <!-- CREST-WORDS-ONLY: U.S. Air Force, Colorado National Guard, U.S. Air Force Academy, Air War College, Operation Iraqi Freedom. Named in the bio below as published. No crest, mark, flag or insignia is rendered. -->
+            <div class="bio-prose">
+              <p>Colorado's first female fighter pilot and among the first women globally to fly fighter aircraft. A combat mission-ready F-16 pilot, leadership expert, and resilience coach. A retired Lieutenant Colonel with 22 years in the U.S. Air Force and Colorado National Guard, she flew worldwide missions, including post-9/11 presidential protection and Operation Iraqi Freedom.</p>
+              <p>A graduate of the U.S. Air Force Academy and Air War College, Tracy earned numerous military honors and logged 3,300+ flight hours as a pilot and AWACS Air Weapons Director.</p>
+              <p>Today, she is an internationally recognized keynote speaker, executive coach, and 4X Emmy-nominated PBS host, helping leaders and teams build accountability, resilience, and high-performance cultures. Tracy has worked with Fortune 100 companies, spoken at Harvard Business School, and shared stages with a U.S. President.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bio-overlay" id="bio-david-perry" data-surface="dark" role="dialog" aria-modal="true" aria-labelledby="bio-david-perry-name">
+    <div class="bio-head">
+      <a class="bio-close" href="#speaker-david-perry"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M4 4 L20 20 M20 4 L4 20"></path></svg><span class="vh">Close</span></a>
+    </div>
+    <div class="bio-scroll">
+      <div class="wrap">
+        <div class="bio-figure">
+          <img class="bio-photo" src="/assets/speakers/david-perry.jpg" alt="Photograph of Dr. David Perry." loading="lazy" decoding="async">
+          <div class="bio-text">
+            <h2 class="bio-name" id="bio-david-perry-name">Dr. David Perry</h2>
+            <p class="bio-role">President, Canadian Global Affairs Institute</p>
+            <div class="bio-prose">
+              <p>Dr. David Perry is the President of the Canadian Global Affairs Institute, host of the institute's Defence Deconstructed Podcast and a co-director of the Triple Helix MINDs Collaborate Network.</p>
+              <p>He is the author of multiple publications related to defence budgeting, transformation and procurement and a columnist for the Canadian Naval Review. He received his PhD in political science from Carleton University where his dissertation examined the link between defence budgeting and defence procurement.</p>
+              <p>He is an adjunct professor at the Centre for Military and Strategic Studies at the University of Calgary and a research fellow of the Centre for the Study of Security and Development at Dalhousie University.</p>
+              <p>He was previously the Senior Security and Defence Analyst of the Conference of Defence Associations Institute and Deputy Director of Dalhousie University's Centre for Foreign Policy Studies. Embassy Magazine and The Hill Times has named him one of the "Top 100 Influencing Canadian Foreign Policy."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bio-overlay" id="bio-susan-skone" data-surface="dark" role="dialog" aria-modal="true" aria-labelledby="bio-susan-skone-name">
+    <div class="bio-head">
+      <a class="bio-close" href="#speaker-susan-skone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M4 4 L20 20 M20 4 L4 20"></path></svg><span class="vh">Close</span></a>
+    </div>
+    <div class="bio-scroll">
+      <div class="wrap">
+        <div class="bio-figure">
+          <img class="bio-photo" src="/assets/speakers/susan-skone.jpg" alt="Photograph of Dr. Susan Skone." loading="lazy" decoding="async">
+          <div class="bio-text">
+            <h2 class="bio-name" id="bio-susan-skone-name">Dr. Susan Skone</h2>
+            <p class="bio-role">Professor of Geomatics Engineering and Associate Vice-President Research, University of Calgary</p>
+            <!-- CREST-WORDS-ONLY: Royal Canadian Navy (Reserves), NATO DIANA, U.S. national risk strategies. Named in the bio below as published. No crest, mark, flag or insignia is rendered. -->
+            <div class="bio-prose">
+              <p>Dr. Susan Skone is a researcher and innovator with over 25 years of experience in space-based technologies, specializing in space environment threats to satellite navigation systems, non-terrestrial networks, and high-frequency applications across aerospace and maritime domains.</p>
+              <p>As a Professor of Geomatics Engineering and Associate Vice-President Research at the University of Calgary, she has led more than 50 international and government-sponsored research projects. Her pioneering contributions include globally adopted licensed software for secure satellite services, and the founding of companies delivering electromagnetic spectrum management and quantum-resistant satellite signal technologies under NATO DIANA.</p>
+              <p>She led the development of low-cost GPS payload solutions for the CanX-2 nanosatellite, now deployed in missions worldwide, and has shaped policy on space domain awareness for U.S. national risk strategies and action plans.</p>
+              <p>In parallel, Dr. Skone served for 27 years as a Maritime Surface Officer in the Royal Canadian Navy (Reserves), holding key operational roles aboard minor warships. As co-lead of Space-Defence Technologies Alberta, she now drives collaboration between academia and industry to advance dual-use technology readiness and grow capacity of Alberta's aerospace sector.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bio-overlay" id="bio-chris-lohmann" data-surface="dark" role="dialog" aria-modal="true" aria-labelledby="bio-chris-lohmann-name">
+    <div class="bio-head">
+      <a class="bio-close" href="#speaker-chris-lohmann"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M4 4 L20 20 M20 4 L4 20"></path></svg><span class="vh">Close</span></a>
+    </div>
+    <div class="bio-scroll">
+      <div class="wrap">
+        <div class="bio-figure">
+          <img class="bio-photo" src="/assets/speakers/chris-lohmann.jpg" alt="Photograph of Chris Lohmann." loading="lazy" decoding="async">
+          <div class="bio-text">
+            <h2 class="bio-name" id="bio-chris-lohmann-name">Chris Lohmann</h2>
+            <p class="bio-role">Innovation and Market Development for Aerospace Energy Systems and Sustainability, Boeing Canada</p>
+            <!-- CREST-WORDS-ONLY: U.S. Department of Energy, US Marine Corps. Named in the bio below as published. No crest, mark, flag or insignia is rendered. -->
+            <div class="bio-prose">
+              <p>Chris Lohmann leads innovation and market development for aerospace energy systems and sustainability in Canada for Boeing. Over a twenty-year career he has worked on energy transition challenges in renewable fuels, waste-to-energy, energy storage, EV infrastructure, and microgrids.</p>
+              <p>Prior to Boeing, he led the performance warranty group at Energi Insurance, underwriting and insuring the technical and engineering risk of emerging energy technologies to support project financing. At the U.S. Department of Energy he served as a Senior Finance Policy Advisor, addressing the hurdles faced by technologies bridging the gap between government R&amp;D funding and private capital. He began his career in the US Marine Corps as an F/A-18D Weapons and Sensors Officer.</p>
+              <p>He holds an MBA from the University of Southern California, earned a BA from Yale University, and graduated high school at Lisgar Collegiate in Ottawa.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bio-overlay" id="bio-joy-romero" data-surface="dark" role="dialog" aria-modal="true" aria-labelledby="bio-joy-romero-name">
+    <div class="bio-head">
+      <a class="bio-close" href="#speaker-joy-romero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M4 4 L20 20 M20 4 L4 20"></path></svg><span class="vh">Close</span></a>
+    </div>
+    <div class="bio-scroll">
+      <div class="wrap">
+        <div class="bio-figure">
+          <img class="bio-photo" src="/assets/speakers/joy-romero.jpg" alt="Photograph of Joy Romero." loading="lazy" decoding="async">
+          <div class="bio-text">
+            <h2 class="bio-name" id="bio-joy-romero-name">Joy Romero</h2>
+            <p class="bio-role">Executive Advisor, Innovation, Canadian Natural Resources Limited</p>
+            <div class="bio-prose">
+              <p>Joy Romero is a metallurgical engineer with over 30 years of experience in the energy sector. She is currently Executive Advisor, Innovation at Canadian Natural Resources Limited, Past President of the Clean Resource Innovation Network (CRIN), member Co-Lead for the Pathways Integrated Emissions Strategy Working Group, advisor at the University of Alberta and Southern Alberta Institute of Technology and serves on the Boards of Calgary's Heritage Park.</p>
+              <p>She is an inductee of the Canadian Petroleum Hall of Fame, was recognized by Foresight Canada as one the top 20 women leading clean tech in Canada, a recipient of the Queen Elizabeth II's Platinum Jubilee Medal, an Honourary Doctor of Science from Athabasca University, a Fellow of the Canadian Academy of Engineering and member of the Institute of Corporate Directors.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bio-overlay" id="bio-jonathan-morris" data-surface="dark" role="dialog" aria-modal="true" aria-labelledby="bio-jonathan-morris-name">
+    <div class="bio-head">
+      <a class="bio-close" href="#speaker-jonathan-morris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M4 4 L20 20 M20 4 L4 20"></path></svg><span class="vh">Close</span></a>
+    </div>
+    <div class="bio-scroll">
+      <div class="wrap">
+        <div class="bio-figure">
+          <img class="bio-photo" src="/assets/speakers/jonathan-morris.jpg" alt="Photograph of Dr. Jonathan M. Morris." loading="lazy" decoding="async">
+          <div class="bio-text">
+            <h2 class="bio-name" id="bio-jonathan-morris-name">Dr. Jonathan M. Morris</h2>
+            <p class="bio-role">Professor in the Departments of Radiology, Otolaryngology, Neurosurgery, and Anatomy, Mayo Clinic</p>
+            <!-- CREST-WORDS-ONLY: NIH, NINDS, NLM. Named in the bio below as published. No crest, mark, flag or insignia is rendered. -->
+            <div class="bio-prose">
+              <p>Dr. Jonathan M. Morris is a Professor in the Departments of Radiology, Otolaryngology, Neurosurgery, and Anatomy at Mayo Clinic. He earned his M.D. from Howard University College of Medicine, followed by an internship at Washington Hospital Center and research fellowships at NIH/NINDS/NLM. He then completed his radiology and neuroradiology fellowships at Mayo Clinic. Dr. Morris serves as the Medical Director of the 3D Printing Anatomic Modeling Unit and the Center for Biomedical and Scientific Visualization, as well as the Executive Medical Director of Immersive and Experiential Learning at Mayo Clinic. His expertise spans Point-of-Care manufacturing for digital twinning, preoperative and virtual surgical planning, and the development of patient-specific surgical devices.</p>
+              <p>A recognized leader in extended reality (VR/AR/MR), Dr. Morris is driving innovation in medical education, clinical applications, intraoperative navigation, workforce training, and medical capital equipment training. Clinically, he specializes in minimally invasive thermal ablation of tumors affecting the neuroaxis and musculoskeletal system. With over 270 published articles, multiple books, and book chapters, Dr. Morris is regarded as an international authority in his fields. He has been married to his wife, Trina, since 1996, and together they have four sons.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bio-overlay" id="bio-emma-spanswick" data-surface="dark" role="dialog" aria-modal="true" aria-labelledby="bio-emma-spanswick-name">
+    <div class="bio-head">
+      <a class="bio-close" href="#speaker-emma-spanswick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M4 4 L20 20 M20 4 L4 20"></path></svg><span class="vh">Close</span></a>
+    </div>
+    <div class="bio-scroll">
+      <div class="wrap">
+        <div class="bio-figure">
+          <img class="bio-photo" src="/assets/speakers/emma-spanswick.jpg" alt="Photograph of Dr. Emma Spanswick." loading="lazy" decoding="async">
+          <div class="bio-text">
+            <h2 class="bio-name" id="bio-emma-spanswick-name">Dr. Emma Spanswick</h2>
+            <p class="bio-role">Associate Professor and Canada Research Chair in Geospace Dynamics &amp; Space Plasma Physics, University of Calgary</p>
+            <!-- CREST-WORDS-ONLY: NASA, ESA, the Canadian Space Agency, DRDC, DND, the US Navy. Named in the bio below as published. No crest, mark, flag or insignia is rendered. -->
+            <div class="bio-prose">
+              <p>Dr. Emma Spanswick is an Associate Professor and Canada Research Chair in Geospace Dynamics &amp; Space Plasma Physics at the University of Calgary. She is an international leader in the development of space remote sensing infrastructure, with her science and space weather collaborations spanning the globe, involving national agencies such as NASA, ESA, the Canadian Space Agency, DRDC, DND, and the US Navy.</p>
+              <p>She has delivered on &gt;$75M worth of sponsored projects related to dual-use technology development, autonomous remote sensors for northern environments, satellite sensor design, operational system development, and key scientific outcomes. She currently operates more than 120 sensors across Canada's north, Alaska, and Greenland designed to remote sense the space environment and support strategic applications related to Canada's needs in the Arctic.</p>
+              <p>Dr. Spanswick is also co-lead of Space-Defence Technologies Alberta, an initiative that aims to increase technology readiness within the academic research environment, supporting commercialization of relevant technologies in the space and defence sector.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bio-overlay" id="bio-joshua-potter" data-surface="dark" role="dialog" aria-modal="true" aria-labelledby="bio-joshua-potter-name">
+    <div class="bio-head">
+      <a class="bio-close" href="#speaker-joshua-potter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M4 4 L20 20 M20 4 L4 20"></path></svg><span class="vh">Close</span></a>
+    </div>
+    <div class="bio-scroll">
+      <div class="wrap">
+        <div class="bio-figure">
+          <img class="bio-photo" src="/assets/speakers/joshua-potter.jpg" alt="Photograph of Joshua J. Potter." loading="lazy" decoding="async">
+          <div class="bio-text">
+            <h2 class="bio-name" id="bio-joshua-potter-name">Joshua J. Potter</h2>
+            <p class="bio-role">CEO, Kalashnikov USA (KUSA)</p>
+            <!-- CREST-WORDS-ONLY: U.S. Special Operations Command (USSOCOM), the Department of Defense. Named in the bio below as published. No crest, mark, flag or insignia is rendered. -->
+            <div class="bio-prose">
+              <p>Joshua is the CEO of Kalashnikov USA (KUSA), an all-American firearms and munitions manufacturing powerhouse that brings AK-pattern precision to the modern battlefield and commercial market alike. Under his leadership, KUSA delivers operational excellence with a sharp edge, literally and figuratively, in defense manufacturing, product innovation, and national security support. KUSA's strives to build better firepower, in America and always pursue innovation.</p>
+              <p>As a retired military officer, Josh completed over 27 years of servant-leader experience, culminating as a Colonel with U.S. Special Operations Command (USSOCOM), where he orchestrated global operations, led elite teams, and helped shape the modern doctrine of unconventional warfare. He served in over 47 countries, some of which are still trying to figure out what just happened, and specialized in Special Forces, Civil Affairs, PATRIOT missile defense, and multi-domain reconnaissance.</p>
+              <p>Josh earned five Bronze Stars, a Purple Heart (the enemy marksmanship badge) and has not worn a watch since 2006. He also established the Department of Defense's first cybercrime and business intelligence fusion unit, because sometimes the best weapon is knowing what your enemy had for breakfast, digitally speaking.</p>
+              <p>In his "retirement," he took up the light hobby of directing multimillion-dollar security and intelligence contracts, managing a $760M pipeline, forming strategic joint ventures, and writing proposals that won over $1B in federal awards. He also serves as Deputy Executive Director of the International Coalition Against Illicit Economies (ICAIE), where he assists global leaders and policy makers in cutting off illicit trade at the knees. He balances his time providing national security solutions and benefits for those customers in the government and commercial sectors, who require specialized security assistance programs.</p>
+              <p>Armed with two master's degrees, a mild caffeine addiction, and vorpal sense of humor, Josh loves puppies and hates Hezbollah. He has served as an executive-level director in multiple disciplines and programs including firearms and munitions design and manufacturing, advanced technology integration, strategic planning, community development, full-spectrum security, intelligence, counter terrorism, counter threat finance, anti-money laundering, and special operations. He has successfully run organizations of over 500 employees across a distributed territory with a solid sense of purpose and excellence.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bio-overlay" id="bio-rob-huebert" data-surface="dark" role="dialog" aria-modal="true" aria-labelledby="bio-rob-huebert-name">
+    <div class="bio-head">
+      <a class="bio-close" href="#speaker-rob-huebert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M4 4 L20 20 M20 4 L4 20"></path></svg><span class="vh">Close</span></a>
+    </div>
+    <div class="bio-scroll">
+      <div class="wrap">
+        <div class="bio-figure">
+          <img class="bio-photo" src="/assets/speakers/rob-huebert.jpg" alt="Photograph of Rob Huebert Ph.D.." loading="lazy" decoding="async">
+          <div class="bio-text">
+            <h2 class="bio-name" id="bio-rob-huebert-name">Rob Huebert Ph.D.</h2>
+            <p class="bio-role">Professor, Department of Political Science, University of Calgary</p>
+            <!-- CREST-WORDS-ONLY: the Canadian Polar Commission (now renamed Canada Polar Knowledge). Named in the bio below as published. No crest, mark, flag or insignia is rendered. -->
+            <div class="bio-prose">
+              <p>Rob Huebert is a professor in the Department of Political Science at the University of Calgary. He also is the Director of the Centre for Military, Security and Strategic Studies.</p>
+              <p>He was appointed as a member to the Canadian Polar Commission (now renamed Canada Polar Knowledge) for a term lasting from 2010 to 2015. He is senior fellow with the Laurier MacDonald Institute; a fellow with the Centre for Military, Security and Strategic Studies; a research fellow with the Canadian Global Affairs Institute; and a senior fellow with the Conference of Defence Associations Institute. Dr. Huebert has taught at Memorial University, Dalhousie University, and the University of Manitoba.</p>
+              <p>He publishes on the issue of Canadian Arctic Security, Maritime Security, and Canadian Defence. His work has appeared in International Journal; Canadian Foreign Policy; Isuma, Canadian Journal of Policy Research and Canadian Military Journal. He was co-editor of Canada and the Changing Arctic: Sovereignty, Security and Stewardship; Commercial Satellite Imagery and United Nations Peacekeeping and Breaking Ice: Canadian Integrated Ocean Management in the Canadian North. He also comments on Canadian security and Arctic issues in both the Canadian and international media.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </main>
 
@@ -1322,33 +1897,6 @@
   <noscript>
     <nav aria-label="Footer">
       <ul>
-        <li><a href="/platform/find-capability/">Find capability</a></li>
-        <li><a href="/platform/find-capability/how-it-works/">How it works</a></li>
-        <li><a href="/platform/find-capability/what-vetting-means/">What vetting means</a></li>
-        <li><a href="/platform/find-capability/confidentiality/">Confidentiality</a></li>
-        <li><a href="/platform/get-discovered/">Get discovered</a></li>
-        <li><a href="/platform/get-discovered/how-it-works/">How it works</a></li>
-        <li><a href="/platform/get-discovered/how-vetting-works/">How vetting works</a></li>
-        <li><a href="/platform/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
-        <li><a href="/platform/">Platform</a></li>
-        <li><a href="/platform/#modules">Modules</a></li>
-        <li><a href="/platform/#vetting-and-introductions">Vetting and introductions</a></li>
-        <li><a href="/platform/#trust-and-security">Trust and security</a></li>
-        <li><a href="/congress/">The Congress</a></li>
-        <li><a href="/congress/#agenda">Agenda</a></li>
-        <li><a href="/congress/#speakers">Speakers</a></li>
-        <li><a href="/congress/the-app/">The app</a></li>
-        <li><a href="/congress/#tickets">Register</a></li>
-        <li><a href="/congress/#sponsorship">Sponsor</a></li>
-        <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
-        <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
-        <li><a href="/xpand/">Consulting</a></li>
-        <li><a href="/xpand/what-xpand-does/">What Xpand does</a></li>
-        <li><a href="/xpand/what-readiness-means/">What readiness means</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/about/how-we-vet/">How we vet</a></li>
-        <li><a href="/about/leadership/">Leadership</a></li>
-        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/industries/">Industries</a></li>
         <li><a href="/industries/aerospace-defence/">Aerospace and defence</a></li>
         <li><a href="/industries/agriculture/">Agriculture</a></li>
@@ -1358,6 +1906,33 @@
         <li><a href="/industries/military/">Military</a></li>
         <li><a href="/industries/mining-natural-resources/">Mining and natural resources</a></li>
         <li><a href="/industries/technology/">Technology</a></li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/platform/#modules">All modules</a></li>
+        <li><a href="/platform/#vetting-and-introductions">Vetting and introductions</a></li>
+        <li><a href="/platform/#trust-and-security">Trust and security</a></li>
+        <li><a href="/platform/find-capability/">Find capability</a></li>
+        <li><a href="/platform/find-capability/how-it-works/">How Find capability works</a></li>
+        <li><a href="/platform/find-capability/what-vetting-means/">What vetting means</a></li>
+        <li><a href="/platform/find-capability/confidentiality/">Confidentiality</a></li>
+        <li><a href="/platform/get-discovered/">Get discovered</a></li>
+        <li><a href="/platform/get-discovered/how-it-works/">How Get discovered works</a></li>
+        <li><a href="/platform/get-discovered/how-vetting-works/">How vetting works</a></li>
+        <li><a href="/platform/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
+        <li><a href="/congress/">The Conference</a></li>
+        <li><a href="/congress/#agenda">Agenda</a></li>
+        <li><a href="/congress/#speakers">Speakers</a></li>
+        <li><a href="/congress/the-app/">The app</a></li>
+        <li><a href="/congress/register/">Register</a></li>
+        <li><a href="/congress/sponsor/">Sponsor</a></li>
+        <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
+        <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
+        <li><a href="/xpand/">Consulting</a></li>
+        <li><a href="/xpand/what-xpand-does/">What Xpand does</a></li>
+        <li><a href="/xpand/what-readiness-means/">What readiness means</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/about/leadership/">Leadership</a></li>
+        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/access/">Access</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>
@@ -1367,6 +1942,19 @@
 </footer>
 
 <script src="/_system/shell.js" defer></script>
-<script src="/_system/figures.js" defer></script>
+<!-- Turns the flow band's globe. Its absence costs the static plate nothing. -->
+<script src="/_system/globe.js" defer></script>
+<!-- AFTER globe.js, and defer keeps that order. flow.js asks globe.js for
+     window.cxGlobeAPI on the way in and returns if it is not there, so loading
+     it first would silently leave the fan on its static geometry. -->
+<script src="/_system/flow.js" defer></script>
+<!-- figures.js is NOT loaded here. It only ever targets [data-fig], and Fig. 9
+     was this page's only one, so after 2026-07-31 the request fetched 1.35KB to
+     do nothing. This is the page read standing up on a conference network, so a
+     dead request is worth removing rather than leaving tidy.
+     SAFE TO RESTORE, and safe to forget: the .fig-* CSS default draws the
+     FINISHED plate and the script only arms and replays it, so a figure added
+     here without this tag renders complete and simply does not animate. It
+     cannot render blank. Other pages keep the script; this is a per-page call. -->
 </body>
 </html>

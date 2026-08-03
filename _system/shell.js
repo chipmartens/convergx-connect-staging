@@ -146,7 +146,11 @@
     /* The Congress is a one-pager as of 2026-07-30, so this points at the
      * section rather than at the page that used to hold it. The id lives
      * in congress/index.html; a stub still answers the old address. */
-    href: "/congress/#tickets"
+    /* REPOINTED 2026-07-31 from /congress/#tickets to /congress/register/.
+     * #tickets is now a summary that hands off to the storefront, so the site
+     * bar was sending every reader on every page to a section whose only job
+     * is to send them one click further. The bar goes where the prices are. */
+    href: "/congress/register/"
   };
 
   /* ---- THE COUNTDOWN ----
@@ -462,36 +466,54 @@
    * site, so it does not go in the nav. */
   var CONGRESS_STANDFIRST = "Sep 22 to 24, 2026. Calgary.";
 
-  /* FOUR ITEMS, TWO COLUMNS OF TWO. Chip, 2026-07-30 and confirmed
-   * 2026-07-31: the Conference menu is Overview, Agenda, Register,
-   * Sponsor and nothing else.
+  /* EIGHT ITEMS, TWO COLUMNS OF FOUR. Chip, 2026-07-31: "add all of the
+   * menu items back to the Conference mega menu. They'll just link to the
+   * respective sections on the stand alone page."
    *
-   * THEY ARE ANCHORS, NOT PAGES, and that follows from the restructure.
-   * /congress/ is now a single-page Congress site, so Agenda, Register
-   * and Sponsor are SECTIONS of it. Pointing the nav at the old standalone
-   * pages would give the site two sources of truth for the same content,
-   * which is the exact defect the one-pager was built to remove. The old
-   * pages still exist and still resolve; they are simply no longer the
-   * thing the nav sends people to.
+   * THIS REVERSES the 2026-07-30 cut to four. That cut was made because
+   * Speakers, The app, Regional Xchanges and Xchange Partnerships had no
+   * home once the one-pager absorbed them, and pointing the nav at four
+   * dead standalone pages would have given the site two sources of truth.
+   * The anchors solve that: the nav can carry all eight WITHOUT the
+   * duplication, because six of the eight resolve to a section of
+   * /congress/ rather than to a second copy of it.
    *
-   * The split is what-it-is / how-to-take-part, which is why Overview and
-   * Agenda sit together and Register and Sponsor sit together.
+   * MIXED TARGETS, and the mix is the point. Six rows are anchors on the
+   * one-pager. Two rows are real pages and stay real pages:
+   *   Register -> /congress/register/
+   *   Sponsor  -> /congress/sponsor/
+   * Chip, same instruction: "Register and Sponsor should still be
+   * standalone pages that go into more details." They are the storefronts,
+   * they carry the per-product prices, inclusions and tax qualifiers, and
+   * the one-pager's #tickets and #sponsorship sections are summaries that
+   * hand off to them. Do NOT repoint these two at the anchors: that would
+   * bury the detail a buyer came for.
+   * Regional Xchanges and Xchange Partnerships are also real pages and were
+   * never part of the one-pager.
    *
-   * Speakers, The app, Regional Xchanges and Xchange Partnerships came OUT
-   * of this panel. Speakers and the app are sections of the one-pager;
-   * the other two are still reachable from the footer. */
+   * THE SPLIT IS UNCHANGED in meaning: column one is what the Congress is,
+   * column two is how you take part in it and what convening happens
+   * outside it. Four and four, so the panel stays a rectangle. */
   var CONGRESS_PAGES = [
     { label: "Overview", href: "/congress/",
       note:  "Three days composed one introduction at a time." },
     { label: "Agenda",   href: "/congress/#agenda",
-      note:  "The published schedule for all three days, one disclosure per day." }
+      note:  "The published schedule for all three days, one disclosure per day." },
+    { label: "Speakers", href: "/congress/#speakers",
+      note:  "The people ConvergX has announced, with roles as it publishes them." },
+    { label: "The app",  href: "/congress/the-app/",
+      note:  "Who is here, what they are looking for, and the meeting you asked for." }
   ];
   var CONGRESS_TAKEPART_LABEL = "Taking part.";
   var CONGRESS_TAKEPART = [
-    { label: "Register", href: "/congress/#tickets",
-      note:  "Who the room is for, what a registration covers, and what ConvergX decides separately." },
-    { label: "Sponsor",  href: "/congress/#sponsorship",
-      note:  "Nine published tiers. Visibility in the room, never a match." }
+    { label: "Register",             href: "/congress/register/",
+      note:  "Three passes, priced and published, and what a registration does not buy." },
+    { label: "Sponsor",              href: "/congress/sponsor/",
+      note:  "Nine tiers with what each one includes. Visibility in the room, never a match." },
+    { label: "Regional Xchanges",    href: "/congress/regional-xchanges/",
+      note:  "A region asks the question, and the room is composed around it." },
+    { label: "Xchange Partnerships", href: "/congress/partnerships/",
+      note:  "ConvergX convenes inside events it does not run." }
   ];
 
   /* The About panel, added 2026-07-29. Same shape as the Conference
@@ -546,23 +568,54 @@
       note:  "The scale ConvergX states for an engagement, and why it is not the platform's floor." }
   ];
 
-  /* Footer sitemap: the September launch subset. */
-  /* FIVE COLUMNS, not six. Chip, 2026-07-29: Find capability and Get discovered
-   * had a column each directly under the two blocks that ARE Find capability
-   * and Get discovered, and six columns wrapped a column onto a second line on
-   * a narrow screen. Their pages fold into one doors column here.
-   * The footer still carries EVERY page the panels carry, which is what makes
-   * the no-JS run navigable, so nothing was dropped to get the count down. The
-   * two "How it works" pages take door-qualified labels because two rows both
-   * reading "How it works" in one column is not a list, it is a puzzle. */
+  /* Footer sitemap.
+   *
+   * FIVE COLUMNS, AND THEY ARE THE FIVE NAV ITEMS. Chip, 2026-07-31:
+   * Industries, The Platform, The Conference, Consulting, About. That is
+   * the whole instruction and it is a good one, because the previous five
+   * ("The Platform", "The two doors", "The Congress", "Xpand", "ConvergX")
+   * were a different taxonomy from the header's, so a reader who learned
+   * the nav had to learn the footer separately.
+   *
+   * WHAT MOVED to make the columns match:
+   *   - "The two doors" is gone as a column. Its eight pages fold under
+   *     The Platform, which is the panel that owns them in the header too.
+   *     They keep their door-qualified labels: two rows both reading "How
+   *     it works" in one column is not a list, it is a puzzle.
+   *   - Industries gains a column of its own. All eight sectors were
+   *     previously reachable from the footer only as a single "Industries"
+   *     link, which is one route to eight pages.
+   *   - "ConvergX" becomes "About" and sheds Industries. Access, Request
+   *     access and Apply to join stay with it: they are the site's two
+   *     doors as ACTIONS rather than as explainers, and they have no
+   *     column of their own in a five-that-match-the-nav scheme.
+   *   - "Xpand" becomes "Consulting", matching the header relabel Chip
+   *     made on 2026-07-30. The paths do not change, only the label.
+   *
+   * The footer still carries EVERY page the panels carry, which is what
+   * makes the no-JS run navigable. Nothing was dropped to get the count
+   * down, and The Platform column being the long one is the honest shape:
+   * it is the part of the site with the most pages.
+   *
+   * Agenda and Speakers point at SECTIONS of the one-pager, not at their
+   * old standalone pages, which no longer exist. */
   var FOOTER = [
-    { title: "The Platform", links: [
-      { label: "Overview",                  href: "/platform/" },
-      { label: "All modules",               href: "/platform/#modules" },
-      { label: "Vetting and introductions", href: "/platform/#vetting-and-introductions" },
-      { label: "Trust and security",        href: "/platform/#trust-and-security" }
+    { title: "Industries", links: [
+      { label: "Overview",                     href: "/industries/" },
+      { label: "Aerospace and defence",        href: "/industries/aerospace-defence/" },
+      { label: "Agriculture",                  href: "/industries/agriculture/" },
+      { label: "Construction",                 href: "/industries/construction/" },
+      { label: "Energy",                       href: "/industries/energy/" },
+      { label: "Manufacturing",                href: "/industries/manufacturing/" },
+      { label: "Military",                     href: "/industries/military/" },
+      { label: "Mining and natural resources", href: "/industries/mining-natural-resources/" },
+      { label: "Technology",                   href: "/industries/technology/" }
     ]},
-    { title: "The two doors", links: [
+    { title: "The Platform", links: [
+      { label: "Overview",                   href: "/platform/" },
+      { label: "All modules",                href: "/platform/#modules" },
+      { label: "Vetting and introductions",  href: "/platform/#vetting-and-introductions" },
+      { label: "Trust and security",         href: "/platform/#trust-and-security" },
       { label: "Find capability",            href: "/platform/find-capability/" },
       { label: "How Find capability works",  href: "/platform/find-capability/how-it-works/" },
       { label: "What vetting means",         href: "/platform/find-capability/what-vetting-means/" },
@@ -572,33 +625,26 @@
       { label: "How vetting works",          href: "/platform/get-discovered/how-vetting-works/" },
       { label: "Who is in the room",         href: "/platform/get-discovered/who-is-in-the-room/" }
     ]},
-    /* Agenda and Speakers point at SECTIONS of the one-pager, not at their
-     * old standalone pages. Chip, 2026-07-31: neither needs a separate page
-     * now that the full timetable and the full roster are both on /congress/.
-     * Those two files still exist and still resolve; after this nothing in
-     * the site links to them. If they are ever deleted, this is the block
-     * that already stopped pointing at them. */
-    { title: "The Congress", links: [
+    { title: "The Conference", links: [
       { label: "Overview",             href: "/congress/" },
       { label: "Agenda",               href: "/congress/#agenda" },
       { label: "Speakers",             href: "/congress/#speakers" },
       { label: "The app",              href: "/congress/the-app/" },
-      { label: "Register",             href: "/congress/#tickets" },
-      { label: "Sponsor",              href: "/congress/#sponsorship" },
+      { label: "Register",             href: "/congress/register/" },
+      { label: "Sponsor",              href: "/congress/sponsor/" },
       { label: "Regional Xchanges",    href: "/congress/regional-xchanges/" },
       { label: "Xchange Partnerships", href: "/congress/partnerships/" }
     ]},
-    { title: "Xpand", links: [
+    { title: "Consulting", links: [
       { label: "Overview",             href: "/xpand/" },
       { label: "What Xpand does",      href: "/xpand/what-xpand-does/" },
       { label: "What readiness means", href: "/xpand/what-readiness-means/" }
     ]},
-    { title: "ConvergX", links: [
-      { label: "About",          href: "/about/" },
+    { title: "About", links: [
+      { label: "Overview",       href: "/about/" },
       { label: "How we vet",     href: "/about/how-we-vet/" },
       { label: "Leadership",     href: "/about/leadership/" },
       { label: "Who we convene", href: "/about/network/" },
-      { label: "Industries",     href: "/industries/" },
       { label: "Access",         href: "/access/" },
       { label: "Request access", href: "/access/request/" },
       { label: "Apply to join",  href: "/access/apply/" }
@@ -1389,9 +1435,60 @@
        * reached anything. Resting offset plus the bar's height is a constant
        * and is the line the reader actually reads against. */
       var line = (parseFloat(getComputedStyle(nav).top) || 0) + nav.offsetHeight + 1;
+
+      /* MEASURED ON THE HEADING, NOT ON THE SECTION BOX. Chip, 2026-07-31:
+       * "make sure that the active state of the menu only activates when the
+       * section above moves fully out of view. Right now, it feels not quite
+       * consistent."
+       *
+       * THE CAUSE. A section box begins at the top of its own padding, and on
+       * this page that padding is --space-4xl, up to 144px. So a section's box
+       * crossed the bar while its title was still 144px below it and the
+       * PREVIOUS section's last paragraph still filled the screen. The marker
+       * moved on before the reader had arrived anywhere, and it did so by a
+       * different amount per section because the paddings differ, which is
+       * exactly the inconsistency described.
+       *
+       * THE FIX. Measure the h2 the reader actually reads. When a section's
+       * heading reaches the bar, the section above it has genuinely left the
+       * viewport, and every section switches at the same visual moment
+       * regardless of what padding it carries.
+       *
+       * WHY NOT the previous section's bottom edge, which is the literal
+       * reading of the instruction: the subnav tracks five sections and the
+       * page has twelve, so "the section above" in subnav terms is often not
+       * the section above on screen. #overview ends at the hero, with the
+       * impact statement, the flow graphic, #about and #who all sitting
+       * between it and #speakers. Keyed to that edge, Speakers would light up
+       * while the reader was still in the overview. The heading test gives
+       * the behaviour the instruction is after without that failure.
+       *
+       * The offset is resolved once per pass and falls back to the section
+       * box, so a section with no h2 still marks rather than dropping out.
+       *
+       * THE LINE IS 60 PERCENT DOWN THE VIEWPORT, NOT THE BAR. Chip sent two
+       * screenshots on 2026-07-31 showing the exact scroll positions where he
+       * expects a marker to move: one with "The Speakers" sitting just under
+       * halfway down the screen and Overview still lit, one with "The Agenda"
+       * about a third down and Speakers still lit. In both, the heading he
+       * wanted marked was already well inside the viewport.
+       *
+       * Keying to the bar was still too late. A reader looks at the middle of
+       * the screen, not the top edge, so by the time a heading reached the
+       * sticky bar they had been reading that section for most of a screen
+       * with the previous link lit. 60 percent clears both screenshots (48 and
+       * 33 percent) with room, and it is measured from the viewport rather
+       * than from the bar, so it does not move when the bar's height does.
+       *
+       * The bar's own resting offset is still the FLOOR. On a short viewport
+       * 60 percent can land above the bar, and a line hidden behind the bar
+       * would mark a section the reader cannot see. */
+      var mid = Math.max(line, window.innerHeight * 0.6);
       var current = pairs[0];
       for (var i = 0; i < pairs.length; i++) {
-        if (pairs[i].section.getBoundingClientRect().top <= line) current = pairs[i];
+        var head = pairs[i].section.querySelector("h1, h2");
+        var box = (head || pairs[i].section).getBoundingClientRect();
+        if (box.top <= mid) current = pairs[i];
       }
       /* The LAST section is a special case: it is usually too short to ever
        * reach the line, so without this the final link can never light up
@@ -1461,6 +1558,111 @@
     sync();
   }
 
+  /* The person-bio overlays on /congress/#speakers and /about/leadership/.
+   * PROGRESSIVE ENHANCEMENT, and the base is not here. The overlay is a
+   * :target component in styles.css section 39: a card links to
+   * #bio-<slug>, :target reveals the panel, and the close control is a link
+   * back to the card's own id, which clears the target AND returns the
+   * reader to where they were. That opens and closes with this file deleted.
+   *
+   * This function adds four things and nothing else, so removing it costs
+   * four conveniences and never the component:
+   *   1. Escape closes. It does it by clicking the close link rather than
+   *      writing location.hash, so there is exactly ONE close path and the
+   *      keyboard route cannot drift from the pointer route.
+   *   2. Focus moves to the close control on open and back to the trigger
+   *      that opened it on close.
+   *   3. Focus is trapped inside the panel while it is open.
+   *   4. The page behind is locked, and its offset is recorded and put back,
+   *      because the browser's own scroll-to-fragment on close would
+   *      otherwise land the reader on the card rather than where they were.
+   *      Without the script, overscroll-behavior on .bio-scroll is what
+   *      holds the background instead.
+   *
+   * hashchange is the only signal. It fires for the card link, for the close
+   * link, for Back and Forward, and for a URL pasted with a bio fragment
+   * already in it, so all five routes are one code path. */
+  function wireBios() {
+    if (!document.querySelector(".bio-overlay")) return;
+
+    var root = document.documentElement;
+    var FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea,' +
+                    ' [tabindex]:not([tabindex="-1"])';
+    var openEl = null;
+    var returnTo = null;
+    var savedY = 0;
+
+    function targetOverlay() {
+      var id = window.location.hash.slice(1);
+      if (!id) return null;
+      /* getElementById, never a selector built from the hash: a fragment is
+       * user input and interpolating it into querySelector throws on any
+       * value that is not a valid selector. */
+      var el = document.getElementById(id);
+      return el && el.classList.contains("bio-overlay") ? el : null;
+    }
+
+    function sync() {
+      var next = targetOverlay();
+      if (next === openEl) return;
+
+      if (openEl) {
+        root.classList.remove("has-bio-open");
+        window.scrollTo(0, savedY);
+        var back = returnTo;
+        openEl = null;
+        returnTo = null;
+        /* Only when nothing is opening in its place, so moving straight from
+         * one bio to another does not bounce focus out to the grid. */
+        if (back && !next && document.contains(back)) back.focus();
+      }
+
+      if (next) {
+        returnTo = document.querySelector('.bio-trigger[href="#' + next.id + '"]');
+        savedY = window.scrollY;
+        openEl = next;
+        root.classList.add("has-bio-open");
+        var scroller = next.querySelector(".bio-scroll");
+        if (scroller) scroller.scrollTop = 0;
+        var close = next.querySelector(".bio-close");
+        if (close) close.focus();
+      }
+    }
+
+    document.addEventListener("keydown", function (e) {
+      if (!openEl) return;
+
+      if (e.key === "Escape") {
+        e.preventDefault();
+        var close = openEl.querySelector(".bio-close");
+        if (close) close.click();
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      /* Queried per keystroke rather than cached: a panel holds one control
+       * today and this stays correct if a bio ever carries a link. */
+      var items = openEl.querySelectorAll(FOCUSABLE);
+      if (!items.length) return;
+      var first = items[0];
+      var last = items[items.length - 1];
+
+      if (!openEl.contains(document.activeElement)) {
+        e.preventDefault();
+        first.focus();
+      } else if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    window.addEventListener("hashchange", sync);
+    sync();   /* a bio fragment can be in the URL on first paint */
+  }
+
   function currentPath() {
     var p = window.location.pathname;
     /* Normalise staging filenames back to site routes where possible. */
@@ -1496,6 +1698,13 @@
       measureShell(header);
     }
     wireSubnav();
+    /* The flow band's hub takes the real mark. One optional slot, filled from
+     * the same defs the header already injected, so this costs nothing on any
+     * page that has no slot and degrades to the word "ConvergX" with scripts
+     * off. Runs after the header is built: the <use> needs #cx-logo to exist. */
+    var logoSlot = document.querySelector("[data-logo-slot]");
+    if (logoSlot) logoSlot.innerHTML = logoSvg(LOGO_VIEWBOX_MARK, "ConvergX");
+    wireBios();
 
     var footer = document.querySelector('[data-shell="footer"]');
     if (footer) {

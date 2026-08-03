@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/_system/tokens.css">
 <link rel="stylesheet" href="/_system/styles.css">
 </head>
-<body data-surface="light">
+<body data-surface="light" data-hero="veil">
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -28,7 +28,7 @@
     <div class="notice">
       <div class="notice-inner">
         <p class="notice-text">Celebrate 10 years of ConvergX, Sep 22 to 24, 2026.</p>
-        <a class="btn btn--solid notice-cta" href="/congress/#tickets">Register</a>
+        <a class="btn btn--solid notice-cta" href="/congress/register/">Register</a>
       </div>
     </div>
     <nav aria-label="Primary">
@@ -57,8 +57,12 @@
         <li><a href="/congress/">Conference</a>
           <ul>
             <li><a href="/congress/#agenda">Agenda</a></li>
-            <li><a href="/congress/#tickets">Register</a></li>
-            <li><a href="/congress/#sponsorship">Sponsor</a></li>
+            <li><a href="/congress/#speakers">Speakers</a></li>
+            <li><a href="/congress/the-app/">The app</a></li>
+            <li><a href="/congress/register/">Register</a></li>
+            <li><a href="/congress/sponsor/">Sponsor</a></li>
+            <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
+            <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
           </ul>
         </li>
         <li><a href="/xpand/">Consulting</a>
@@ -122,24 +126,60 @@
        needed on that item. Their "sits at the intersection" wording is the
        evidence and is not the argument.
 
-       NO PHOTOGRAPH. FIGURE-SYSTEM 4.3 assigns six image slots this phase
-       and this page is not one of them, and every working image on disk is
-       already carrying another page's argument. The band ships as type on
-       the dark ground rather than borrowing an image that argues something
-       else or pointing a src at an asset nobody has shot.
-       TODO: photograph, 1600x1000, 16:10. One stamping die out of the press
-       on a die cart in a dark tool room, cavity face open, a toolmaker
-       standing beside it for scale. The tool is the subject and the person
-       is the scale, which is the inverse of the aerospace image. Dark
-       surround, one warm orange rim light, face mostly in shadow. No robot
-       cell, no spark shower, no aerial, no clean-room white, no branding, no
-       readable logos, no identifiable operator, no stock gloss. Source: to
-       be commissioned. When it is shot it lands here with .hero-vert-media
-       and .hero-vert-rule and the band is complete. A reader is never told
-       any of this. Do NOT render this note as copy. -->
-  <section class="hero-vert" data-surface="dark">
+       THE BAND HAS A PHOTOGRAPH AS OF 2026-08-03. The note that stood here
+       said the band ships as type on the dark ground because every working
+       image on disk was already carrying another page's argument, and that
+       was true until a frame was made for this page specifically. The band is
+       now the full-bleed veiled hero, styles.css section 45: photograph across
+       the whole band, dark veil fading top down so the header nav and the copy
+       stay readable. NOT the Congress treatment: no duotone, no tint, no hue
+       shift.
+       .hero-vert and .hero-vert-copy are gone from this page with the layout.
+       The old component is NOT deleted from styles.css, but after this pass
+       nothing renders it, so the next person to touch section 21 should check
+       whether it still earns its place.
+
+       THE LAYER IS DECORATIVE, aria-hidden with an empty alt. As the veiled
+       ground the frame is texture and the h1 and the two lede lines carry the
+       argument; and the file is a GENERATED PLACEHOLDER, so a confident alt
+       describing a plant would assert to the one reader who cannot check it
+       that this page shows a real one. An empty alt on a decorative layer says
+       nothing. A descriptive alt on a stand-in says something false. Re-make
+       the call, do not inherit it, when the commissioned frame lands. -->
+  <section class="hero-veil-band" data-surface="dark">
+    <div class="hero-veil" aria-hidden="true">
+      <!-- THE ART DIRECTION FOR THE COMMISSIONED FRAME, AND IT IS STILL THE
+           TARGET. It has never been an attribute on this page because this page
+           has never had an image; it was a TODO in the comment above and it is
+           held here now, in the same form as the other seven, so all eight read
+           the same way.
+           SPEC: "Photograph, 1600x1000, 16:10. One stamping die out of the
+           press on a die cart in a dark tool room, cavity face open, a
+           toolmaker standing beside it for scale. The tool is the subject and
+           the person is the scale, which is the inverse of the aerospace image.
+           Dark surround, one warm orange rim light, face mostly in shadow. No
+           robot cell, no spark shower, no aerial, no clean-room white, no
+           branding, no readable logos, no identifiable operator, no stock
+           gloss. Source: to be commissioned."
+
+           CURRENT FILE IS A GENERATED PLACEHOLDER, placed 2026-08-03. It is a
+           dark plant interior with one worker bent over a machine line, so it
+           holds the spec's tone (dark surround, low key, one person, no clean
+           room, no spark shower) and misses its subject: the spec is about a
+           die OFF the press on a cart, cavity open, because the whole argument
+           of this page is that the approval belongs to the tool. The
+           placeholder shows a machine, not a tool out of a machine, which is
+           the one distinction the page turns on. Tone close, argument not.
+
+           NO FOCAL CLASS. This page never had one, and the placeholder is
+           centre-weighted enough that the default centre crop holds it. Derive
+           one when the commissioned frame arrives; see styles.css section 21
+           for what the four existing focal rules were protecting. -->
+      <img src="/assets/industries/manufacturing-hero.jpg" width="2000" height="1126" alt="" fetchpriority="high" decoding="async">
+      <span></span>
+    </div>
     <div class="editorial">
-      <div class="hero-vert-copy">
+      <div class="hero-veil-copy">
         <header><span class="label label--edge">Manufacturing</span></header>
         <h1 class="display--hero">The approval belongs to the tool, not the shop.</h1>
         <p class="lede-text">Part approval covers this part, on this tooling, in this plant.</p>
@@ -364,33 +404,6 @@
   <noscript>
     <nav aria-label="Footer">
       <ul>
-        <li><a href="/platform/find-capability/">Find capability</a></li>
-        <li><a href="/platform/find-capability/how-it-works/">How it works</a></li>
-        <li><a href="/platform/find-capability/what-vetting-means/">What vetting means</a></li>
-        <li><a href="/platform/find-capability/confidentiality/">Confidentiality</a></li>
-        <li><a href="/platform/get-discovered/">Get discovered</a></li>
-        <li><a href="/platform/get-discovered/how-it-works/">How it works</a></li>
-        <li><a href="/platform/get-discovered/how-vetting-works/">How vetting works</a></li>
-        <li><a href="/platform/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
-        <li><a href="/platform/">Platform</a></li>
-        <li><a href="/platform/#modules">Modules</a></li>
-        <li><a href="/platform/#vetting-and-introductions">Vetting and introductions</a></li>
-        <li><a href="/platform/#trust-and-security">Trust and security</a></li>
-        <li><a href="/congress/">The Congress</a></li>
-        <li><a href="/congress/#agenda">Agenda</a></li>
-        <li><a href="/congress/#speakers">Speakers</a></li>
-        <li><a href="/congress/the-app/">The app</a></li>
-        <li><a href="/congress/#tickets">Register</a></li>
-        <li><a href="/congress/#sponsorship">Sponsor</a></li>
-        <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
-        <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
-        <li><a href="/xpand/">Consulting</a></li>
-        <li><a href="/xpand/what-xpand-does/">What Xpand does</a></li>
-        <li><a href="/xpand/what-readiness-means/">What readiness means</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/about/how-we-vet/">How we vet</a></li>
-        <li><a href="/about/leadership/">Leadership</a></li>
-        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/industries/">Industries</a></li>
         <li><a href="/industries/aerospace-defence/">Aerospace and defence</a></li>
         <li><a href="/industries/agriculture/">Agriculture</a></li>
@@ -400,6 +413,33 @@
         <li><a href="/industries/military/">Military</a></li>
         <li><a href="/industries/mining-natural-resources/">Mining and natural resources</a></li>
         <li><a href="/industries/technology/">Technology</a></li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/platform/#modules">All modules</a></li>
+        <li><a href="/platform/#vetting-and-introductions">Vetting and introductions</a></li>
+        <li><a href="/platform/#trust-and-security">Trust and security</a></li>
+        <li><a href="/platform/find-capability/">Find capability</a></li>
+        <li><a href="/platform/find-capability/how-it-works/">How Find capability works</a></li>
+        <li><a href="/platform/find-capability/what-vetting-means/">What vetting means</a></li>
+        <li><a href="/platform/find-capability/confidentiality/">Confidentiality</a></li>
+        <li><a href="/platform/get-discovered/">Get discovered</a></li>
+        <li><a href="/platform/get-discovered/how-it-works/">How Get discovered works</a></li>
+        <li><a href="/platform/get-discovered/how-vetting-works/">How vetting works</a></li>
+        <li><a href="/platform/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
+        <li><a href="/congress/">The Conference</a></li>
+        <li><a href="/congress/#agenda">Agenda</a></li>
+        <li><a href="/congress/#speakers">Speakers</a></li>
+        <li><a href="/congress/the-app/">The app</a></li>
+        <li><a href="/congress/register/">Register</a></li>
+        <li><a href="/congress/sponsor/">Sponsor</a></li>
+        <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
+        <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
+        <li><a href="/xpand/">Consulting</a></li>
+        <li><a href="/xpand/what-xpand-does/">What Xpand does</a></li>
+        <li><a href="/xpand/what-readiness-means/">What readiness means</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/about/leadership/">Leadership</a></li>
+        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/access/">Access</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>

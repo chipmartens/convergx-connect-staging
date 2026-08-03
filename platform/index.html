@@ -9,6 +9,10 @@
 <link rel="stylesheet" href="/_system/tokens.css">
 <link rel="stylesheet" href="/_system/styles.css">
 <script src="/_system/shell.js" defer></script>
+<!-- The process plate in #modules. Progressive enhancement only: the diagram
+     ships complete and pins on CSS alone, and this file just says which stage
+     the reader is in. See the head of the file. -->
+<script src="/_system/platform.js" defer></script>
 </head>
 <body data-surface="muted">
 
@@ -29,7 +33,7 @@
     <div class="notice">
       <div class="notice-inner">
         <p class="notice-text">Celebrate 10 years of ConvergX, Sep 22 to 24, 2026.</p>
-        <a class="btn btn--solid notice-cta" href="/congress/#tickets">Register</a>
+        <a class="btn btn--solid notice-cta" href="/congress/register/">Register</a>
       </div>
     </div>
     <nav aria-label="Primary">
@@ -58,8 +62,12 @@
         <li><a href="/congress/">Conference</a>
           <ul>
             <li><a href="/congress/#agenda">Agenda</a></li>
-            <li><a href="/congress/#tickets">Register</a></li>
-            <li><a href="/congress/#sponsorship">Sponsor</a></li>
+            <li><a href="/congress/#speakers">Speakers</a></li>
+            <li><a href="/congress/the-app/">The app</a></li>
+            <li><a href="/congress/register/">Register</a></li>
+            <li><a href="/congress/sponsor/">Sponsor</a></li>
+            <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
+            <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
           </ul>
         </li>
         <li><a href="/xpand/">Consulting</a>
@@ -504,8 +512,41 @@
        decides. Group names are locked strings, character-identical to the
        architecture overview on /platform/. Count is fifteen. Check the
        arithmetic before committing. -->
+  <!-- THE PROCESS PLATE, added 2026-07-31. Chip: "what if we came up with a
+       really cool dynamic graphic that evolves as you scroll down the page.
+       The content on the left scrolls, but the graphic kind of stays the same
+       but evolves through the process that you see in the menu bar eyebrows
+       for the platform. Companies stating their requirements on the
+       opportunity board, then rfp scraping, etc etc... then to the deciding
+       who should meet part and scoring, the matching engine and configerable
+       scoring... , then through the introduction, etc etc... then also the
+       reference modules... finally, the Congress parts at the end."
+
+       THE FIVE STAGES ARE THE FIVE GROUPS THIS PAGE ALREADY SHIPPED. Nothing
+       was reordered, renamed, reworded or added: the five headings, the five
+       eyebrows and the fifteen modules below are byte-identical to what stood
+       here before, and the only structural change is that the five
+       <section class="section--dense"> wrappers became one, so the groups can
+       share a grid with the plate. The row-gap that replaced their padding is
+       the same --space-xl those sections spent, at both widths.
+
+       OPEN QUESTION FOR CHIP, NOT DECIDED HERE. He described the run as
+       "...then also the reference modules... finally, the Congress parts at
+       the end", which is Reference then Congress. This page ships Congress
+       then Reference, and the group order is a locked string set matching the
+       architecture overview, so it was left exactly as it was. If he wants the
+       swap, groups 04 and 05 trade places in the markup AND their eyebrow
+       numbers change AND stages 4 and 5 of the plate trade with them, because
+       the plate reads its stage off DOM order.
+
+       THE HONESTY BURDEN IS CARRIED BY THE GATE. See styles.css section 44
+       for the five things that make an automatic pipeline unreadable in this
+       plate, and do not soften any of them. -->
   <section class="section--dense">
     <div class="wrap">
+      <div class="pflow">
+      <div class="pflow-groups">
+      <div class="pflow-group">
       <div class="sec-head">
         <h2>Stating the requirement</h2>
         <span class="label label--lo label--edge">01 / Requirement</span>
@@ -532,11 +573,9 @@
           <p>A requirements document drafted inside the platform, in the fields it is read in.</p>
         </article>
       </div>
-    </div>
-  </section>
+      </div>
 
-  <section class="section--dense">
-    <div class="wrap">
+      <div class="pflow-group">
       <div class="sec-head">
         <h2>Deciding who should meet</h2>
         <span class="label label--lo label--edge">02 / Decision</span>
@@ -558,11 +597,9 @@
           <p>Scoring weights a ConvergX administrator sets, per sector and per kind of work.</p>
         </article>
       </div>
-    </div>
-  </section>
+      </div>
 
-  <section class="section--dense">
-    <div class="wrap">
+      <div class="pflow-group">
       <div class="sec-head">
         <h2>The introduction and its record</h2>
         <span class="label label--lo label--edge">03 / Introduction</span>
@@ -589,11 +626,9 @@
           <p>The record keeps whoever brokered an introduction attached to what came of it.</p>
         </article>
       </div>
-    </div>
-  </section>
+      </div>
 
-  <section class="section--dense">
-    <div class="wrap">
+      <div class="pflow-group">
       <div class="sec-head">
         <h2>The Congress</h2>
         <span class="label label--lo label--edge">04 / Congress</span>
@@ -610,11 +645,9 @@
           <p>Registration, session scheduling and delegate logistics for the event itself.</p>
         </article>
       </div>
-    </div>
-  </section>
+      </div>
 
-  <section class="section--dense">
-    <div class="wrap">
+      <div class="pflow-group">
       <div class="sec-head">
         <h2>Reference</h2>
         <span class="label label--lo label--edge">05 / Reference</span>
@@ -630,6 +663,151 @@
           <h3><a href="/platform/modules/trade-agreements-library/">Trade Agreements Library</a></h3>
           <p>Reference material on the agreements that govern work that crosses a border.</p>
         </article>
+      </div>
+      </div>
+      </div>
+
+      <!-- THE PLATE. Pinned by position: sticky, which is pure CSS: it holds
+           with scripts off exactly as it holds with them on.
+
+           IT SHIPS FINISHED, and that is the whole no-script contract. There
+           is no data-stage attribute in this markup and no is-live class, so
+           every one of the five <g> groups renders, in the resting ink, with
+           no motion. _system/platform.js only ever WRITES data-stage and
+           TOGGLES is-live; it adds no element and removes none. If that file
+           fails to load or throws, the reader gets the complete diagram rather
+           than an empty frame. Do not ship an empty group for the script to
+           fill in.
+
+           THE FIVE <g> ARE THE FIVE STAGES AND THEIR ORDER IS A CONTRACT. The
+           reveal in styles.css section 44 counts children, so reordering them
+           here reorders the sequence and nothing warns you.
+
+           NO TEXT IN THE PLATE. Every node is unlabelled, the way the flow
+           band's are. The five group names sit in the readout under it and the
+           caption is this page's own h2 from "The gate is on the introduction"
+           above, character for character. No number, no claim and no sentence
+           in this component is new.
+
+           NOT A NUMBERED FIGURE. _reference/FIGURE-SYSTEM.md's numbering is
+           append-only and covers the fixed plates; this is a scroll-state
+           component like the flow band on /congress/, which carries no number
+           either. It takes no number from that registry. -->
+      <figure class="pfig">
+        <svg class="pfig-art" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 600"
+             preserveAspectRatio="xMidYMid meet" role="img"
+             aria-label="Diagram of the five groups on this page. Requirements leave a board and converge on one point. From it, four dashed paths fan out to four candidates, and all four stop dead on a heavy rule that spans the frame. A single ringed mark sits on that rule. Below it, one line continues to a point where two dashed paths part and one solid line runs off the right edge. The two dashed paths land on a floor lined with small marks. A dashed rule sits under everything, tied up to the floor.">
+
+          <!-- 1. STATING THE REQUIREMENT. The board is the Opportunity Board
+               icon's own shape, a rect with rows, at plate scale. Three feeds
+               leave the board's right edge and converge on one point: one
+               requirement, going in. -->
+          <g>
+            <rect class="fig-solid" x="46" y="34" width="168" height="116"/>
+            <line class="fig-solid" x1="64" y1="62" x2="196" y2="62"/>
+            <line class="fig-solid" x1="64" y1="88" x2="196" y2="88"/>
+            <line class="fig-solid" x1="64" y1="114" x2="164" y2="114"/>
+            <path class="fig-dash" d="M 214 62 C 271 62, 283 96, 340 96"/>
+            <path class="fig-dash" d="M 214 88 C 271 88, 283 96, 340 96"/>
+            <path class="fig-dash" d="M 214 114 C 271 114, 283 96, 340 96"/>
+            <circle class="fig-dot" cx="340" cy="96" r="7"/>
+            <!-- One requirement in flight, so one pulse, not three. Same
+                 reasoning as the flow band's single feed comet. -->
+            <path class="pfig-pulse" pathLength="100" d="M 214 88 C 271 88, 283 96, 340 96"/>
+          </g>
+
+          <!-- 2. DECIDING WHO SHOULD MEET. Four candidates fan out and every
+               one of them STOPS on the gate. The stopping is geometry: each
+               path genuinely ends at y 300 and none is drawn past it. The
+               pulses share those exact paths, so nothing ever animates across
+               the rule either.
+               THE RINGED MARK IS THE PERSON, and it is the only ringed mark on
+               the plate. It holds --fg-hi at every stage, lit or not, because
+               the accent is what the software does and this is deliberately
+               not that. Do not restyle it into another node. -->
+          <g>
+            <path class="fig-dash" d="M 340 96 C 287 139, 165 200, 165 240 L 165 300"/>
+            <path class="fig-dash" d="M 340 96 C 320 139, 275 200, 275 240 L 275 300"/>
+            <path class="fig-dash" d="M 340 96 C 360 139, 405 200, 405 240 L 405 300"/>
+            <path class="fig-dash" d="M 340 96 C 393 139, 515 200, 515 240 L 515 300"/>
+            <circle class="fig-dot" cx="165" cy="240" r="7"/>
+            <circle class="fig-dot" cx="275" cy="240" r="7"/>
+            <circle class="fig-dot" cx="405" cy="240" r="7"/>
+            <circle class="fig-dot" cx="515" cy="240" r="7"/>
+            <path class="pfig-pulse" pathLength="100" style="--d:0s"    d="M 340 96 C 287 139, 165 200, 165 240 L 165 300"/>
+            <path class="pfig-pulse" pathLength="100" style="--d:0.09s" d="M 340 96 C 320 139, 275 200, 275 240 L 275 300"/>
+            <path class="pfig-pulse" pathLength="100" style="--d:0.18s" d="M 340 96 C 360 139, 405 200, 405 240 L 405 300"/>
+            <path class="pfig-pulse" pathLength="100" style="--d:0.27s" d="M 340 96 C 393 139, 515 200, 515 240 L 515 300"/>
+            <line class="pfig-gate" x1="30" y1="300" x2="540" y2="300"/>
+            <circle class="pfig-person-ring" cx="340" cy="300" r="17"/>
+            <circle class="pfig-person" cx="340" cy="300" r="7"/>
+          </g>
+
+          <!-- 3. THE INTRODUCTION AND ITS RECORD. ONE line leaves the gate
+               where four arrived, and it starts at y 317, below the ring, so
+               it visibly begins on the far side of the person rather than
+               passing through the rule.
+               The record is the only element that runs off the frame. Same
+               language as Fig. 8 above: solid, horizontal, outlasting the
+               dashed paths that part beside it. -->
+          <g>
+            <line class="fig-solid" x1="340" y1="317" x2="340" y2="380"/>
+            <circle class="fig-dot" cx="340" cy="380" r="7"/>
+            <path class="fig-dash" d="M 340 380 C 305 415, 245 440, 200 470"/>
+            <path class="fig-dash" d="M 340 380 C 375 415, 435 440, 470 470"/>
+            <line class="fig-solid" x1="340" y1="380" x2="560" y2="380"/>
+            <path class="pfig-pulse" pathLength="100" d="M 340 317 L 340 380"/>
+          </g>
+
+          <!-- 4. THE CONGRESS. The floor is where it physically happens: the
+               two parting paths land ON it, and the room is the small marks
+               either side of them. The two brackets are the Event Management
+               icon's upward ticks, turned down. -->
+          <g>
+            <line class="fig-solid" x1="30" y1="470" x2="540" y2="470"/>
+            <line class="fig-solid" x1="30" y1="470" x2="30" y2="442"/>
+            <line class="fig-solid" x1="540" y1="470" x2="540" y2="442"/>
+            <circle class="fig-dot" cx="200" cy="470" r="7"/>
+            <circle class="fig-dot" cx="470" cy="470" r="7"/>
+            <circle class="fig-dot" cx="70" cy="470" r="4"/>
+            <circle class="fig-dot" cx="115" cy="470" r="4"/>
+            <circle class="fig-dot" cx="240" cy="470" r="4"/>
+            <circle class="fig-dot" cx="285" cy="470" r="4"/>
+            <circle class="fig-dot" cx="380" cy="470" r="4"/>
+            <circle class="fig-dot" cx="425" cy="470" r="4"/>
+            <path class="pfig-pulse" pathLength="100" d="M 30 470 L 540 470"/>
+          </g>
+
+          <!-- 5. REFERENCE. It sits underneath, which is the page's own word
+               for it, and it touches nothing: three ties rise toward the floor
+               and stop short of it. Dashed throughout, because reference is
+               not part of the spine. -->
+          <g>
+            <path class="fig-dash" d="M 30 560 L 540 560"/>
+            <path class="fig-dash" d="M 120 560 L 120 500"/>
+            <path class="fig-dash" d="M 340 560 L 340 500"/>
+            <path class="fig-dash" d="M 460 560 L 460 500"/>
+            <path class="pfig-pulse" pathLength="100" d="M 30 560 L 540 560"/>
+          </g>
+        </svg>
+
+        <!-- The five group headings, verbatim, one per stage. aria-hidden
+             because each restates an h2 a few hundred pixels to the left and a
+             reader should not hear the group names twice. With no script none
+             of them shows, which is correct: a state readout with no state. -->
+        <p class="pfig-read" aria-hidden="true">
+          <span>Stating the requirement</span>
+          <span>Deciding who should meet</span>
+          <span>The introduction and its record</span>
+          <span>The Congress</span>
+          <span>Reference</span>
+        </p>
+
+        <!-- This page's own h2, character for character. Nothing new is said
+             about the plate, because the plate says nothing this page has not
+             already cleared. -->
+        <figcaption>The gate is on the introduction.</figcaption>
+      </figure>
       </div>
     </div>
   </section>
@@ -661,33 +839,6 @@
   <noscript>
     <nav aria-label="Footer">
       <ul>
-        <li><a href="/platform/find-capability/">Find capability</a></li>
-        <li><a href="/platform/find-capability/how-it-works/">How it works</a></li>
-        <li><a href="/platform/find-capability/what-vetting-means/">What vetting means</a></li>
-        <li><a href="/platform/find-capability/confidentiality/">Confidentiality</a></li>
-        <li><a href="/platform/get-discovered/">Get discovered</a></li>
-        <li><a href="/platform/get-discovered/how-it-works/">How it works</a></li>
-        <li><a href="/platform/get-discovered/how-vetting-works/">How vetting works</a></li>
-        <li><a href="/platform/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
-        <li><a href="/platform/">Platform</a></li>
-        <li><a href="/platform/#modules">Modules</a></li>
-        <li><a href="/platform/#vetting-and-introductions">Vetting and introductions</a></li>
-        <li><a href="/platform/#trust-and-security">Trust and security</a></li>
-        <li><a href="/congress/">The Congress</a></li>
-        <li><a href="/congress/#agenda">Agenda</a></li>
-        <li><a href="/congress/#speakers">Speakers</a></li>
-        <li><a href="/congress/the-app/">The app</a></li>
-        <li><a href="/congress/#tickets">Register</a></li>
-        <li><a href="/congress/#sponsorship">Sponsor</a></li>
-        <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
-        <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
-        <li><a href="/xpand/">Consulting</a></li>
-        <li><a href="/xpand/what-xpand-does/">What Xpand does</a></li>
-        <li><a href="/xpand/what-readiness-means/">What readiness means</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/about/how-we-vet/">How we vet</a></li>
-        <li><a href="/about/leadership/">Leadership</a></li>
-        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/industries/">Industries</a></li>
         <li><a href="/industries/aerospace-defence/">Aerospace and defence</a></li>
         <li><a href="/industries/agriculture/">Agriculture</a></li>
@@ -697,6 +848,33 @@
         <li><a href="/industries/military/">Military</a></li>
         <li><a href="/industries/mining-natural-resources/">Mining and natural resources</a></li>
         <li><a href="/industries/technology/">Technology</a></li>
+        <li><a href="/platform/">Platform</a></li>
+        <li><a href="/platform/#modules">All modules</a></li>
+        <li><a href="/platform/#vetting-and-introductions">Vetting and introductions</a></li>
+        <li><a href="/platform/#trust-and-security">Trust and security</a></li>
+        <li><a href="/platform/find-capability/">Find capability</a></li>
+        <li><a href="/platform/find-capability/how-it-works/">How Find capability works</a></li>
+        <li><a href="/platform/find-capability/what-vetting-means/">What vetting means</a></li>
+        <li><a href="/platform/find-capability/confidentiality/">Confidentiality</a></li>
+        <li><a href="/platform/get-discovered/">Get discovered</a></li>
+        <li><a href="/platform/get-discovered/how-it-works/">How Get discovered works</a></li>
+        <li><a href="/platform/get-discovered/how-vetting-works/">How vetting works</a></li>
+        <li><a href="/platform/get-discovered/who-is-in-the-room/">Who is in the room</a></li>
+        <li><a href="/congress/">The Conference</a></li>
+        <li><a href="/congress/#agenda">Agenda</a></li>
+        <li><a href="/congress/#speakers">Speakers</a></li>
+        <li><a href="/congress/the-app/">The app</a></li>
+        <li><a href="/congress/register/">Register</a></li>
+        <li><a href="/congress/sponsor/">Sponsor</a></li>
+        <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
+        <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
+        <li><a href="/xpand/">Consulting</a></li>
+        <li><a href="/xpand/what-xpand-does/">What Xpand does</a></li>
+        <li><a href="/xpand/what-readiness-means/">What readiness means</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/about/how-we-vet/">How we vet</a></li>
+        <li><a href="/about/leadership/">Leadership</a></li>
+        <li><a href="/about/network/">Who we convene</a></li>
         <li><a href="/access/">Access</a></li>
         <li><a href="/access/request/">Request access</a></li>
         <li><a href="/access/apply/">Apply to join</a></li>

@@ -274,6 +274,16 @@
 
   var HIDDEN = ["", "0.00"];
 
+  /* The frame's orientation, kept for the public API below. Seeded with the
+   * RESTING matrix rather than left null: draw() may never run (reduced
+   * motion returns before start()), and an API that answers "I do not know
+   * yet" would force every caller to carry a second code path for a case that
+   * has a perfectly good answer. D.LAM0 is the longitude the static plate was
+   * rendered at, so a caller asking before the first frame gets the plate it
+   * is actually looking at. */
+  var lastM = matrix(D.LAM0);
+  var frameSubs = [];
+
   function draw(t) {
     var t0 = performance.now();
     /* One clock. The view longitude and the deal cycle both come from it, and
@@ -281,6 +291,7 @@
      * one thing rather than as two things drifting apart. */
     var lam0 = D.LAM0 + 360 * (t - D.T0) / D.TURN;
     var m = matrix(lam0), i, k, drew = 0;
+    lastM = m;
     var gd = [], ld = [], rd = [], sd = [], hd = [];
     for (i = 0; i < grat.length; i++) gd.push(openPath(grat[i], m, null));
     for (i = 0; i < land.length; i++) {
@@ -334,6 +345,13 @@
       }
     });
     lastCost = performance.now() - t0;
+    /* Backwards, so a subscriber that throws can be spliced out mid loop. It
+     * IS spliced out: this file's promise is that the globe survives anything,
+     * and a caller's bug must not be able to stop the rotation. The failure is
+     * still visible, because whatever that caller was drawing stops moving. */
+    for (i = frameSubs.length - 1; i >= 0; i--) {
+      try { frameSubs[i](); } catch (e) { frameSubs.splice(i, 1); }
+    }
     return drew;
   }
 
@@ -398,6 +416,45 @@
   var onMq = function () { mq.matches ? rest() : start(); };
   if (mq.addEventListener) { mq.addEventListener("change", onMq); }
   else if (mq.addListener) { mq.addListener(onMq); }
+
+  /* ---- the public surface --------------------------------------------- */
+
+  /* Always on, unlike window.cxGlobe below, which is a debug dump behind a
+   * flag and may change shape without notice. THIS is the contract.
+   *
+   * WHY IT EXISTS: other decoration on the page has to be able to land on the
+   * globe, and there is only one way to land on a turning globe, which is to
+   * ask it where a point is on THIS frame. The alternative was to let a second
+   * file re-derive the projection from a copy of D, and two copies of the same
+   * arithmetic drift the moment anyone edits one of them.
+   *
+   * THREE MEMBERS, AND THAT IS THE WHOLE THING. Do not grow it into a general
+   * geometry library; anything bigger belongs behind CX_GLOBE_DEBUG.
+   *   project(lat, lon) -> {x, y, z, near}
+   *       x and y are PLATE coordinates, the 1600x700 viewBox this file writes
+   *       into. Turning those into some other element's coordinates is the
+   *       caller's job and getScreenCTM is the honest way to do it: hard coding
+   *       the placement percentages a second time is how the two layers come
+   *       apart. z is the component toward the reader and near is z > 0.
+   *   onFrame(fn) -> fn is called after every frame this file draws. It is NOT
+   *       a timer: no frame, no call. That is deliberate, and it is what hands
+   *       a subscriber this file's off-screen, tab-hidden and reduced-motion
+   *       pausing for free rather than making it reimplement all three.
+   *   disc -> the globe in plate coordinates, so nobody types 1130/350/265 out
+   *       a second time.
+   *
+   * THE FALLBACK GUARANTEE IS UNCHANGED. If this file fails to load or throws
+   * on the way in, this object never appears, and a caller that checks for it
+   * before touching anything leaves the static markup exactly as it shipped.
+   * That is why this is not a stub that answers with a made up frame. */
+  window.cxGlobeAPI = {
+    disc: { cx: CX, cy: CY, r: R },
+    project: function (lat, lon) {
+      var p = project1(unit(lat, lon), lastM);
+      return { x: p[0], y: p[1], z: p[2], near: p[2] > 0 };
+    },
+    onFrame: function (fn) { if (typeof fn === "function") frameSubs.push(fn); }
+  };
 
   if (window.CX_GLOBE_DEBUG) {
     window.cxGlobe = {
