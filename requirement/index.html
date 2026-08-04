@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Tell ConvergX what you need | ConvergX</title>
+<meta name="description" content="Eleven questions about a problem or an RFP you want answered at the Congress, Sep 22 to 24, 2026. The form is not accepting submissions yet.">
+<link rel="stylesheet" href="/_system/tokens.css">
+<link rel="stylesheet" href="/_system/styles.css">
+<!-- shell.js is here for ONE reason: the logo defs and the [data-logo-slot]
+     fill. There is no [data-shell="header"] and no [data-shell="footer"] on
+     this page, so it builds no nav and no footer, which is the point of the
+     page. Every other wiring routine in it exits on a null query. With
+     scripts off the slot degrades to the word ConvergX, which is why the
+     masthead anchor carries that word as its text. -->
+<script src="/_system/shell.js" defer></script>
+</head>
+<body data-surface="muted">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- DELIBERATELY OUTSIDE THE INFORMATION ARCHITECTURE. No nav, no mega menu,
+     no footer sitemap. This is a link ConvergX sends directly, not a page a
+     reader browses to, and a nav bar on it invites the reader to leave the
+     one thing the page is for. The mark is the only route back at the top;
+     the close carries the rest. -->
+<header class="section--dense">
+  <div class="wrap">
+    <a class="logo logo--mark" href="/" data-logo-slot>ConvergX</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- OWNS: the pre-Congress intake from the side that HAS the problem, run
+       by hand. ONE AUDIENCE, set by Chip 2026-08-04: the company with the
+       requirement or the RFP. There is no capability path on this page and
+       no which-side-are-you-on question. The capability door is
+       /access/apply/ and it stays there.
+
+       NO PROMISE OF A MEETING, an introduction or an outcome anywhere here.
+       ConvergX asks, decides, vets, brokers and convenes; it never knows,
+       sees, verifies, checks, confirms, watches, understands or has
+       visibility into, and neither does a person at ConvergX.
+
+       Phase 1 is a person doing this by hand and the page says so. Zero
+       numbers beyond the published Congress dates: no companies, no
+       attendance, no response time, no closing date.
+
+       VOICE, Chip 2026-08-04: the first draft read as AI-written and was
+       rewritten, not patched. Banned shapes, checked line by line before
+       shipping: tricolons built for rhythm, aphorisms, "not X, it is Y"
+       antithesis, "whether you are or", throat-clearing sentences that only
+       set up the next one, and abstraction where a plain word exists. Test
+       every sentence by whether a person could say it out loud to a delegate
+       without sounding like a brochure. -->
+  <section class="section--open">
+    <div class="wrap">
+      <div class="editorial">
+        <h1>Tell ConvergX what you need before the Congress.</h1>
+        <p class="lede-text">The Congress runs Sep 22 to 24, 2026, in Calgary. The earlier ConvergX has your requirement, the longer it has to work on it.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule-double">
+
+  <!-- The not-live notice sits ABOVE everything, before the reader has typed
+       a word. It is the page's one .say, which is the right weight for it:
+       this form would otherwise look live and quietly discard commercially
+       sensitive information. -->
+  <section class="section--dense">
+    <div class="wrap">
+      <div class="editorial">
+        <div class="lede">
+          <p class="say">This form is not accepting submissions yet.</p>
+        </div>
+        <div class="body">
+          <p>Nothing you type here is sent or saved. The send button is switched off, and it stays off until ConvergX opens this up.</p>
+          <p>The questions below are the real ones.</p>
+    <!-- OPEN, not public: [[NEEDS: the route a delegate should take while this form is switched off, and whether a direct contact can be named on the page, from Kim Van Vliet]] -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>What happens to what you write</h2>
+        <span class="label label--lo label--edge">Confidentiality</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <p>You can ask without your company's name on the question.</p>
+        </div>
+        <div class="body">
+          <p>Your company is not named on the requirement other delegates read, and nothing reaches them at all until ConvergX approves it.</p>
+          <p>Your name, your company and your email go to ConvergX and nowhere else.</p>
+          <p>If ConvergX brokers an introduction, that is when your name goes to the other side. Not before.</p>
+          <p>A person at ConvergX makes each of those calls. None of it happens on its own, and sending this does not put a meeting in anyone's calendar.</p>
+    <!-- OPEN, not public: [[NEEDS: Kim Van Vliet to confirm the manual pre-Congress process actually works this way. Every sentence above describes ConvergX's own operating process. It is cleared as the platform promise but not yet confirmed for the by-hand run before Sep 22]] -->
+    <!-- OPEN, not public: [[NEEDS: where a stated requirement lands, who at ConvergX reads it, how long it is held and whether it is destroyed after the Congress, from Kim Van Vliet. Retention and handling are NOT stated on the page because no policy exists to state. Do not invent one]] -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Eleven questions</h2>
+        <span class="label label--lo label--edge">The form</span>
+      </div>
+
+      <p>Every question is required unless the label says optional.</p>
+
+      <!-- Inert by construction and in two ways at once, because one is not
+           enough for a form collecting this. The submit control is disabled,
+           which also removes implicit submission on Enter; and the method is
+           post rather than the default get, so no browser can put a stated
+           requirement into a URL query string. Do not wire an endpoint
+           without being asked.
+
+           Labels ask a question a person would ask. Hints sit under the
+           label as real text: a placeholder disappears the moment typing
+           starts and is unreliable for a screen reader. -->
+      <form method="post" action="#">
+
+        <fieldset>
+          <legend>The problem</legend>
+
+          <!-- FIRST, because the two behave differently downstream and it
+               changes how everything under it is read. -->
+          <div class="field">
+            <label for="kind">Is this a problem or an RFP?</label>
+            <p class="helper" id="kind-help">An RFP has a process and a clock on it. A problem does not have one yet.</p>
+            <select id="kind" name="kind" aria-describedby="kind-help" required>
+              <option value="">Select one</option>
+              <option value="problem">A problem</option>
+              <option value="rfp">An RFP</option>
+            </select>
+          </div>
+
+          <!-- THE CORE FIELD. Given real room on purpose: the point of this
+               page is to interrogate the problem, not to collect a summary
+               of it. -->
+          <div class="field">
+            <label for="problem">What is the problem?</label>
+            <p class="helper" id="problem-help">What is going wrong, or what you cannot get made. Write it the way you would say it to a colleague. Do not include controlled, export-restricted or classified technical data.</p>
+            <textarea id="problem" name="problem" rows="8" aria-describedby="problem-help" required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="fix">What would fix it?</label>
+            <p class="helper" id="fix-help">What has to be made or done, and to what standard. Name the specification or the certification if there is one.</p>
+            <textarea id="fix" name="fix" rows="6" aria-describedby="fix-help" required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="due">When does it have to be solved by? (optional)</label>
+            <p class="helper" id="due-help">The programme date or milestone this hangs on. Leave it empty if there is not one yet.</p>
+            <input type="date" id="due" name="due" aria-describedby="due-help">
+          </div>
+
+          <div class="field">
+            <label for="context">What else would help? (optional)</label>
+            <p class="helper" id="context-help">Why it matters now, what you have already tried, and what is in the way.</p>
+            <textarea id="context" name="context" rows="5" aria-describedby="context-help"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>You</legend>
+
+          <div class="field">
+            <label for="name">What is your name?</label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+          </div>
+
+          <div class="field">
+            <label for="role">What is your role?</label>
+            <p class="helper" id="role-help">What you are accountable for on this.</p>
+            <input type="text" id="role" name="role" aria-describedby="role-help" autocomplete="organization-title" required>
+          </div>
+
+          <div class="field">
+            <label for="company">What company do you work for?</label>
+            <p class="helper" id="company-help">The legal entity, not a division or a programme name. This goes to ConvergX and nowhere else.</p>
+            <input type="text" id="company" name="company" aria-describedby="company-help" autocomplete="organization" required>
+          </div>
+
+          <div class="field">
+            <label for="email">What is your work email?</label>
+            <p class="helper" id="email-help">Use your company's own domain.</p>
+            <input type="email" id="email" name="email" aria-describedby="email-help" autocomplete="email" required>
+          </div>
+
+          <!-- The eight the site already convenes, in the order the nav
+               carries them. A free-text box here would invent a ninth
+               taxonomy and nothing downstream could read it. -->
+          <div class="field">
+            <label for="industry">What industry are you in?</label>
+            <p class="helper" id="industry-help">The eight ConvergX convenes. The answer often comes from a different one.</p>
+            <select id="industry" name="industry" aria-describedby="industry-help" required>
+              <option value="">Select one</option>
+              <option value="aerospace-defence">Aerospace and defence</option>
+              <option value="agriculture">Agriculture</option>
+              <option value="construction">Construction</option>
+              <option value="energy">Energy</option>
+              <option value="manufacturing">Manufacturing</option>
+              <option value="military">Military</option>
+              <option value="mining-natural-resources">Mining and natural resources</option>
+              <option value="technology">Technology</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="attending">Are you coming to the Congress?</label>
+            <p class="helper" id="attending-help">Sep 22 to 24, 2026, in Calgary.</p>
+            <select id="attending" name="attending" aria-describedby="attending-help" required>
+              <option value="">Select one</option>
+              <option value="registered">Yes, I am registered</option>
+              <option value="not-yet">Not yet</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <p><button class="btn" type="submit" disabled>Not accepting submissions yet</button></p>
+      </form>
+    </div>
+  </section>
+
+  <hr class="rule-double">
+
+  <section class="section--dense">
+    <div class="wrap">
+      <div class="editorial">
+        <div class="lede">
+          <p>ConvergX convenes its tenth Global Congress in Calgary, Sep 22 to 24, 2026.</p>
+        </div>
+        <div class="body">
+          <p>The rest of it is on the <a href="/">main site</a>. The three days are set out on <a href="/congress/">the Congress</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>
