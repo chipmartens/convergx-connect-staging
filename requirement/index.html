@@ -222,7 +222,23 @@
           </div>
         </fieldset>
 
-        <p><button class="btn" type="submit" disabled>Not accepting submissions yet</button></p>
+        <!-- DEMO STATE, Chip 2026-08-04: "this is still just a demo until we're
+             ready to pass it over to the developer to build in with a CMS back
+             end and connect their HubSpot."
+             So the button carries the label it will have when it works, because
+             the job of this page right now is to SHOW the finished thing to
+             Kim and then hand a developer a spec they can build against. A
+             button reading "not accepting submissions" describes a live
+             audience this page does not have.
+             IT STAYS disabled, and that is not caution for its own sake: the
+             URL can be shared, and a form that looks live and silently
+             discards a stated requirement is the one failure mode worth
+             engineering against. Disabled also kills implicit submit on Enter.
+             FOR WHOEVER BUILDS THIS: remove the disabled attribute, set a real
+             action and keep method="post" so a requirement never lands in a
+             URL. The eleven field names are already the ones to map. -->
+        <p><button class="btn btn--solid" type="submit" disabled>Send this to ConvergX</button></p>
+        <p class="helper">A demo. The form is not wired up yet, so nothing is sent or saved.</p>
       </form>
     </div>
   </section>
