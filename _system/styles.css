@@ -676,7 +676,15 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
   align-items: baseline;
   gap: 0.45ch;
 }
-/* De-emphasis token on a decorative marker, never on the label itself. */
+/* De-emphasis token on a decorative marker, never on the label itself.
+ * MOBILE ONLY as of 2026-08-04. The desktop bar's caret button was removed on
+ * Chip's instruction once Capital made it five arrows, and the disclosure
+ * moved onto the link (see shell.js). The class survives because the MOBILE
+ * nav still uses it, on a <span> inside a <summary>, and that one keeps its
+ * arrow deliberately: a <summary> is a disclosure widget rather than a link,
+ * so with no affordance a reader has nothing telling them it opens.
+ * These rules are therefore not dead. Deleting them unstyles the mobile
+ * caret; check both surfaces before touching this block. */
 .nav-mega-caret {
   font-family: var(--font-mono);
   font-size: var(--step--2);
@@ -933,6 +941,14 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
   margin-inline: auto;
   padding: var(--space-2xl) var(--gutter) var(--space-xl);
 }
+/* 11rem HOLDS FIVE COLUMNS at --page-max, and five is the count the footer is
+ * kept to. When Capital arrived on 2026-08-04 it briefly made six, which
+ * wrapped About onto a row of its own. The fix was NOT to narrow this
+ * minimum: Chip's call was to drop the Industries column instead, so the
+ * footer stays five and every column keeps a width its labels fit in.
+ * See the FOOTER array in shell.js for why dropping Industries costs no
+ * navigability. If a sixth column is ever genuinely needed, reconsider the
+ * column set before reconsidering this number. */
 .footer-cols {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
@@ -2889,14 +2905,24 @@ header:has(> .label:only-child) {
  * siblings. Identical fill, identical padding, no per-door hue, no
  * "recommended" one. The whole point is that the reader picks. */
 
+/* FOUR ACROSS as of 2026-08-04, was three. Chip added Capital/Xpedite as a
+ * fourth door and asked for the row on one line, 4 wide.
+ * THE BREAKPOINTS CHANGED WITH THE COUNT, and they had to. At three the row
+ * went straight from 3 to 1 at 60rem, because a 3-up that drops to 2 leaves a
+ * widow. Four divides, so it steps 4 to 2 to 1 and every stage is a full row.
+ * 76rem is where a quarter column stops holding "Commercialisation" on one
+ * line at this type size; below it the pair reads better than four slivers. */
 .launchers {
   list-style: none;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--space-l);
 }
-@media (max-width: 60rem) {
+@media (max-width: 76rem) {
+  .launchers { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 44rem) {
   .launchers { grid-template-columns: 1fr; }
 }
 
@@ -6604,3 +6630,77 @@ main > [data-surface]:not(:has(~ :not(.bio-overlay))) {
 .req-form input[type="date"],
 .req-form select { inline-size: 100%; max-width: 34rem; }
 .req-form .field-hint { max-width: var(--measure); }
+
+/* ================= 47. THE READINESS SCALES ================= */
+/* /xpand/#what-readiness-means only. Two nine-point tracks, TRL and CRL,
+ * shown together because ConvergX runs both in prose on its own site and
+ * never puts them side by side. The whole idea is that the same nine
+ * numbers answer two different questions.
+ *
+ * NO NEW TOKENS, NO NEW COLOURS. In-scope cells take --accent with
+ * --accent-ink on top, which is the same solid the buttons use; out-of-scope
+ * cells are the page's ordinary block-on-surface treatment. So the figure
+ * inverts correctly on all three surfaces without a single hand-written
+ * value, and it stays correct if the palette is ever replaced with Lindsay's
+ * real one.
+ *
+ * NINE EQUAL COLUMNS, and they collapse to a wrap rather than a scroll. A
+ * horizontal scroller hides half a nine-point scale on a phone, which
+ * defeats the only thing the figure is for. At narrow widths the row wraps
+ * to two lines and stays fully visible. */
+.rl {
+  margin-block-start: var(--space-xl);
+  display: grid;
+  gap: var(--space-xl);
+}
+.rl-name { margin-block-end: var(--space-3xs); }
+.rl-q {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  line-height: var(--lh-heading);
+  color: var(--fg-hi);
+  margin-block-end: var(--space-s);
+  max-width: none;
+}
+.rl-steps {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: var(--rule-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.rl-steps > li {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-align: center;
+  padding-block: var(--space-xs);
+  background: var(--block);
+  color: var(--fg-lo);
+  border: var(--rule-hair) solid var(--rule-ink-load);
+  border-radius: var(--radius);
+}
+/* The stated scope. Solid, so the band reads at a glance from across the
+ * page, which is the one thing a reader is meant to take from the figure. */
+.rl-steps > .rl-in {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+.rl-note {
+  font-size: var(--step--1);
+  color: var(--fg-lo);
+  margin-block-start: var(--space-xs);
+  max-width: var(--measure);
+}
+.rl figcaption { margin-block-start: var(--space-s); }
+
+/* Two tracks side by side once there is room for eighteen cells without
+ * either row of numbers crowding. Below it they stack, which reads as two
+ * scales one after the other and is the correct fallback: the comparison
+ * survives stacking, the numbers do not survive squeezing. */
+@media (min-width: 56rem) {
+  .rl { grid-template-columns: 1fr 1fr; gap: var(--space-2xl); }
+  .rl figcaption { grid-column: 1 / -1; }
+}

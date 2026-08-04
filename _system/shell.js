@@ -61,7 +61,29 @@
      * consulting or for congresses. The bar answers that question; the
      * brand name Xpand stays on the page, the homepage block and the
      * logo. Path unchanged, so nothing inbound breaks. */
-    { label: "Consulting",     href: "/xpand/",     mega: "xpand",      live: true }
+    { label: "Consulting",     href: "/xpand/",     mega: "xpand",      live: true },
+    /* Capital, added 2026-08-04 on Chip's instruction: a fourth line of
+     * business, bridge financing for the companies ConvergX is already
+     * connecting. Practice name ConvergX Capital, product name Xpedite.
+     *
+     * THE BAR LABEL IS THE PLAIN WORD, "Capital", and that is the same rule
+     * that turned Xpand into Consulting on 2026-07-30. Every X-name in this
+     * business (Xchange, Xpand, Xtend, Xpedite) is a brand a cold reader
+     * cannot decode, so the bar answers the question the reader is actually
+     * asking, which here is "do you do financing". Xpedite lives on the page,
+     * the homepage block and the logo, exactly as Xpand does.
+     * PATH IS /xpedite/, the product name, which is the same shape as
+     * /xpand/ sitting under a bar that says Consulting. Do not "align" the
+     * path to the label; nothing inbound would survive it and the existing
+     * pair already sets the precedent.
+     *
+     * LAST IN THIS ARRAY, which puts it between Consulting and About in the
+     * rendered bar. About is NOT in NAV, it is appended as a utility item
+     * further down, so "between Consulting and About" is the end of NAV.
+     * FIVE PANELS NOW. Watch the bar at the narrow end of the desktop range
+     * after any future label change: this is the item that took it from four
+     * to five and the row has no room left for a long one. */
+    { label: "Capital",        href: "/xpedite/",   mega: "capital",    live: true }
   ];
   /* About is a UTILITY link and it now TAKES A PANEL. Chip, 2026-07-29:
    * "you probably have to add a mega menu for About so those pages are
@@ -597,13 +619,63 @@
    * listed in this file's sibling comment on ABOUT_PAGES. Rename a section id
    * and these rows break silently, because a bad fragment does not 404. */
   var XPAND_STANDFIRST = "A consulting practice. One problem, asked across industries.";
+  /* FIVE ROWS as of 2026-08-04, was three, and they match the five links in
+   * the page's own sticky subnav in the same order. That is the convention
+   * Chip set on the Conference panel: "Match the mega-menu links for The
+   * Conference to the sub menu links."
+   * ONE DELIBERATE DIFFERENCE, and it is the same one /congress/ carries: row
+   * one reads "Overview" and points at the page itself, where the on-page bar
+   * reads "Where it sits" and points at the first section. A panel's first row
+   * always offers the whole page. Do not "fix" this into a match.
+   * "What readiness means" shortened to "Readiness" alongside the subnav, for
+   * the same crowding reason. The section head still says the full phrase. */
   var XPAND_PAGES = [
-    { label: "Overview",             href: "/xpand/",
+    { label: "Overview",        href: "/xpand/",
       note:  "Where a consulting engagement sits next to the platform and the Congress." },
-    { label: "What Xpand does",      href: "/xpand/#what-xpand-does",
+    { label: "Who it is for",   href: "/xpand/#who-it-is-for",
+      note:  "An organisation carrying a problem, and a company whose answer was built elsewhere." },
+    { label: "The last mile",   href: "/xpand/#the-last-mile",
+      note:  "Procurement, qualification and financing, the three things ConvergX names as the blockers." },
+    { label: "What Xpand does", href: "/xpand/#what-xpand-does",
       note:  "Consulting, access to testing and validation, and the one that is not running." },
-    { label: "What readiness means", href: "/xpand/#what-readiness-means",
-      note:  "The scale ConvergX states for an engagement, and why it is not the platform's floor." }
+    { label: "Xpand Prep",      href: "/xpand/#xpand-prep",
+      note:  "Getting a buyer to a requirement, and a supplier through a large buyer's questions." },
+    { label: "How it works",    href: "/xpand/#how-it-works",
+      note:  "Six phases, and the named document each of the first four ends in." },
+    { label: "Readiness",       href: "/xpand/#what-readiness-means",
+      note:  "TRL and the commercial scale, and why the stated floor is not the platform's." }
+  ];
+
+  /* CAPITAL. Added 2026-08-04 with the fourth line of business.
+   *
+   * THE STANDFIRST NAMES THE PRODUCT, because the bar label does not. A
+   * reader who clicks "Capital" has to meet the word Xpedite somewhere before
+   * the page, or the brand never attaches to the thing. Congress and Xpand
+   * both get this for free (their standfirsts carry dates and a category);
+   * this one has to do it deliberately.
+   *
+   * NO NUMBER, NO AMOUNT, NO RATE, NO TERM anywhere in this panel or its
+   * notes, and that is not a style preference. ConvergX publishes nothing at
+   * all about this service, so every word here traces to a one-sentence brief
+   * from Chip. A menu note is copy like any other and the honesty gates do not
+   * relax because the text is small.
+   * The notes also stay silent on whether ConvergX lends or arranges, which is
+   * a material legal distinction nobody has answered. Every note below is true
+   * either way. Do not "clarify" one into existence.
+   *
+   * THE IDS ARE THE CONTRACT and they are declared on /xpedite/. A wrong
+   * fragment does not 404, it just lands the reader at the top of the page,
+   * so these are verified against the page after any edit to either file. */
+  var CAPITAL_STANDFIRST = "Xpedite. Bridge financing, for deals ConvergX already brokered.";
+  var CAPITAL_PAGES = [
+    { label: "Overview",        href: "/xpedite/",
+      note:  "Where bridge financing sits next to the Congress, the platform and Xpand." },
+    { label: "Who it is for",   href: "/xpedite/#who-it-is-for",
+      note:  "The buyer who decided, and the supplier waiting to be paid for saying yes." },
+    { label: "How it works",    href: "/xpedite/#how-it-works",
+      note:  "What bridge financing is, in plain words, for a reader who has never used it." },
+    { label: "What is settled", href: "/xpedite/#what-is-settled",
+      note:  "What ConvergX will state at this stage, and what it deliberately will not." }
   ];
 
   /* Footer sitemap.
@@ -637,18 +709,23 @@
    *
    * Agenda and Speakers point at SECTIONS of the one-pager, not at their
    * old standalone pages, which no longer exist. */
+  /* INDUSTRIES CAME OUT OF THE FOOTER, 2026-08-04, Chip's call: "Maybe you
+   * need to remove Industries from the footer just to keep it to 5 columns."
+   * Capital had just made a sixth column, which wrapped About onto a row of
+   * its own at --page-max. Five columns is the shape; the alternative was
+   * narrowing every column to fit six, which costs all five to fix one.
+   *
+   * WHY THIS COLUMN AND NOT ANOTHER, and why it costs no navigability: the
+   * eight sectors are the ONE group already reachable two other ways from
+   * every page. They fill their own mega panel as a grid, and the no-JS
+   * <noscript> block in every page's <header> lists all eight under
+   * Industries. Every other footer column is the only place its rows are
+   * gathered. So the rule this footer was built on, that it carries every
+   * page the panels carry, is bent here knowingly and only here: Industries
+   * is not lost, it is not duplicated a third time.
+   * The header bar still carries Industries as a top-level item, so the
+   * section itself did not get quieter, only its footer repetition. */
   var FOOTER = [
-    { title: "Industries", links: [
-      { label: "Overview",                     href: "/industries/" },
-      { label: "Aerospace and defence",        href: "/industries/aerospace-defence/" },
-      { label: "Agriculture",                  href: "/industries/agriculture/" },
-      { label: "Construction",                 href: "/industries/construction/" },
-      { label: "Energy",                       href: "/industries/energy/" },
-      { label: "Manufacturing",                href: "/industries/manufacturing/" },
-      { label: "Military",                     href: "/industries/military/" },
-      { label: "Mining and natural resources", href: "/industries/mining-natural-resources/" },
-      { label: "Technology",                   href: "/industries/technology/" }
-    ]},
     { title: "The Platform", links: [
       { label: "Overview",                   href: "/platform/" },
       { label: "All modules",                href: "/platform/#modules" },
@@ -674,9 +751,19 @@
       { label: "Xchange Partnerships", href: "/congress/partnerships/" }
     ]},
     { title: "Consulting", links: [
-      { label: "Overview",             href: "/xpand/" },
-      { label: "What Xpand does",      href: "/xpand/#what-xpand-does" },
-      { label: "What readiness means", href: "/xpand/#what-readiness-means" }
+      { label: "Overview",        href: "/xpand/" },
+      { label: "Who it is for",   href: "/xpand/#who-it-is-for" },
+      { label: "The last mile",   href: "/xpand/#the-last-mile" },
+      { label: "What Xpand does", href: "/xpand/#what-xpand-does" },
+      { label: "Xpand Prep",      href: "/xpand/#xpand-prep" },
+      { label: "How it works",    href: "/xpand/#how-it-works" },
+      { label: "Readiness",       href: "/xpand/#what-readiness-means" }
+    ]},
+    { title: "Capital", links: [
+      { label: "Overview",        href: "/xpedite/" },
+      { label: "Who it is for",   href: "/xpedite/#who-it-is-for" },
+      { label: "How it works",    href: "/xpedite/#how-it-works" },
+      { label: "What is settled", href: "/xpedite/#what-is-settled" }
     ]},
     { title: "About", links: [
       { label: "Overview",       href: "/about/" },
@@ -861,6 +948,9 @@
     } else if (key === "xpand") {
       cols = megaCol(id + "-h", XPAND_STANDFIRST,
         indexList(XPAND_PAGES, current, ' aria-labelledby="' + id + '-h"'));
+    } else if (key === "capital") {
+      cols = megaCol(id + "-h", CAPITAL_STANDFIRST,
+        indexList(CAPITAL_PAGES, current, ' aria-labelledby="' + id + '-h"'));
     } else if (key === "about") {
       cols = megaCol(id + "-h", ABOUT_STANDFIRST,
         indexList(ABOUT_PAGES, current, ' aria-labelledby="' + id + '-h"'));
@@ -917,6 +1007,10 @@
       body =
         '<p class="label label--lo">' + XPAND_STANDFIRST + "</p>" +
         indexList(XPAND_PAGES, current, ' aria-label="Xpand"');
+    } else if (key === "capital") {
+      body =
+        '<p class="label label--lo">' + CAPITAL_STANDFIRST + "</p>" +
+        indexList(CAPITAL_PAGES, current, ' aria-label="Capital"');
     } else if (key === "about") {
       body =
         '<p class="label label--lo">' + ABOUT_STANDFIRST + "</p>" +
@@ -968,7 +1062,9 @@
          * menu on click has no correct keyboard behaviour. Hover still opens
          * the panel for both, because the handler is on the <li>. */
         return '<li class="nav-mega">' +
-          '<a class="nav-mega-btn" href="' + item.href + '"' + inBranch + ">" +
+          '<a class="nav-mega-btn" href="' + item.href + '"' + inBranch +
+          ' id="mega-' + item.mega + '-btn"' +
+          ' aria-expanded="false" aria-controls="mega-' + item.mega + '">' +
           /* The label is wrapped so the current-branch rule can hug the
            * WORD. On the plain nav links the device is drawn on an inline
            * <a>, so it ends where the text ends. On the old button it was
@@ -977,16 +1073,26 @@
            * fresh page load rather than as the current-page marker. */
           '<span class="nav-mega-label">' + item.label + "</span>" +
           "</a>" +
-          /* The affordance is a text character, not an icon, and it does
-           * not rotate: ::after is already spoken for by the current-page
-           * inline device, and rotation would spend the motion budget.
-           * It carries the aria-expanded now, and a real name, because a
-           * caret with no accessible name is a button called "↓". */
-          '<button type="button" class="nav-mega-caret" id="mega-' + item.mega + '-btn"' +
-          ' aria-expanded="false" aria-controls="mega-' + item.mega + '"' +
-          ' aria-label="' + item.label + ' menu">' +
-          '<span aria-hidden="true">↓</span>' +
-          "</button>" +
+          /* THE CARET BUTTON IS GONE, 2026-08-04. Chip: "Remove the arrows
+           * from the header menu, now that we have Capital added in there."
+           * Five panels made five arrows read as clutter rather than affordance.
+           *
+           * WHAT HAD TO CHANGE WITH IT, because the arrow was not decoration.
+           * That button was the ONLY keyboard route into a panel: it carried
+           * aria-expanded and aria-controls, it was the click target, and the
+           * comment in wireOneMega recorded that focusin deliberately did NOT
+           * open the panel. Removing the glyph alone would have left a
+           * zero-width focusable control; removing the button alone would have
+           * stranded every keyboard user outside all five panels.
+           * So the disclosure moved onto the link and focusin now opens the
+           * panel. A keyboard user tabs to Consulting and the panel appears,
+           * which is what a pointer user already got on hover. The link still
+           * navigates on click, so a reader who wants the page is unaffected.
+           * The note above about "two controls, not one" is now stale in its
+           * detail: there is one control, and it opens on hover and focus
+           * rather than on click, which is the case that comment excluded.
+           * DO NOT reintroduce a visible caret without also deciding what
+           * opens a panel for the keyboard. They are one question. */
           megaPanel(item.mega, current) +
         "</li>";
       }
@@ -1319,12 +1425,12 @@
 
   function wireOneMega(item) {
     if (!item) return;
-    /* The CARET, not the label. Since 2026-07-29 .nav-mega-btn is the <a>
-     * that navigates and .nav-mega-caret is the button that opens the
-     * panel, so this selector has to be the caret or clicking the caret
-     * would toggle nothing and the link would carry an aria-expanded it
-     * never changes. */
-    var btn = item.querySelector(".nav-mega-caret");
+    /* THE LINK IS THE TRIGGER as of 2026-08-04, when the caret was removed.
+     * It carries aria-expanded and aria-controls, and set() keeps that
+     * attribute honest on hover and on focus alike, so it is never a state
+     * that is declared and never changes. Clicking it still navigates: the
+     * panel is a hover and focus disclosure, not a click menu. */
+    var btn = item.querySelector(".nav-mega-btn");
     var panel = item.querySelector(".mega");
     if (!btn || !panel) return;
 
@@ -1348,7 +1454,14 @@
       }, 220);
     }
 
-    btn.addEventListener("click", function () { cancelClose(); set(panel.hidden); });
+    /* NO CLICK HANDLER on the trigger any more. It is a link and clicking it
+     * goes to the page, which is what it already did; opening the panel on
+     * click as well would be one control doing two things.
+     * FOCUSIN IS THE KEYBOARD EQUIVALENT OF MOUSEENTER and it is what
+     * replaced the caret. Bound on the item rather than the link so that
+     * focus moving INTO an open panel keeps it open, which the focusout
+     * handler below already assumes. Tabbing past the item closes it. */
+    item.addEventListener("focusin", function () { cancelClose(); set(true); });
     item.addEventListener("mouseenter", function () { cancelClose(); set(true); });
     item.addEventListener("mouseleave", closeSoon);
     panel.addEventListener("mouseenter", cancelClose);
@@ -1360,8 +1473,9 @@
       if (panel.hidden) return;
       /* Focus goes back to the trigger, not nowhere, so Escape from
        * inside the panel does not dump the user at the top of the
-       * document. Order no longer matters now that focusin does not
-       * open the panel, but returning focus first still reads better. */
+       * document. Focusin DOES open the panel again as of 2026-08-04, so the
+       * order matters once more: focus returns to the trigger first, then the
+       * panel is hidden, or the refocus would immediately reopen it. */
       if (item.contains(document.activeElement)) btn.focus();
       set(false);
     });
