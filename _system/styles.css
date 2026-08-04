@@ -6289,3 +6289,99 @@ body:has(.shell-header) .pfig {
 main > [data-surface]:not(:has(~ :not(.bio-overlay))) {
   padding-block-end: var(--space-3xl);
 }
+
+/* ---- the launcher block is clickable end to end -------------------------
+ * Chip, 2026-08-04: "make the homepage blocks for the different sections
+ * fully clickable rather than just the titles and the CTAs."
+ *
+ * THE STRETCHED LINK, not a wrapping <a>. The obvious move is to wrap the
+ * whole <li> in an anchor, and it is wrong twice: it nests a link inside a
+ * link (the CTA), which is invalid and unpredictable, and it hands a screen
+ * reader one enormous link whose accessible name is the eyebrow, the title,
+ * the description and the CTA run together. The pseudo-element covers the box
+ * instead, so the DOM keeps exactly two real links with their own short names
+ * and only the HIT AREA changes.
+ *
+ * THE CTA STAYS INDEPENDENTLY CLICKABLE, which is the part that is easy to
+ * get wrong. It points somewhere more specific than the title (the Conference
+ * block goes to /congress/, its CTA to /congress/#agenda), so it cannot be
+ * allowed to fall under the stretched layer. Raising it into its own stacking
+ * context puts it back on top: click anywhere on the block for the section,
+ * click the CTA for the specific place inside it.
+ *
+ * TEXT IS NOT SELECTABLE INSIDE THE BLOCK, and that is the accepted cost of
+ * this pattern rather than an oversight. An earlier version of this comment
+ * claimed the opposite on the theory that z-index 0 leaves the overlay below
+ * the type; that is wrong and was measured wrong. A positioned element paints
+ * above non-positioned in-flow content in the same stacking context whatever
+ * its z-index, so the overlay is over the description and takes the drag.
+ * The two ways out are both worse. Giving the copy position: relative puts it
+ * above the overlay and the block stops being clickable where the words are,
+ * which is most of it and defeats the request. z-index -1 drops the overlay
+ * behind the block's own accent background, so it stops being hittable at all.
+ * Selection loses; whole-block clicking is what was asked for. */
+.launcher { position: relative; }
+.launcher-title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+/* Unconditional, not :hover scoped. A cursor only ever renders while the
+ * pointer is over the element, so gating it on :hover said nothing and just
+ * made the rule look conditional to the next reader. */
+.launcher { cursor: pointer; }
+
+/* ---- the hover: the block inverts, slowly ----
+ * Chip, 2026-08-04: "make it kind of a slow, gradual transition... the
+ * background can transition from blue to white and the font can change colour
+ * as well? Instead of something underlining."
+ *
+ * THE UNDERLINE IS GONE. It was signalling on one word what the whole block
+ * now signals, and once the entire box is a hit target, underlining the title
+ * actively misleads: it points at the one element the reader does NOT have to
+ * aim for.
+ *
+ * 420ms, NOT --t. The token is 120ms, which is the right speed for a control
+ * acknowledging a click and far too fast for a field this size changing
+ * colour: at 120ms a block this big does not read as transitioning, it reads
+ * as flickering. Slow enough to see, short enough that the block is fully
+ * white before a deliberate pointer has crossed it. ease-out so it arrives
+ * gently rather than stopping dead.
+ * Declared here rather than as a new global token because nothing else on the
+ * site moves at this speed yet. If a second component wants it, promote it.
+ *
+ * EVERY INK IS RESTATED, because all four children inherit --accent-ink and
+ * white on white is invisible. Measured on paper: title and description
+ * --ink-900 at 17.93:1, eyebrow and CTA --accent-text at 6.46:1, which clears
+ * 4.5:1 at the eyebrow's 11px. The resting state is unchanged and still
+ * measures 4.59:1.
+ *
+ * WHEN THE THREE MARKS ARRIVE, this needs one more line. A reversed white
+ * lockup is correct on the blue and invisible on the white, so img.launcher-logo
+ * will need a filter or a second asset swapped at :hover. There is no mark in
+ * the markup yet, so nothing is written for it. */
+.launcher,
+.launcher-name,
+.launcher-desc,
+.launcher-title a,
+.launcher-cta a {
+  transition: background-color 420ms ease-out, color 420ms ease-out;
+}
+.launcher:hover { background: var(--paper); }
+.launcher:hover .launcher-title a,
+.launcher:hover .launcher-desc  { color: var(--ink-900); }
+.launcher:hover .launcher-name,
+.launcher:hover .launcher-cta a { color: var(--accent-text); }
+/* The title keeps its no-underline resting state through the hover: the
+ * colour change is the whole signal now. */
+.launcher:hover .launcher-title a { text-decoration: none; }
+
+/* Above the stretched layer, and position is required for z-index to apply. */
+.launcher-cta { position: relative; z-index: 1; }
+
+/* The focus ring belongs on the title link itself, which is what is actually
+ * focused. Without this the ring would be drawn around the stretched
+ * pseudo-element, i.e. the entire block, which reads as a bug rather than as
+ * focus and swamps the CTA's own ring sitting inside it. */
+.launcher-title a:focus-visible { outline-offset: var(--rule-med); }
