@@ -109,9 +109,13 @@
       <div class="editorial">
         <h1>Sponsorship buys visibility. It never buys a match.</h1>
         <!-- RHYTHM 4.48: split at the sentence, zero words changed. Both keep
-             class="lede-text". -->
+             class="lede-text".
+             TRIMMED 2026-08-04: the second line ended ", and no tier reaches
+             that decision". The h1 directly above already says it, and "What a
+             cheque does not move" says it in full at the bottom. Three
+             statements of one fact is the bagginess, not the fact. -->
         <p class="lede-text">Your name goes in front of the room.</p>
-        <p class="lede-text">Who is introduced to whom is decided by a person at ConvergX, against the requirement on the table, and no tier reaches that decision.</p>
+        <p class="lede-text">Who is introduced to whom is decided by a person at ConvergX, against the requirement on the table.</p>
       </div>
     </div>
   </section>
@@ -349,9 +353,13 @@
         <div class="lede">
           <p>Nine tiers for Sep 22 to 24, 2026 in Calgary, named and priced as ConvergX sells them.</p>
         </div>
+        <!-- CUT 2026-08-04, two paragraphs to one. The first restated the h1
+             and pointed at a section three screens down, which is a sentence
+             doing errands rather than work. The second explained our sourcing
+             to a sponsor who did not ask; the ordering rule is recorded in the
+             storefront comment above and does not need to be copy. -->
         <div class="body">
-          <p>Every tier below buys visibility and delegate passes. None of them reaches the decision about who is introduced to whom, and that is stated in full further down.</p>
-          <p>They are grouped and ordered the way ConvergX's own store groups and orders them, in its three sponsorship categories rather than by price.</p>
+          <p>Every tier buys visibility and delegate passes. They sit in ConvergX's three sponsorship categories, in the order its own store lists them.</p>
         </div>
       </div>
 
@@ -536,6 +544,170 @@
     </div>
   </section>
 
+  <!-- ===================== THE ENQUIRY FORM, added 2026-08-04 =====================
+       WHY IT EXISTS. The nine buttons above serve the sponsor who already knows
+       which tier they want and is ready to pay. Nobody commits 50,000 USD off a
+       button without a conversation first, and until now this page had no route
+       for the larger group who need one. That is the only gap it fills.
+
+       IT DOES NOT COMPETE WITH THE NINE. It carries no price, no tier action and
+       no second checkout path. The tier field is a question, not a selection that
+       does anything. Do not move it above the storefront, and do not add a link
+       to it from inside the nine cards.
+
+       PLACEMENT, deliberate and a conscious renegotiation of the note at the
+       bottom of this file. That note says nothing may follow "What a cheque does
+       not move", because a sponsor's last read should be the boundary rather than
+       a button. That still holds and the closer has NOT moved: the form sits
+       BEFORE it, so the boundary is still the last thing read, and a reader who
+       has just been asked what they want the room to know them for meets the
+       limits of what money moves immediately after. Do not reorder these two.
+
+       NO PROMISE OF A REPLY, a call, a meeting or an outcome. ConvergX asks,
+       decides, vets, brokers and convenes. The page states what the form is for
+       and stops. There is no response time because there is no number here that
+       is not already published.
+
+       THE "where would your name make the most sense" FIELD is about which tiers
+       to discuss, and its helper says so in those words. It is not audience
+       targeting and it must never be reworded into it, because sponsorship
+       reaching who meets whom is the one thing this whole page denies.
+
+       ZERO NUMBERS ADDED. No attendance, no reach, no slots, no closing date. -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Talk to someone before you pick a tier</h2>
+        <span class="label label--lo label--edge">Sponsorship enquiry</span>
+      </div>
+      <div class="editorial">
+        <div class="lede">
+          <p>The nine buttons above are for sponsors who already know what they want.</p>
+        </div>
+        <div class="body">
+          <p>This is for everyone else. Tell ConvergX what you are trying to be known for in Calgary and it will tell you which of the nine actually fits.</p>
+        </div>
+      </div>
+
+      <p>Every question is required unless the label says optional.</p>
+
+      <!-- Inert by construction, the same two ways as /requirement/: the submit
+           control is disabled, which also removes implicit submission on Enter,
+           and the method is post rather than the default get, so nothing a
+           sponsor writes can end up in a URL query string.
+           FOR WHOEVER BUILDS THIS: remove the disabled attribute, set a real
+           action and keep method="post". The nine field names below are the
+           ones to map. -->
+      <form class="req-form" method="post" action="#">
+
+        <fieldset>
+          <legend>The sponsorship</legend>
+
+          <!-- The nine, verbatim, in their three store categories and in their
+               order inside each, so the select reads as the page above it.
+               Optgroup labels are ConvergX's own category names. If the
+               storefront changes, change this with it. -->
+          <div class="field">
+            <label for="tier">Which tier are you looking at?</label>
+            <p class="helper" id="tier-help">The nine above, grouped the way ConvergX groups them. Not sure yet is a real answer.</p>
+            <select id="tier" name="tier" aria-describedby="tier-help" required>
+              <option value="">Select one</option>
+              <optgroup label="Tier 1 Sponsor">
+                <option value="presenting-partner">Presenting Partner</option>
+                <option value="cross-sector-innovation">Cross-Sector / Innovation</option>
+              </optgroup>
+              <optgroup label="Medal Sponsor">
+                <option value="industry-partner-platinum">Industry Partner Platinum</option>
+                <option value="gold">Gold</option>
+                <option value="silver">Silver</option>
+              </optgroup>
+              <optgroup label="Sponsorship">
+                <option value="opening-reception">Opening Reception</option>
+                <option value="awards-reception">Awards Reception</option>
+                <option value="breakfast-and-lunch">Breakfast and Lunch</option>
+                <option value="networking-break">Networking Break</option>
+              </optgroup>
+              <option value="not-sure">Not sure yet</option>
+            </select>
+          </div>
+
+          <!-- THE FIELD DOING THE REAL WORK. Given room on purpose. Everything
+               else here is routing; this is the one a person at ConvergX
+               actually needs in order to have a useful conversation. -->
+          <div class="field">
+            <label for="known-for">What do you want the room to know you for?</label>
+            <p class="helper" id="known-for-help">The work you want your name attached to over the three days. Say it the way you would say it out loud, not the way it reads in a company profile.</p>
+            <textarea id="known-for" name="known-for" rows="7" aria-describedby="known-for-help" required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="placement">Where would your name make the most sense? (optional)</label>
+            <p class="helper" id="placement-help">The moments across the three days that fit what you do, like the opening reception or the breaks. It tells ConvergX which tiers to talk to you about, and nothing else.</p>
+            <textarea id="placement" name="placement" rows="4" aria-describedby="placement-help"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="sponsored-before">Have you sponsored a ConvergX event before?</label>
+            <select id="sponsored-before" name="sponsored-before" required>
+              <option value="">Select one</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>You</legend>
+
+          <div class="field">
+            <label for="name">What is your name?</label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+          </div>
+
+          <div class="field">
+            <label for="role">What is your role?</label>
+            <p class="helper" id="role-help">What you are accountable for on this.</p>
+            <input type="text" id="role" name="role" aria-describedby="role-help" autocomplete="organization-title" required>
+          </div>
+
+          <div class="field">
+            <label for="company">What company do you work for?</label>
+            <p class="helper" id="company-help">The name you want on the signage. This goes to ConvergX and nowhere else.</p>
+            <input type="text" id="company" name="company" aria-describedby="company-help" autocomplete="organization" required>
+          </div>
+
+          <div class="field">
+            <label for="email">What is your work email?</label>
+            <p class="helper" id="email-help">Use your company's own domain.</p>
+            <input type="email" id="email" name="email" aria-describedby="email-help" autocomplete="email" required>
+          </div>
+
+          <!-- The eight the site already convenes, in the order the nav carries
+               them. No free-text box and no ninth option: a taxonomy invented
+               here is one nothing downstream can read. -->
+          <div class="field">
+            <label for="industry">What industry are you in?</label>
+            <p class="helper" id="industry-help">The eight ConvergX convenes.</p>
+            <select id="industry" name="industry" aria-describedby="industry-help" required>
+              <option value="">Select one</option>
+              <option value="aerospace-defence">Aerospace and defence</option>
+              <option value="agriculture">Agriculture</option>
+              <option value="construction">Construction</option>
+              <option value="energy">Energy</option>
+              <option value="manufacturing">Manufacturing</option>
+              <option value="military">Military</option>
+              <option value="mining-natural-resources">Mining and natural resources</option>
+              <option value="technology">Technology</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <p><button class="btn btn--solid" type="submit" disabled>Send this to ConvergX</button></p>
+        <p class="helper">A demo. The form is not wired up yet, so nothing is sent or saved.</p>
+      </form>
+    </div>
+  </section>
+
   <!-- The line drawn in public. A sponsor who reads this page and then
        reads /platform/get-discovered/how-vetting-works/ has to find the same answer
        in both places. The locked string on that page is not restated here. -->
@@ -561,7 +733,11 @@
           <p>Introductions. ConvergX decides who should meet, and both sides consent before anyone is put in front of anyone.</p>
           <p>A sponsor is on the same footing there as a delegate who paid for one seat.</p>
           <p>The opportunity board. A post gets onto it because ConvergX decided it belongs there, not because of what the poster spent.</p>
-          <p>That is the whole trade, stated up front. What sponsorship buys is the room knowing your name before you say it.</p>
+          <!-- TRIMMED 2026-08-04: "That is the whole trade, stated up front."
+               removed. It only announced that the three lines above it had just
+               happened. The line that follows is the page's close and it lands
+               harder without a run-up. -->
+          <p>What sponsorship buys is the room knowing your name before you say it.</p>
         </div>
       </div>
     </div>
@@ -575,7 +751,9 @@
 
        The section that closes this page is now "What a cheque does not move",
        and that is deliberate. A sponsor's last read is the boundary, not the
-       button. Do not add anything after it. -->
+       button. Do not add anything after it.
+       STILL TRUE AFTER 2026-08-04. The enquiry form added that day sits BEFORE
+       this closer for exactly this reason, not after it. Do not swap them. -->
 
 </main>
 

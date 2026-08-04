@@ -6582,8 +6582,12 @@ main > [data-surface]:not(:has(~ :not(.bio-overlay))) {
   .store--pair { grid-template-columns: 1fr; }
 }
 
-/* ---- the requirement form runs the full column -------------------------
- * /requirement/ only. Chip, 2026-08-04: "The form should also be full width."
+/* ---- a form runs the full column ---------------------------------------
+ * Built for /requirement/. Chip, 2026-08-04: "The form should also be full width."
+ * NOW THE SITE'S FORM LAYOUT, used on /requirement/, /congress/register/ and
+ * /congress/sponsor/ as of 2026-08-04. The class name is kept rather than
+ * renamed: three pages reference it, and a rename buys nothing a comment
+ * cannot say. Any page whose main content is a form takes .req-form.
  *
  * The page is one long form, so the .editorial reading rail that serves prose
  * works against it here: a textarea held to --measure while its label sits in
