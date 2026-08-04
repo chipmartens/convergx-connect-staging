@@ -238,7 +238,16 @@
              action and keep method="post" so a requirement never lands in a
              URL. The eleven field names are already the ones to map. -->
         <p><button class="btn btn--solid" type="submit" disabled>Send this to ConvergX</button></p>
-        <p class="helper">A demo. The form is not wired up yet, so nothing is sent or saved.</p>
+        <!-- THE ROUTE OUT, added 2026-08-04. The demo note told a reader
+             nothing was being sent and then left them with nowhere to go, so
+             anyone who actually had a requirement hit a dead end on the one
+             page built to collect one. /access/request/ is the live door.
+             THE NOTE ITSELF DID NOT MOVE and must not. Chip took the not-live
+             block off the top of this page on 2026-08-04 because leading with
+             a disclaimer was the wrong first thing to read, and put the fact
+             on the button, which is where a reader meets it at the moment it
+             matters. This adds the route and changes neither of those. -->
+        <p class="helper">A demo. The form is not wired up yet, so nothing is sent or saved. To reach ConvergX now, use the <a href="/access/request/">access request</a>.</p>
       </form>
     </div>
   </section>

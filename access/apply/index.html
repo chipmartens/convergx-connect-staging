@@ -140,7 +140,9 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>The application</h2>
-        <span class="label label--lo label--edge">The application</span>
+        <!-- The eyebrow read "The application" too, so the section head said
+             one thing twice at two sizes. -->
+        <span class="label label--lo label--edge">The form</span>
       </div>
       <div class="editorial">
         <div class="lede">
@@ -181,7 +183,18 @@
 
           <div class="field">
             <label for="trl">Is it commercialised at TRL 8 to 9</label>
-            <p class="helper" id="trl-help">Complete and running in its real environment, in service rather than in trial.</p>
+            <!-- THE ROUTING SENTENCE, added 2026-08-04. This is the one
+                 question on the form that reads as pass or fail, so an
+                 applicant below TRL 8 has an obvious reason to answer it
+                 optimistically. Saying where a No goes removes that reason.
+                 The wording is /about/'s own, character for character:
+                 "ConvergX runs a separate arm for early-stage and research
+                 work, and that is where it goes." No commitment is added on
+                 top of it. In particular this does NOT say ConvergX writes
+                 back, replies or routes it for you: nothing published
+                 supports that and this page promises no response at all.
+                 The arm is still unnamed. That NEEDS is open on /about/. -->
+            <p class="helper" id="trl-help">Complete and running in its real environment, in service rather than in trial. Answer it honestly. A No does not end the application: ConvergX runs a separate arm for early-stage and research work, and that is where one like it goes.</p>
             <select id="trl" name="trl" aria-describedby="trl-help" required>
               <option value="">Select one</option>
               <option value="yes">Yes, it is in service with customers</option>

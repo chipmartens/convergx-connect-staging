@@ -92,7 +92,9 @@
   --cool-400: #898989;  /* gray-400. load-bearing rules on LIGHT. 3.50:1 on paper */
   --cool-500: #757575;  /* gray-500. load-bearing rules on DARK.  3.89:1 on ground */
   --cool-600: #5a5a5a;  /* gray-600. de-emphasis TEXT on light. 6.90:1 paper, 6.05:1 muted */
-  --cool-700: #363636;  /* gray-700. decorative rules on dark, and dot fields. 1.48:1 */
+  --cool-700: #363636;  /* gray-700. BODY TEXT on light and muted (12.08:1 paper,
+                         * 11.08:1 muted) as of 2026-08-04, and decorative rules plus dot
+                         * fields on dark, where it is 1.48:1 and must never carry text. */
   --paper:    #ffffff;  /* THE ONLY #ffffff IN THE PROJECT */
   --ink-900:  #171717;  /* gray-900. text on light. 17.93:1 paper, 15.73:1 muted */
 
@@ -249,8 +251,20 @@
 }
 [data-surface="light"] {
   --bg:            var(--paper);
-  --fg:            var(--ink-900);
-  --fg-hi:         var(--ink-900);
+  /* --fg AND --fg-hi WERE THE SAME INK until 2026-08-04, which meant the
+   * emphasis channel did not exist on this surface. `strong` resolves to
+   * --fg-hi, so every <strong>, every claim-row lead-in and every emphasised
+   * phrase on a light page differed from its body copy by a 500-vs-400 weight
+   * and nothing else. Chip: "some titles are bold-ish but not enough to be
+   * visually different than the text." This was the cause, and it was in the
+   * tokens rather than in any component.
+   * Body copy steps back to --cool-700 and --fg-hi keeps --ink-900, so the two
+   * are now 12.08:1 and 17.93:1 on paper, 11.08:1 and 16.44:1 on muted. Both
+   * clear 4.5:1 with room, and emphasis finally reads as emphasis.
+   * DO NOT re-point --fg at --ink-900 to make body copy "richer". That is the
+   * bug, and it looks like a preference. */
+  --fg:            var(--cool-700);    /* 12.08:1 on paper */
+  --fg-hi:         var(--ink-900);     /* 17.93:1 on paper. The emphasis ink */
   --fg-lo:         var(--cool-600);    /* 6.55:1 on paper */
   --block:         var(--cool-100);
   --rule-ink:      var(--cool-300);
@@ -267,8 +281,9 @@
 }
 [data-surface="muted"] {
   --bg:            var(--cool-100);
-  --fg:            var(--ink-900);
-  --fg-hi:         var(--ink-900);
+  /* Same fix as the light surface above, same reason. See the note there. */
+  --fg:            var(--cool-700);    /* 11.08:1 on muted */
+  --fg-hi:         var(--ink-900);     /* 16.44:1 on muted. The emphasis ink */
   --fg-lo:         var(--cool-600);    /* 5.29:1 on muted */
   --block:         var(--paper);
   --rule-ink:      var(--cool-300);

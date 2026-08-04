@@ -178,7 +178,11 @@ a {
 }
 a:hover { color: var(--fg-hi); }
 
-strong { font-weight: 500; color: var(--fg-hi); }
+/* 600, not 500. At this face 500 against 400 is under 2 percent of glyph width,
+ * which is invisible at body size, and it was carrying the whole emphasis job on
+ * light surfaces where the colour channel was dead too (see tokens.css). With
+ * --fg now stepped back, weight and colour work together instead of neither. */
+strong { font-weight: 600; color: var(--fg-hi); }
 
 /* Tertiary action: a text link with a text-character arrow. Not an icon. */
 .link-more {
@@ -2525,7 +2529,24 @@ section:has(.hero) { padding-block: 0; }
  * rendered at --step-2, took --space-l of vertical padding, and grew a second
  * plus marker. A session is a line in a timetable, not a day heading. The >
  * is the whole fix and it changes nothing for the day rows themselves. */
+/* THE CLAIM ROW'S LEAD-IN IS A TITLE, so it is set as one. Twenty claim rows
+ * across the site open with a bolded phrase and then a sentence, and both ran at
+ * body size in the same face, so the row read as one undifferentiated block.
+ * Scoped to a first-child strong inside a claim paragraph, which is exactly the
+ * lead-in shape and nothing else. Verified: all 20 are first-child. */
+.claim p > strong:first-child {
+  display: block;
+  font-size: var(--step-1);
+  line-height: var(--lh-heading);
+  margin-block-end: var(--space-2xs);
+}
+
+/* The question was the same face, weight and colour as its own answer, so an
+ * open FAQ row read as one paragraph. Display face plus 600 separates them
+ * without touching size, which the row's layout depends on. */
 .faq > summary {
+  font-family: var(--font-display);
+  font-weight: 600;
   cursor: pointer; list-style: none;
   display: flex; align-items: baseline; justify-content: space-between;
   gap: var(--space-l);
@@ -3767,6 +3788,64 @@ img.launcher-logo {
 }
 body:has(.shell-header) .subnav { top: calc(var(--shell-h) + var(--rule-hair)); }
 
+/* ---- HIDDEN UNTIL IT STICKS ------------------------------------------
+ * Chip, 2026-08-04: "the sub menus on the different pages should be hidden
+ * until you hit the first section. Otherwise, they feel like they're just
+ * floating randomly."
+ * He is right about the cause. Sitting in flow under a hero, the bar is a
+ * naked row of small links with no ground of its own and nothing above or
+ * below to attach it to, so it reads as debris. It only becomes legible as
+ * navigation at the moment it pins to the header, because that is when it
+ * gains a job.
+ *
+ * .subnav--stuck ALREADY MARKS EXACTLY THAT MOMENT, so this needs no new
+ * state and no new script. shell.js toggles that class from a sentinel at
+ * the bar's own offsetTop, and re-asserts it inside mark() for the
+ * backgrounded-tab case. Both paths use an explicit boolean, so they cannot
+ * fight, and this rule inherits that for free.
+ *
+ * VISIBILITY, NOT OPACITY ALONE, and the difference matters. opacity: 0
+ * leaves every link focusable and hit-testable, so a keyboard user tabbing
+ * through the hero would land inside an invisible menu. visibility: hidden
+ * takes it out of the tab order and out of hit testing, and it is still
+ * animatable when its transition is delayed to the end of the fade.
+ *
+ * IT KEEPS ITS SPACE IN FLOW, deliberately, and this is the one tradeoff.
+ * A sticky element that collapses to zero height cannot reliably reach its
+ * own offset, and removing the height would also snap the first section up
+ * the page the instant the bar appeared. So the bar's height stays as an
+ * empty band under the hero. On every page carrying a subnav that band
+ * paints the page's own ground, so it reads as breathing room rather than
+ * as a gap. If a future surface makes it read as a gap, the fix is a
+ * negative margin on the FOLLOWING section, never display: none here.
+ *
+ * NO-JS IS THE REASON FOR THE :has() GUARD. .shell-header is a class
+ * shell.js adds, so with scripts off it never exists, this rule never
+ * matches, and the bar renders permanently visible as a plain row of
+ * working anchors. Hiding it unconditionally would leave a no-JS reader with
+ * no in-page navigation at all. A browser without :has() support degrades
+ * the same safe way.
+ *
+ * NOT THE SAME THING as the deleted "no band until stuck" behaviour the
+ * comment at the top of this section records. That one changed the bar's
+ * BACKGROUND on stick and was removed because the flip was the defect. This
+ * changes whether the bar is present at all, and the background stays
+ * constant throughout. Do not merge the two. */
+body:has(.shell-header) .subnav {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 240ms ease-out, visibility 0s linear 240ms;
+}
+body:has(.shell-header) .subnav.subnav--stuck {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 240ms ease-out, visibility 0s linear 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  body:has(.shell-header) .subnav,
+  body:has(.shell-header) .subnav.subnav--stuck { transition: none; }
+}
+
 /* The band paints the full width; the list takes the page container, the
  * same way .nav-bar sits inside .shell-header. That is what keeps the
  * subnav's first link on the site's single left edge. */
@@ -4441,7 +4520,19 @@ html:has(.subnav) { scroll-behavior: smooth; }
  * generally, and doing that would double every interval on the page. The test
  * for another exception is the same one: does this section's neighbour paint a
  * different ground. */
-#agenda { padding-block-end: var(--space-3xl); }
+/* MOVED FROM #agenda TO #accommodations, 2026-08-04, and the rule above is the
+ * reason rather than an exception to it. The test it states is "does this
+ * section's neighbour paint a different ground". When it was written, Agenda was
+ * the last light section and FAQ's muted ground followed it. Accommodations was
+ * inserted between them on 2026-08-04 and the seam moved; the padding did not.
+ * MEASURED before the change, at 1440: agenda to accommodations was 249px, a
+ * light-to-light seam carrying the exception, while accommodations to faq, where
+ * the ground actually changes, got the standard 142px. So the page had dead air
+ * in the middle of a band and no extra interval at its one real boundary. Chip
+ * flagged this page as needing padding work and this is what he was seeing.
+ * If a section is ever inserted after Accommodations, re-check this the same
+ * way: find the surface change, put the exception on the section before it. */
+#accommodations { padding-block-end: var(--space-3xl); }
 /* Same cap, same reason, both released: .mod-faq-list carries a reading
  * measure for prose answers on a module page. The agenda holds a timetable
  * and the FAQ holds three grouped columns of questions; neither gains

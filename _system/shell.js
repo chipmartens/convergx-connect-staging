@@ -666,16 +666,25 @@
    * THE IDS ARE THE CONTRACT and they are declared on /xpedite/. A wrong
    * fragment does not 404, it just lands the reader at the top of the page,
    * so these are verified against the page after any edit to either file. */
-  var CAPITAL_STANDFIRST = "Xpedite. Bridge financing, for deals ConvergX already brokered.";
+  /* REGISTER CHANGED 2026-08-04 on Cameron Bergen's review: "Capital is a
+   * bespoke venture capital firm. Needs to speak financial language and feel
+   * like boring bank language."
+   * So this panel is written flatter than any other in the bar, deliberately.
+   * The other four sell a reason to click; this one states what the thing is.
+   * A reader evaluating a capital provider is reassured by restraint and put
+   * off by a pitch, and a menu note is copy like any other.
+   * DO NOT "improve" these notes into something with more energy. The
+   * dullness is the instruction. */
+  var CAPITAL_STANDFIRST = "ConvergX Capital. A bespoke venture capital firm. Xpedite is its bridge financing.";
   var CAPITAL_PAGES = [
     { label: "Overview",        href: "/xpedite/",
-      note:  "Where bridge financing sits next to the Congress, the platform and Xpand." },
+      note:  "Where the firm sits in relation to the Congress, the platform and Xpand." },
     { label: "Who it is for",   href: "/xpedite/#who-it-is-for",
-      note:  "The buyer who decided, and the supplier waiting to be paid for saying yes." },
+      note:  "The parties to a transaction ConvergX has already brokered." },
     { label: "How it works",    href: "/xpedite/#how-it-works",
-      note:  "What bridge financing is, in plain words, for a reader who has never used it." },
+      note:  "What a bridge facility is, for a reader who has not used one." },
     { label: "What is settled", href: "/xpedite/#what-is-settled",
-      note:  "What ConvergX will state at this stage, and what it deliberately will not." }
+      note:  "What ConvergX Capital states at this stage, and what it does not." }
   ];
 
   /* Footer sitemap.
