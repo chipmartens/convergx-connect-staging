@@ -1,2 +1,10 @@
 .DS_Store
 *.icloud
+
+# Internal docs and design specs are not published.
+# They named the build partner and documented the hosting setup on a
+# public client domain. Kept in the authoring copy and in git history.
+DEPLOY.md
+README.md
+_EVAL-REPORT.md
+_system/DESIGN-*.md

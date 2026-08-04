@@ -1,4 +1,4 @@
-/* ConvergX Connect. SHELL.
+/* ConvergX Xtend. SHELL.
  *
  * Injects the header nav and footer from ONE definition so no page
  * can drift. Vanilla JS, zero dependencies, no menu

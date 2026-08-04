@@ -1,4 +1,4 @@
-/* ConvergX Connect. SYSTEM STYLES.
+/* ConvergX Xtend. SYSTEM STYLES.
  *
  * Every value resolves through tokens.css. No raw hex, no font name,
  * no framework, no dependency in this file. Load order per page:
@@ -6581,3 +6581,22 @@ main > [data-surface]:not(:has(~ :not(.bio-overlay))) {
 @media (max-width: 44rem) {
   .store--pair { grid-template-columns: 1fr; }
 }
+
+/* ---- the requirement form runs the full column -------------------------
+ * /requirement/ only. Chip, 2026-08-04: "The form should also be full width."
+ *
+ * The page is one long form, so the .editorial reading rail that serves prose
+ * works against it here: a textarea held to --measure while its label sits in
+ * a 12-column grid leaves the right half of the page empty on every row, and
+ * the questions stop reading as one sequence.
+ * The two long-answer fields get the whole column; the short ones stay short,
+ * because a name input the width of the page is a worse target, not a better
+ * one, and it lies about how much is wanted. */
+.req-form .editorial > * { grid-column: main; }
+.req-form fieldset { max-width: none; }
+.req-form textarea { inline-size: 100%; max-width: none; }
+.req-form input[type="text"],
+.req-form input[type="email"],
+.req-form input[type="date"],
+.req-form select { inline-size: 100%; max-width: 34rem; }
+.req-form .field-hint { max-width: var(--measure); }
