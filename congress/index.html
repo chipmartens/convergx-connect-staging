@@ -1728,7 +1728,22 @@
         <h2>Questions</h2>
       </div>
 
-      <h3 class="faq-group">Attending</h3>
+      <!-- ONE LIST, NO CATEGORIES, 2026-08-04. Chip: "You could actually just
+           remove those categories of questions and list all the FAQs in one
+           list."
+           WHAT WENT: the three group headings, Attending, Sponsoring and
+           Practicalities, plus the two extra .mod-faq-list wrappers that came
+           with them. Eleven questions now sit in one list in their original
+           order, which already reads cost, who, vetting, sponsoring, logistics.
+           WHY THIS IS BETTER AND NOT JUST SMALLER: Chip's other note was that
+           the group eyebrows were not prominent enough. A label too quiet to
+           scan is worse than no label, because it still costs a line and still
+           breaks the list into chunks a reader has to re-enter. Eleven items is
+           well inside what someone will scan unaided.
+           THE GROUP-HEADING CLASS IS NOT DEAD. It still carries the three
+           store-category headings on /congress/sponsor/, where the names are
+           ConvergX's own product categories and are load-bearing. Do not delete
+           that rule from styles.css; this change is scoped to this page. -->
       <div class="mod-faq-list">
         <details class="faq">
           <summary><span>How much does it cost to attend?</span></summary>
@@ -1773,10 +1788,6 @@
             <p>ConvergX publishes no refund, transfer or cancellation policy. There is nothing to quote here, so nothing is stated.</p>
           </div>
         </details>
-      </div>
-
-      <h3 class="faq-group">Sponsoring</h3>
-      <div class="mod-faq-list">
         <details class="faq">
           <summary><span>Can I sponsor the event?</span></summary>
           <div class="faq-a">
@@ -1799,10 +1810,6 @@
             <p><a class="link-more" href="/congress/sponsor/">Sponsor</a></p>
           </div>
         </details>
-      </div>
-
-      <h3 class="faq-group">Practicalities</h3>
-      <div class="mod-faq-list">
         <details class="faq">
           <summary><span>Where is everyone staying?</span></summary>
           <div class="faq-a">

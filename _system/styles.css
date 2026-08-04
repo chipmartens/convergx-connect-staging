@@ -4533,6 +4533,18 @@ html:has(.subnav) { scroll-behavior: smooth; }
  * If a section is ever inserted after Accommodations, re-check this the same
  * way: find the surface change, put the exception on the section before it. */
 #accommodations { padding-block-end: var(--space-3xl); }
+/* SAME EXCEPTION, SECOND SEAM, 2026-08-04. Chip: "there needs to be more
+ * padding at the bottom of this here", on the Questions list running into the
+ * blue app band.
+ * The rule above states the test: does this section's neighbour paint a
+ * different ground. #faq is muted and .app-band is the solid accent, so it
+ * passes the test just as clearly as #accommodations does, and it was getting
+ * only the standard interval. MEASURED at 1440 before the change: 142px, on the
+ * page's hardest edge. A full-bleed colour band gives a list nowhere to end,
+ * so this seam needs the interval MORE than the light-to-muted one, not less.
+ * Scoped to #faq, not to sections generally, for the reason the rule above
+ * gives: bottom-padding every section would double every interval on the page. */
+#faq { padding-block-end: var(--space-3xl); }
 /* Same cap, same reason, both released: .mod-faq-list carries a reading
  * measure for prose answers on a module page. The agenda holds a timetable
  * and the FAQ holds three grouped columns of questions; neither gains
