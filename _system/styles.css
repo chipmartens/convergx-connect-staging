@@ -1306,7 +1306,12 @@ tbody th[scope="row"] {
   margin-block-end: var(--space-2xs);
   max-width: var(--measure);
 }
+/* The list is an allowlist, so a type missing from it renders as an unstyled
+ * browser default beside styled siblings. date joined it on 2026-08-04 with
+ * /requirement/, which is the first page to ask for one. Add the type here
+ * rather than styling it on the page. */
 input[type="text"], input[type="email"], input[type="tel"], input[type="url"],
+input[type="date"],
 select, textarea {
   width: 100%;
   max-width: 34rem;
@@ -4377,6 +4382,7 @@ html:has(.subnav) { scroll-behavior: smooth; }
 #about  .sec-head h2,
 #speakers .sec-head h2,
 #agenda .sec-head h2,
+#accommodations .sec-head h2,
 #faq    .sec-head h2 {
   font-size: var(--step-4);
   letter-spacing: var(--track-4);
@@ -4384,15 +4390,17 @@ html:has(.subnav) { scroll-behavior: smooth; }
 #about  .sec-head,
 #speakers .sec-head,
 #agenda .sec-head,
+#accommodations .sec-head,
 #faq    .sec-head {
   border-top: 0;
   padding-block-start: 0;
 }
-#about, #speakers, #agenda, #faq { padding-block-start: var(--space-4xl); }
+#about, #speakers, #agenda, #accommodations, #faq { padding-block-start: var(--space-4xl); }
 /* #agenda and #faq carry .section--dense, which sets a SMALLER top padding
  * and would otherwise win on source order. Restated at the same specificity
  * so the four really do land on one interval. */
 #agenda.section--dense,
+#accommodations.section--dense,
 #faq.section--dense { padding-block-start: var(--space-4xl); }
 /* THE ONE SECTION ON THIS PAGE WITH BOTTOM PADDING, and it is an exception to
  * a rule, not a relaxing of it. Sections here are TOP padded only, which is
@@ -4413,6 +4421,7 @@ html:has(.subnav) { scroll-behavior: smooth; }
  * and the FAQ holds three grouped columns of questions; neither gains
  * anything from being squeezed to two thirds of the column. */
 #agenda .mod-faq-list,
+#accommodations .mod-faq-list,
 #faq .mod-faq-list { max-width: none; }
 
 /* The group headings. Small, quiet, and the thing that makes this read as
@@ -5048,7 +5057,16 @@ html:has(.subnav) { scroll-behavior: smooth; }
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   gap: var(--space-l);
-  align-items: end;
+  /* TOP ALIGNED, Chip 2026-08-04. It was align-items: end, which was right
+   * when the right column held one short sentence and the two blocks read as
+   * a single line of type. With the admission standard added the column runs
+   * to four lines, and bottom alignment pushed the heading down to meet its
+   * last line, so the section appeared to start halfway down its own band.
+   * start, not baseline: the site aligns adjacent prose columns on their
+   * first baseline, but that rule assumes comparable type sizes. Against a
+   * 53px heading it would drop the paragraph most of a line to meet the
+   * heading baseline, which is the opposite of what was asked for. */
+  align-items: start;
   margin-block-end: var(--space-2xl);
 }
 .flow-intro h2 {
@@ -5058,6 +5076,15 @@ html:has(.subnav) { scroll-behavior: smooth; }
   margin: 0;
 }
 .flow-intro-desc { max-width: none; color: var(--fg); margin: 0; }
+/* BOTH PARAGRAPHS SHARE ONE GRID CELL, Chip 2026-08-04: put the admission
+ * standard under the paragraph on the right, not under the title.
+ * The wrapper is what makes that true at every width. Added as a bare second
+ * <p>, the two-column grid auto-placed it into row 2 column 1, i.e. under the
+ * heading. Forcing grid-column: 2 would have fixed the desktop and broken the
+ * narrow layout, where the grid collapses to one column and there is no column
+ * 2 to ask for. One cell holding both is width-independent. */
+.flow-intro-body { min-width: 0; }
+.flow-intro-desc + .flow-intro-desc { margin-block-start: var(--space-s); }
 
 .flow { margin: 0; }
 
@@ -5073,7 +5100,12 @@ html:has(.subnav) { scroll-behavior: smooth; }
   margin-block-end: var(--space-xl);
 }
 .flow-head > .label { margin-block-end: var(--space-2xs); }
-.flow-head > p { max-width: 42ch; font-size: var(--step--1); color: var(--fg); text-wrap: pretty; }
+/* :not(.label) IS LOAD-BEARING. The eyebrow in this block is a <p class="label">,
+ * so a bare .flow-head > p is (0,1,1) and outranks .label at (0,1,0): it was
+ * repainting every eyebrow in --fg and they rendered grey on a site where
+ * every eyebrow is blue. Chip caught it 2026-08-04. Do not simplify this
+ * selector back. */
+.flow-head > p:not(.label) { max-width: 42ch; font-size: var(--step--1); color: var(--fg); text-wrap: pretty; }
 .flow-head--right { justify-self: end; text-align: end; }
 .flow-head--right > p { margin-inline-start: auto; }
 
@@ -6385,3 +6417,167 @@ main > [data-surface]:not(:has(~ :not(.bio-overlay))) {
  * pseudo-element, i.e. the entire block, which reads as a bug rather than as
  * focus and swamps the CTA's own ring sitting inside it. */
 .launcher-title a:focus-visible { outline-offset: var(--rule-med); }
+
+/* ---- the hotel row inside an accommodations disclosure -------------------
+ * /congress/ #accommodations only. Photograph left, detail right.
+ *
+ * ONE RATIO FOR FOUR SHAPES. The four source photographs are 598, 884, 800 and
+ * 1526 units tall at 1200 wide, because they are hotel marketing images
+ * gathered from four places. Shown at their own ratios the Fairmont is nearly
+ * three times the height of the Residence Inn and the accordion lurches every
+ * time a different row opens. object-fit crops rather than squashes, and
+ * centre is the safe focal point for a building shot. */
+.hotel {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+  gap: var(--space-l);
+  align-items: start;
+}
+@media (max-width: 52rem) {
+  .hotel { grid-template-columns: 1fr; gap: var(--space-m); }
+}
+.hotel-shot {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: center;
+}
+.hotel-detail > p { max-width: var(--measure); }
+.hotel-detail ol { margin-block-start: var(--space-2xs); padding-inline-start: var(--space-m); }
+.hotel-detail ol li { max-width: none; font-size: var(--step--1); padding-block: var(--space-3xs); }
+/* Same treatment the storefront handoffs use: say where the click goes, at
+ * the click, rather than leaving a reader to guess from the button. */
+.hotel-away {
+  font-size: var(--step--2);
+  color: var(--fg-lo);
+  margin-block-start: var(--space-2xs);
+  max-width: none;
+}
+
+/* ---- the two billed speakers, above the grid ----------------------------
+ * /congress/ #speakers. Chip, 2026-08-04: more emphasis on Kim and Tracy,
+ * "like on their website".
+ *
+ * TWO UP AGAINST THE GRID'S FOUR, which is the whole mechanism: the cards
+ * reuse .speaker-card unchanged and simply sit in a wider container, so the
+ * photographs come out roughly twice the size with no second card component
+ * to keep in sync. Change .speaker-card and both rows move together.
+ *
+ * The billing eyebrow is the only added element and it is a plain .label, so
+ * it takes the site's blue like every other eyebrow. */
+.speaker-feature {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-l);
+  margin-block-end: var(--space-2xl);
+}
+@media (max-width: 52rem) {
+  .speaker-feature { grid-template-columns: 1fr; gap: var(--space-xl); }
+}
+.speaker-card-billing { margin-block-end: var(--space-2xs); }
+/* The name steps up with the photograph. The grid's name stays where it is:
+ * this is the one distinction between a billed speaker and a listed one, and
+ * it has to be visible at a glance or the split does nothing. */
+.speaker-card--feature .speaker-card-name { font-size: var(--step-2); letter-spacing: var(--track-2); }
+
+/* ---- the two acting rows in the Conference panel ------------------------
+ * Chip, 2026-08-04: the most emphasis on the right belongs on Register and
+ * Sponsor. They already lead the column; this is the weight step on top.
+ *
+ * A MODIFIER ON THE ROW, not a separate list. shell.js sets .nav-mega-cta
+ * from an i.cta flag, so the rows remain one component and a change to
+ * .link-index still reaches these two.
+ * Deliberately NOT a button. A panel of text rows with two filled buttons in
+ * it reads as an advert inside the navigation; the point is that these two go
+ * somewhere you can act, not that they shout. Weight and ink carry it. */
+.nav-mega-cta > a {
+  font-weight: 600;
+  color: var(--fg-hi);
+}
+.nav-mega-cta > a:hover { color: var(--link); }
+
+
+/* ================= 46. THE VIDEO FACADE ================= */
+/* ONE video on the site, on /congress/regional-xchanges/, and this component
+ * exists because of a rule rather than because of a design idea.
+ *
+ * THE RULE: no page on this site makes an external request on load. A YouTube
+ * iframe in the markup breaks that on every visit, for every reader, whether
+ * or not anybody ever presses play, and it sets tracking state before a reader
+ * has asked for anything. So the embed is not in the markup.
+ *
+ * WHAT IS IN THE MARKUP IS A LINK. .vid is an <a> to the video's own watch
+ * page with a LOCALLY SERVED still inside it, so with JavaScript off a reader
+ * gets a working route to the video instead of a dead poster. video.js
+ * upgrades that same link into a control that swaps the embed in on click, and
+ * the click is the only moment anything external is fetched. Built this way
+ * round on purpose: a <div> upgraded into a link is a dead end without script,
+ * and this component cannot have one.
+ *
+ * GRID STACKING, NOT position: absolute. The design constraints cap this site
+ * at no absolute positioning for layout, so the still and the control share
+ * one grid cell rather than one being pulled out of flow over the other.
+ *
+ * NO TRANSITION ANYWHERE HERE, so there is nothing for prefers-reduced-motion
+ * to reduce. Hover moves ink, not geometry. Motion budget is 1 and a poster
+ * that grows under the cursor is exactly what that dial exists to refuse. */
+.vid {
+  display: grid;
+  border: var(--rule-hair) solid var(--rule-ink-load);
+  background: var(--block);
+  text-decoration: none;
+}
+.vid > * { grid-area: 1 / 1; }
+.vid img { display: block; width: 100%; height: auto; }
+
+/* THE SECOND SOLID ACCENT FILL ON ITS PAGE, spent knowingly. Section 8 allows
+ * one, and /congress/regional-xchanges/ closes on a Request access link rather
+ * than a filled button, so this is the page's only fill in practice.
+ * IT HAS TO BE A FILL. Every other affordance on this site can rely on the
+ * page ground behind it; this one sits on a photograph whose tones are not
+ * ours and are not knowable, so nothing keyed to --fg or --rule-ink can be
+ * guaranteed to clear 3:1 against it. A filled block carries its own ground
+ * with it. White on the accent is 4.59:1 and is the measured pair section 8
+ * already ships. */
+.vid-play {
+  place-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-m);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--step--1);
+}
+.vid:hover .vid-play { background: var(--accent-text); }
+/* The triangle, drawn rather than fetched: an icon file would be a second
+ * request for eleven pixels of geometry. currentColor, so it can never drift
+ * from the label beside it. */
+.vid-tri {
+  width: 0.55em;
+  height: 0.7em;
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+/* The player, once a reader has asked for it. 16 by 9 is declared here and on
+ * the still above, so the swap costs no reflow and nothing below it moves. */
+.vid-frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: var(--rule-hair) solid var(--rule-ink-load);
+}
+
+/* ---- a two-up storefront row -------------------------------------------
+ * .store is authored for three and steps 3 / 2 / 1. /congress/partnerships/
+ * carries exactly two, which left a third of the row empty at desktop. Two
+ * columns straight to one, and the existing 44rem collapse point is reused so
+ * the pair breaks where every other pair on the site breaks. */
+.store--pair { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 44rem) {
+  .store--pair { grid-template-columns: 1fr; }
+}

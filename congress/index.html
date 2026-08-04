@@ -56,11 +56,13 @@
         </li>
         <li><a href="/congress/">Conference</a>
           <ul>
-            <li><a href="/congress/#agenda">Agenda</a></li>
             <li><a href="/congress/#speakers">Speakers</a></li>
-            <li><a href="/congress/the-app/">The app</a></li>
+            <li><a href="/congress/#agenda">Agenda</a></li>
+            <li><a href="/congress/#accommodations">Accommodations</a></li>
+            <li><a href="/congress/#faq">Questions</a></li>
             <li><a href="/congress/register/">Register</a></li>
             <li><a href="/congress/sponsor/">Sponsor</a></li>
+            <li><a href="/congress/the-app/">The app</a></li>
             <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
             <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
           </ul>
@@ -488,7 +490,29 @@
     <div class="wrap">
       <div class="flow-intro">
         <h2 id="flow-title">Who attends the Congress</h2>
-        <p class="flow-intro-desc">ConvergX convenes leaders from <a href="/industries/energy/">energy</a>, <a href="/industries/aerospace-defence/">defence</a>, <a href="/industries/aerospace-defence/">aerospace</a>, <a href="/industries/mining-natural-resources/">mining</a>, <a href="/industries/agriculture/">agriculture</a>, <a href="/industries/manufacturing/">manufacturing</a>, <a href="/industries/construction/">construction</a>, <a href="/industries/technology/">technology</a>, government, Indigenous economic development and finance.</p>
+        <div class="flow-intro-body">
+          <p class="flow-intro-desc">ConvergX convenes leaders from <a href="/industries/energy/">energy</a>, <a href="/industries/aerospace-defence/">defence</a>, <a href="/industries/aerospace-defence/">aerospace</a>, <a href="/industries/mining-natural-resources/">mining</a>, <a href="/industries/agriculture/">agriculture</a>, <a href="/industries/manufacturing/">manufacturing</a>, <a href="/industries/construction/">construction</a>, <a href="/industries/technology/">technology</a>, government, Indigenous economic development and finance.</p>
+          <!-- THE ADMISSION STANDARD, added 2026-08-04 on Chip's instruction:
+             "add a bit more of the original text from their current Who
+             attends section... we need a bit of the VP level / decision maker
+             thing."
+             VERBATIM, and it is the strongest published line ConvergX has
+             (section brief 04, "The admission standard"). Not one word is
+             changed and none may be cut: it is their own copy, cleared
+             because they publish it, and it stops being cleared the moment it
+             is paraphrased into a claim of ours.
+             IT ALSO RESTORES SOMETHING THIS PAGE LOST. The standard used to
+             lead #tickets; that section came off on 2026-07-31 when Register
+             became a storefront, and with it went the only place this page
+             said who is allowed in. A band headed "Who attends the Congress"
+             is exactly where it belongs.
+             The registered glyph ConvergX prints after its own name is NOT
+             carried. No such symbol appears anywhere on this site.
+             The second instance on the site, the first being the panel that
+             opens /congress/register/. Two is deliberate: the storefront needs
+             it before a price, and this page needs it under that heading. -->
+          <p class="flow-intro-desc">All attendees are individually vetted, VP level or higher decision makers. Proof of ability to directly influence business direction and lead partnerships and investment is required to be considered to join ConvergX.</p>
+        </div>
       </div>
 
       <figure class="flow">
@@ -942,8 +966,14 @@
       <li><a href="#about">Overview</a></li>
       <li><a href="#speakers">Speakers</a></li>
       <li><a href="#agenda">Agenda</a></li>
+      <li><a href="#accommodations">Accommodations</a></li>
       <li><a href="#faq">Questions</a></li>
-      <li><a href="#app">The App</a></li>
+      <!-- THE APP CAME OUT OF THIS BAR, 2026-08-04, Chip: "remove The App from
+           the sub menu. Keep the block on the page, but just leave the app out
+           for now. They find it as they scroll."
+           The section and its id are untouched; only the bar item is gone. The
+           mega menu still carries The app, so the page is still reachable by
+           name from anywhere on the site. -->
       <li class="subnav-end"><a href="/congress/register/">Register</a></li>
       <li><a href="/congress/sponsor/">Sponsor</a></li>
     </ul>
@@ -1182,17 +1212,38 @@
         <h2>The Speakers</h2>
       </div>
 
-      <div class="speaker-grid">
-        <article class="speaker-card" id="speaker-kimberley-van-vliet">
+      <!-- KIM AND TRACY ARE LIFTED OUT OF THE GRID, 2026-08-04. Chip: "There
+           should be more emphasis on Kim and Tracy here, like on their
+           website."
+           IT MIRRORS THEIR OWN BILLING rather than inventing a hierarchy.
+           ConvergX's speakers page does not present ten equal names: it bills
+           Kimberley Van Vliet as Conference Host and Tracy LaTourette under a
+           Keynote heading, above the rest. The flat grid was the thing that
+           departed from source, not this.
+           THE TWO EYEBROWS ARE THEIR WORDS. "Conference host" and "Opening
+           keynote" are the billings ConvergX publishes.
+           TRACY'S ROLE LINE IS HER KEYNOTE TITLE, not an employer. ConvergX
+           publishes NO title and NO employer for her anywhere, so the field
+           stays empty of one; the talk title is the only billing that exists
+           and it comes off their agenda. Do not fill that line with a guess.
+           The ids, the .bio-trigger links and the overlay targets are
+           untouched, so the ten bios still open from here. -->
+      <div class="speaker-feature">
+<article class="speaker-card speaker-card--feature" id="speaker-kimberley-van-vliet">
           <img class="speaker-card-photo" src="/assets/speakers/kimberley-van-vliet.jpg" alt="Photograph of Dame Kimberley Van Vliet." loading="lazy" decoding="async">
+          <p class="label speaker-card-billing">Conference host</p>
           <p class="speaker-card-name"><a class="bio-trigger" href="#bio-kimberley-van-vliet">Dame Kimberley Van Vliet</a></p>
           <p class="speaker-card-role">Founder and CEO, WaVv and ConvergX</p>
         </article>
-        <article class="speaker-card" id="speaker-tracy-latourette">
+<article class="speaker-card speaker-card--feature" id="speaker-tracy-latourette">
           <img class="speaker-card-photo" src="/assets/speakers/tracy-latourette.jpg" alt="Photograph of Tracy LaTourette." loading="lazy" decoding="async">
+          <p class="label speaker-card-billing">Opening keynote</p>
           <p class="speaker-card-name"><a class="bio-trigger" href="#bio-tracy-latourette">Tracy LaTourette</a></p>
-          <p class="speaker-card-role">Opening keynote</p>
+          <p class="speaker-card-role">Building Resilience to Perform in the Storm</p>
         </article>
+      </div>
+
+      <div class="speaker-grid">
         <article class="speaker-card" id="speaker-david-perry">
           <img class="speaker-card-photo" src="/assets/speakers/david-perry.jpg" alt="Photograph of Dr. David Perry." loading="lazy" decoding="async">
           <p class="speaker-card-name"><a class="bio-trigger" href="#bio-david-perry">Dr. David Perry</a></p>
@@ -1393,6 +1444,154 @@
            page still exists and still resolves; it is simply no longer linked
            from this section. It is now reachable only from the footer. -->
 
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ACCOMMODATIONS. Chip, 2026-08-04: a section after the Agenda with a
+       subnav link, built as an accordion.
+
+       SOURCE, and it is the entire permitted set of facts: ConvergX's own
+       Accommodations page, captured at _reference/CONVERGX-CO-2026-07-29.md
+       section 3.6. Four hotels, their addresses, their phone numbers, one
+       rate code covering two of them, and ConvergX's own booking steps. Every
+       line is theirs, reproduced for their own delegates.
+
+       WHAT IS DELIBERATELY LEFT OUT, and none of it may be restored:
+         - "the largest Residence Inn by Marriott in the world", QUARANTINED.
+           A third-party marketing superlative. ConvergX repeating it does not
+           make it ours to publish.
+         - "Calgary's newest and most unique hotel", QUARANTINED. Same.
+         - the Alberta Boot Company site history. Irrelevant to a delegate.
+         - every reference to the Club, the +15, the Calgary Petroleum Club and
+           CPC members. That copy addresses a private club's membership rather
+           than Congress delegates, appears carried over from a prior year, and
+           is the ONLY venue signal anywhere on ConvergX's site. Reproducing it
+           would let a reader infer a venue ConvergX has not announced.
+           DO NOT INFER THE VENUE.
+         - room rates. ConvergX publishes none, and a rate code is not a rate.
+       No deadline and no room-block cutoff, because none is published. Do not
+       add one to manufacture urgency.
+
+       AN ACCORDION, per Chip, and it earns it here: four hotels each carrying
+       an address, a phone number, a code and up to four booking steps is
+       roughly forty lines shown flat, for a fact most readers need exactly
+       once. Closed, the section is four names and a decision.
+       Reuses .mod-faq-list and .faq, the component the Questions section
+       already uses. Outside #agenda those summaries render at --step-1, which
+       is the right weight for a hotel name. No new CSS.
+       ============================================================ -->
+  <section id="accommodations" class="section--dense">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Accommodations</h2>
+      </div>
+      <div class="editorial push-end-l">
+        <div class="lede">
+          <p>Four Calgary hotels, published by ConvergX for September.</p>
+        </div>
+        <div class="body">
+          <p>One corporate rate code covers two of them. Book direct with the hotel: rooms are not part of a registration and are not bought through ConvergX.</p>
+        </div>
+      </div>
+
+      <!-- IMAGES AND BOOKING LINKS, added 2026-08-04 from their live page.
+           The four photographs are ConvergX's own, downloaded and served from
+           /assets/hotels/ rather than hotlinked off their WordPress: a hotlink
+           breaks the day they reorganise uploads, and it leaks our readers to
+           their analytics.
+           THE FOUR SOURCE IMAGES ARE FOUR DIFFERENT SHAPES (598, 884, 800 and
+           1526 tall at 1200 wide). .hotel-shot crops them to one ratio rather
+           than letting a 1526px portrait tower over its neighbours.
+           BOOKING LINKS, and two of their four needed a decision:
+             - Residence Inn gets their Marriott group-reservation link, which
+               carries the ConvergX rate. The useful one.
+             - Westin gets marriott.com/yycwi, the property shortlink.
+             - Fairmont's link on their page carries a Google Ads payload
+               (gclid, cmpid, kpid). STRIPPED to the clean property URL.
+               Republishing a gclid attributes our readers' clicks to somebody
+               else's ad campaign and is simply wrong. Do not restore it.
+             - Dorian and Courtyard get NO link. Theirs points at the
+               marriott.com homepage, which is not a booking link and helps
+               nobody; the booking steps below cover it.
+           http upgraded to https on every one. -->
+      <div class="mod-faq-list">
+        <details class="faq">
+          <summary><span>Residence Inn by Marriott</span></summary>
+          <div class="faq-a">
+            <div class="hotel">
+              <img class="hotel-shot" src="/assets/hotels/residence-inn.jpg" width="1200" height="800" loading="lazy" decoding="async" alt="A tall modern hotel tower on a downtown corner, seen from street level against a clear sky.">
+              <div class="hotel-detail">
+            <p>610 10th Avenue SW, Calgary, AB T2R 1M3</p>
+            <p>Reservations <a href="tel:5878552288">587-855-2288</a></p>
+            <p>No rate code is published for this hotel.</p>
+            <p class="push-s"><a class="btn" href="https://www.marriott.com/event-reservations/reservation-link.mi?id=1628797601207&amp;key=CORP&amp;app=resvlink" rel="noopener">Book the ConvergX rate</a></p>
+            <p class="hotel-away">Opens the hotel's own booking site.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq">
+          <summary><span>Westin Hotel Downtown</span></summary>
+          <div class="faq-a">
+            <div class="hotel">
+              <img class="hotel-shot" src="/assets/hotels/westin.jpg" width="1200" height="800" loading="lazy" decoding="async" alt="A downtown hotel frontage with its canopy over the entrance and office towers rising behind it.">
+              <div class="hotel-detail">
+            <p>320 4th Avenue SW, Calgary, AB T2P 2S6</p>
+            <p>Reservations <a href="tel:4032661611">403-266-1611</a></p>
+            <p>Rate code S7156</p>
+            <p class="label push-s">Booking with the code</p>
+            <ol>
+              <li>Enter the dates you want to book, then select Lowest Regular Rate.</li>
+              <li>Under Corp/Promo Code, enter S7156.</li>
+              <li>View your results and book direct online.</li>
+            </ol>
+            <p class="push-s"><a class="btn" href="https://www.marriott.com/yycwi" rel="noopener">Book the Westin</a></p>
+            <p class="hotel-away">Opens the hotel's own booking site.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq">
+          <summary><span>Dorian Autograph Collection and Courtyard Marriott</span></summary>
+          <div class="faq-a">
+            <div class="hotel">
+              <img class="hotel-shot" src="/assets/hotels/dorian-courtyard.jpg" width="1200" height="800" loading="lazy" decoding="async" alt="A contemporary glass hotel tower on a downtown block, photographed from across the street.">
+              <div class="hotel-detail">
+            <p>525 5th Avenue SW, Calgary, AB T2P 1P7</p>
+            <p>Reservations <a href="tel:4033006650">403-300-6650</a></p>
+            <p>Rate code S7156</p>
+            <p class="label push-s">Booking with the code</p>
+            <ol>
+              <li>Destination: enter the Dorian, Autograph Collection, or Courtyard Calgary Downtown.</li>
+              <li>Enter your check-in and check-out dates, and update rooms and guests.</li>
+              <li>Under Special Rates, select Corporate / Promo / #SET and enter S7156.</li>
+              <li>Select Find Hotels, then book direct online.</li>
+            </ol>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq">
+          <summary><span>Fairmont Palliser</span></summary>
+          <div class="faq-a">
+            <div class="hotel">
+              <img class="hotel-shot" src="/assets/hotels/fairmont-palliser.jpg" width="1200" height="800" loading="lazy" decoding="async" alt="A historic stone hotel with a stepped roofline, seen from the street below.">
+              <div class="hotel-detail">
+            <p>133 9th Avenue SW, Calgary, AB T2P 2M3</p>
+            <p>Reservations <a href="tel:4032621234">403-262-1234</a></p>
+            <p>No rate code is published for this hotel.</p>
+            <p class="push-s"><a class="btn" href="https://www.fairmont.com/palliser-calgary/" rel="noopener">Book the Fairmont Palliser</a></p>
+            <p class="hotel-away">Opens the hotel's own booking site.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    <!-- [[NEEDS: the Congress venue, from Kim Van Vliet. ConvergX publishes no venue on any of its six Congress pages. This section names the city, which the hotel list already makes public, and names no venue at all. Add it here the moment it is confirmed]] -->
     </div>
   </section>
 

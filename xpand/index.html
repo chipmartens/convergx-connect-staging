@@ -56,11 +56,13 @@
         </li>
         <li><a href="/congress/">Conference</a>
           <ul>
-            <li><a href="/congress/#agenda">Agenda</a></li>
             <li><a href="/congress/#speakers">Speakers</a></li>
-            <li><a href="/congress/the-app/">The app</a></li>
+            <li><a href="/congress/#agenda">Agenda</a></li>
+            <li><a href="/congress/#accommodations">Accommodations</a></li>
+            <li><a href="/congress/#faq">Questions</a></li>
             <li><a href="/congress/register/">Register</a></li>
             <li><a href="/congress/sponsor/">Sponsor</a></li>
+            <li><a href="/congress/the-app/">The app</a></li>
             <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
             <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
           </ul>
@@ -155,13 +157,20 @@
        line for the sake of a line. .rule-double is untouched as a component.
 
        data-surface ON THE NAV ITSELF, and it stays a direct child of <main>.
-       Everything below the hero on this page is the light ground, this bar
-       included. Wrapping the bar inside the light band would be the obvious
-       move and is the wrong one: a sticky element only pins inside its own
-       containing block, so the bar would stop sticking the moment that band
-       ended. Declaring the surface here gives it the light --bg for its
-       stuck state while leaving <main> as its containing block. -->
-  <nav class="subnav" data-surface="light" aria-label="On this page">
+       THE ORIGINAL REASON STILL HOLDS AND IS WHY THE ATTRIBUTE SURVIVED THE
+       2026-08-04 change rather than being deleted: a sticky element only pins
+       inside its own containing block, so the bar can never be wrapped in the
+       band it belongs to, and .subnav paints `background: var(--bg)` at all
+       times (styles.css section 31, "WHITE AT ALL TIMES, not only when
+       stuck"). It needs a surface declared ON ITSELF to have a --bg to paint.
+       WHAT CHANGED 2026-08-04, Chip: "the entire Xpand page should be the dark
+       background, including the sub menu". The value flipped light to dark and
+       the light band below came out. The bar now paints the dark ground in
+       flow and stuck, which is what it was always doing, on the page's one
+       surface rather than on a second one. The page declares ONE surface now,
+       on <body>, which is the constraints file's default rather than its
+       once-per-page exception. -->
+  <nav class="subnav" data-surface="dark" aria-label="On this page">
     <ul class="subnav-list">
       <li><a href="#where-it-sits">Where it sits</a></li>
       <li><a href="#who-it-is-for">Who it is for</a></li>
@@ -170,15 +179,21 @@
     </ul>
   </nav>
 
-  <!-- THE LIGHT GROUND OPENS HERE and runs to the end of the page. The hero
-       above keeps the dark ground the page has always carried; everything
-       under the bar takes the ground the two absorbed pages already used,
-       which is the same surface split /congress/ runs. Two surfaces on one
-       page is the system working, not decoration.
-       This div is <main>'s last child, so it takes the closing padding from
-       main > [data-surface]:last-child and the band shuts under its own last
-       line rather than ending flush against it. -->
-  <div data-surface="light">
+  <!-- THE LIGHT BAND THAT OPENED HERE IS GONE, 2026-08-04, Chip's call: the
+       whole page is the dark ground now, subnav included. What was here was a
+       <div data-surface="light"> wrapping everything below the bar, and its
+       closing </div> at the foot of <main>.
+       WHAT WENT WITH IT, deliberately: the closing padding that div drew from
+       main > [data-surface]:last-child. A page with no band at its foot does
+       not need it, because .shell-footer carries its own --space-4xl top
+       margin and that is the closing interval on every other single-surface
+       page on the site (styles.css section 6b says so in as many words). Do
+       not reintroduce a wrapper to get the padding back: that puts the band
+       back and this change removed it.
+       NOTHING WAS RECOLOURED BY HAND to do this and nothing needed to be.
+       Every ink, rule and link below resolves through the surface tokens, so
+       the flip is one attribute and one deleted wrapper. If a future pass
+       finds itself writing a colour on this page, the pass is wrong. -->
 
   <!-- ============================================================
        RESTRUCTURED 2026-08-03 into a SINGLE-PAGE Consulting section, on
@@ -591,9 +606,6 @@
       <p class="push-xl"><a class="btn btn--solid" href="/access/request/">Request access</a></p>
     </div>
   </section>
-
-  </div>
-  <!-- /light: everything under the subnav -->
 
 </main>
 <footer data-shell="footer">

@@ -466,7 +466,20 @@
    * site, so it does not go in the nav. */
   var CONGRESS_STANDFIRST = "Sep 22 to 24, 2026. Calgary.";
 
-  /* EIGHT ITEMS, TWO COLUMNS OF FOUR. Chip, 2026-07-31: "add all of the
+  /* MATCHED TO THE PAGE'S OWN BAR, 2026-08-04. Chip: "Match the mega-menu
+   * links for The Conference to the sub menu links. Actually, keep The App in
+   * the mega menu."
+   * Column one is now exactly the five the subnav carries, in the same order,
+   * so a reader who learns one has learned the other. Column two is the four
+   * destinations that are not sections of the one-pager, plus The app, which
+   * Chip pulled from the bar but kept here: it is a real page and the bar was
+   * the only thing crowding it out.
+   * OVERVIEW POINTS AT THE PAGE ROOT, not at #about like the bar does. The bar
+   * points at #about only because a bar sticky BELOW the hero cannot usefully
+   * address the hero above it. Arriving from another page has no such
+   * constraint, and the top of the Conference page is the overview.
+   * ORIGINAL NOTE, still true:
+   * EIGHT ITEMS, TWO COLUMNS OF FOUR. Chip, 2026-07-31: "add all of the
    * menu items back to the Conference mega menu. They'll just link to the
    * respective sections on the stand alone page."
    *
@@ -497,19 +510,32 @@
   var CONGRESS_PAGES = [
     { label: "Overview", href: "/congress/",
       note:  "Three days composed one introduction at a time." },
-    { label: "Agenda",   href: "/congress/#agenda",
-      note:  "The published schedule for all three days, one disclosure per day." },
     { label: "Speakers", href: "/congress/#speakers",
       note:  "The people ConvergX has announced, with roles as it publishes them." },
-    { label: "The app",  href: "/congress/the-app/",
-      note:  "Who is here, what they are looking for, and the meeting you asked for." }
+    { label: "Agenda",   href: "/congress/#agenda",
+      note:  "The published schedule for all three days, one disclosure per day." },
+    { label: "Accommodations", href: "/congress/#accommodations",
+      note:  "Four Calgary hotels ConvergX publishes, and the rate code covering two." },
+    { label: "Questions", href: "/congress/#faq",
+      note:  "Cost, vetting, sponsorship and the practicalities, answered in short." }
   ];
-  var CONGRESS_TAKEPART_LABEL = "Taking part.";
+  /* REGISTER AND SPONSOR LEAD THIS COLUMN, 2026-08-04. Chip: "there should be
+   * the most emphasis on the right on Register and Sponsor."
+   * They were fourth and fifth behind The app, and they are the only two rows
+   * in the whole panel that lead somewhere a reader can act. Order is the
+   * cheapest emphasis there is and it costs no new component: first in a
+   * five-row column is read first, and .nav-mega-cta gives the pair the weight
+   * step on top of it.
+   * The label changed with them. "Taking part." described a mixed list; this
+   * column now opens with the two commercial doors, so it says so. */
+  var CONGRESS_TAKEPART_LABEL = "Take part.";
   var CONGRESS_TAKEPART = [
-    { label: "Register",             href: "/congress/register/",
+    { label: "Register",             href: "/congress/register/", cta: true,
       note:  "Three passes, priced and published, and what a registration does not buy." },
-    { label: "Sponsor",              href: "/congress/sponsor/",
+    { label: "Sponsor",              href: "/congress/sponsor/",  cta: true,
       note:  "Nine tiers with what each one includes. Visibility in the room, never a match." },
+    { label: "The app",  href: "/congress/the-app/",
+      note:  "Who is here, what they are looking for, and the meeting you asked for." },
     { label: "Regional Xchanges",    href: "/congress/regional-xchanges/",
       note:  "A region asks the question, and the room is composed around it." },
     { label: "Xchange Partnerships", href: "/congress/partnerships/",
@@ -694,7 +720,12 @@
     return '<ul class="link-index' + (cls ? " " + cls : "") + '"' + (attrs || "") + ">" +
       items.map(function (i) {
         var cur = current === i.href ? ' aria-current="page"' : "";
-        return "<li><a href=\"" + i.href + "\"" + cur + ">" + i.label + "</a>" +
+        /* i.cta marks a row that leads somewhere a reader can act rather than
+         * read. Only the Conference panel sets it, on Register and Sponsor.
+         * A class on the <li>, not a second list: the rows stay one component
+         * and the emphasis is a modifier, so nothing forks. */
+        var liCls = i.cta ? ' class="nav-mega-cta"' : "";
+        return "<li" + liCls + "><a href=\"" + i.href + "\"" + cur + ">" + i.label + "</a>" +
           "<span class=\"descriptor\">" + i.note + "</span></li>";
       }).join("") + (extra || "") + "</ul>";
   }

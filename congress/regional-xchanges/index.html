@@ -56,11 +56,13 @@
         </li>
         <li><a href="/congress/">Conference</a>
           <ul>
-            <li><a href="/congress/#agenda">Agenda</a></li>
             <li><a href="/congress/#speakers">Speakers</a></li>
-            <li><a href="/congress/the-app/">The app</a></li>
+            <li><a href="/congress/#agenda">Agenda</a></li>
+            <li><a href="/congress/#accommodations">Accommodations</a></li>
+            <li><a href="/congress/#faq">Questions</a></li>
             <li><a href="/congress/register/">Register</a></li>
             <li><a href="/congress/sponsor/">Sponsor</a></li>
+            <li><a href="/congress/the-app/">The app</a></li>
             <li><a href="/congress/regional-xchanges/">Regional Xchanges</a></li>
             <li><a href="/congress/partnerships/">Xchange Partnerships</a></li>
           </ul>
@@ -134,9 +136,65 @@
         <div class="body">
           <p>The Congress composes a room across every industry it convenes. A regional Xchange composes one from a single region's businesses, innovators and industry leaders.</p>
           <p>What ConvergX does inside it does not change. It asks the companies, and it decides which two should meet. <a class="link-more" href="/about/#how-we-vet">How we vet</a></p>
-          <p>ConvergX convened a regional Xchange in Cranbrook in March 2026, hosted with the City of Cranbrook, on aerospace, defence and critical supply chains.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE CASE STUDY, AND THE VIDEO. Their page carries both and the video
+       is the one thing on it this page had no answer to. Source: capture
+       3.7. The Cranbrook sentence used to sit in the section above; it is
+       moved here whole rather than duplicated, because a case study and a
+       passing mention of the same event on one page is the page arguing
+       with itself about which one is the record.
+
+       .pair, not a new component. It is the site's generic "two blocks of
+       equal weight side by side" utility and it collapses at 44rem like
+       every other pair. Copy left, the video right.
+
+       THREE THINGS FIXED RATHER THAN INHERITED, all of them theirs:
+         1. "ConvergX Cranbook" in their body copy is missing an r. Their
+            own heading spells it Cranbrook. Spelled correctly here.
+         2. "Over 30 leaders from academia, government, and industry took
+            place." Events take place; people take part. Rewritten.
+         3. THE FIGURE IS GONE. "Over 30" is an attendance number and this
+            site publishes none, including their own "200+ pre-vetted".
+            The sentence carries who was in the room and not how many, which
+            is the part that was ever the argument.
+       NO OUTCOME IS CLAIMED for Cranbrook. ConvergX publishes what the
+       event was about and nothing about what came out of it, so neither
+       does this. -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>One region has already done it.</h2>
+        <span class="label label--lo label--edge">Cranbrook</span>
+      </div>
+      <div class="pair">
+        <div>
+          <p>The City of Cranbrook hosted one with ConvergX in March 2026, on aerospace, defence and critical supply chains.</p>
+          <p class="push-s">Leaders from academia, government and industry took part. ConvergX publishes a video of it.</p>
     <!-- OPEN, not public: [[NEEDS: clearance to name the City of Cranbrook as a regional partner, from Kim Van Vliet]] -->
         </div>
+        <!-- A LINK FIRST, A PLAYER SECOND. This is an <a> to the video's own
+             watch page with a locally served still inside it, and video.js
+             turns it into the player on click. Nothing external is fetched
+             until a reader presses play. Full reasoning: styles.css section
+             46 and _system/video.js. Do not replace this with an iframe.
+             The still is the video's own opening frame, downloaded and served
+             from /assets/video/. It is not hotlinked: a hotlinked thumbnail
+             is an external request on load, which is the thing this whole
+             component exists to avoid. -->
+        <a class="vid"
+           href="https://www.youtube.com/watch?v=sAZDqDzSsUc"
+           rel="noopener"
+           data-vid="sAZDqDzSsUc"
+           data-vid-title="ConvergX Cranbrook">
+          <img src="/assets/video/convergx-cranbrook-poster.jpg"
+               width="1280" height="720"
+               alt="ConvergX Cranbrook: a speaker at a lectern in front of a City of Cranbrook backdrop, beside a projected ConvergX tenth anniversary slide.">
+          <span class="vid-play"><span class="vid-tri"></span>Play, on YouTube</span>
+        </a>
       </div>
     </div>
   </section>
@@ -165,14 +223,21 @@
   <!-- One CTA, and it is the site's existing door rather than a new one.
        A region is a third buyer type and has no locked label of its own;
        inventing one would break the four-intent CTA vocabulary. Flagged
-       instead. -->
+       instead.
+       THEIR PAGE CLOSES ON A NAMED PERSON'S EMAIL ADDRESS, and that is not
+       carried here in any form: not the address, not the first name, not a
+       mailto behind other words. Publishing an individual's inbox is the
+       client's decision and not ours, and a route that depends on one named
+       person is the same key-person exposure the leadership roster is built
+       to avoid. Request access is the site's one published door and it takes
+       a region the same as anyone. Flagged for Chip, not decided here. -->
   <section class="section--dense">
     <div class="wrap">
       <div class="editorial">
         <div class="claim">
           <p>A region's ask starts at the same door as everyone else's.</p>
           <p><a class="link-more" href="/access/request/">Request access</a></p>
-    <!-- OPEN, not public: [[NEEDS: the route ConvergX wants a region to use. The site's one published door is Request access, and the site does not render individual names or addresses]] -->
+    <!-- OPEN, not public: [[NEEDS: the route ConvergX wants a region to use, and whether the named contact their own page publishes may be rendered here. The site's one published door is Request access, and the site does not render individual names or addresses]] -->
         </div>
       </div>
     </div>
@@ -229,5 +294,6 @@
 </footer>
 
 <script src="/_system/shell.js" defer></script>
+<script src="/_system/video.js" defer></script>
 </body>
 </html>
