@@ -27,6 +27,13 @@
    you actually relied on.
    =================================================================== */
 
+/* PATHS ARE RELATIVE, SITE-WIDE, as of 2026-08-05. Chip: "build it with
+ * relative paths so it works no matter where we end up switching it."
+ * A url() in a stylesheet resolves against the STYLESHEET's own location, not
+ * the page's, so "../assets/..." from /_system/ is correct at every mount
+ * point: a root domain, a project subpath, localhost, or file://. That is why
+ * these need no per-page treatment the way the HTML does. */
+
 /* ================= 1. RESET ================= */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -2021,15 +2028,15 @@ section:has(.hero) { padding-block: 0; }
 }
 
 .mark--boeing {
-  --mark-src: url("/assets/logo/boeing.svg");
+  --mark-src: url("../assets/logo/boeing.svg");
   --mark-ratio: 4.365; --mark-cap-frac: 0.362;
 }
 .mark--lockheed {
-  --mark-src: url("/assets/logo/lockheed-martin.svg");
+  --mark-src: url("../assets/logo/lockheed-martin.svg");
   --mark-ratio: 6.620; --mark-cap-frac: 0.378;
 }
 .mark--vizworx {
-  --mark-src: url("/assets/logo/vizworx.png");
+  --mark-src: url("../assets/logo/vizworx.png");
   --mark-ratio: 4.717; --mark-cap-frac: 0.445;
 }
 /* Doyletech Corporation. Added 2026-07-29 (Chip). Source: the company's own
@@ -2041,14 +2048,14 @@ section:has(.hero) { padding-block: 0; }
  * NOT the swoosh, which runs the full height, and NOT the CORPORATION line
  * under it. Measured off the alpha, per the note at the top of this block. */
 .mark--doyletech {
-  --mark-src: url("/assets/logo/doyletech.png");
+  --mark-src: url("../assets/logo/doyletech.png");
   --mark-ratio: 3.415; --mark-cap-frac: 0.269;
 }
 /* The one lowercase wordmark, so the fraction is its ascender height and
  * not a cap height. Matching ascender to cap is what makes it sit level
  * with the four sets of capitals beside it. */
 .mark--method {
-  --mark-src: url("/assets/logo/the-method-effect.png");
+  --mark-src: url("../assets/logo/the-method-effect.png");
   --mark-ratio: 4.268; --mark-cap-frac: 0.285;
 }
 

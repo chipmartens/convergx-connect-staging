@@ -9,11 +9,53 @@
  * header and footer placeholders. If this file never runs, the page
  * is still readable and navigable.
  *
- * Links are site-root absolute. Preview through any static server
- * (for example: python3 -m http.server from the Website folder).
+ * LINKS ARE RELATIVE, as of 2026-08-05. Chip: "build it with relative paths
+ * so it works no matter where we end up switching it."
+ * The tables below still hold site-root paths like "/congress/", because that
+ * is the only form that is readable and diffable. They are converted to
+ * page-relative form at injection time by localise(), which runs once over
+ * each injected block. Do NOT hand-write "../" into a table; add the root
+ * path and let localise do it.
+ * Preview through any static server, at any mount point.
  */
 (function () {
   "use strict";
+
+  /* THE SITE ROOT, resolved from this script's own src.
+   *
+   * Captured at top level and NOT inside the DOMContentLoaded handler, because
+   * document.currentScript is only set while a script is executing. By the time
+   * a deferred handler runs it is null, and the fallback query would be the only
+   * thing left.
+   *
+   * The HTML now loads this file relatively (for example "../../_system/shell.js"),
+   * so .src is the fully resolved absolute URL of it. Everything before
+   * "_system/shell.js" is the site root, whatever the mount point: a root
+   * domain, a project subpath like /convergx-connect-staging/, localhost, or
+   * file://. That is the whole point of computing it rather than assuming "/". */
+  var ROOT = (function () {
+    var s = document.currentScript ||
+            document.querySelector('script[src$="_system/shell.js"]');
+    if (!s || !s.src) return "";
+    return s.src.replace(/_system\/shell\.js(\?.*)?$/, "");
+  })();
+
+  /* Rewrite every root-absolute href/src inside an injected block to sit under
+   * ROOT. One pass over the block, rather than threading a prefix through the
+   * forty-odd places that emit a link.
+   * Leaves alone: fragments (#x), full URLs, protocol-relative (//host),
+   * mailto and tel. Anything already relative is untouched, so running this
+   * twice on the same node is harmless. */
+  function localise(root) {
+    if (!root) return;
+    ["href", "src"].forEach(function (attr) {
+      root.querySelectorAll("[" + attr + "^='/']").forEach(function (el) {
+        var v = el.getAttribute(attr);
+        if (!v || v.charAt(1) === "/") return;   /* // is protocol-relative */
+        el.setAttribute(attr, ROOT + v.slice(1));
+      });
+    });
+  }
 
   /* The single navigation definition: the primary items, one utility
    * link, one CTA. No count is stated here or anywhere below. The bar is
@@ -1853,12 +1895,14 @@
     if (header) {
       header.classList.add("shell-header");
       header.innerHTML = buildHeader(current);
+      localise(header);
       wireMega(header);
       /* Before wireFloat, which reads the header's resting offset, and
        * the countdown goes live before both of them, because .is-live is
        * what gives the bar its final height and those two measure it. */
       header.insertAdjacentHTML("beforebegin", buildNotice());
       var notice = header.previousElementSibling;
+      localise(notice);
       if (notice && notice.classList.contains("notice")) wireCountdown(notice);
       wireFloat(header);
       measureShell(header);
@@ -1878,6 +1922,7 @@
       /* ALWAYS DARK, on every page, whatever the page's own surface is. */
       footer.setAttribute("data-surface", "dark");
       footer.innerHTML = buildFooter();
+      localise(footer);
       wireQuotes(footer);
     }
   }
