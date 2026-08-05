@@ -99,6 +99,35 @@
   --ink-900:  #171717;  /* gray-900. text on light. 17.93:1 paper, 15.73:1 muted */
 
   /* ---- accent. ONE value, both grounds, no surface override. ---- */
+  /* ---- CHROME AND WARM, added 2026-08-05 -------------------------------
+   * Chip: "we've got a bit too much blue on the website... blue is still good
+   * for the CTA buttons and the lines and nodes on the globe or in the
+   * graphics, but we should minimize the blue across the website in other
+   * areas, opting for a chrome grey... Maybe we could also throw in a light,
+   * warm grey as an additional accent?"
+   *
+   * SO BLUE IS NOW RATIONED TO TWO JOBS: an action a reader can take, and a
+   * line or node inside a graphic. Everything that was blue because blue was
+   * the only accent available is chrome now. See section 8b in styles.css for
+   * the component-by-component split.
+   *
+   * CHROME NEEDS THREE VALUES for the same reason the blue does: one ink
+   * cannot clear 4.5:1 on both a near-black ground and near-white paper. The
+   * fill is the swatch Chip sent.
+   * WARM IS A PANEL TINT, NOT AN INK. It is far too light to carry text and is
+   * never used for type. It exists to stop a grey-on-grey site going cold. */
+  --chrome:      #888b8d;  /* THE FILL. 5.23:1 with --ink-900 on it, so fills take DARK
+                            * type, not white. 3.43:1 against paper, clearing the 3:1
+                            * a UI boundary needs. Never put white text on this. */
+  --chrome-ink:  var(--ink-900);  /* type ON a chrome fill. 5.23:1 */
+  --chrome-text: #646a6f;  /* small text and eyebrows on LIGHT. 5.48:1 paper, 4.81:1 muted */
+  --chrome-lift: #a2aaad;  /* small text and eyebrows on DARK. 7.59:1 on ground */
+  --warm:        #e8e3db;  /* light warm grey. PANEL TINT ONLY, never type.
+                            * Body #363636 on it is 9.46:1 and --fg-hi is 14.04:1, so
+                            * anything set on it is safe. 1.28:1 against paper, which is
+                            * subtle on purpose: it should read as a warmer paper, not
+                            * as a second background colour. */
+
   --accent:      #146ef5;  /* Webflow blue. FILL: 3.91:1 on ground, 4.59:1 on paper, 4.02:1 on muted */
   --accent-ink:  #ffffff;  /* type ON the blue fill. 4.59:1. White, not near-black: the blue is dark */
   --accent-text: #0055d4;  /* blue-600. small text and links on light. 6.46:1 paper, 5.67:1 muted */
@@ -237,7 +266,9 @@
   --rule-ink-load: var(--cool-500);    /* any UI component boundary. 3.89:1, clears 1.4.11.
                                         * NOT --cool-600: that is 2.60:1 here and fails. */
   --link:          var(--accent-lift);  /* NOT --accent: 3.91:1 fails AA for body links */
-  --label-ink:     var(--accent-lift);  /* the eyebrows. 5.30:1 at 11px */
+  --label-ink:     var(--chrome-lift);  /* the eyebrows. CHROME as of 2026-08-05, 7.59:1 at 11px.
+                                        * --link stays blue: a link is an action and blue is
+                                        * the one signal a reader does not have to learn. */
   --logo-ink:      var(--ink-hi);      /* hairline mark needs MORE contrast than body */
   --dot-ink:       var(--cool-700);
   /* The light block, on the dark ground. */
@@ -266,11 +297,18 @@
   --fg:            var(--cool-700);    /* 12.08:1 on paper */
   --fg-hi:         var(--ink-900);     /* 17.93:1 on paper. The emphasis ink */
   --fg-lo:         var(--cool-600);    /* 6.55:1 on paper */
-  --block:         var(--cool-100);
+  /* WARM as of 2026-08-05, was --cool-100. Chip asked for "a light, warm grey
+   * as an additional accent", and a panel on a white page is the one surface
+   * that appears often enough to register as an accent without becoming a
+   * second background. It also separates a panel from the MUTED ground, which
+   * is --cool-100: those two were the same value, so a panel sitting on a muted
+   * band was previously invisible.
+   * Safe for type: body #363636 on it is 9.46:1 and --fg-hi is 14.04:1. */
+  --block:         var(--warm);
   --rule-ink:      var(--cool-300);
   --rule-ink-load: var(--cool-400);
   --link:          var(--accent-text);
-  --label-ink:     var(--accent-text);  /* the eyebrows. 6.46:1 paper, 5.67:1 muted */
+  --label-ink:     var(--chrome-text);  /* the eyebrows. CHROME as of 2026-08-05, 5.48:1 paper, 4.81:1 muted */
   --logo-ink:      var(--ink-900);
   --dot-ink:       var(--cool-300);
   /* On the paper ground the light block goes the OTHER way, to the greige.
@@ -289,7 +327,7 @@
   --rule-ink:      var(--cool-300);
   --rule-ink-load: var(--cool-400);
   --link:          var(--accent-text);
-  --label-ink:     var(--accent-text);  /* the eyebrows. 6.46:1 paper, 5.67:1 muted */
+  --label-ink:     var(--chrome-text);  /* the eyebrows. CHROME as of 2026-08-05, 5.48:1 paper, 4.81:1 muted */
   --logo-ink:      var(--ink-900);
   --dot-ink:       var(--paper);       /* white dots on greige. Use deliberately */
   /* Off-white ground, white block. */

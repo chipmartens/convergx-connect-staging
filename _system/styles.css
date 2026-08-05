@@ -83,7 +83,7 @@ body:not([data-surface]) {
  * both declare data-surface; everything inside inherits. */
 [data-surface] { background: var(--bg); color: var(--fg); }
 
-::selection { background: var(--accent); color: var(--accent-ink); }
+::selection { background: var(--chrome); color: var(--chrome-ink); }
 
 /* ================= 2. TYPE: THE ROLE SCALE ================= */
 /* Nine steps, every step with a job, no dead steps. The token clamp
@@ -925,8 +925,8 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
  * removed that problem (3.91:1 on the dark ground, 4.59:1 on paper), so the
  * bar is one token again. White on the blue measures 4.59:1. */
 .notice {
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--chrome);
+  color: var(--chrome-ink);
 }
 .notice-inner {
   max-width: var(--page-max);
@@ -941,10 +941,10 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
  * is what marks it as a link, not a colour change, because there is no second
  * safe ink on this fill. */
 .notice-inner a {
-  color: var(--accent-ink);
+  color: var(--chrome-ink);
   font-weight: 700;
 }
-.notice-inner a:hover { color: var(--accent-ink); }
+.notice-inner a:hover { color: var(--chrome-ink); }
 
 .shell-footer { margin-top: var(--space-4xl); }
 .shell-footer .footer-inner {
@@ -1020,6 +1020,32 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
   cursor: not-allowed;
 }
 
+
+/* ================= 8b. WHERE BLUE IS ALLOWED ================= */
+/* Chip, 2026-08-05: too much blue. Blue is now RATIONED TO TWO JOBS and every
+ * other blue surface became chrome.
+ *
+ * BLUE KEEPS:
+ *   .btn--solid          an action a reader can take
+ *   .vid-play            same, it is a play control
+ *   .flow-hub, --flow-ink, the globe, figure lines and nodes
+ *   .rl-steps > .rl-in   a marked band inside a data figure
+ *   --link               a link is an action, and blue is the one affordance a
+ *                        reader never has to be taught. Greying links would cut
+ *                        blue further and cost more than it saved.
+ *
+ * BLUE LOST, all now chrome:
+ *   .notice              a full-bleed band across the top of every page
+ *   .launcher            four filled boxes on the homepage
+ *   .app-band            a full-bleed band on the Congress page
+ *   .block--accent, .door-block--accent, the photo hero scrim,
+ *   .outcome-list markers, ::selection, and every eyebrow site-wide
+ *
+ * THE INK FLIPS WITH THE FILL. Blue is dark, so it took white type. Chrome is
+ * mid, so it takes DARK type: 5.23:1 against --ink-900, where white would be
+ * 3.26:1 and fail. Any component moved to chrome must move its ink too, which
+ * is why these are paired below rather than left to a token swap. */
+
 /* ================= 9. BLOCKS ================= */
 /* Not "cards": no shadow, no radius, no colour strip. An outlined
  * block by default; a panel block when it needs a ground of its own. */
@@ -1038,11 +1064,11 @@ main > [data-surface]:last-child { padding-block-end: var(--space-3xl); }
  * accent fill. Type on it is --accent-ink, white, measured 4.59:1. */
 .block--accent {
   border: 0;
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--chrome);
+  color: var(--chrome-ink);
   padding: var(--space-l);
 }
-.block--accent h2, .block--accent h3, .block--accent .label { color: var(--accent-ink); }
+.block--accent h2, .block--accent h3, .block--accent .label { color: var(--chrome-ink); }
 
 /* ================= 10. STATUS TAGS: RETIRED ================= */
 /* 2026-07-29, CHIP'S DECISION. Every module status tag was removed from
@@ -1435,7 +1461,7 @@ section:has(.hero) { padding-block: 0; }
   grid-row: 1 / 5;
   display: grid;
   grid-template-rows: 1fr auto;
-  border-left: 2px solid var(--accent);   /* the edge the dot field terminates against */
+  border-left: 2px solid var(--chrome);   /* the edge the dot field terminates against */
   padding-inline-start: var(--space-m);
 }
 .hero-aside .dots { min-height: 44vh; }
@@ -1455,7 +1481,7 @@ section:has(.hero) { padding-block: 0; }
     grid-column: main;
     grid-row: auto;
     border-left: 0;
-    border-block-start: 2px solid var(--accent);
+    border-block-start: 2px solid var(--chrome);
     padding-inline-start: 0;
     padding-block-start: var(--space-m);
   }
@@ -1798,7 +1824,7 @@ section:has(.hero) { padding-block: 0; }
 
 /* One of the page's two permitted orange rules, and the same device as
  * the home hero's terminator: an edge the composition stops against. */
-.hero-vert-rule { border-inline-start: 2px solid var(--accent); }
+.hero-vert-rule { border-inline-start: 2px solid var(--chrome); }
 
 /* Focal points, POLISH-SPEC section 5. A header image is cropped tall at
  * desktop, so each frame names the subject that must survive the crop.
@@ -1931,7 +1957,7 @@ section:has(.hero) { padding-block: 0; }
   }
   .hero-vert-rule {
     border-inline-start: 0;
-    border-block-start: 2px solid var(--accent);
+    border-block-start: 2px solid var(--chrome);
   }
 }
 
@@ -1940,7 +1966,7 @@ section:has(.hero) { padding-block: 0; }
  * that makes the price table read as the page's centre of gravity. Structural, not
  * decorative: it is an edge the table stops against, the same device as the home
  * hero terminator and the industry header rule. */
-.edge-accent { border-inline-start: 2px solid var(--accent); padding-inline-start: var(--space-m); }
+.edge-accent { border-inline-start: 2px solid var(--chrome); padding-inline-start: var(--space-m); }
 
 /* ================= 24. VISUALLY HIDDEN ================= */
 /* The only way to give a region a name a screen reader can use without
@@ -2305,11 +2331,11 @@ section:has(.hero) { padding-block: 0; }
 .door-block--invert .door-block-label,
 .door-block--invert .door-block-cta { color: var(--door-fg-hi, var(--ink-900)); }
 .door-block--accent {
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--chrome);
+  color: var(--chrome-ink);
 }
 .door-block--accent .door-block-label,
-.door-block--accent .door-block-cta { color: var(--accent-ink); }
+.door-block--accent .door-block-cta { color: var(--chrome-ink); }
 /* Hover moves the underline only. No lift, no shadow, no scale: this site has
    no elevation model and one card with a shadow would be the only one. */
 .door-block:hover .door-block-cta { text-decoration-thickness: var(--rule-med); }
@@ -2972,8 +2998,8 @@ header:has(> .label:only-child) {
    * reads as sloppy rather than as variety. */
   display: flex;
   flex-direction: column;
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--chrome);
+  color: var(--chrome-ink);
   /* EVEN on all four sides, Chip's call 2026-07-30 looking at the built
    * thing. This went 35/35/53 asymmetric first, on the theory that a
    * filled box reads bottom-tight because descenders sit near the edge.
@@ -3011,7 +3037,7 @@ img.launcher-logo {
  * --label-ink, which is a BLUE and would be invisible here, so it is
  * restated. Same reason .block--accent restates it. */
 .launcher-name {
-  color: var(--accent-ink);
+  color: var(--chrome-ink);
   margin-block-end: var(--space-2xs);
 }
 
@@ -3020,7 +3046,7 @@ img.launcher-logo {
   margin: 0;
 }
 .launcher-title a {
-  color: var(--accent-ink);
+  color: var(--chrome-ink);
   text-decoration: none;
 }
 .launcher-title a:hover { text-decoration: underline; }
@@ -3028,7 +3054,7 @@ img.launcher-logo {
 .launcher-desc {
   margin-block-start: var(--space-s);
   max-width: none;
-  color: var(--accent-ink);
+  color: var(--chrome-ink);
   font-size: var(--step--1);
   text-wrap: pretty;
 }
@@ -3046,7 +3072,7 @@ img.launcher-logo {
   max-width: none;
 }
 .launcher-cta a {
-  color: var(--accent-ink);
+  color: var(--chrome-ink);
   font-weight: 700;
   font-size: var(--step--1);
   text-decoration: underline;
@@ -3115,7 +3141,7 @@ img.launcher-logo {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: var(--accent);
+  background: var(--chrome);
   mix-blend-mode: color;
   opacity: 0.9;
 }
@@ -3606,7 +3632,7 @@ img.launcher-logo {
   align-items: baseline;
   justify-content: center;
   gap: var(--space-2xs) var(--space-s);
-  color: var(--accent-ink);
+  color: var(--chrome-ink);
 }
 
 /* The prefix, e.g. "Congress opens in". Mono and label-cased so it reads
@@ -3619,7 +3645,7 @@ img.launcher-logo {
   text-transform: uppercase;
   letter-spacing: var(--track-label);
   line-height: var(--lh-label);
-  color: var(--accent-ink);       /* 4.59:1 at 11px, clears the 4.5:1 floor */
+  color: var(--chrome-ink);       /* 4.59:1 at 11px, clears the 4.5:1 floor */
 }
 
 .cd-unit {
@@ -3638,7 +3664,7 @@ img.launcher-logo {
   font-variant-numeric: tabular-nums;
   font-size: var(--step-1);
   font-weight: 700;
-  color: var(--accent-ink);       /* 4.59:1 */
+  color: var(--chrome-ink);       /* 4.59:1 */
 }
 
 .cd-l {
@@ -3646,7 +3672,7 @@ img.launcher-logo {
   font-size: var(--step--2);      /* 11px, so it needs the full 4.5:1 */
   text-transform: uppercase;
   letter-spacing: var(--track-label);
-  color: var(--accent-ink);       /* 4.59:1, clears it */
+  color: var(--chrome-ink);       /* 4.59:1, clears it */
 }
 
 /* ---- the Register button ---- */
@@ -4262,7 +4288,7 @@ html:has(.subnav) { scroll-behavior: smooth; }
   height: 0.4em;
   margin-block-start: -0.2em;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--chrome);
 }
 .outcome-list > li:first-child::before { top: calc(1em * var(--lh-body) / 2); }
 @media (max-width: 60rem) {
@@ -4363,7 +4389,7 @@ html:has(.subnav) { scroll-behavior: smooth; }
   gap: 0;
   max-width: none;
   text-align: center;
-  color: var(--accent-ink);
+  color: var(--chrome-ink);
 }
 
 .notice .cd-label,
@@ -4378,7 +4404,7 @@ html:has(.subnav) { scroll-behavior: smooth; }
   text-transform: none;
   letter-spacing: normal;
   line-height: inherit;
-  color: var(--accent-ink);       /* white on the accent bar, 4.59:1 */
+  color: var(--chrome-ink);       /* white on the accent bar, 4.59:1 */
 }
 .notice .cd-n { font-variant-numeric: tabular-nums; }
 
@@ -5713,16 +5739,25 @@ html:has(.subnav) { scroll-behavior: smooth; }
  * THE PAGE'S ONE FULL-BLEED ACCENT, and it is the last band before the footer.
  * That position is deliberate: an accent field this size anywhere above the
  * hero photograph would compete with it. */
+/* CHROME AS OF 2026-08-05, was the accent. The remap below is the whole edit:
+ * the band re-points the surface tokens and every component inside it follows,
+ * which is why nothing in this section hand-writes a colour.
+ * ALL SIX INKS FLIPPED WITH THE GROUND. Blue is dark and took white type;
+ * chrome is mid and takes dark type. Leaving --block or the rules on the old
+ * accent-ink would have put white lines on a mid-grey field at 3.26:1.
+ * --block is --warm here rather than --chrome-ink: a panel inside a chrome band
+ * needs to separate from it, and warm at 1.28:1 against paper reads as a panel
+ * without introducing a third grey. */
 .app-band {
-  --bg:            var(--accent);
-  --fg:            var(--accent-ink);
-  --fg-hi:         var(--accent-ink);
-  --fg-lo:         var(--accent-ink);
-  --block:         var(--accent);
-  --rule-ink:      var(--accent-ink);
-  --rule-ink-load: var(--accent-ink);
-  --link:          var(--accent-ink);
-  --label-ink:     var(--accent-ink);
+  --bg:            var(--chrome);
+  --fg:            var(--chrome-ink);
+  --fg-hi:         var(--chrome-ink);
+  --fg-lo:         var(--chrome-ink);
+  --block:         var(--warm);
+  --rule-ink:      var(--chrome-ink);
+  --rule-ink-load: var(--chrome-ink);
+  --link:          var(--chrome-ink);
+  --label-ink:     var(--chrome-ink);
   background: var(--bg);
   color: var(--fg);
   padding-block: var(--space-4xl);
@@ -5770,7 +5805,7 @@ html:has(.subnav) { scroll-behavior: smooth; }
 /* The empty screenshot frame inherits --rule-ink-load, which is white in this
  * band, so its border would have been a solid white box. Held back to the
  * hairline weight it has everywhere else and let it read as a placeholder. */
-.app-band .mod-shot-frame { border-color: var(--accent-ink); }
+.app-band .mod-shot-frame { border-color: var(--chrome-ink); }
 
 /* ---- the subnav's page-link group ---- */
 /* Everything left of this moves you down the page, everything right of it
