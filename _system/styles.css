@@ -1,4 +1,4 @@
-/* ConvergX Xtend. SYSTEM STYLES.
+/* ConvergX ConneX. SYSTEM STYLES.
  *
  * Every value resolves through tokens.css. No raw hex, no font name,
  * no framework, no dependency in this file. Load order per page:
@@ -2959,7 +2959,7 @@ header:has(> .label:only-child) {
  * siblings. Identical fill, identical padding, no per-door hue, no
  * "recommended" one. The whole point is that the reader picks. */
 
-/* FOUR ACROSS as of 2026-08-04, was three. Chip added Capital/Xpedite as a
+/* FOUR ACROSS as of 2026-08-04, was three. Chip added Capital/Xcelerate as a
  * fourth door and asked for the row on one line, 4 wide.
  * THE BREAKPOINTS CHANGED WITH THE COUNT, and they had to. At three the row
  * went straight from 3 to 1 at 60rem, because a 3-up that drops to 2 leaves a
@@ -6670,7 +6670,7 @@ main > [data-surface]:not(:has(~ :not(.bio-overlay))) {
 
 
 /* ================= 46. THE VIDEO FACADE ================= */
-/* ONE video on the site, on /congress/regional-xchanges/, and this component
+/* ONE video on the site, on /congress/xplore/, and this component
  * exists because of a rule rather than because of a design idea.
  *
  * THE RULE: no page on this site makes an external request on load. A YouTube
@@ -6703,7 +6703,7 @@ main > [data-surface]:not(:has(~ :not(.bio-overlay))) {
 .vid img { display: block; width: 100%; height: auto; }
 
 /* THE SECOND SOLID ACCENT FILL ON ITS PAGE, spent knowingly. Section 8 allows
- * one, and /congress/regional-xchanges/ closes on a Request access link rather
+ * one, and /congress/xplore/ closes on a Request access link rather
  * than a filled button, so this is the page's only fill in practice.
  * IT HAS TO BE A FILL. Every other affordance on this site can rely on the
  * page ground behind it; this one sits on a photograph whose tones are not

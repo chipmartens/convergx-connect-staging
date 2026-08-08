@@ -1,4 +1,4 @@
-/* ConvergX Xtend. SHELL.
+/* ConvergX ConneX. SHELL.
  *
  * Injects the header nav and footer from ONE definition so no page
  * can drift. Vanilla JS, zero dependencies, no menu
@@ -106,15 +106,15 @@
     { label: "Consulting",     href: "/xpand/",     mega: "xpand",      live: true },
     /* Capital, added 2026-08-04 on Chip's instruction: a fourth line of
      * business, bridge financing for the companies ConvergX is already
-     * connecting. Practice name ConvergX Capital, product name Xpedite.
+     * connecting. Practice name ConvergX Capital, product name Xcelerate.
      *
      * THE BAR LABEL IS THE PLAIN WORD, "Capital", and that is the same rule
      * that turned Xpand into Consulting on 2026-07-30. Every X-name in this
-     * business (Xchange, Xpand, Xtend, Xpedite) is a brand a cold reader
+     * business (Xchange, Xpand, ConneX, Xcelerate) is a brand a cold reader
      * cannot decode, so the bar answers the question the reader is actually
-     * asking, which here is "do you do financing". Xpedite lives on the page,
+     * asking, which here is "do you do financing". Xcelerate lives on the page,
      * the homepage block and the logo, exactly as Xpand does.
-     * PATH IS /xpedite/, the product name, which is the same shape as
+     * PATH IS /xcelerate/, the product name, which is the same shape as
      * /xpand/ sitting under a bar that says Consulting. Do not "align" the
      * path to the label; nothing inbound would survive it and the existing
      * pair already sets the precedent.
@@ -125,7 +125,7 @@
      * FIVE PANELS NOW. Watch the bar at the narrow end of the desktop range
      * after any future label change: this is the item that took it from four
      * to five and the row has no room left for a long one. */
-    { label: "Capital",        href: "/xpedite/",   mega: "capital",    live: true }
+    { label: "Capital",        href: "/xcelerate/",   mega: "capital",    live: true }
   ];
   /* About is a UTILITY link and it now TAKES A PANEL. Chip, 2026-07-29:
    * "you probably have to add a mega menu for About so those pages are
@@ -548,7 +548,7 @@
    * respective sections on the stand alone page."
    *
    * THIS REVERSES the 2026-07-30 cut to four. That cut was made because
-   * Speakers, The app, Regional Xchanges and Xchange Partnerships had no
+   * Speakers, The app, Xplore and Xchange Partnerships had no
    * home once the one-pager absorbed them, and pointing the nav at four
    * dead standalone pages would have given the site two sources of truth.
    * The anchors solve that: the nav can carry all eight WITHOUT the
@@ -565,7 +565,7 @@
    * the one-pager's #tickets and #sponsorship sections are summaries that
    * hand off to them. Do NOT repoint these two at the anchors: that would
    * bury the detail a buyer came for.
-   * Regional Xchanges and Xchange Partnerships are also real pages and were
+   * Xplore and Xchange Partnerships are also real pages and were
    * never part of the one-pager.
    *
    * THE SPLIT IS UNCHANGED in meaning: column one is what the Congress is,
@@ -600,7 +600,7 @@
       note:  "Nine tiers with what each one includes. Visibility in the room, never a match." },
     { label: "The app",  href: "/congress/the-app/",
       note:  "Who is here, what they are looking for, and the meeting you asked for." },
-    { label: "Regional Xchanges",    href: "/congress/regional-xchanges/",
+    { label: "Xplore",               href: "/congress/xplore/",
       note:  "A region asks the question, and the room is composed around it." },
     { label: "Xchange Partnerships", href: "/congress/partnerships/",
       note:  "ConvergX convenes inside events it does not run." }
@@ -691,7 +691,7 @@
   /* CAPITAL. Added 2026-08-04 with the fourth line of business.
    *
    * THE STANDFIRST NAMES THE PRODUCT, because the bar label does not. A
-   * reader who clicks "Capital" has to meet the word Xpedite somewhere before
+   * reader who clicks "Capital" has to meet the word Xcelerate somewhere before
    * the page, or the brand never attaches to the thing. Congress and Xpand
    * both get this for free (their standfirsts carry dates and a category);
    * this one has to do it deliberately.
@@ -705,7 +705,7 @@
    * a material legal distinction nobody has answered. Every note below is true
    * either way. Do not "clarify" one into existence.
    *
-   * THE IDS ARE THE CONTRACT and they are declared on /xpedite/. A wrong
+   * THE IDS ARE THE CONTRACT and they are declared on /xcelerate/. A wrong
    * fragment does not 404, it just lands the reader at the top of the page,
    * so these are verified against the page after any edit to either file. */
   /* REGISTER CHANGED 2026-08-04 on Cameron Bergen's review: "Capital is a
@@ -717,15 +717,15 @@
    * off by a pitch, and a menu note is copy like any other.
    * DO NOT "improve" these notes into something with more energy. The
    * dullness is the instruction. */
-  var CAPITAL_STANDFIRST = "ConvergX Capital. A bespoke venture capital firm. Xpedite is its bridge financing.";
+  var CAPITAL_STANDFIRST = "ConvergX Capital. A bespoke venture capital firm. Xcelerate is its bridge financing.";
   var CAPITAL_PAGES = [
-    { label: "Overview",        href: "/xpedite/",
+    { label: "Overview",        href: "/xcelerate/",
       note:  "Where the firm sits in relation to the Congress, the platform and Xpand." },
-    { label: "Who it is for",   href: "/xpedite/#who-it-is-for",
+    { label: "Who it is for",   href: "/xcelerate/#who-it-is-for",
       note:  "The parties to a transaction ConvergX has already brokered." },
-    { label: "How it works",    href: "/xpedite/#how-it-works",
+    { label: "How it works",    href: "/xcelerate/#how-it-works",
       note:  "What a bridge facility is, for a reader who has not used one." },
-    { label: "What is settled", href: "/xpedite/#what-is-settled",
+    { label: "What is settled", href: "/xcelerate/#what-is-settled",
       note:  "What ConvergX Capital states at this stage, and what it does not." }
   ];
 
@@ -798,7 +798,7 @@
       { label: "The app",              href: "/congress/the-app/" },
       { label: "Register",             href: "/congress/register/" },
       { label: "Sponsor",              href: "/congress/sponsor/" },
-      { label: "Regional Xchanges",    href: "/congress/regional-xchanges/" },
+      { label: "Xplore, regional convenings", href: "/congress/xplore/" },
       { label: "Xchange Partnerships", href: "/congress/partnerships/" }
     ]},
     { title: "Consulting", links: [
@@ -811,10 +811,10 @@
       { label: "Readiness",       href: "/xpand/#what-readiness-means" }
     ]},
     { title: "Capital", links: [
-      { label: "Overview",        href: "/xpedite/" },
-      { label: "Who it is for",   href: "/xpedite/#who-it-is-for" },
-      { label: "How it works",    href: "/xpedite/#how-it-works" },
-      { label: "What is settled", href: "/xpedite/#what-is-settled" }
+      { label: "Overview",        href: "/xcelerate/" },
+      { label: "Who it is for",   href: "/xcelerate/#who-it-is-for" },
+      { label: "How it works",    href: "/xcelerate/#how-it-works" },
+      { label: "What is settled", href: "/xcelerate/#what-is-settled" }
     ]},
     { title: "About", links: [
       { label: "Overview",       href: "/about/" },

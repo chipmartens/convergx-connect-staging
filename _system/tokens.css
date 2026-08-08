@@ -1,4 +1,4 @@
-/* ConvergX Xtend. BRAND TOKENS.
+/* ConvergX ConneX. BRAND TOKENS.
  *
  * THIS IS THE SWAP FILE. Every colour, font, and spacing value on the site
  * resolves through a variable declared here. When Lindsay Robertson's brand
@@ -67,10 +67,15 @@
    gone, and the notification bar no longer needs pinning. If a future
    palette breaks that property, the surface-scoped pattern is in git.
 
-   STILL NOT ConvergX'S OWN APPROVED SET. Lindsay Robertson's approved four
-   are royal blue, light gray, ice blue and black, and her hex codes have
-   still not arrived. This is a deliberate stand-in Chip chose because he
-   preferred it; it is not brand. Do not present it to Kim as approved.
+   SUPERSEDED IN PART, 2026-08-07: the official brand colours arrived via
+   Cameron Bergen (screen grab, pixel-sampled: black #050708, battleship
+   #49515E, white, chrome #4B4C4E/#8A8B8B/#B3B4B5, navy #21295F, ice
+   #C4D2E2, alert red #A7253C). The ACCENTS below are now the brand pair
+   (navy/ice, surface-scoped; see the accent block). The NEUTRAL RAMP
+   above remains Webflow's: the brand chrome #8A8B8B is within 2 points
+   of --chrome #888b8d, and the ramp's measured contrast ladder is doing
+   load-bearing work, so it stays until Lindsay's full kit lands with its
+   own ramp. The "accent is ONE VALUE" claim two paragraphs up is retired.
    =================================================================== */
 :root {
   /* ---- ground and ink. Webflow's neutral ramp, their numbering. ---- */
@@ -98,7 +103,7 @@
   --paper:    #ffffff;  /* THE ONLY #ffffff IN THE PROJECT */
   --ink-900:  #171717;  /* gray-900. text on light. 17.93:1 paper, 15.73:1 muted */
 
-  /* ---- accent. ONE value, both grounds, no surface override. ---- */
+  /* ---- accent. SURFACE-SCOPED since 2026-08-07: navy on light, ice on dark. ---- */
   /* ---- CHROME AND WARM, added 2026-08-05 -------------------------------
    * Chip: "we've got a bit too much blue on the website... blue is still good
    * for the CTA buttons and the lines and nodes on the globe or in the
@@ -128,14 +133,29 @@
                             * subtle on purpose: it should read as a warmer paper, not
                             * as a second background colour. */
 
-  --accent:      #146ef5;  /* Webflow blue. FILL: 3.91:1 on ground, 4.59:1 on paper, 4.02:1 on muted */
-  --accent-ink:  #ffffff;  /* type ON the blue fill. 4.59:1. White, not near-black: the blue is dark */
-  --accent-text: #0055d4;  /* blue-600. small text and links on light. 6.46:1 paper, 5.67:1 muted */
-  --accent-lift: #3b89ff;  /* blue-400. small text and links on DARK. 5.30:1 on ground.
-                            * --accent itself is only 3.91:1 there, which is fine for a FILL
-                            * (3:1 non-text floor) and fails for 11px type and body links.
-                            * One blue cannot do both jobs on both grounds: measured, three
-                            * candidates, none clears 4.5:1 on dark AND light AND muted. */
+  /* OFFICIAL BRAND ACCENTS as of 2026-08-07. Source: the brand-colour screen
+   * grab in Cameron Bergen's email of 2026-08-07, pixel-sampled (the kit is
+   * still being built, so these may be refined when the real kit lands, but
+   * they replace the Webflow-blue stand-in #146ef5 that held the accent slot
+   * while the approved palette waited on hex codes).
+   *
+   * THE PAIR FORCES A SURFACE SPLIT. Navy is 13.57:1 on paper and 1.32:1 on
+   * the ground; ice is 11.67:1 on the ground and 1.54:1 on paper. Neither
+   * value can work both grounds, so the "accent is ONE value" rule (which
+   * held only because Webflow blue happened to clear both) is retired: the
+   * surface blocks below override --accent/--accent-ink on dark. Components
+   * keep using the same four names and inherit the right value from their
+   * surface. */
+  --navy:      #21295F;   /* brand navy. 13.57:1 on paper, 12.37:1 on muted */
+  --ice:       #C4D2E2;   /* brand ice blue. 11.67:1 on ground */
+  --alert-red: #A7253C;   /* brand tertiary. RESERVED: no component uses it.
+                           * 7.06:1 paper, 2.54:1 ground. Status/alert only,
+                           * never decoration, and never on dark without a
+                           * measured pairing. */
+  --accent:      var(--navy);  /* FILL on light and muted. White type on it: 13.57:1 */
+  --accent-ink:  #ffffff;      /* type ON the navy fill */
+  --accent-text: var(--navy);  /* small text and links on light. 13.57:1 paper */
+  --accent-lift: var(--ice);   /* small text and links on DARK. 11.67:1 on ground */
 
   /* ---- focus. Deliberately NOT the brand colour (GOV.UK pattern):
    * one colour cannot do brand, status and focus at once. ---- */
@@ -265,10 +285,17 @@
   --rule-ink:      var(--cool-700);    /* decorative */
   --rule-ink-load: var(--cool-500);    /* any UI component boundary. 3.89:1, clears 1.4.11.
                                         * NOT --cool-600: that is 2.60:1 here and fails. */
-  --link:          var(--accent-lift);  /* NOT --accent: 3.91:1 fails AA for body links */
+  --link:          var(--accent-lift);  /* ice on dark, 11.67:1 */
+  /* BRAND SPLIT 2026-08-07: navy is 1.32:1 on this ground, so the accent
+   * flips to ice here. FILLS take DARK type on ice (11.67:1); white on ice
+   * is 1.54:1 and must never happen. Buttons on dark are therefore
+   * ice-filled with near-black labels, which is the brand's own secondary
+   * pairing, not an invention. */
+  --accent:        var(--ice);
+  --accent-ink:    var(--ink-900);
   --label-ink:     var(--chrome-lift);  /* the eyebrows. CHROME as of 2026-08-05, 7.59:1 at 11px.
-                                        * --link stays blue: a link is an action and blue is
-                                        * the one signal a reader does not have to learn. */
+                                        * --link stays an accent colour: a link is an action and
+                                        * colour is the one signal a reader does not have to learn. */
   --logo-ink:      var(--ink-hi);      /* hairline mark needs MORE contrast than body */
   --dot-ink:       var(--cool-700);
   /* The light block, on the dark ground. */
